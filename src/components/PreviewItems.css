@@ -1,0 +1,9 @@
+.sharables-container {
+    border: solid 1px white !important;
+    margin: 2%;
+    padding: 2%;
+    /* background-color: blue; */
+}
+.preview-items {
+    justify-content: space-between !important;
+}
