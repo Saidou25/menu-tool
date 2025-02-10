@@ -1,41 +1,20 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 import { Field } from "../data/sharables";
-
 import "./PreviewItems.css";
 
 type Props = {
   selectedSharables: Field[];
+  handlePriceChange: (name: string, value: number) => void;
 };
 
-export default function PreviewItems({ selectedSharables }: Props) {
-    const [priceItems, setPriceItems] = useState<{ itemTitle: string; price: number }[]>([]);
+export default function PreviewItems({
+  selectedSharables,
+  handlePriceChange,
+}: Props) {
 
-
-  console.log("priceItem", priceItems);
-
-  const handlePriceChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    console.log("name", name, "value", value);
-
-    setPriceItems((prev) => {
-      const existingItem = prev.find((item) => item.itemTitle === name);
-
-      if (existingItem) {
-        // Update the price for the existing item
-        return prev.map((item) =>
-          item.itemTitle === name ? { ...item, price: +value } : item
-        );
-      } else {
-        // Add a new item if it doesn't exist
-        return [...prev, { itemTitle: name, price: +value }];
-      }
-    });
-  };
   return (
     <div>
       {selectedSharables.map((item) => {
-        const existingItem = priceItems.find((p) => p.itemTitle === item.label);
-
         return (
           <div className="row preview-items" key={item.label}>
             <span className="col-8">{item.label}</span>
@@ -44,9 +23,11 @@ export default function PreviewItems({ selectedSharables }: Props) {
               <input
                 placeholder={item.price.placeholder}
                 name={item.label} // Use label as item identifier
-                value={existingItem ? existingItem.price : ""} // Retrieve price from array
-                type={item.price.type}
-                onChange={handlePriceChange}
+                value={item.price.value === 0 ? "" : item.price.value} // Show placeholder if value is 0
+                type="number"
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  handlePriceChange(e.target.name, +e.target.value)
+                }
               />
             </div>
           </div>

@@ -3,6 +3,7 @@ type FieldType = "textArea" | "text" | "checkbox" | "number"; // Add more types 
 export type Price = {
   type: "number"; // Assuming price type is always "number"
   placeholder: string;
+  value: number;
 };
 
 export type Field = {
@@ -29,7 +30,8 @@ const sharablesList: SharableObj = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "set price item",
+        placeholder: "Enter price",
+        value: 0,
       },
     },
     {
@@ -41,6 +43,7 @@ const sharablesList: SharableObj = {
       price: {
         type: "number",
         placeholder: "set price item",
+        value: 0,
       },
     },
     {
@@ -52,6 +55,7 @@ const sharablesList: SharableObj = {
       price: {
         type: "number",
         placeholder: "set price item",
+        value: 0,
       },
     },
     {
@@ -63,6 +67,7 @@ const sharablesList: SharableObj = {
       price: {
         type: "number",
         placeholder: "set price item",
+        value: 0,
       },
     },
     {
@@ -74,6 +79,7 @@ const sharablesList: SharableObj = {
       price: {
         type: "number",
         placeholder: "set price item",
+        value: 0,
       },
     },
   ],
