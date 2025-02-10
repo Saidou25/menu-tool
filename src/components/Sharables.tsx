@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Field, SharableObj, sharablesList } from "../data/sharables";
+import { Field, sharablesList } from "../data/sharables";
 
 import Label from "./Label";
 import PreviewItems from "./PreviewItems";
@@ -28,7 +28,6 @@ export default function Sharables() {
       return [...prev, sharable];
     });
   };
-  
 
   console.log(selectedSharables);
 
@@ -66,9 +65,9 @@ export default function Sharables() {
             {sharable.type === "number" && (
               <div className="checkbox">
                 <input
-                //   className="checkbox-check"
+                  //   className="checkbox-check"
                   id={sharable.label}
-                  type={sharable.type}
+                  type="number"
                   onChange={() => selectSharable(sharable)}
                   checked={selectedSharables.some(
                     (item) => item.label === sharable.label
