@@ -8,7 +8,6 @@ export type Price = {
 
 export type Field = {
   label: string;
-  dataLabel: string;
   description: string;
   type: FieldType;
   price: Price;
@@ -24,7 +23,6 @@ const sharablesList: SharableObj = {
   fields: [
     {
       label: "Pepperoni Pizza Pops",
-      dataLabel: "pizzaPops",
       description:
         "Puff pastry, pepperoni, provolone cheese, garlic butter + house-made pepperoni marinara sauce",
       type: "checkbox",
@@ -36,7 +34,6 @@ const sharablesList: SharableObj = {
     },
     {
       label: "Garlic Butta Shtimp",
-      dataLabel: "buttaShrimp",
       description:
         "Bacon-wrapped, smothered with garlic butter + pickled red onion, served with Texas toast points",
       type: "checkbox",
@@ -48,7 +45,6 @@ const sharablesList: SharableObj = {
     },
     {
       label: "Pretzel Pig Pile",
-      dataLabel: "pretzel",
       description:
         "Pretzel bites, beer cheese, parmesan + provolone cheeses, bacon + scallions", // Fixed typo
       type: "checkbox",
@@ -60,7 +56,6 @@ const sharablesList: SharableObj = {
     },
     {
       label: "Trash Can Nachos",
-      dataLabel: "nachos",
       description:
         "Corn tortilla chips, house-smoked pork, SMC*, cheddar cheese, black beans, jalapenos, sour cream, pickled red onions, cilantro, pico de gallo + Guy's signature bourbon brown sugar BBQ sauce", // Fixed typo
       type: "checkbox",
@@ -72,7 +67,6 @@ const sharablesList: SharableObj = {
     },
     {
       label: "Lobster Lollipops",
-      dataLabel: "lobsterLollipops",
       description:
         "Tempura-battered lobster bites, Old Bay-smothered SMC* fries + lemon aioli",
       type: "checkbox",

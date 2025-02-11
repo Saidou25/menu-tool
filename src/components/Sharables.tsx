@@ -96,7 +96,7 @@ export default function Sharables({
                       (item) => item.label === sharable.label
                     )?.price.value || ""
                   }
-                  onChange={() => selectSharable(sharable)}
+                  onChange={(e) => handlePriceChange(sharable.label, +e.target.value)}
                   name={sharable.label}
                 />
                 <Label label={sharable.label} htmlFor={sharable.label} />
@@ -105,7 +105,7 @@ export default function Sharables({
           </div>
         ))}
       <br />
-      {localSelectedSharables.length ? (
+      {localSelectedSharables?.length ? (
         <PreviewItems
           selectedSharables={localSelectedSharables} // Pass updated sharables here
           handlePriceChange={handlePriceChange} // Pass the handlePriceChange function
