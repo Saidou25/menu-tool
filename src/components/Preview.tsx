@@ -7,6 +7,10 @@ type Props = {
   selectedSharables?: Field[];
   selectedSalads?: Field[];
   selectedSoups?: Field[];
+  selectedSandwiches?: Field[];
+  selectedBurgers?: Field[];
+  selectedBigEats?: Field[];
+  selectedSides?: Field[];
   goBack: () => void;
 };
 
@@ -15,6 +19,10 @@ export default function Preview({
   selectedWings,
   selectedSalads,
   selectedSoups,
+  selectedSandwiches,
+  selectedBurgers,
+  selectedBigEats,
+  selectedSides,
   goBack,
 }: Props) {
   return (

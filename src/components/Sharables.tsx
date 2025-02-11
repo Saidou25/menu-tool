@@ -57,7 +57,7 @@ export default function Sharables({
   }, [selectedSharables]);
 
   return (
-    <div>
+    <div className={titleSelected ? "sharables-container" : ""}>
       <input
         className="checkbox-check"
         id={title}
@@ -96,7 +96,9 @@ export default function Sharables({
                       (item) => item.label === sharable.label
                     )?.price.value || ""
                   }
-                  onChange={(e) => handlePriceChange(sharable.label, +e.target.value)}
+                  onChange={(e) =>
+                    handlePriceChange(sharable.label, +e.target.value)
+                  }
                   name={sharable.label}
                 />
                 <Label label={sharable.label} htmlFor={sharable.label} />
@@ -106,10 +108,13 @@ export default function Sharables({
         ))}
       <br />
       {localSelectedSharables?.length ? (
-        <PreviewItems
-          selectedSharables={localSelectedSharables} // Pass updated sharables here
-          handlePriceChange={handlePriceChange} // Pass the handlePriceChange function
-        />
+        <div>
+          <br />
+          <PreviewItems
+            selectedSharables={localSelectedSharables} // Pass updated sharables here
+            handlePriceChange={handlePriceChange} // Pass the handlePriceChange function
+          />
+        </div>
       ) : null}
     </div>
   );

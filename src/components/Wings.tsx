@@ -4,20 +4,17 @@ import Label from "./Label";
 import PreviewItems from "./PreviewItems";
 
 type Props = {
-    readyForPreview: (selectedWings: Field[]) => void;
+  readyForPreview: (selectedWings: Field[]) => void;
   selectedWings: Field[]; // prop to maintain the state
 };
 
-export default function Wings({
-    readyForPreview,
-  selectedWings,
-}: Props) {
+export default function Wings({ readyForPreview, selectedWings }: Props) {
   const [titleSelected, setTitleSelected] = useState(false);
   const [localSelectedWings, setLocalSelectedWings] =
     useState<Field[]>(selectedWings);
 
   const { fields, title } = wingsList;
-
+console.log(fields, title)
   const handleSelectTitle = () => {
     const newState = titleSelected ? false : true;
     setTitleSelected(newState);
@@ -92,9 +89,8 @@ export default function Wings({
                   id={wing.label}
                   type="number"
                   value={
-                    localSelectedWings.find(
-                      (item) => item.label === wing.label
-                    )?.price.value || ""
+                    localSelectedWings.find((item) => item.label === wing.label)
+                      ?.price.value || ""
                   }
                   onChange={() => selectWing(wing)}
                   name={wing.label}
