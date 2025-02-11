@@ -1,0 +1,11 @@
+.dropdown-container {
+    /* background-color: blue; */
+    display: flex;
+    justify-content: center;
+    padding: 3%;
+    width: 100%;
+}
+.btn {
+    background-color: black;
+    color: white;
+}

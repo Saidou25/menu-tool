@@ -1,9 +1,8 @@
-.sharables-container {
-    border: solid 1px white !important;
-    margin: 2%;
+.preview-item-container {
+    background-color: black;
     padding: 2%;
-    /* background-color: blue; */
 }
-.preview-items {
-    justify-content: space-between !important;
+.price-input {
+    height: 30px;
+    font-style: oblique;
 }

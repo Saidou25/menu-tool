@@ -99,56 +99,57 @@ function App() {
 
   return (
     <>
-    <h1>Add categories to your menu:</h1>
-    <br />
-      <div className="row app-container">
-        <div className="col-3">
+      <div className="row app-container g-0">
+        <h1 className="col-12 categories-container pt-5">
+          Add categories to your menu:
+        </h1>
+        <div className="col-3 p-1">
           <Sharables
             readyForPreview={handleSharablesReady}
             selectedSharables={sharablesReady}
           />
         </div>
-        <div className="col-3">
+        <div className="col-3 p-1">
           <Wings
             readyForPreview={handleWingsReady}
             selectedWings={wingsReady}
           />
         </div>
 
-        <div className="col-3">
+        <div className="col-3 p-1 m-0">
           <Salads
             readyForPreview={handleSaladsReady}
             selectedSalads={saladsReady}
           />
         </div>
-        <div className="col-3">
+        <div className="col-3 p-1 m-0">
           <Soups
             readyForPreview={handleSoupsReady}
             selectedSoups={soupsReady}
           />
         </div>
 
-        <div className="col-3">
+        <div className="col-3 p-1 m-0">
           <Sandwiches
             readyForPreview={handleSandwichesReady}
             selectedSandwiches={sandwichesReady}
           />
         </div>
-        <div className="col-3">
+        <div className="col-3 p-1 m-0">
           <Burgers
             readyForPreview={handleBurgersReady}
             selectedBurgers={burgersReady}
           />
         </div>
 
-        <div className="col-3">
+        <div className="col-3 p-1 m-0">
           <BigEats
             readyForPreview={handleBigEatsReady}
             selectedBigEats={bigEatsReady}
           />
         </div>
 
-        <div className="col-3">
+        <div className="col-3 p-1 m-0">
           <Sides
             readyForPreview={handleSidesReady}
             selectedSides={sidesReady}
@@ -161,7 +162,7 @@ function App() {
         <br />
         <br />
         <div className="col-12">
-          <Button type="button" onClick={handleClick}>
+          <Button className="button" type="button" onClick={handleClick}>
             Submit
           </Button>
         </div>

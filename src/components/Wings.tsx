@@ -14,7 +14,6 @@ export default function Wings({ readyForPreview, selectedWings }: Props) {
     useState<Field[]>(selectedWings);
 
   const { fields, title } = wingsList;
-console.log(fields, title)
   const handleSelectTitle = () => {
     const newState = titleSelected ? false : true;
     setTitleSelected(newState);

@@ -56,11 +56,11 @@ type PreviewItemProps = {
 
 function PreviewItem({ item, handlePriceChange }: PreviewItemProps) {
   return (
-    <div className="row sharables-row">
-      <span className="col-8">{item.label}</span>
-      <div className="col-4">
-        <span>$ </span>
-        <input
+    <div className="row preview-item-container g-0">
+      <span className="col-6">{item.label}</span>
+      <div className="col-6 d-flex">
+        <span>$&nbsp;</span>
+        <input className="container-fluid price-input"
           placeholder={item.price.placeholder}
           name={item.label} // Use label as item identifier
           value={item.price.value === 0 ? "" : item.price.value} // Show placeholder if value is 0
