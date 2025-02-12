@@ -1,48 +1,21 @@
 import { ChangeEvent } from "react";
 import { Field } from "../data/sharables";
-import "./PreviewItems.css";
+import "./SelectedCategoryItems.css";
 
 type Props = {
   selectedCategoryItems?: Field[];
-  selectedSharables?: Field[];
-  selectedWings?: Field[];
-  selectedSalads?: Field[];
-  selectedSoups?: Field[];
-  selectedSandwiches?: Field[];
-  selectedBurgers?: Field[];
-  selectedBigEats?: Field[];
-  selectedSides?: Field[];
   handlePriceChange: (name: string, value: number) => void;
 };
 
-export default function PreviewItems({
+export default function SelectedCategoryItems({
   selectedCategoryItems,
-  selectedSharables,
-  selectedWings,
-  selectedSalads,
-  selectedSoups,
-  selectedSandwiches,
-  selectedBurgers,
-  selectedBigEats,
-  selectedSides,
   handlePriceChange,
 }: Props) {
-  const allItems = [
-    ...(selectedCategoryItems ?? []),
-    ...(selectedSharables ?? []),
-    ...(selectedWings ?? []),
-    ...(selectedSalads ?? []),
-    ...(selectedSoups ?? []),
-    ...(selectedSandwiches ?? []),
-    ...(selectedBurgers ?? []),
-    ...(selectedBigEats ?? []),
-    ...(selectedSides ?? []),
-  ];
-
+  const allItems = selectedCategoryItems ?? [];
   return (
     <div className="row sharables-container">
       {allItems.map((item) => (
-        <PreviewItem
+        <SelectedCategoryItem
           key={item.label}
           item={item}
           handlePriceChange={handlePriceChange}
@@ -57,13 +30,14 @@ type PreviewItemProps = {
   handlePriceChange: (name: string, value: number) => void;
 };
 
-function PreviewItem({ item, handlePriceChange }: PreviewItemProps) {
+function SelectedCategoryItem({ item, handlePriceChange }: PreviewItemProps) {
   return (
     <div className="row preview-item-container g-0">
       <span className="col-6">{item.label}</span>
       <div className="col-6 d-flex">
         <span>$&nbsp;</span>
-        <input className="container-fluid price-input"
+        <input
+          className="container-fluid price-input"
           placeholder={item.price.placeholder}
           name={item.label} // Use label as item identifier
           value={item.price.value === 0 ? "" : item.price.value} // Show placeholder if value is 0
