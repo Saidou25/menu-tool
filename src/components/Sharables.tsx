@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { Field, sharablesList } from "../data/sharables";
-import Label from "./Label";
 import PreviewItems from "./PreviewItems";
-import SmallTittles from "./SmallTittles";
+import GenericCategories from "./GenericCategories";
 
 import "./Sharables.css";
 
@@ -15,28 +14,10 @@ export default function Sharables({
   readyForPreview,
   selectedSharables,
 }: Props) {
-  const [titleSelected, setTitleSelected] = useState(false);
   const [localSelectedSharables, setLocalSelectedSharables] =
     useState<Field[]>(selectedSharables);
 
-  const { fields, title } = sharablesList;
-
-  const handleSelectTitle = () => {
-    const newState = titleSelected ? false : true;
-    setTitleSelected(newState);
-  };
-
-  const selectSharable = (sharable: Field) => {
-    setLocalSelectedSharables((prev) => {
-      const isPresent = prev.some((item) => item.label === sharable.label);
-      if (isPresent) {
-        // Remove the item if it's already selected
-        return prev.filter((item) => item.label !== sharable.label);
-      }
-      // Add the new sharable item to the array
-      return [...prev, sharable];
-    });
-  };
+  const { fields: fieldsItems, title } = sharablesList;
 
   // **Directly update price in localSelectedSharables**
   const handlePriceChange = (name: string, value: number) => {
@@ -47,6 +28,10 @@ export default function Sharables({
           : item
       )
     );
+  };
+
+  const showCategoryItems = (updatedItems: Field[]) => {
+    setLocalSelectedSharables(updatedItems);
   };
 
   // Trigger the parent (App) with the updated sharables
@@ -60,68 +45,18 @@ export default function Sharables({
   }, [selectedSharables]);
 
   return (
-    <div className={titleSelected ? "sharables-container" : ""}>
-      <div className="categories-titles">
-        <input
-          className="checkbox-category"
-          id={title}
-          type="checkbox"
-          onChange={handleSelectTitle}
-          checked={titleSelected}
-          name={title}
+    <div className="sharables-container">
+      <GenericCategories
+        selectedCategoryItems={localSelectedSharables}
+        fields={fieldsItems}
+        title={title}
+        showCategoryItemsFunc={showCategoryItems}
+      >
+        <PreviewItems
+          selectedCategoryItems={localSelectedSharables} // Pass updated sharables here
+          handlePriceChange={handlePriceChange} // Pass the handlePriceChange function
         />
-        <SmallTittles label={title} />
-      </div>
-      {/* <br /> */}
-      <div className="fields-div">
-      {fields &&
-        titleSelected &&
-        fields.map((sharable) => (
-          <div className="checkbox-container" key={sharable.label}>
-            {sharable.type === "checkbox" && (
-              <div className="checkbox">
-                <input
-                  className="checkbox-check"
-                  id={sharable.label}
-                  type={sharable.type}
-                  onChange={() => selectSharable(sharable)}
-                  checked={selectedSharables.some(
-                    (item) => item.label === sharable.label
-                  )}
-                  name={sharable.label}
-                />
-                <Label label={sharable.label} htmlFor={sharable.label} />
-              </div>
-            )}
-            {sharable.type === "number" && (
-              <div className="checkbox">
-                <input
-                  id={sharable.label}
-                  type="number"
-                  value={
-                    localSelectedSharables.find(
-                      (item) => item.label === sharable.label
-                    )?.price.value || ""
-                  }
-                  onChange={(e) =>
-                    handlePriceChange(sharable.label, +e.target.value)
-                  }
-                  name={sharable.label}
-                />
-                <Label label={sharable.label} htmlFor={sharable.label} />
-              </div>
-            )}
-          </div>
-        ))}
-        </div>
-      {localSelectedSharables?.length ? (
-        <div className="preview-border g-0">
-          <PreviewItems
-            selectedSharables={localSelectedSharables} // Pass updated sharables here
-            handlePriceChange={handlePriceChange} // Pass the handlePriceChange function
-          />
-        </div>
-      ) : null}
+      </GenericCategories>
     </div>
   );
 }

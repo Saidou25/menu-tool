@@ -10,6 +10,7 @@ import Sandwiches from "./components/Sandwiches";
 import Burgers from "./components/Burgers";
 import BigEats from "./components/BigEats";
 import Sides from "./components/Sides";
+import GenericCategories from "./components/GenericCategories";
 
 import "./App.css";
 
@@ -23,6 +24,7 @@ function App() {
   const [bigEatsReady, setBigEatsReady] = useState<Field[]>([]);
   const [sidesReady, setSidesReady] = useState<Field[]>([]);
   const [showPreview, setShowPreview] = useState(false);
+
 
   // Handle go back to modify inputs
   const handleGoBack = () => {
@@ -65,8 +67,8 @@ function App() {
   };
 
   // Handle updating selected sharables when prices change
-  const handleSidesReady = (updatedSidess: Field[]) => {
-    setSidesReady(updatedSidess);
+  const handleSidesReady = (updatedSides: Field[]) => {
+    setSidesReady(updatedSides);
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -109,58 +111,56 @@ function App() {
             selectedSharables={sharablesReady}
           />
         </div>
-        <div className="col-3 p-1">
+        {/* <div className="col-3 p-1">
           <Wings
             readyForPreview={handleWingsReady}
             selectedWings={wingsReady}
           />
-        </div>
+        </div> */}
 
-        <div className="col-3 p-1 m-0">
-          <Salads
+         <div className="col-3 p-1 m-0">
+         <Salads
             readyForPreview={handleSaladsReady}
             selectedSalads={saladsReady}
           />
         </div>
-        <div className="col-3 p-1 m-0">
+       {/* <div className="col-3 p-1 m-0">
           <Soups
             readyForPreview={handleSoupsReady}
             selectedSoups={soupsReady}
           />
-        </div>
+        </div> */}
 
-        <div className="col-3 p-1 m-0">
+       <div className="col-3 p-1 m-0">
           <Sandwiches
             readyForPreview={handleSandwichesReady}
             selectedSandwiches={sandwichesReady}
           />
         </div>
+          {/*
         <div className="col-3 p-1 m-0">
           <Burgers
             readyForPreview={handleBurgersReady}
             selectedBurgers={burgersReady}
           />
-        </div>
+        </div> */}
 
-        <div className="col-3 p-1 m-0">
+        {/* <div className="col-3 p-1 m-0">
           <BigEats
             readyForPreview={handleBigEatsReady}
             selectedBigEats={bigEatsReady}
           />
-        </div>
+        </div> */}
 
-        <div className="col-3 p-1 m-0">
+        {/* <div className="col-3 p-1 m-0">
           <Sides
             readyForPreview={handleSidesReady}
             selectedSides={sidesReady}
           />
+        </div> */}
+        <div className="col-3 p-1 m-0">
+          {/* <GenericCategories items={sharablesReady} title="Title"/> */}
         </div>
-
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
         <div className="col-12">
           <Button className="button" type="button" onClick={handleClick}>
             Submit

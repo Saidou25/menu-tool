@@ -3,6 +3,7 @@ import { Field } from "../data/sharables";
 import "./PreviewItems.css";
 
 type Props = {
+  selectedCategoryItems?: Field[];
   selectedSharables?: Field[];
   selectedWings?: Field[];
   selectedSalads?: Field[];
@@ -15,6 +16,7 @@ type Props = {
 };
 
 export default function PreviewItems({
+  selectedCategoryItems,
   selectedSharables,
   selectedWings,
   selectedSalads,
@@ -26,6 +28,7 @@ export default function PreviewItems({
   handlePriceChange,
 }: Props) {
   const allItems = [
+    ...(selectedCategoryItems ?? []),
     ...(selectedSharables ?? []),
     ...(selectedWings ?? []),
     ...(selectedSalads ?? []),
