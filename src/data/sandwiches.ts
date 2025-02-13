@@ -41,7 +41,7 @@ const sandwichesList: Sandwiches = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "set price item",
+        placeholder: "Enter price",
         value: 0,
       },
     },
@@ -52,7 +52,7 @@ const sandwichesList: Sandwiches = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "set price item",
+        placeholder: "Enter price",
         value: 0,
       },
     },

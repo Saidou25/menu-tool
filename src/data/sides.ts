@@ -39,7 +39,7 @@ const sidesList: SideObj = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "set price item",
+        placeholder: "Enter price",
         value: 0,
       },
     },
@@ -50,7 +50,7 @@ const sidesList: SideObj = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "set price item",
+        placeholder: "Enter price",
         value: 0,
       },
     },
@@ -61,7 +61,7 @@ const sidesList: SideObj = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "set price item",
+        placeholder: "Enter price",
         value: 0,
       },
     },
@@ -72,7 +72,7 @@ const sidesList: SideObj = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "set price item",
+        placeholder: "Enter price",
         value: 0,
       },
     },
@@ -84,7 +84,7 @@ const sidesList: SideObj = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "set price item",
+        placeholder: "Enter price",
         value: 0,
       },
     },
@@ -95,7 +95,7 @@ const sidesList: SideObj = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "set price item",
+        placeholder: "Enter price",
         value: 0,
       },
     },
@@ -106,7 +106,7 @@ const sidesList: SideObj = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "set price item",
+        placeholder: "Enter price",
         value: 0,
       },
     },
@@ -117,7 +117,7 @@ const sidesList: SideObj = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "set price item",
+        placeholder: "Enter price",
         value: 0,
       },
     },
@@ -128,7 +128,7 @@ const sidesList: SideObj = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "set price item",
+        placeholder: "Enter price",
         value: 0,
       },
     },
@@ -139,7 +139,7 @@ const sidesList: SideObj = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "set price item",
+        placeholder: "Enter price",
         value: 0,
       },
     },

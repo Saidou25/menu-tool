@@ -45,7 +45,7 @@ const bigEatsList: BigEatsObj = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "set price item",
+        placeholder: "Enter price",
         value: 0,
       },
     },
@@ -56,7 +56,7 @@ const bigEatsList: BigEatsObj = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "set price item",
+        placeholder: "Enter price",
         value: 0,
       },
     },
@@ -68,7 +68,7 @@ const bigEatsList: BigEatsObj = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "set price item",
+        placeholder: "Enter price",
         value: 0,
       },
     },
@@ -79,7 +79,7 @@ const bigEatsList: BigEatsObj = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "set price item",
+        placeholder: "Enter price",
         value: 0,
       },
     },
@@ -90,7 +90,7 @@ const bigEatsList: BigEatsObj = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "set price item",
+        placeholder: "Enter price",
         value: 0,
       },
     },
@@ -101,7 +101,7 @@ const bigEatsList: BigEatsObj = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "set price item",
+        placeholder: "Enter price",
         value: 0,
       },
     },
@@ -112,7 +112,7 @@ const bigEatsList: BigEatsObj = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "set price item",
+        placeholder: "Enter price",
         value: 0,
       },
     },

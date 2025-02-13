@@ -32,7 +32,7 @@ const wingsList: WingObj = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 20.95,
       },
     },
     {
@@ -42,8 +42,8 @@ const wingsList: WingObj = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "set price item",
-        value: 0,
+        placeholder: "Enter price",
+        value: 20.95,
       },
     },
     {
@@ -53,8 +53,8 @@ const wingsList: WingObj = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "set price item",
-        value: 0,
+        placeholder: "Enter price",
+        value: 20.95,
       },
     },
   ],

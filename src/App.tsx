@@ -44,7 +44,7 @@ function App() {
 
   return (
     <div className="row app-container g-0">
-      <h1 className="col-12 categories-container pt-5">
+      <h1 className="col-12 add-categories pt-5">
         Add categories to your menu:
       </h1>
       <Generic categoriesList={categoriesList} />

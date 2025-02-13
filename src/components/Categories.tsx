@@ -3,7 +3,8 @@ import { Field } from "../data/sharables";
 import SelectedCategoryItems from "./SelectedCategoryItems";
 import CategoryItems from "./CategoryItems";
 
-import "./Sharables.css";
+import "./Categories.css";
+
 type Obj = any;
 
 type Props = {
@@ -11,10 +12,14 @@ type Props = {
 };
 
 export default function Categories({ categoriesList }: Props) {
+  const [fadeInOut, setFadeInOut] = useState(false);
   const [localSelectedCategoryItems, setLocalSelectedCategoryItems] = useState<
     Record<string, Field[]>
   >({});
 
+  const funcFadeInOut = (newState: boolean) => {
+    setFadeInOut(newState);
+  };
   //   **Directly update price in localSelectedCategoryItems**
   const handlePriceChange = (name: string, value: number) => {
     setLocalSelectedCategoryItems((prev) => {
@@ -47,15 +52,12 @@ export default function Categories({ categoriesList }: Props) {
   };
 
   return (
-    <div className="row">
-      <br />
-      <br />
-      <br />
+    <div className="row g-0">
       {categoriesList &&
         categoriesList.map((category, index) => {
           // Get selected category items for the current category title
           return (
-            <div className="col-3" key={index}>
+            <div className="col-3 categories" key={index}>
               <CategoryItems
                 selectedCategoryItems={
                   localSelectedCategoryItems[category.title] || []
@@ -65,12 +67,14 @@ export default function Categories({ categoriesList }: Props) {
                 showCategoryItemsFunc={(updatedItems) =>
                   showCategoryItems(category.title, updatedItems)
                 } // Update selected items for specific category
+                fadeInOutFunc={funcFadeInOut}
               >
                 <SelectedCategoryItems
                   selectedCategoryItems={
                     localSelectedCategoryItems[category.title] || []
                   } // Pass selected items for this category
                   handlePriceChange={handlePriceChange} // Assume category-specific price change handler
+                  fadeInOut={fadeInOut}
                 />
               </CategoryItems>
             </div>

@@ -1,5 +1,5 @@
 .container-button {
-  background-color: blue;
+  margin-top: 5% !important;
   width: 12%;
   margin: auto;
   background-color: black;
@@ -12,7 +12,7 @@
   border-style: double;
 }
 .print-edit-container {
-  background-color: blue;
+  margin-top: 5% !important;
   width: 40%;
   margin: auto;
   background-color: black;
@@ -24,7 +24,6 @@
   border-radius: 50px;
   border: 4px solid white;
   border-style: double;
-  /* margin-bottom: 3%; */
 }
 .button-edit,
 .button-print,

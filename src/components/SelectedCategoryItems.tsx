@@ -5,6 +5,7 @@ import "./SelectedCategoryItems.css";
 type Props = {
   selectedCategoryItems?: Field[];
   handlePriceChange: (name: string, value: number) => void;
+  fadeInOut: boolean;
 };
 
 export default function SelectedCategoryItems({
@@ -13,7 +14,7 @@ export default function SelectedCategoryItems({
 }: Props) {
   const allItems = selectedCategoryItems ?? [];
   return (
-    <div className="row sharables-container">
+    <div className="row g-0 mb-2">
       {allItems.map((item) => (
         <SelectedCategoryItem
           key={item.label}
@@ -33,8 +34,8 @@ type PreviewItemProps = {
 function SelectedCategoryItem({ item, handlePriceChange }: PreviewItemProps) {
   return (
     <div className="row preview-item-container g-0">
-      <span className="col-6">{item.label}</span>
-      <div className="col-6 d-flex">
+      <span className="col-7">{item.label}</span>
+      <div className="col-5 d-flex">
         <span>$&nbsp;</span>
         <input
           className="container-fluid price-input"

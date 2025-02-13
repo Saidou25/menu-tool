@@ -1,12 +1,20 @@
 #root {
   margin: 0 auto;
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  min-height: 100vh;
+  /* color-scheme: light dark; */
+  /* background-color: rgb(8, 8, 8); */
+  background-image: linear-gradient(180deg, rgb(18, 91, 93), rgb(4, 4, 4));
+  /* background-image: linear-gradient(30deg, rgb(19, 21, 21), rgba(3, 80, 86, 0.868)); */
+  /* color: rgba(255, 255, 255, 0.87); */
+  color: rgba(255, 255, 255, 0.899);
+  /* background-color: #242424; */
 }
 .app-container {
+  /* color: rgba(255, 255, 255, 0.87); */
+  /* background-image: linear-gradient(30deg, rgb(19, 21, 21), rgba(6, 223, 247, 0.249)); */
   padding: 1%;
 }
-.categories-container {
-  margin-bottom: 5%;
+.add-categories {
+  margin-bottom: 2%;
 }
+
