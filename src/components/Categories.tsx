@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Field } from "../data/sharables";
 import SelectedCategoryItems from "./SelectedCategoryItems";
 import CategoryItems from "./CategoryItems";
@@ -9,17 +9,21 @@ type Obj = any;
 
 type Props = {
   categoriesList: Obj[];
+  selectedData: Record<string, Field[]>;
+  menuSampleDataFunc: (localSelectedCategoryItems: Record<string, Field[]>) => void;
 };
 
-export default function Categories({ categoriesList }: Props) {
+export default function Categories({ selectedData,menuSampleDataFunc, categoriesList }: Props) {
   const [fadeInOut, setFadeInOut] = useState(false);
   const [localSelectedCategoryItems, setLocalSelectedCategoryItems] = useState<
     Record<string, Field[]>
-  >({});
+  >(selectedData);
 
+  console.log(localSelectedCategoryItems)
   const funcFadeInOut = (newState: boolean) => {
     setFadeInOut(newState);
   };
+
   //   **Directly update price in localSelectedCategoryItems**
   const handlePriceChange = (name: string, value: number) => {
     setLocalSelectedCategoryItems((prev) => {
@@ -50,6 +54,13 @@ export default function Categories({ categoriesList }: Props) {
       [categoryTitle]: updatedSelectedCategoryItems, // Update the selected items for the current category
     }));
   };
+
+  useEffect(() => {
+    if (Object.keys(localSelectedCategoryItems).length > 0) { 
+      menuSampleDataFunc(localSelectedCategoryItems);
+    }
+  }, [localSelectedCategoryItems, menuSampleDataFunc]);
+  
 
   return (
     <div className="row g-0">
