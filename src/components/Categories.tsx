@@ -4,24 +4,49 @@ import SelectedCategoryItems from "./SelectedCategoryItems";
 import CategoryItems from "./CategoryItems";
 
 import "./Categories.css";
+import SampleMenu from "./SampleMenu";
 
 type Obj = any;
 
 type Props = {
   categoriesList: Obj[];
   selectedData: Record<string, Field[]>;
-  menuSampleDataFunc: (localSelectedCategoryItems: Record<string, Field[]>) => void;
+  menuSampleDataFunc: (
+    localSelectedCategoryItems: Record<string, Field[]>
+  ) => void;
 };
 
-export default function Categories({ selectedData,menuSampleDataFunc, categoriesList }: Props) {
+export default function Categories({
+  selectedData,
+  menuSampleDataFunc,
+  categoriesList,
+}: Props) {
   const [fadeInOut, setFadeInOut] = useState(false);
-  const [localSelectedCategoryItems, setLocalSelectedCategoryItems] = useState<
-    Record<string, Field[]>
-  >(selectedData);
+  const [showMenuSample, setShowMenuSample] = useState(false);
+  const [localSelectedCategoryItems, setLocalSelectedCategoryItems] =
+    useState<Record<string, Field[]>>(selectedData);
 
-  console.log(localSelectedCategoryItems)
   const funcFadeInOut = (newState: boolean) => {
     setFadeInOut(newState);
+  };
+
+  // Handle go back to modify inputs
+  const handleGoBack = () => {
+    setShowMenuSample(false);
+  };
+
+  console.log("Local selected items:", localSelectedCategoryItems);
+
+  const handleConfirm = () => {
+    setShowMenuSample(false);
+    // setShowFinalMessage("Thank you for using Chefs' Life Made Easy.");
+    // setModalMessage("");
+    // resetForm();
+  };
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setShowMenuSample((prev) => !prev);
   };
 
   //   **Directly update price in localSelectedCategoryItems**
@@ -56,12 +81,21 @@ export default function Categories({ selectedData,menuSampleDataFunc, categories
   };
 
   useEffect(() => {
-    if (Object.keys(localSelectedCategoryItems).length > 0) { 
+    if (Object.keys(localSelectedCategoryItems).length > 0) {
       menuSampleDataFunc(localSelectedCategoryItems);
     }
   }, [localSelectedCategoryItems, menuSampleDataFunc]);
-  
 
+  if (showMenuSample) {
+    return (
+      <SampleMenu
+        goBack={handleGoBack}
+        onConfirm={handleConfirm}
+        message="Confirm printin or go back"
+        dataSample={localSelectedCategoryItems}
+      />
+    );
+  }
   return (
     <div className="row g-0">
       {categoriesList &&
@@ -91,6 +125,11 @@ export default function Categories({ selectedData,menuSampleDataFunc, categories
             </div>
           );
         })}
+      <div className="col-12">
+        <button className="button" type="button" onClick={handleClick}>
+          Submit
+        </button>
+      </div>
     </div>
   );
 }

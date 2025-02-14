@@ -8,7 +8,6 @@ export type Price = {
 
 export type Field = {
   label: string;
-  description: string;
   type: FieldType;
   price: Price;
 };
@@ -23,8 +22,6 @@ const sidesList: SideObj = {
   fields: [
     {
       label: "Asparagus",
-      description:
-        "Puff pastry, pepperoni, provolone cheese, garlic butter + house-made pepperoni marinara sauce",
       type: "checkbox",
       price: {
         type: "number",
@@ -34,8 +31,6 @@ const sidesList: SideObj = {
     },
     {
       label: "Seasoned gry tio",
-      description:
-        "Bacon-wrapped, smothered with garlic butter + pickled red onion, served with Texas toast points",
       type: "checkbox",
       price: {
         type: "number",
@@ -45,8 +40,6 @@ const sidesList: SideObj = {
     },
     {
       label: "Loaded mashed potatoes",
-      description:
-        "Pretzel bites, beer cheese, parmesan + provolone cheeses, bacon + scallions", // Fixed typo
       type: "checkbox",
       price: {
         type: "number",
@@ -56,8 +49,6 @@ const sidesList: SideObj = {
     },
     {
       label: "Fried brussels sprouts",
-      description:
-        "Corn tortilla chips, house-smoked pork, SMC*, cheddar cheese, black beans, jalapenos, sour cream, pickled red onions, cilantro, pico de gallo + Guy's signature bourbon brown sugar BBQ sauce", // Fixed typo
       type: "checkbox",
       price: {
         type: "number",
@@ -67,8 +58,6 @@ const sidesList: SideObj = {
     },
     {
       label: "Stone-ground-grits",
-      description:
-        "Tempura-battered lobster bites, Old Bay-smothered SMC* fries + lemon aioli",
       type: "checkbox",
       price: {
         type: "number",
@@ -79,8 +68,6 @@ const sidesList: SideObj = {
 
     {
       label: "Sea-salt crusted potato wedges",
-      description:
-        "Tempura-battered lobster bites, Old Bay-smothered SMC* fries + lemon aioli",
       type: "checkbox",
       price: {
         type: "number",
@@ -90,8 +77,6 @@ const sidesList: SideObj = {
     },
     {
       label: "Garlic mashed potato wedges",
-      description:
-        "Tempura-battered lobster bites, Old Bay-smothered SMC* fries + lemon aioli",
       type: "checkbox",
       price: {
         type: "number",
@@ -101,8 +86,6 @@ const sidesList: SideObj = {
     },
     {
       label: "Garlic mashed potatoes",
-      description:
-        "Tempura-battered lobster bites, Old Bay-smothered SMC* fries + lemon aioli",
       type: "checkbox",
       price: {
         type: "number",
@@ -112,8 +95,6 @@ const sidesList: SideObj = {
     },
     {
       label: "Grilled broccolini",
-      description:
-        "Tempura-battered lobster bites, Old Bay-smothered SMC* fries + lemon aioli",
       type: "checkbox",
       price: {
         type: "number",
@@ -123,8 +104,6 @@ const sidesList: SideObj = {
     },
     {
       label: "Mac'n' cheese",
-      description:
-        "Tempura-battered lobster bites, Old Bay-smothered SMC* fries + lemon aioli",
       type: "checkbox",
       price: {
         type: "number",
@@ -134,8 +113,6 @@ const sidesList: SideObj = {
     },
     {
       label: "Lobster mac'n' cheese",
-      description:
-        "Tempura-battered lobster bites, Old Bay-smothered SMC* fries + lemon aioli",
       type: "checkbox",
       price: {
         type: "number",
