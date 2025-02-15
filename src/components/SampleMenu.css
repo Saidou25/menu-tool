@@ -1,17 +1,17 @@
 .modal-div {
-    /* position: fixed; */
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(244, 240, 240, 0.615);
-    color: white;
-    /* background: rgba(0, 0, 0, 0.5); */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000; /* Ensure it appears above other content */
-  }
+  /* position: fixed; */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(244, 240, 240, 0.615);
+  color: white;
+  /* background: rgba(0, 0, 0, 0.5); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000; /* Ensure it appears above other content */
+}
 /* Letter (A4) Format */
 .menu-items-container {
   width: 210mm; /* A4 width */
@@ -27,36 +27,51 @@
   /* flex-direction: column; */
   justify-content: flex-start;
 }
-  .modal-confirmation {
-    background: rgba(22, 19, 19, 0.93);
-    /* background: rgb(239, 234, 234); */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    /* width: 400px; */
-    /* max-width: 90%; */
-  }
-  .category-title {
-    text-align: center;
-  }
- 
-  .confirm-text,
-  .confirm-title {
-    /* text-align: center; */
-    color: white;
-    margin: 1%;
-  }
-  
-  .modal-btn {
-    background-color: rgba(72, 15, 228, 0.92) !important;
-    border-width: 1px;
-    border-radius: 2em;
-    /* width: 100%; */
-    /* margin: auto; */
-    color: rgb(220, 210, 210);
-  }
-  .modal-btn:hover {
-    background-color: rgba(164, 41, 231, 0.79) !important;
-    transition: 0.4s;
-  }
-  
+.modal-confirmation {
+  background: rgba(22, 19, 19, 0.93);
+  /* background: rgb(239, 234, 234); */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  /* width: 400px; */
+  /* max-width: 90%; */
+}
+.category-title {
+  text-align: center;
+}
+
+.confirm-text,
+.confirm-title {
+  text-align: center;
+  color: white;
+  /* margin: 1%; */
+  margin: auto;
+}
+.menu-item-joined { /*look here for padding*/
+  list-style-type: none; 
+  padding-left: 10%;
+  padding-right: 10%;
+}
+.menu-item {
+  list-style-type: none; /* Removes the bullet points */
+}
+.menu-item-odd {
+  text-align: center;
+  list-style-type: none; /* Removes the bullet points */
+}
+.modal-btn {
+  background-color: rgba(72, 15, 228, 0.92) !important;
+  border-width: 1px;
+  border-radius: 2em;
+  /* width: 100%; */
+  margin: auto;
+  color: rgb(220, 210, 210);
+}
+.modal-btn:hover {
+  background-color: rgba(164, 41, 231, 0.79) !important;
+  transition: 0.4s;
+}
+.category-list {
+  padding-left: 10%;
+  padding-right: 10%;
+}
