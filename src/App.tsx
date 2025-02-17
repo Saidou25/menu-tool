@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { MenuCategory, Field } from "./data/types"; // Import both MenuCategory and Field from types.ts
 import * as Dinner from "./data/Dinner"; // Import all the lists from the Dinner folder
+import * as Desserts from "./data/Desserts";
 
 import Categories from "./components/Categories";
-import SelectMenu from "./components/SelectMenu";
+import DropDown from "./components/DropDown";
 // import Button from "./components/Button";
 
 import "./App.css";
@@ -18,8 +19,9 @@ function App() {
     {}
   );
 
-  const selectMenu = (menu: string) => {
-    if (menu === "Dinner") {
+  const selectMenu = (item: string) => {
+    // console.log(item);
+    if (item === "Dinner") {
       // Set categoriesList to the lists from the Dinner folder
       setCategoriesList([
         Dinner.sandwichesList,
@@ -33,8 +35,13 @@ function App() {
       ]);
       setShowSelectMenu(false);
     }
+    if (item === "Desserts") {
+      // Set categoriesList to the lists from the Dinner folder
+      setCategoriesList([Desserts.dessertsList]);
+      setShowSelectMenu(false);
+    }
   };
-  console.log(categoriesList);
+  // console.log(categoriesList);
 
   const funcSetMenuSampleData = (
     localSelectedCategoryItems: Record<string, Field[]>
@@ -43,7 +50,7 @@ function App() {
   };
 
   if (showSelectMenu) {
-    return <SelectMenu selectMenuFunc={selectMenu} />;
+    return <DropDown selectDropDownItem={selectMenu} />;
   }
   return (
     <div className="row app-container g-0">

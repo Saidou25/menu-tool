@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Field } from "../data/wings"; // Field is the same in all data files
 import Label from "./Label";
 import SmallTittles from "./SmallTittles";
 
 import "./CategoryItems.css";
+import { Field } from "../data/types";
 
 type CategoriesProps = {
   fields: Field[]; // Fields data from the parent component used to display in the current the component

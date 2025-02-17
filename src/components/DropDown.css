@@ -1,11 +1,14 @@
-.dropdown-container {
-    /* background-color: blue; */
+.container-select-menu {
     display: flex;
     justify-content: center;
-    padding: 3%;
-    width: 100%;
-}
-.btn {
+    flex-direction: column;
+    border: 1px solid white;
     background-color: black;
-    color: white;
+    width: 40%;
+    margin: auto;
+    padding: 2%;
+}
+.btn-group {
+    width: 40%;
+    margin: auto;
 }

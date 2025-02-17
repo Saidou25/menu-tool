@@ -1,38 +1,52 @@
 import { useEffect, useState } from "react";
-import { Field } from "../data/sharables";
-import "./SampleMenu.css";
+import { Field } from "../data/types";
+
 import BackMenu from "./BackMenu"; // Import BackMenu component
 import Footer from "./Footer";
 
+import "./PreviewMenu.css";
+
 type ModalProps = {
+  menuFormat: string;
   message: string;
   dataSample: Record<string, Field[]>;
   onConfirm: () => void;
   goBack: () => void;
 };
 
-const SampleMenu = ({ message, dataSample, goBack, onConfirm }: ModalProps) => {
+const PreviewMenu = ({
+  menuFormat,
+  message,
+  dataSample,
+  goBack,
+  onConfirm,
+}: ModalProps) => {
+  const [menuPreviewSize, setMenuPreviewSize] = useState("");
   const [organizedData, setOrganizedData] = useState<Record<string, Field[]>>(
     {}
   );
+  console.log(menuFormat);
 
-  const categoryOrder = [
-    "Sharables",
-    "Ain't no thing butta chicken wing...",
-    "Salads",
-    "Soups",
-    "Signature sandwiches",
-    "Burgers",
-    "Big eats",
-    "Sides",
-  ];
+  const categoryOrder = Object.keys(dataSample).includes("Sharables")
+    ? [
+        "Sharables",
+        "Ain't no thing butta chicken wing...",
+        "Salads",
+        "Soups",
+        "Signature sandwiches",
+        "Burgers",
+        "Big eats",
+        "Sides",
+      ] : Object.keys(dataSample);
 
   useEffect(() => {
-    const orderedData: Record<string, Field[]> = {};
-    categoryOrder.forEach((category) => {
-      orderedData[category] = dataSample[category] || [];
-    });
-    setOrganizedData(orderedData);
+   
+      const orderedData: Record<string, Field[]> = {};
+      categoryOrder.forEach((category) => {
+        orderedData[category] = dataSample[category] || [];
+      });
+      setOrganizedData(orderedData);
+    
   }, [dataSample]);
 
   // Split the categories into two parts
@@ -46,6 +60,10 @@ const SampleMenu = ({ message, dataSample, goBack, onConfirm }: ModalProps) => {
       secondPageData[category] = organizedData[category];
     }
   });
+
+  useEffect(() => {
+    setMenuPreviewSize(menuFormat);
+  }, [menuFormat]);
 
   return (
     <div className="modal-div">
@@ -63,7 +81,7 @@ const SampleMenu = ({ message, dataSample, goBack, onConfirm }: ModalProps) => {
         </div>
 
         {/* Render the first set of categories: Front menu */}
-        <div className="row menu-items-container">
+        <div className={`row menu-items-container-${menuPreviewSize}`}>
           {firstCategories.map((category) => {
             const items = organizedData[category];
 
@@ -106,9 +124,10 @@ const SampleMenu = ({ message, dataSample, goBack, onConfirm }: ModalProps) => {
                       <li
                         key={index}
                         className={
-                          arr?.length % 2 !== 0 &&
-                          index === arr?.length - 1 &&
-                          category !== "Sides"
+                          (arr?.length % 2 !== 0 &&
+                            index === arr?.length - 1 &&
+                            category !== "Sides") ||
+                          menuFormat === "Custom"
                             ? "col-12 menu-item-odd"
                             : "col-6 menu-item"
                         }
@@ -125,7 +144,9 @@ const SampleMenu = ({ message, dataSample, goBack, onConfirm }: ModalProps) => {
             }
             return null;
           })}
-          <Footer />
+                  <div className="footer-div">
+                    <Footer />
+                  </div>
         </div>
 
         {/* Render BackMenu only if there are additional categories */}
@@ -140,4 +161,4 @@ const SampleMenu = ({ message, dataSample, goBack, onConfirm }: ModalProps) => {
   );
 };
 
-export default SampleMenu;
+export default PreviewMenu;

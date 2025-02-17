@@ -3,7 +3,8 @@ import { Field } from "../data/types";
 
 import SelectedCategoryItems from "./SelectedCategoryItems";
 import CategoryItems from "./CategoryItems";
-import SampleMenu from "./SampleMenu";
+import PreviewMenu from "./PreviewMenu";
+import DropDown from "./DropDown";
 
 import "./Categories.css";
 
@@ -23,9 +24,16 @@ export default function Categories({
   categoriesList,
 }: Props) {
   const [fadeInOut, setFadeInOut] = useState(false);
-  const [showMenuSample, setShowMenuSample] = useState(false);
+  const [menuPreview, setMenuPreview] = useState(false);
+  const [menuFormat, setMenuFormat] = useState("");
+
   const [localSelectedCategoryItems, setLocalSelectedCategoryItems] =
     useState<Record<string, Field[]>>(selectedData);
+
+  const selectMenuFormat = (item: string) => {
+    // console.log(item);
+    setMenuFormat(item);
+  };
 
   const funcFadeInOut = (newState: boolean) => {
     setFadeInOut(newState);
@@ -33,20 +41,21 @@ export default function Categories({
 
   // Handle go back to modify inputs
   const handleGoBack = () => {
-    setShowMenuSample(false);
+    setMenuPreview(false);
+    setMenuFormat("");
   };
 
   const handleConfirm = () => {
-    setShowMenuSample(false);
+    setMenuPreview(false);
     // setShowFinalMessage("Thank you for using Chefs' Life Made Easy.");
     // setModalMessage("");
     // resetForm();
   };
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setShowMenuSample((prev) => !prev);
-  };
+  // const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  //   e.preventDefault();
+  //   setMenuPreview((prev) => !prev);
+  // };
 
   //   **Directly update price in localSelectedCategoryItems**
   const handlePriceChange = (name: string, value: number) => {
@@ -85,12 +94,13 @@ export default function Categories({
     }
   }, [localSelectedCategoryItems, menuSampleDataFunc]);
 
-  if (showMenuSample) {
+  if (menuPreview || menuFormat) {
     return (
-      <SampleMenu
+      <PreviewMenu
+        menuFormat={menuFormat}
         goBack={handleGoBack}
         onConfirm={handleConfirm}
-        message="Confirm printin or go back"
+        message="Confirm printing or go back"
         dataSample={localSelectedCategoryItems}
       />
     );
@@ -124,11 +134,7 @@ export default function Categories({
             </div>
           );
         })}
-      <div className="col-12">
-        <button className="button" type="button" onClick={handleClick}>
-          Submit
-        </button>
-      </div>
+      <DropDown selectDropDownItem={selectMenuFormat} message="format" />
     </div>
   );
 }

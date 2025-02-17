@@ -10,7 +10,7 @@
   padding: 0;
 }
 /* Letter (A4) Format */
-.menu-items-container {
+.menu-items-container-Regular {
   width: 210mm; /* A4 width */
   height: 372mm; /* A4 height */
   /* padding: 20mm; */
@@ -21,6 +21,20 @@
   font-family: Arial, sans-serif;
   display: flex;
   justify-content: flex-start;
+}
+/* Custom Format */
+.menu-items-container-Custom {
+  width: 110mm; /* A4 width */
+  height: 372mm; /* A4 height */
+  /* padding: 20mm; */
+  background: rgb(233, 210, 160);
+  color: black;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  margin: auto;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
 }
 .modal-confirmation {
   background: rgba(22, 19, 19, 0.93);
@@ -65,16 +79,10 @@
   padding-left: 10%;
   padding-right: 10%;
 }
-/* 
-.page-break {
-  display: block;
-  height: 50px;  
-  background-color: transparent;  
+.footer-div {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
-
-.page-break-print {
-  page-break-before: always;  
-} */
-
-/* .menu-items-container {
-  margin-bottom: 20px; 

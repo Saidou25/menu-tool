@@ -2,7 +2,7 @@ import "./Footer.css";
 
 export default function Footer() {
   return (
-    <>
+    <div className="footer-container">
       <span className="footer-text">*SMC = super melty cheese</span>
       <span className="footer-text">
         LTOP = lettuce, tomato, onion + pickle
@@ -16,6 +16,6 @@ export default function Footer() {
       <span className="footer-text">
         For parties of 6 or more, an automatic gratuity of 20% will be added.
       </span>
-    </>
+    </div>
   );
 }

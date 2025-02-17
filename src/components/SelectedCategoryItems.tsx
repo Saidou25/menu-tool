@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import { Field } from "../data/sharables";
+import { Field } from "../data/types";
 import "./SelectedCategoryItems.css";
 
 type Props = {

@@ -1,0 +1,1 @@
+export { dessertsList } from "./desserts";
