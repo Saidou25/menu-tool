@@ -1,5 +1,13 @@
 .footer-container {
+    display: flex;
+    flex-direction: column;
     padding: 2%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for effect */
 }
 .footer-text {
     text-align: center;

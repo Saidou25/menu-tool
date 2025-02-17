@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Field } from "../data/sharables";
+import { Field } from "../data/types";
+
 import SelectedCategoryItems from "./SelectedCategoryItems";
 import CategoryItems from "./CategoryItems";
+import SampleMenu from "./SampleMenu";
 
 import "./Categories.css";
-import SampleMenu from "./SampleMenu";
 
 type Obj = any;
 
@@ -34,8 +35,6 @@ export default function Categories({
   const handleGoBack = () => {
     setShowMenuSample(false);
   };
-
-  console.log("Local selected items:", localSelectedCategoryItems);
 
   const handleConfirm = () => {
     setShowMenuSample(false);

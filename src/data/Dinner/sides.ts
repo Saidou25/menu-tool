@@ -1,23 +1,9 @@
-type FieldType = "textArea" | "text" | "checkbox" | "number"; // Add more types as needed
+import { Field, MenuCategory } from "../types";
 
-export type Price = {
-  type: "number"; // Assuming price type is always "number"
-  placeholder: string;
-  value: number;
-};
+// Define the type (structure)
+export type SidesCategory = MenuCategory<Field>;
 
-export type Field = {
-  label: string;
-  type: FieldType;
-  price: Price;
-};
-
-export type SideObj = {
-  title: string;
-  fields: Field[];
-};
-
-const sidesList: SideObj = {
+const sidesList: SidesCategory = {
   title: "Sides",
   fields: [
     {

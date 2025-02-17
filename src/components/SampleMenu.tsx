@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Field } from "../data/sharables";
 import "./SampleMenu.css";
+import BackMenu from "./BackMenu"; // Import BackMenu component
+import Footer from "./Footer";
 
 type ModalProps = {
   message: string;
@@ -14,7 +16,6 @@ const SampleMenu = ({ message, dataSample, goBack, onConfirm }: ModalProps) => {
     {}
   );
 
-  // Define the order in which categories should be displayed
   const categoryOrder = [
     "Sharables",
     "Ain't no thing butta chicken wing...",
@@ -26,44 +27,51 @@ const SampleMenu = ({ message, dataSample, goBack, onConfirm }: ModalProps) => {
     "Sides",
   ];
 
-  console.log("Data sample received in SampleMenu:", dataSample);
-
-  // Reorganize the data into the desired category order
   useEffect(() => {
     const orderedData: Record<string, Field[]> = {};
     categoryOrder.forEach((category) => {
-      orderedData[category] = dataSample[category] || []; // Ensure empty array if no data
+      orderedData[category] = dataSample[category] || [];
     });
     setOrganizedData(orderedData);
   }, [dataSample]);
 
-  console.log("Organized Data in SampleMenu:", organizedData);
+  // Split the categories into two parts
+  const firstCategories = categoryOrder.slice(0, 5);
+  const extraCategories = categoryOrder.slice(5);
+
+  // Define secondPageData based on categories with data
+  const secondPageData: Record<string, Field[]> = {};
+  extraCategories.forEach((category) => {
+    if (organizedData[category]?.length > 0) {
+      secondPageData[category] = organizedData[category];
+    }
+  });
 
   return (
     <div className="modal-div">
       <div className="modal-confirmation">
         <h2 className="confirm-title">Final step</h2>
-        <br />
         <p className="confirm-text">{message}</p>
-        <br />
-        <br />
 
         <div className="row container-buttons g-0">
-          <button className="col-6 button" onClick={onConfirm} type="button">
-            Yes
-          </button>
           <button className="col-6 button" onClick={goBack} type="button">
-            No
+            Edit
+          </button>
+          <button className="col-6 button" onClick={onConfirm} type="button">
+            Print
           </button>
         </div>
 
-        {/* Render the categories and their items */}
+        {/* Render the first set of categories: Front menu */}
         <div className="row menu-items-container">
-          {categoryOrder.map((category) => {
+          {firstCategories.map((category) => {
             const items = organizedData[category];
 
-            // Dynamically group Salads and Soups in the same row
-            if (category === "Salads" && (organizedData["Salads"]?.length > 0 || organizedData["Soups"]?.length > 0)) {
+            if (
+              category === "Salads" &&
+              (organizedData["Salads"]?.length > 0 ||
+                organizedData["Soups"]?.length > 0)
+            ) {
               return (
                 <div className="row" key="Salads-Soups">
                   {["Salads", "Soups"].map((cat) =>
@@ -72,10 +80,7 @@ const SampleMenu = ({ message, dataSample, goBack, onConfirm }: ModalProps) => {
                         <h3 className="category-title">{cat}</h3>
                         <ul className="category-list-joined">
                           {organizedData[cat].map((item, idx) => (
-                            <li
-                              key={idx}
-                              className="menu-item-joined"
-                            >
+                            <li key={idx} className="menu-item-joined">
                               <strong>
                                 {item.label} ${item.price.value.toFixed(2)}
                               </strong>
@@ -90,10 +95,8 @@ const SampleMenu = ({ message, dataSample, goBack, onConfirm }: ModalProps) => {
               );
             }
 
-            // Skip "Soups" since it's handled together with "Salads"
             if (category === "Soups") return null;
 
-            // Render all other categories normally
             if (items?.length > 0) {
               return (
                 <div key={category} className="category-section">
@@ -103,7 +106,9 @@ const SampleMenu = ({ message, dataSample, goBack, onConfirm }: ModalProps) => {
                       <li
                         key={index}
                         className={
-                          arr?.length % 2 !== 0 && index === arr?.length - 1 && category !== "Sides"
+                          arr?.length % 2 !== 0 &&
+                          index === arr?.length - 1 &&
+                          category !== "Sides"
                             ? "col-12 menu-item-odd"
                             : "col-6 menu-item"
                         }
@@ -118,10 +123,18 @@ const SampleMenu = ({ message, dataSample, goBack, onConfirm }: ModalProps) => {
                 </div>
               );
             }
-
-            return null; // Don't render empty categories
+            return null;
           })}
+          <Footer />
         </div>
+
+        {/* Render BackMenu only if there are additional categories */}
+        {Object.keys(secondPageData).length > 0 && (
+          <BackMenu
+            categoryOrder={extraCategories}
+            secondPageData={secondPageData}
+          />
+        )}
       </div>
     </div>
   );

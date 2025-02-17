@@ -1,24 +1,9 @@
-type FieldType = "textArea" | "text" | "checkbox" | "number"; // Add more types as needed
+import { Field, MenuCategory } from "../types";
 
-export type Price = {
-  type: "number"; // Assuming price type is always "number"
-  placeholder: string;
-  value: number;
-};
+// Define the type (structure)
+export type SharableCategory = MenuCategory<Field>;
 
-export type Field = {
-  label: string;
-  description: string;
-  type: FieldType;
-  price: Price;
-};
-
-export type SharableObj = {
-  title: string;
-  fields: Field[];
-};
-
-const sharablesList: SharableObj = {
+const sharablesList: SharableCategory = {
   title: "Sharables",
   fields: [
     {

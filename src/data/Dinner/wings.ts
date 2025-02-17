@@ -1,27 +1,11 @@
-type FieldType = "textArea" | "text" | "checkbox" | "number"; // Add more types as needed
+import { Field, MenuCategory } from "../types";
 
-export type Price = {
-  type: "number"; // Assuming price type is always "number"
-  placeholder: string;
-  value: number;
-};
+// Define the type (structure)
+export type Wings = MenuCategory<Field>;
 
-export type Field = {
-  label: string;
-  description: string;
-  type: FieldType;
-  price: Price;
-};
-
-export type WingObj = {
-  title: string;
-  subTitle?: string;
-  fields: Field[];
-};
-
-const wingsList: WingObj = {
+const wingsList: Wings = {
   title: "Ain't no thing butta chicken wing...",
-  subTitle:
+  subtitle:
     "our all-natural wings are brined, dry-rubbed _ roasted, then fried to crispy perfection",
   fields: [
     {
