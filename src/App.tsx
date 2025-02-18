@@ -50,7 +50,10 @@ function App() {
   };
 
   if (showSelectMenu) {
-    return <DropDown selectDropDownItem={selectMenu} />;
+    return (
+    <div className="dropDown-div">
+      <DropDown message="menus" selectDropDownItem={selectMenu} />
+    </div>);
   }
   return (
     <div className="row app-container g-0">

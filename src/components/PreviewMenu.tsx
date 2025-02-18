@@ -144,14 +144,15 @@ const PreviewMenu = ({
             }
             return null;
           })}
-                  <div className="footer-div">
+                  {/* <div className="footer-div"> */}
                     <Footer />
-                  </div>
+                  {/* </div> */}
         </div>
 
         {/* Render BackMenu only if there are additional categories */}
         {Object.keys(secondPageData).length > 0 && (
           <BackMenu
+          menuPreviewSize={menuPreviewSize}
             categoryOrder={extraCategories}
             secondPageData={secondPageData}
           />

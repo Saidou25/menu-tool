@@ -106,35 +106,37 @@ export default function Categories({
     );
   }
   return (
-    <div className="row g-0">
-      {categoriesList &&
-        categoriesList.map((category, index) => {
-          // Get selected category items for the current category title
-          return (
-            <div className="col-3 categories" key={index}>
-              <CategoryItems
-                selectedCategoryItems={
-                  localSelectedCategoryItems[category.title] || []
-                } // Pass category-specific selected items
-                fields={category.fields} // Pass fields for this category
-                title={category.title} // Pass category title
-                showCategoryItemsFunc={(updatedItems) =>
-                  showCategoryItems(category.title, updatedItems)
-                } // Update selected items for specific category
-                fadeInOutFunc={funcFadeInOut}
-              >
-                <SelectedCategoryItems
+    <>
+      <div className="row">
+        {categoriesList &&
+          categoriesList.map((category, index) => {
+            // Get selected category items for the current category title
+            return (
+              <div className="col-3 categories" key={index}>
+                <CategoryItems
                   selectedCategoryItems={
                     localSelectedCategoryItems[category.title] || []
-                  } // Pass selected items for this category
-                  handlePriceChange={handlePriceChange} // Assume category-specific price change handler
-                  fadeInOut={fadeInOut}
-                />
-              </CategoryItems>
-            </div>
-          );
-        })}
-      <DropDown selectDropDownItem={selectMenuFormat} message="format" />
-    </div>
+                  } // Pass category-specific selected items
+                  fields={category.fields} // Pass fields for this category
+                  title={category.title} // Pass category title
+                  showCategoryItemsFunc={(updatedItems) =>
+                    showCategoryItems(category.title, updatedItems)
+                  } // Update selected items for specific category
+                  fadeInOutFunc={funcFadeInOut}
+                >
+                  <SelectedCategoryItems
+                    selectedCategoryItems={
+                      localSelectedCategoryItems[category.title] || []
+                    } // Pass selected items for this category
+                    handlePriceChange={handlePriceChange} // Assume category-specific price change handler
+                    fadeInOut={fadeInOut}
+                  />
+                </CategoryItems>
+              </div>
+            );
+          })}
+      </div>
+      <DropDown selectDropDownItem={selectMenuFormat} message="formats" />
+    </>
   );
 }

@@ -1,14 +1,17 @@
-import { Field } from "../data/sharables";
+import { Field } from "../data/types";
+
 import Footer from "./Footer";
 
+
 type BackMenuProps = {
+  menuPreviewSize: string;
   categoryOrder: string[];
   secondPageData: Record<string, Field[]>;
 };
 
-const BackMenu = ({ categoryOrder, secondPageData }: BackMenuProps) => {
+const BackMenu = ({ menuPreviewSize, categoryOrder, secondPageData }: BackMenuProps) => {
   return (
-    <div className="row menu-items-container mt-5">
+    <div className={`row menu-items-container-${menuPreviewSize} mt-5`}>
       {categoryOrder?.map((category) => {
         const items = secondPageData[category];
 
