@@ -1,0 +1,17 @@
+.preview-tools-main {
+    padding: 5%;
+    width: 600px;
+}
+.preview-tools-container {
+    border: 1px solid white;
+    padding: 1%;
+}
+.line {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+     padding: 0;
+}
+.li {
+    list-style-type: none
+}
