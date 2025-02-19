@@ -1,13 +1,13 @@
-import { Field, MenuCategory } from "../types";
+import { MenuCategory } from "../types";
 
 // Define the type (structure)
-export type Wings = MenuCategory<Field>;
+// export type Wings = MenuCategory<Field>;
 
-const wingsList: Wings = {
+const wingsList: MenuCategory = {
   title: "Ain't no thing butta chicken wing...",
   subtitle:
     "our all-natural wings are brined, dry-rubbed _ roasted, then fried to crispy perfection",
-  fields: [
+  items: [
     {
       label: "Buffalo wings",
       description:

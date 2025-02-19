@@ -1,11 +1,8 @@
-import { Field, MenuCategory } from "../types";
+import { MenuCategory } from "../types";
 
-// Define the type (structure)
-export type SidesCategory = MenuCategory<Field>;
-
-const sidesList: SidesCategory = {
+const sidesList: MenuCategory = {
   title: "Sides",
-  fields: [
+  items: [
     {
       label: "Asparagus",
       type: "checkbox",

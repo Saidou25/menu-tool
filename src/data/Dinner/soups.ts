@@ -1,11 +1,11 @@
-import { Field, MenuCategory } from "../types";
+import { MenuCategory } from "../types";
 
 // Define the type (structure)
-export type SoupsCategory = MenuCategory<Field>;
+// export type SoupsCategory = MenuCategory<Field>;
 
-export const soupsList: SoupsCategory = {
+export const soupsList: MenuCategory = {
   title: "Soups",
-  fields: [
+  items: [
     {
       label: "Dragon Breath Chili",
       description:

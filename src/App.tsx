@@ -10,16 +10,13 @@ import DropDown from "./components/DropDown";
 import "./App.css";
 
 function App() {
-  const [categoriesList, setCategoriesList] = useState<MenuCategory<Field>[]>(
-    []
-  );
+  const [categoriesList, setCategoriesList] = useState<MenuCategory[]>([]);
   const [showSelectMenu, setShowSelectMenu] = useState(true);
-  const [menuSampleData, setMenuSampleData] = useState<Record<string, Field[]>>(
-    {}
-  );
+  const [menuSampleData, setMenuSampleData] = useState<
+    Record<string, { subtitle?: string; items: Field[] }>
+  >({});
 
   const selectMenu = (item: string) => {
-    // console.log(item);
     if (item === "Dinner") {
       // Set categoriesList to the lists from the Dinner folder
       setCategoriesList([
@@ -35,24 +32,27 @@ function App() {
       setShowSelectMenu(false);
     }
     if (item === "Desserts") {
-      // Set categoriesList to the lists from the Dinner folder
+      // Set categoriesList to the lists from the Dessert's folder
       setCategoriesList([Desserts.dessertsList]);
       setShowSelectMenu(false);
     }
   };
-  // console.log(categoriesList);
 
   const funcSetMenuSampleData = (
-    localSelectedCategoryItems: Record<string, Field[]>
+    localSelectedCategoryItems: Record<
+      string,
+      { subtitle?: string; items: Field[] }
+    >
   ) => {
     setMenuSampleData(localSelectedCategoryItems);
   };
 
   if (showSelectMenu) {
     return (
-    <div className="dropDown-div">
-      <DropDown message="menus" selectDropDownItem={selectMenu} />
-    </div>);
+      <div className="dropDown-div">
+        <DropDown message="menus" selectDropDownItem={selectMenu} />
+      </div>
+    );
   }
   return (
     <div className="row app-container g-0">

@@ -1,29 +1,10 @@
-type FieldType = "textArea" | "text" | "checkbox" | "number"; // Add more types as needed
+import { MenuCategory } from "../types";
 
-export type Price = {
-  type: "number"; // Assuming price type is always "number"
-  placeholder: string;
-  value: number;
-};
-
-export type Field = {
-  label: string;
-  description: string;
-  type: FieldType;
-  price: Price;
-};
-
-export type BurgerObj = {
-  title: string;
-  subtitle: string;
-  fields: Field[];
-};
-
-const burgersList: BurgerObj = {
-  title: "Burgers",
+const burgersList: MenuCategory = {
+  title: "Big bite burgers",
   subtitle:
     "all our richly marbled 100% USKA brasstown beef is smash=grilled to juicy perfection + served with a seasoned fry trio",
-  fields: [
+  items: [
     {
       label: "Bacon mac'n' cheese",
       description:

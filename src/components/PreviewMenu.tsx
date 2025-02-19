@@ -10,9 +10,9 @@ type ModalProps = {
   showDisclaimer: boolean;
   menuFormat: string;
   message: string;
-  dataSample: Record<string, Field[]>;
   onConfirm: () => void;
   goBack: () => void;
+  dataSample: Record<string, { subtitle?: string; items: Field[] }>;
 };
 
 const PreviewMenu = ({
@@ -24,9 +24,9 @@ const PreviewMenu = ({
   onConfirm,
 }: ModalProps) => {
   const [menuPreviewSize, setMenuPreviewSize] = useState("");
-  const [organizedData, setOrganizedData] = useState<Record<string, Field[]>>(
-    {}
-  );
+  const [organizedData, setOrganizedData] = useState<
+    Record<string, { subtitle?: string; items: Field[] }>
+  >({});
 
   const categoryOrder = Object.keys(dataSample).includes("Sharables")
     ? [
@@ -35,29 +35,37 @@ const PreviewMenu = ({
         "Salads",
         "Soups",
         "Signature sandwiches",
-        "Burgers",
+        "Big bite burgers",
         "Big eats",
         "Sides",
       ]
     : Object.keys(dataSample);
 
   useEffect(() => {
-    const orderedData: Record<string, Field[]> = {};
+    const orderedData: Record<string, { subtitle?: string; items: Field[] }> =
+      {};
     categoryOrder.forEach((category) => {
-      orderedData[category] = dataSample[category] || [];
+      if (dataSample[category]) {
+        orderedData[category] = dataSample[category]; // Keep the new structure (subtitle + items)
+      }
     });
-    setOrganizedData(orderedData);
-  }, [dataSample]);
+
+    // Only set state if orderedData has changed
+    if (JSON.stringify(orderedData) !== JSON.stringify(organizedData)) {
+      setOrganizedData(orderedData);
+    }
+  }, [dataSample, categoryOrder, organizedData]); // Include organizedData in dependencies for comparison
 
   // Split the categories into two parts
   const firstCategories = categoryOrder.slice(0, 5);
   const extraCategories = categoryOrder.slice(5);
 
   // Define secondPageData based on categories with data
-  const secondPageData: Record<string, Field[]> = {};
+  const secondPageData: Record<string, { subtitle?: string; items: Field[] }> =
+    {};
   extraCategories.forEach((category) => {
-    if (organizedData[category]?.length > 0) {
-      secondPageData[category] = organizedData[category];
+    if (organizedData[category]?.items.length > 0) {
+      secondPageData[category] = organizedData[category]; // Keep the new structure
     }
   });
 
@@ -80,7 +88,6 @@ const PreviewMenu = ({
         </button>
       </div>
       <br className="no-print" />
-
       {Object.keys(secondPageData).length > 0 && (
         <h3 className="no-print">Menu front</h3>
       )}
@@ -88,20 +95,20 @@ const PreviewMenu = ({
       {/* Render the first set of categories: Front menu */}
       <div className={`menu-items-container-${menuPreviewSize} print`}>
         {firstCategories.map((category) => {
-          const items = organizedData[category];
+          const categoryData = organizedData[category];
           if (
             category === "Salads" &&
-            (organizedData["Salads"]?.length > 0 ||
-              organizedData["Soups"]?.length > 0)
+            (organizedData["Salads"]?.items.length > 0 ||
+              organizedData["Soups"]?.items.length > 0)
           ) {
             return (
               <div className="split-container" key="Salads-Soups">
                 {["Salads", "Soups"].map((cat) =>
-                  organizedData[cat]?.length > 0 ? (
+                  organizedData[cat]?.items.length > 0 ? (
                     <div key={cat} className="split-div">
                       <h3 className="category-title">{cat}</h3>
                       <ul className="split-list">
-                        {organizedData[cat].map((item, idx) => (
+                        {organizedData[cat].items.map((item, idx) => (
                           <li key={idx} className="menu-item-joined">
                             <strong>
                               {item.label} ${item.price.value?.toFixed(2)}
@@ -119,12 +126,13 @@ const PreviewMenu = ({
 
           if (category === "Soups") return null;
 
-          if (items?.length > 0) {
+          if (categoryData && categoryData.items.length > 0) {
             return (
               <div key={category}>
                 <h3 className="category-title">{category}</h3>
+                <div className="subtitle">{categoryData.subtitle}</div>
                 <ul className="row category-list">
-                  {items.map((item, index, arr) => (
+                  {categoryData.items.map((item, index, arr) => (
                     <li
                       key={index}
                       className={
@@ -148,10 +156,8 @@ const PreviewMenu = ({
           }
           return null;
         })}
-
         {showDisclaimer && <Footer />}
       </div>
-
       {/* Render BackMenu only if there are additional categories */}
       {Object.keys(secondPageData).length > 0 && (
         <BackMenu

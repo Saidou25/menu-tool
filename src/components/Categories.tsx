@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import { Field } from "../data/types";
-
 import SelectedCategoryItems from "./SelectedCategoryItems";
 import CategoryItems from "./CategoryItems";
 import PreviewMenu from "./PreviewMenu";
 import DropDown from "./DropDown";
-
-import "./Categories.css";
 import SmallTittles from "./SmallTittles";
 
-type Obj = any;
+import "./Categories.css";
 
 type Props = {
-  categoriesList: Obj[];
-  selectedData: Record<string, Field[]>;
+  categoriesList: Array<{ title: string; subtitle?: string; items: Field[] }>;
+  selectedData: Record<string, { subtitle?: string; items: Field[] }>; // Update here
   menuSampleDataFunc: (
-    localSelectedCategoryItems: Record<string, Field[]>
+    localSelectedCategoryItems: Record<
+      string,
+      { subtitle?: string; items: Field[] }
+    >
   ) => void;
 };
 
@@ -28,24 +28,22 @@ export default function Categories({
   const [menuPreview, setMenuPreview] = useState(false);
   const [menuFormat, setMenuFormat] = useState("");
   const [showDisclaimer, setShowDisclaimer] = useState(false);
-  const [localSelectedCategoryItems, setLocalSelectedCategoryItems] =
-    useState<Record<string, Field[]>>(selectedData);
+  const [localSelectedCategoryItems, setLocalSelectedCategoryItems] = useState<
+    Record<string, { subtitle?: string; items: Field[] }>
+  >({});
 
   const handleDisclaimer = () => {
     setShowDisclaimer((prev) => !prev);
   };
-  // console.log(categoriesList)
+
   const selectMenuFormat = (item: string) => {
-    // console.log(item);
     setMenuFormat(item);
   };
 
   const funcFadeInOut = (newState: boolean) => {
     setFadeInOut(newState);
   };
-console.log("categoriesList", categoriesList);
-console.log("localSelectedCategoryItems", localSelectedCategoryItems);
-  // Handle go back to modify inputs
+
   const handleGoBack = () => {
     setMenuPreview(false);
     setMenuFormat("");
@@ -53,30 +51,27 @@ console.log("localSelectedCategoryItems", localSelectedCategoryItems);
 
   const handleConfirm = () => {
     setMenuPreview(false);
-    // setShowFinalMessage("Thank you for using Chefs' Life Made Easy.");
-    // setModalMessage("");
-    // resetForm();
   };
 
-  // const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-  //   e.preventDefault();
-  //   setMenuPreview((prev) => !prev);
-  // };
-
-  //   **Directly update price in localSelectedCategoryItems**
+  // Update price in localSelectedCategoryItems
   const handlePriceChange = (name: string, value: number) => {
     setLocalSelectedCategoryItems((prev) => {
       // Iterate over categories to find the one containing the item
       const updatedCategories = Object.keys(prev).reduce(
         (acc, categoryTitle) => {
-          acc[categoryTitle] = prev[categoryTitle].map((item) =>
+          const updatedItems = prev[categoryTitle].items.map((item) =>
             item.label === name
               ? { ...item, price: { ...item.price, value } }
               : item
           );
+
+          acc[categoryTitle] = {
+            subtitle: prev[categoryTitle].subtitle, // Preserve existing subtitle
+            items: updatedItems,
+          };
           return acc;
         },
-        {} as Record<string, Field[]>
+        {} as Record<string, { subtitle?: string; items: Field[] }>
       );
 
       return updatedCategories;
@@ -90,7 +85,10 @@ console.log("localSelectedCategoryItems", localSelectedCategoryItems);
   ) => {
     setLocalSelectedCategoryItems((prevState) => ({
       ...prevState,
-      [categoryTitle]: updatedSelectedCategoryItems, // Update the selected items for the current category
+      [categoryTitle]: {
+        subtitle: prevState[categoryTitle]?.subtitle || "", // Preserve existing subtitle
+        items: updatedSelectedCategoryItems, // Update selected items
+      },
     }));
   };
 
@@ -99,6 +97,35 @@ console.log("localSelectedCategoryItems", localSelectedCategoryItems);
       menuSampleDataFunc(localSelectedCategoryItems);
     }
   }, [localSelectedCategoryItems, menuSampleDataFunc]);
+
+  // Runs every time selectedData or categoriesList changes
+  useEffect(() => {
+    if (categoriesList.length > 0 && Object.keys(selectedData).length > 0) {
+      const updatedData = Object.fromEntries(
+        Object.entries(selectedData).map(([category, { items }]) => {
+          const matchedCategory = categoriesList.find(
+            (c) =>
+              c.title.trim().toLowerCase() === category.trim().toLowerCase()
+          );
+          return [
+            category,
+            {
+              subtitle: matchedCategory?.subtitle || "",
+              items,
+            },
+          ];
+        })
+      );
+
+      // Prevent infinite loop by checking if state has actually changed
+      setLocalSelectedCategoryItems((prev) => {
+        if (JSON.stringify(prev) !== JSON.stringify(updatedData)) {
+          return updatedData;
+        }
+        return prev;
+      });
+    }
+  }, [selectedData, categoriesList]); // Runs only when dependencies change
 
   if (menuPreview || menuFormat) {
     return (
@@ -112,37 +139,34 @@ console.log("localSelectedCategoryItems", localSelectedCategoryItems);
       />
     );
   }
+
   return (
     <>
       <div className="row">
         <h1>Categories for your menu</h1>
-        {categoriesList &&
-          categoriesList.map((category, index) => {
-            // Get selected category items for the current category title
-            return (
-              <div className="col-3 categories" key={index}>
-                <CategoryItems
-                  selectedCategoryItems={
-                    localSelectedCategoryItems[category.title] || []
-                  } // Pass category-specific selected items
-                  fields={category.fields} // Pass fields for this category
-                  title={category.title} // Pass category title
-                  showCategoryItemsFunc={(updatedItems) =>
-                    showCategoryItems(category.title, updatedItems)
-                  } // Update selected items for specific category
-                  fadeInOutFunc={funcFadeInOut}
-                >
-                  <SelectedCategoryItems
-                    selectedCategoryItems={
-                      localSelectedCategoryItems[category.title] || []
-                    } // Pass selected items for this category
-                    handlePriceChange={handlePriceChange} // Assume category-specific price change handler
-                    fadeInOut={fadeInOut}
-                  />
-                </CategoryItems>
-              </div>
-            );
-          })}
+        {categoriesList.map((category, index) => (
+          <div className="col-3 categories" key={index}>
+            <CategoryItems
+              selectedCategoryItems={
+                localSelectedCategoryItems[category.title]?.items || []
+              }
+              fields={category.items}
+              title={category.title}
+              showCategoryItemsFunc={(updatedItems) =>
+                showCategoryItems(category.title, updatedItems)
+              }
+              fadeInOutFunc={funcFadeInOut}
+            >
+              <SelectedCategoryItems
+                selectedCategoryItems={
+                  localSelectedCategoryItems[category.title]?.items || []
+                }
+                handlePriceChange={handlePriceChange}
+                fadeInOut={fadeInOut}
+              />
+            </CategoryItems>
+          </div>
+        ))}
       </div>
       <br />
       <div className="categories-titles">

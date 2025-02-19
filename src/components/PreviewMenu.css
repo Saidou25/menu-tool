@@ -50,7 +50,9 @@
   padding: 0;
   margin: 0;
 }
-
+.subtitle {
+  text-align: center;
+}
 .strong {
   text-transform: uppercase;
   margin: 0 !important;

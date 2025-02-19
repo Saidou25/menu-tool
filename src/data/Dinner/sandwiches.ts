@@ -1,12 +1,9 @@
-import { Field, MenuCategory } from "../types";
+import { MenuCategory } from "../types";
 
-// Define the type (structure)
-export type SandwichesCategory = MenuCategory<Field>;
-
-const sandwichesList: SandwichesCategory = {
+const sandwichesList: MenuCategory = {
   title: "Signature sandwiches",
   subtitle: "served with a seasoned fry trio",
-  fields: [
+  items: [
     {
       label: "Crispy chicken bacon ranch",
       description:

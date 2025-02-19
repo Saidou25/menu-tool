@@ -6,7 +6,7 @@ type BackMenuProps = {
   showDisclaimer: boolean;
   menuPreviewSize: string;
   categoryOrder: string[];
-  secondPageData: Record<string, Field[]>;
+  secondPageData: Record<string, { subtitle?: string; items: Field[] }>;
 };
 
 const BackMenu = ({
@@ -15,7 +15,6 @@ const BackMenu = ({
   categoryOrder,
   secondPageData,
 }: BackMenuProps) => {
-
   return (
     <>
       <br className="no-print" />
@@ -23,14 +22,13 @@ const BackMenu = ({
       <br className="no-print" />
       <div className={`menu-items-container-${menuPreviewSize} print`}>
         {categoryOrder?.map((category) => {
-          const items = secondPageData[category];
-
-          if (items?.length > 0) {
+          const categoryData = secondPageData[category];
+          if (categoryData && categoryData.items.length > 0) {
             return (
               <div key={category}>
                 <h3 className="category-title">{category}</h3>
                 <ul className="row category-list">
-                  {items?.map((item, index, arr) => (
+                  {categoryData?.items.map((item, index, arr) => (
                     <li
                       key={index}
                       className={
@@ -46,7 +44,8 @@ const BackMenu = ({
                         {item.price.placeholder === "Market price" ? (
                           <span className="small"> Market Price</span>
                         ) : (
-                          <span> {`$${item.price.value?.toFixed(2)|| ""}`}
+                          <span>
+                            {`$${item.price.value?.toFixed(2) || ""}`}
                           </span>
                         )}
                         <br />
@@ -54,7 +53,6 @@ const BackMenu = ({
                           <span className="small">{item.subSubtitle}</span>
                         )}
 
-                        
                         {item.subSubtitle1 && (
                           <span className="small">
                             {item.subSubtitle1}&nbsp;
@@ -75,7 +73,6 @@ const BackMenu = ({
               </div>
             );
           }
-
           return null; // Don't render empty categories
         })}
         {showDisclaimer && <Footer />}

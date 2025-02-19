@@ -1,11 +1,8 @@
-import { Field, MenuCategory } from "../types";
+import { MenuCategory } from "../types";
 
-// Define the type (structure)
-export type SharableCategory = MenuCategory<Field>;
-
-const sharablesList: SharableCategory = {
+const sharablesList: MenuCategory = {
   title: "Sharables",
-  fields: [
+  items: [
     {
       label: "Pepperoni Pizza Pops",
       description:
