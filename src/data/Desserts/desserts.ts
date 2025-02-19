@@ -1,10 +1,8 @@
-import { Field, MenuCategory } from "../types";
+import { MenuCategory } from "../types";
 
-export type DesertCategory = MenuCategory<Field>;
-
-const dessertsList: DesertCategory = {
+const dessertsList: MenuCategory = {
   title: "FlavorTown finale",
-  fields: [
+  items: [
     {
       label: "Chocolate whiskey cake",
       description:
