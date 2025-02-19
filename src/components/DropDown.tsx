@@ -24,7 +24,7 @@ export default function DropDown({
       }
     
   }, [message]);
-  console.log(message);
+
 
   return (
     <div className="container-select-menu">

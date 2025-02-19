@@ -7,6 +7,7 @@ import Footer from "./Footer";
 import "./PreviewMenu.css";
 
 type ModalProps = {
+  showDisclaimer: boolean;
   menuFormat: string;
   message: string;
   dataSample: Record<string, Field[]>;
@@ -15,6 +16,7 @@ type ModalProps = {
 };
 
 const PreviewMenu = ({
+  showDisclaimer,
   menuFormat,
   message,
   dataSample,
@@ -25,7 +27,6 @@ const PreviewMenu = ({
   const [organizedData, setOrganizedData] = useState<Record<string, Field[]>>(
     {}
   );
-  console.log(menuFormat);
 
   const categoryOrder = Object.keys(dataSample).includes("Sharables")
     ? [
@@ -37,16 +38,15 @@ const PreviewMenu = ({
         "Burgers",
         "Big eats",
         "Sides",
-      ] : Object.keys(dataSample);
+      ]
+    : Object.keys(dataSample);
 
   useEffect(() => {
-   
-      const orderedData: Record<string, Field[]> = {};
-      categoryOrder.forEach((category) => {
-        orderedData[category] = dataSample[category] || [];
-      });
-      setOrganizedData(orderedData);
-    
+    const orderedData: Record<string, Field[]> = {};
+    categoryOrder.forEach((category) => {
+      orderedData[category] = dataSample[category] || [];
+    });
+    setOrganizedData(orderedData);
   }, [dataSample]);
 
   // Split the categories into two parts
@@ -66,98 +66,101 @@ const PreviewMenu = ({
   }, [menuFormat]);
 
   return (
-    <div className="modal-div">
-      <div className="modal-confirmation">
-        <h2 className="confirm-title">Final step</h2>
-        <p className="confirm-text">{message}</p>
-
-        <div className="row container-buttons g-0">
-          <button className="col-6 button" onClick={goBack} type="button">
-            Edit
-          </button>
-          <button className="col-6 button" onClick={onConfirm} type="button">
-            Print
-          </button>
-        </div>
-
-        {/* Render the first set of categories: Front menu */}
-        <div className={`row menu-items-container-${menuPreviewSize}`}>
-          {firstCategories.map((category) => {
-            const items = organizedData[category];
-
-            if (
-              category === "Salads" &&
-              (organizedData["Salads"]?.length > 0 ||
-                organizedData["Soups"]?.length > 0)
-            ) {
-              return (
-                <div className="row" key="Salads-Soups">
-                  {["Salads", "Soups"].map((cat) =>
-                    organizedData[cat]?.length > 0 ? (
-                      <div key={cat} className="col-6">
-                        <h3 className="category-title">{cat}</h3>
-                        <ul className="category-list-joined">
-                          {organizedData[cat].map((item, idx) => (
-                            <li key={idx} className="menu-item-joined">
-                              <strong>
-                                {item.label} ${item.price.value.toFixed(2)}
-                              </strong>
-                              <div>{item.description}</div>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ) : null
-                  )}
-                </div>
-              );
-            }
-
-            if (category === "Soups") return null;
-
-            if (items?.length > 0) {
-              return (
-                <div key={category} className="category-section">
-                  <h3 className="category-title">{category}</h3>
-                  <ul className="row category-list">
-                    {items.map((item, index, arr) => (
-                      <li
-                        key={index}
-                        className={
-                          (arr?.length % 2 !== 0 &&
-                            index === arr?.length - 1 &&
-                            category !== "Sides") ||
-                          menuFormat === "Custom"
-                            ? "col-12 menu-item-odd"
-                            : "col-6 menu-item"
-                        }
-                      >
-                        <strong>
-                          {item.label} ${item.price.value.toFixed(2)}
-                        </strong>
-                        <div>{item.description}</div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            }
-            return null;
-          })}
-                  {/* <div className="footer-div"> */}
-                    <Footer />
-                  {/* </div> */}
-        </div>
-
-        {/* Render BackMenu only if there are additional categories */}
-        {Object.keys(secondPageData).length > 0 && (
-          <BackMenu
-          menuPreviewSize={menuPreviewSize}
-            categoryOrder={extraCategories}
-            secondPageData={secondPageData}
-          />
-        )}
+    <div className="confirmation">
+      <h2 className="confirm-title no-print">Final step</h2>
+      <br className="no-print" />
+      <p className="confirm-text no-print">{message}</p>
+      <br className="no-print" />
+      <div className="row no-print">
+        <button className="col-6 button" onClick={goBack} type="button">
+          Edit
+        </button>
+        <button className="col-6 button" onClick={onConfirm} type="button">
+          Print
+        </button>
       </div>
+      <br className="no-print" />
+
+      {Object.keys(secondPageData).length > 0 && (
+        <h3 className="no-print">Menu front</h3>
+      )}
+      <br className="no-print" />
+      {/* Render the first set of categories: Front menu */}
+      <div className={`menu-items-container-${menuPreviewSize} print`}>
+        {firstCategories.map((category) => {
+          const items = organizedData[category];
+          if (
+            category === "Salads" &&
+            (organizedData["Salads"]?.length > 0 ||
+              organizedData["Soups"]?.length > 0)
+          ) {
+            return (
+              <div className="split-container" key="Salads-Soups">
+                {["Salads", "Soups"].map((cat) =>
+                  organizedData[cat]?.length > 0 ? (
+                    <div key={cat} className="split-div">
+                      <h3 className="category-title">{cat}</h3>
+                      <ul className="split-list">
+                        {organizedData[cat].map((item, idx) => (
+                          <li key={idx} className="menu-item-joined">
+                            <strong>
+                              {item.label} ${item.price.value?.toFixed(2)}
+                            </strong>
+                            <div>{item.description}</div>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null
+                )}
+              </div>
+            );
+          }
+
+          if (category === "Soups") return null;
+
+          if (items?.length > 0) {
+            return (
+              <div key={category}>
+                <h3 className="category-title">{category}</h3>
+                <ul className="row category-list">
+                  {items.map((item, index, arr) => (
+                    <li
+                      key={index}
+                      className={
+                        (arr?.length % 2 !== 0 &&
+                          index === arr?.length - 1 &&
+                          category !== "Sides") ||
+                        menuFormat === "Custom"
+                          ? "col-12 menu-item-odd"
+                          : "col-6 menu-item"
+                      }
+                    >
+                      <strong className="strong">
+                        {item.label} ${item.price.value?.toFixed(2)}
+                      </strong>
+                      <div>{item.description}</div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          }
+          return null;
+        })}
+
+        {showDisclaimer && <Footer />}
+      </div>
+
+      {/* Render BackMenu only if there are additional categories */}
+      {Object.keys(secondPageData).length > 0 && (
+        <BackMenu
+          menuPreviewSize={menuPreviewSize}
+          categoryOrder={extraCategories}
+          secondPageData={secondPageData}
+          showDisclaimer={showDisclaimer}
+        />
+      )}
     </div>
   );
 };

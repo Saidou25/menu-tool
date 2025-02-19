@@ -7,6 +7,7 @@ import PreviewMenu from "./PreviewMenu";
 import DropDown from "./DropDown";
 
 import "./Categories.css";
+import SmallTittles from "./SmallTittles";
 
 type Obj = any;
 
@@ -26,10 +27,14 @@ export default function Categories({
   const [fadeInOut, setFadeInOut] = useState(false);
   const [menuPreview, setMenuPreview] = useState(false);
   const [menuFormat, setMenuFormat] = useState("");
-
+  const [showDisclaimer, setShowDisclaimer] = useState(false);
   const [localSelectedCategoryItems, setLocalSelectedCategoryItems] =
     useState<Record<string, Field[]>>(selectedData);
 
+  const handleDisclaimer = () => {
+    setShowDisclaimer((prev) => !prev);
+  };
+  // console.log(categoriesList)
   const selectMenuFormat = (item: string) => {
     // console.log(item);
     setMenuFormat(item);
@@ -38,7 +43,8 @@ export default function Categories({
   const funcFadeInOut = (newState: boolean) => {
     setFadeInOut(newState);
   };
-
+console.log("categoriesList", categoriesList);
+console.log("localSelectedCategoryItems", localSelectedCategoryItems);
   // Handle go back to modify inputs
   const handleGoBack = () => {
     setMenuPreview(false);
@@ -100,7 +106,8 @@ export default function Categories({
         menuFormat={menuFormat}
         goBack={handleGoBack}
         onConfirm={handleConfirm}
-        message="Confirm printing or go back"
+        message="Confirm printing or continue editing"
+        showDisclaimer={showDisclaimer}
         dataSample={localSelectedCategoryItems}
       />
     );
@@ -108,6 +115,7 @@ export default function Categories({
   return (
     <>
       <div className="row">
+        <h1>Categories for your menu</h1>
         {categoriesList &&
           categoriesList.map((category, index) => {
             // Get selected category items for the current category title
@@ -136,6 +144,21 @@ export default function Categories({
             );
           })}
       </div>
+      <br />
+      <div className="categories-titles">
+        <input
+          className="checkbox-category"
+          id="disclaimer"
+          type="checkbox"
+          onChange={handleDisclaimer}
+          checked={showDisclaimer}
+          name="disclaimer"
+        />
+        <SmallTittles label="Select to add FDA disclaimer to the bottom of your menu" />
+      </div>
+      <br />
+      <br />
+      <br />
       <DropDown selectDropDownItem={selectMenuFormat} message="formats" />
     </>
   );

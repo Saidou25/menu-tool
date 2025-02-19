@@ -1,15 +1,19 @@
-export type FieldType = "textArea" | "text" | "checkbox" | "number"; 
+export type FieldType = "textArea" | "text" | "checkbox" | "number";
 
 export type Price = {
   type: "number";
   placeholder: string;
-  value: number;
+  value?: number;
+  value1?: number;
+  value2?: number;
 };
 
 export type Field = {
   label: string;
   description: string;
   subSubtitle?: string;
+  subSubtitle1?: string;
+  subSubtitle2?: string;
   type: FieldType;
   price: Price;
 };
@@ -17,7 +21,5 @@ export type Field = {
 export type MenuCategory<T> = {
   title: string;
   subtitle?: string;
-  subtitle1?: string;
-  subtitle2?: string;
   fields: T[];
 };

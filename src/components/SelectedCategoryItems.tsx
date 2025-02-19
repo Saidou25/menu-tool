@@ -13,9 +13,10 @@ export default function SelectedCategoryItems({
   handlePriceChange,
 }: Props) {
   const allItems = selectedCategoryItems ?? [];
+
   return (
     <div className="row g-0 mb-2">
-      {allItems.map((item) => (
+      {allItems?.map((item) => (
         <SelectedCategoryItem
           key={item.label}
           item={item}

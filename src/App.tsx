@@ -13,7 +13,6 @@ function App() {
   const [categoriesList, setCategoriesList] = useState<MenuCategory<Field>[]>(
     []
   );
-
   const [showSelectMenu, setShowSelectMenu] = useState(true);
   const [menuSampleData, setMenuSampleData] = useState<Record<string, Field[]>>(
     {}

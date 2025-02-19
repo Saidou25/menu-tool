@@ -5,7 +5,7 @@ export type SandwichesCategory = MenuCategory<Field>;
 
 const sandwichesList: SandwichesCategory = {
   title: "Signature sandwiches",
-  subtitle: "served with a seasoned fry tio",
+  subtitle: "served with a seasoned fry trio",
   fields: [
     {
       label: "Crispy chicken bacon ranch",

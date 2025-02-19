@@ -1,30 +1,28 @@
-
 import { MenuCategory, Field } from "../types";
-
-
 
 // Define the type (structure)
 export type BigEats = MenuCategory<Field>;
 
 const bigEatsList: BigEats = {
   title: "Big eats",
-  subtitle1: "half rack",
-  subtitle2: "full rack",
   fields: [
     {
       label: "American royal ribs",
+      subSubtitle1: "half rack",
+      subSubtitle2: "full rack",
       description:
         "house-smoked St. Louis rivs, gry-rubbed + basted in Guy's signture bourbon brown sugar bbq sauce, served with mac'n'cheese, American slaw + sweet jalalpeno cornbread",
       type: "checkbox",
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value1: 22.95,
+        value2: 33.95,
       },
     },
     {
       label: "Cajun chicken alfredo",
-      subSubtitle: "Flavortown GiUpgrade. Andouille sausage or shrimp + 6.00",
+      subSubtitle: "Flavortown GiUpgrade. Andouille sausage or shrimp + $6.00",
       description:
         "Cajun-spiced chicken brest, whit wine  parmesan alfredo sauce, sun-dried tomatoes, diced roma tomatoes, penne psta + scallions",
       type: "checkbox",
@@ -47,13 +45,12 @@ const bigEatsList: BigEats = {
     },
     {
       label: "Baha beef tenderloind",
-      subSubtitle: "market price",
       description:
         "8 oz. filet topped with chipotle-agave butter, sea salt-crusted potto wedges + fried asparagus", // Fixed typo
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "Enter price",
+        placeholder: "Market price",
         value: 0,
       },
     },
@@ -92,12 +89,11 @@ const bigEatsList: BigEats = {
     },
     {
       label: "Prim boneless ribeye 16 oz.",
-      subSubtitle: "market price",
       description: "with garlic mashed potatoes + fried asparagus",
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "Enter price",
+        placeholder: "Market price",
         value: 0,
       },
     },
