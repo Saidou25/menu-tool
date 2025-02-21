@@ -1,10 +1,15 @@
-.preview-tools-main {
-    padding: 5%;
-    width: 600px;
-}
+/* .preview-tools-main {
+    display: inline-block !important; 
+} */
 .preview-tools-container {
-    border: 1px solid white;
-    padding: 1%;
+    /* width: 576px; */
+    /* border: 1px solid white; */
+    /* margin-top: 55px; */
+    padding: 0 10% 0 10%;
+    /* height: 70vh; */
+    /* position: fixed; */
+    overflow: scroll;
+    background-color: black;
 }
 .line {
     display: flex;

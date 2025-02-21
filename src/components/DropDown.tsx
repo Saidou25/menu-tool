@@ -1,48 +1,83 @@
-// import { useState } from "react";
 import { useEffect, useState } from "react";
+import { StyleFormType } from "../data/types";
 import "./DropDown.css";
 
 type SelectDropDownProps = {
-  selectDropDownItem: (item: string) => void;
+  selectDropDownItem?: (item: string) => void;
   message: string;
+  width: string;
+  styleForm?: StyleFormType;
+  setStyleForm?: React.Dispatch<React.SetStateAction<StyleFormType>>;
 };
 
 export default function DropDown({
   message,
+  width,
   selectDropDownItem,
+  setStyleForm,
 }: SelectDropDownProps) {
-  const menuList = ["Dinner", "Brunch", "Desserts", "Cocktails", "Wines", "Custom"]; // Dropdown menu items
-  const formatList = ["Regular", "Custom"];
   const [dropDownList, setDropDownList] = useState<string[]>([]);
-  // console.log(dropDownList);
+
+  const menuList = [
+    "Dinner",
+    "Brunch",
+    "Desserts",
+    "Cocktails",
+    "Wines",
+    "Custom",
+  ]; // Dropdown menu items
+
+  const formatsList = ["letter", "A4", "Legal", "Custom"]; // Droptdown papper format items
+
+  const handleMenuFormat = (item: string) => {
+    const formatSizes: Record<string, { width: string; height: string }> = {
+      Letter: { width: "216", height: "279" },
+      A4: { width: "210", height: "297" },
+      Legal: { width: "216", height: "356" },
+      Custom: { width: "110", height: "356" },
+      // Add more formats here in the future
+    };
+
+    const selectedFormat = formatSizes[item];
+
+    if (selectedFormat) {
+      setStyleForm?.((prev) => ({
+        ...prev,
+        menuWidth: selectedFormat.width,
+        menuHeight: selectedFormat.height,
+      }));
+    }
+  };
 
   useEffect(() => {
-      if (message === "menus") {
-        setDropDownList(menuList)
-      } else if (message === "formats") {
-        setDropDownList(formatList);
-      }
-    
+    if (message === "menus") {
+      setDropDownList(menuList);
+    } else if (message === "formats") {
+      setDropDownList(formatsList);
+    }
   }, [message]);
 
-
   return (
-    <div className="container-select-menu">
+    <div className="container-select-menu" style={{ width: `${width}%` }}>
       {message === "menus" && (
-      <>  <h4 className="message">Select the menu you would like to work with</h4>
-      </>)}
+        <>
+          {" "}
+          <h4 className="message">
+            Select the menu you would like to work with
+          </h4>
+        </>
+      )}
       {message === "formats" && (
         <div className="message">
-          <h3>Preview your menu</h3>
-          <br />
-          <h5>Select your desired menu format</h5>
+          {/* <br /> */}
+          <h5>Select your menu format</h5>
         </div>
       )}
       <br />
       <div className="btn-group">
         <button type="button" className="btn btn-danger">
-          {message === "menus" && <>available menus</>}
-          {message === "formats" && <>available formats</>}
+          {message === "menus" && <>menus</>}
+          {message === "formats" && <>formats</>}
         </button>
         <button
           type="button"
@@ -57,7 +92,12 @@ export default function DropDown({
             <li key={index}>
               <button
                 className="dropdown-item"
-                onClick={() => selectDropDownItem(item)}
+                onClick={() => {
+                  (item === "Dinner" || item === "Desserts") &&
+                  selectDropDownItem
+                    ? selectDropDownItem(item)
+                    : handleMenuFormat(item);
+                }}
               >
                 {item}
               </button>

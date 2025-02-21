@@ -23,3 +23,21 @@ export type MenuCategory = {
   subtitle?: string; // if applicable
   items: Field[];
 };
+
+export type StyleFormType = {
+  menuWidth: string;
+  menuHeight: string;
+  topImage: string;
+  topImageSize: number;
+  bottomImage: string;
+  bottomImageSize: number;
+  pagePaddingTopAndBottom: number;
+  pagePaddingLeftAndRight: number;
+  categoryFontSize: number;
+  categoryMarginBottom: number;
+  itemFontSize: number;
+  itemMarginBottom: number;
+  descriptionFontSize: number;
+  descriptionMarginBottom: number;
+};
+

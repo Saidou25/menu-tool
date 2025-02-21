@@ -1,43 +1,33 @@
 import { useEffect, useState } from "react";
-import { Field } from "../data/types";
+import { Field, StyleFormType } from "../data/types";
 
+import FrontMenu from "./FrontMenu";
 import BackMenu from "./BackMenu"; // Import BackMenu component
-import Footer from "./Footer";
 
 import "./PreviewMenu.css";
-import PreviewTools from "./PreviewTools";
 
 type ModalProps = {
+  children: React.ReactNode[];
   showDisclaimer: boolean;
-  menuFormat: string;
   message: string;
   onConfirm: () => void;
   goBack: () => void;
   dataSample: Record<string, { subtitle?: string; items: Field[] }>;
+  styleForm: StyleFormType;
+  setStyleForm: React.Dispatch<React.SetStateAction<StyleFormType>>;
 };
 
 const PreviewMenu = ({
+  children,
   showDisclaimer,
-  menuFormat,
-  message,
   dataSample,
-  goBack,
-  onConfirm,
+  styleForm,
+  // setStyleForm,
 }: ModalProps) => {
-  const [menuPreviewSize, setMenuPreviewSize] = useState("");
   const [organizedData, setOrganizedData] = useState<
     Record<string, { subtitle?: string; items: Field[] }>
   >({});
-  const [styleForm, setStyleForm] = useState<{
-    pagePaddingTopAndBottom: number;
-    pagePaddingLeftAndRight: number;
-  }>({
-    pagePaddingTopAndBottom: 0,
-    pagePaddingLeftAndRight: 0,
-  });
 
-  console.log(styleForm.pagePaddingTopAndBottom);
-  
   const categoryOrder = Object.keys(dataSample).includes("Sharables")
     ? [
         "Sharables",
@@ -79,114 +69,35 @@ const PreviewMenu = ({
     }
   });
 
-  useEffect(() => {
-    setMenuPreviewSize(menuFormat);
-  }, [menuFormat]);
-
   return (
-    <div className="confirmation">
-      <div className="page-padding">
-        <h2 className="confirm-title no-print">Final step</h2>
-        <br className="no-print" />
-        <p className="confirm-text no-print">{message}</p>
-        <br className="no-print" />
-        <div className="row no-print">
-          <button className="col-6 button" onClick={goBack} type="button">
-            Edit
-          </button>
-          <button className="col-6 button" onClick={onConfirm} type="button">
-            Print
-          </button>
-        </div>
+    <div className="container-final-step">
+      <div className="">
+        {children[0]} {/* Renders FinalStep*/}
         <br className="no-print" />
         {Object.keys(secondPageData).length > 0 && (
           <h3 className="no-print">Menu front</h3>
         )}
         <br className="no-print" />
         {/* Render the first set of categories: Front menu */}
-        <div
-          className={`menu-items-container-${menuPreviewSize} print`}
-          style={{
-            padding: `${styleForm.pagePaddingTopAndBottom}px ${styleForm.pagePaddingLeftAndRight}px`,
-          }}
-        >
-          {firstCategories.map((category) => {
-            const categoryData = organizedData[category];
-            if (
-              category === "Salads" &&
-              (organizedData["Salads"]?.items.length > 0 ||
-                organizedData["Soups"]?.items.length > 0)
-            ) {
-              return (
-                <div className="split-container" key="Salads-Soups">
-                  {["Salads", "Soups"].map((cat) =>
-                    organizedData[cat]?.items.length > 0 ? (
-                      <div key={cat} className="split-div">
-                        <h3 className="category-title">{cat}</h3>
-                        <ul className="split-list">
-                          {organizedData[cat].items.map((item, idx) => (
-                            <li key={idx} className="menu-item-joined">
-                              <strong>
-                                {item.label} ${item.price.value?.toFixed(2)}
-                              </strong>
-                              <div>{item.description}</div>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ) : null
-                  )}
-                </div>
-              );
-            }
-
-            if (category === "Soups") return null;
-
-            if (categoryData && categoryData.items.length > 0) {
-              return (
-                <div key={category}>
-                  <h3 className="category-title">{category}</h3>
-                  <div className="subtitle">{categoryData.subtitle}</div>
-                  <ul className="row category-list">
-                    {categoryData.items.map((item, index, arr) => (
-                      <li
-                        key={index}
-                        className={
-                          (arr?.length % 2 !== 0 &&
-                            index === arr?.length - 1 &&
-                            category !== "Sides") ||
-                          menuFormat === "Custom"
-                            ? "col-12 menu-item-odd"
-                            : "col-6 menu-item"
-                        }
-                      >
-                        <strong className="strong">
-                          {item.label} ${item.price.value?.toFixed(2)}
-                        </strong>
-                        <div>{item.description}</div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            }
-            return null;
-          })}
-          {showDisclaimer && <Footer />}
-        </div>
+        <FrontMenu
+          categoryOrder={firstCategories}
+          styleForm={styleForm}
+          organizedData={organizedData}
+          showDisclaimer={showDisclaimer}
+        />
         {/* Render BackMenu only if there are additional categories */}
         {Object.keys(secondPageData).length > 0 && (
           <BackMenu
-            menuPreviewSize={menuPreviewSize}
+            styleForm={styleForm}
             categoryOrder={extraCategories}
             secondPageData={secondPageData}
             showDisclaimer={showDisclaimer}
           />
         )}
       </div>
-      <div className="confirmation-preview-tools">
-        <PreviewTools setStyleForm={setStyleForm} styleForm={styleForm}
-        />
+      <div className="">
+        {children[1]} {/* Renders MenuTools*/}
+        {children[2]} {/* Renders MenuTools*/}
       </div>
     </div>
   );

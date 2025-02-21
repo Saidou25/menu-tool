@@ -50,7 +50,7 @@ function App() {
   if (showSelectMenu) {
     return (
       <div className="dropDown-div">
-        <DropDown message="menus" selectDropDownItem={selectMenu} />
+        <DropDown message="menus" selectDropDownItem={selectMenu} width="30" />
       </div>
     );
   }

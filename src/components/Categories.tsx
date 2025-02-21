@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { Field } from "../data/types";
+import { Field, StyleFormType } from "../data/types";
 import SelectedCategoryItems from "./SelectedCategoryItems";
 import CategoryItems from "./CategoryItems";
 import PreviewMenu from "./PreviewMenu";
-import DropDown from "./DropDown";
 import SmallTittles from "./SmallTittles";
+import FinalStep from "./FinalStep";
+import DropDown from "./DropDown";
+import PreviewTools from "./PreviewTools";
 
 import "./Categories.css";
 
@@ -26,18 +28,29 @@ export default function Categories({
 }: Props) {
   const [fadeInOut, setFadeInOut] = useState(false);
   const [menuPreview, setMenuPreview] = useState(false);
-  const [menuFormat, setMenuFormat] = useState("");
   const [showDisclaimer, setShowDisclaimer] = useState(false);
   const [localSelectedCategoryItems, setLocalSelectedCategoryItems] = useState<
     Record<string, { subtitle?: string; items: Field[] }>
   >({});
+  const [styleForm, setStyleForm] = useState<StyleFormType>({
+    menuWidth: "",
+    menuHeight: "",
+    topImage: "",
+    topImageSize: 20,
+    bottomImage: "",
+    bottomImageSize: 20,
+    pagePaddingTopAndBottom: 0,
+    pagePaddingLeftAndRight: 0,
+    categoryFontSize: 30,
+    categoryMarginBottom: 0,
+    itemFontSize: 20,
+    itemMarginBottom: 0,
+    descriptionFontSize: 15,
+    descriptionMarginBottom: 0,
+  });
 
   const handleDisclaimer = () => {
     setShowDisclaimer((prev) => !prev);
-  };
-
-  const selectMenuFormat = (item: string) => {
-    setMenuFormat(item);
   };
 
   const funcFadeInOut = (newState: boolean) => {
@@ -46,7 +59,6 @@ export default function Categories({
 
   const handleGoBack = () => {
     setMenuPreview(false);
-    setMenuFormat("");
   };
 
   const handleConfirm = () => {
@@ -127,23 +139,37 @@ export default function Categories({
     }
   }, [selectedData, categoriesList]); // Runs only when dependencies change
 
-  if (menuPreview || menuFormat) {
+  if (menuPreview) {
     return (
       <PreviewMenu
-        menuFormat={menuFormat}
         goBack={handleGoBack}
         onConfirm={handleConfirm}
         message="Confirm printing or continue editing"
         showDisclaimer={showDisclaimer}
         dataSample={localSelectedCategoryItems}
-      />
+        styleForm={styleForm}
+        setStyleForm={setStyleForm}
+      >
+        <FinalStep
+          goBack={handleGoBack}
+          onConfirm={handleConfirm}
+          message="Confirm printing or continue editing"
+        />
+        <DropDown
+          setStyleForm={setStyleForm}
+          styleForm={styleForm}
+          message="formats"
+          width="100"
+        />
+        <PreviewTools setStyleForm={setStyleForm} styleForm={styleForm} />
+      </PreviewMenu>
     );
   }
 
   return (
     <>
       <div className="row">
-        <h1>Categories for your menu</h1>
+        <h1>Select which categories and items for your menu</h1>
         {categoriesList.map((category, index) => (
           <div className="col-3 categories" key={index}>
             <CategoryItems
@@ -180,10 +206,20 @@ export default function Categories({
         />
         <SmallTittles label="Select to add FDA disclaimer to the bottom of your menu" />
       </div>
+      <div className="categories-titles">
+        <input
+          className="checkbox-category"
+          id="preview-menu"
+          type="checkbox"
+          onChange={() => setMenuPreview((prev) => !prev)}
+          checked={menuPreview}
+          name="disclaimer"
+        />
+        <SmallTittles label="Preview menu" />
+      </div>
       <br />
       <br />
       <br />
-      <DropDown selectDropDownItem={selectMenuFormat} message="formats" />
     </>
   );
 }
