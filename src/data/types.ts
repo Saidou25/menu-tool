@@ -25,6 +25,8 @@ export type MenuCategory = {
 };
 
 export type StyleFormType = {
+  // customMenuTextTop: string;
+  // customMenuTextBottom: string;
   menuWidth: string;
   menuHeight: string;
   topImage: string;
@@ -39,5 +41,16 @@ export type StyleFormType = {
   itemMarginBottom: number;
   descriptionFontSize: number;
   descriptionMarginBottom: number;
+  guyTop: string;
+  guyBottom: string;
+  guyTopSize: number;
+  guyBottomSize: number;
+  guyTopMarginBottom: number;
+  guyBottomMaringBottom: number;
+  title: string;
+  titleSize: number;
+  titleMarginBottom: number;
+  footerSize: number;
+  footer: string;
+  footerMarginBottom: number;
 };
-

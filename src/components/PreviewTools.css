@@ -1,22 +1,19 @@
-/* .preview-tools-main {
-    display: inline-block !important; 
-} */
 .preview-tools-container {
-    /* width: 576px; */
-    /* border: 1px solid white; */
-    /* margin-top: 55px; */
-    padding: 0 10% 0 10%;
-    /* height: 70vh; */
-    /* position: fixed; */
-    overflow: scroll;
-    background-color: black;
+  /* background-color: black; */
+  padding: 2% 2% 0 2%;
+  border: 1px solid white;
+  height: 75vh;
+  overflow: scroll;
+  position: sticky;
+  top: 0; /* Sticks to the top of the viewport */
+  z-index: 1000; /* Ensures it stays above other elements */
 }
 .line {
-    display: flex;
-    justify-content: space-between;
-    margin: 0;
-     padding: 0;
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
 }
 .li {
-    list-style-type: none
+  list-style-type: none;
 }

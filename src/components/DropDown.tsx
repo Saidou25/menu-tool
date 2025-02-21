@@ -58,26 +58,22 @@ export default function DropDown({
   }, [message]);
 
   return (
-    <div className="container-select-menu" style={{ width: `${width}%` }}>
+    <div className="container-dropdown" style={{ width: `${width}%` }}>
       {message === "menus" && (
-        <>
-          {" "}
-          <h4 className="message">
-            Select the menu you would like to work with
-          </h4>
-        </>
+        <h4 className="message">Select the menu you would like to work with</h4>
       )}
       {message === "formats" && (
-        <div className="message">
-          {/* <br /> */}
-          <h5>Select your menu format</h5>
-        </div>
+        <>
+         <h2 className="confirm-title no-print">Format</h2>
+         <br className="no-print" />
+         <p className="confirm-text no-print">Select your menu's format</p>
+         <br className="no-print" />
+        </>
       )}
-      <br />
       <div className="btn-group">
         <button type="button" className="btn btn-danger">
           {message === "menus" && <>menus</>}
-          {message === "formats" && <>formats</>}
+          {message === "formats" && <>Select</>}
         </button>
         <button
           type="button"

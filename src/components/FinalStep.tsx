@@ -1,4 +1,4 @@
-
+import "./PreviewMenu.css";
 
 type FinalStepsProps = {
   message: string;
@@ -12,7 +12,7 @@ export default function FinalStep({
   onConfirm,
 }: FinalStepsProps) {
   return (
-    <div>
+    <div className="final-step-div">
       <h2 className="confirm-title no-print">Final step</h2>
       <br className="no-print" />
       <p className="confirm-text no-print">{message}</p>

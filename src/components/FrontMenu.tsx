@@ -14,6 +14,7 @@ export default function FrontMenu({
   categoryOrder,
   organizedData,
 }: FrontMenuProps) {
+
   return (
     <div>
       <div
@@ -23,8 +24,24 @@ export default function FrontMenu({
           width: `${+styleForm.menuWidth}mm`,
           height: `${+styleForm.menuHeight}mm`,
           maxHeight: `${+styleForm.menuHeight}mm`,
+          overflow: "hidden"
+
         }}
       >
+        {styleForm.guyTop && (
+          <div style={{ width: `${styleForm.guyTopSize}px`, margin: "auto" }}>
+            <img
+              className="image-fluid"
+              alt=""
+              src={styleForm.guyTop}
+              style={{ maxWidth: "100%", height: "auto" }}
+            />
+          </div>
+        )}
+        {styleForm.title && (
+          <div className="category-title" style={{ fontSize: `${styleForm.titleSize}px`}}
+          >{styleForm.title}</div>
+        )}
         {styleForm.topImage && (
           <div style={{ width: `${styleForm.topImageSize}px`, margin: "auto" }}>
             <img
@@ -120,6 +137,34 @@ export default function FrontMenu({
           }
           return null;
         })}
+        {styleForm.bottomImage && (
+          <div
+            style={{ width: `${styleForm.bottomImageSize}px`, margin: "auto" }}
+          >
+            <img
+              className="image-fluid"
+              alt=""
+              src={styleForm.bottomImage}
+              style={{ maxWidth: "100%", height: "auto" }}
+            />
+          </div>
+        )}
+        {styleForm.guyBottom && (
+          <div
+            style={{ width: `${styleForm.guyBottomSize}px`, margin: "auto" }}
+          >
+            <img
+              className="image-fluid"
+              alt=""
+              src={styleForm.guyBottom}
+              style={{ maxWidth: "100%", height: "auto" }}
+            />
+          </div>
+        )}
+        {styleForm.footer && (
+          <div className="category-title" style={{ fontSize: `${styleForm.footerSize}px`}}
+          >{styleForm.footer}</div>
+        )}
         {showDisclaimer && <Footer />}
       </div>
     </div>

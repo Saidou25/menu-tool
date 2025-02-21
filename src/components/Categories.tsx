@@ -36,7 +36,7 @@ export default function Categories({
     menuWidth: "",
     menuHeight: "",
     topImage: "",
-    topImageSize: 20,
+    topImageSize: 50,
     bottomImage: "",
     bottomImageSize: 20,
     pagePaddingTopAndBottom: 0,
@@ -47,6 +47,18 @@ export default function Categories({
     itemMarginBottom: 0,
     descriptionFontSize: 15,
     descriptionMarginBottom: 0,
+    guyTop: "",
+    guyBottom: "",
+    guyTopSize: 50,
+    guyBottomSize: 50,
+    guyTopMarginBottom: 0,
+    guyBottomMaringBottom: 0,
+    title: "",
+    titleSize: 20,
+    footerSize: 20,
+    footer: "",
+    titleMarginBottom: 0,
+    footerMarginBottom: 0,
   });
 
   const handleDisclaimer = () => {

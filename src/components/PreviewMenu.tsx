@@ -71,13 +71,13 @@ const PreviewMenu = ({
 
   return (
     <div className="container-final-step">
-      <div className="">
+      <div className="menu-section">
         {children[0]} {/* Renders FinalStep*/}
-        <br className="no-print" />
+        {/* <br className="no-print" /> */}
         {Object.keys(secondPageData).length > 0 && (
           <h3 className="no-print">Menu front</h3>
         )}
-        <br className="no-print" />
+        {/* <br className="no-print" /> */}
         {/* Render the first set of categories: Front menu */}
         <FrontMenu
           categoryOrder={firstCategories}
@@ -95,7 +95,7 @@ const PreviewMenu = ({
           />
         )}
       </div>
-      <div className="">
+      <div className="tool-section">
         {children[1]} {/* Renders MenuTools*/}
         {children[2]} {/* Renders MenuTools*/}
       </div>
