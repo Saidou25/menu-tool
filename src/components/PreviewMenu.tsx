@@ -7,6 +7,7 @@ import BackMenu from "./BackMenu"; // Import BackMenu component
 import "./PreviewMenu.css";
 
 type ModalProps = {
+  showFinalStep: boolean;
   children: React.ReactNode[];
   showDisclaimer: boolean;
   message: string;
@@ -18,15 +19,18 @@ type ModalProps = {
 };
 
 const PreviewMenu = ({
+  showFinalStep,
   children,
   showDisclaimer,
   dataSample,
   styleForm,
-  // setStyleForm,
-}: ModalProps) => {
+  setStyleForm
+}: // setStyleForm,
+ModalProps) => {
   const [organizedData, setOrganizedData] = useState<
     Record<string, { subtitle?: string; items: Field[] }>
   >({});
+
 
   const categoryOrder = Object.keys(dataSample).includes("Sharables")
     ? [
@@ -69,9 +73,26 @@ const PreviewMenu = ({
     }
   });
 
+  const animation = `
+  @keyframes menuSizeAnimation {
+    from {
+      width: 0; 
+      height: 0;
+    }
+    to { 
+      width: ${styleForm.menuWidth}mm; 
+      height: ${styleForm.menuHeight}mm; 
+    }
+  }
+`;
+
   return (
     <div className="container-final-step">
-      <div className="menu-section">
+       <style>{animation}</style> {/* Inject the keyframes */}
+      <div
+        className={`${showFinalStep ? "final-step-show" : "final-step-hidden"}`}
+        style={{ animation: "menuSizeAnimation 0.5s linear forwards" }} // Apply the animation
+      >
         {children[0]} {/* Renders FinalStep*/}
         {/* <br className="no-print" /> */}
         {Object.keys(secondPageData).length > 0 && (
@@ -80,10 +101,12 @@ const PreviewMenu = ({
         {/* <br className="no-print" /> */}
         {/* Render the first set of categories: Front menu */}
         <FrontMenu
+        animation={animation}
           categoryOrder={firstCategories}
           styleForm={styleForm}
           organizedData={organizedData}
           showDisclaimer={showDisclaimer}
+          setStyleForm={setStyleForm}
         />
         {/* Render BackMenu only if there are additional categories */}
         {Object.keys(secondPageData).length > 0 && (

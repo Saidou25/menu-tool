@@ -1,3 +1,15 @@
+@font-face {
+  font-family: 'Pewter Corroded';
+  src: url('../assets/fonts/PewterDEMO-KCFonts.ttf') format('truetype');
+  /* line-height: 1; 
+  display: block; */
+}
+.number {
+  font-family: Arial, sans-serif;
+}
+.number-fallback {
+  font-family: Arial, sans-serif; /* Use a default font for numbers */
+}
 .row {
   --bs-gutter-x: 0;
   --bs-gutter-y: 0;
@@ -26,9 +38,7 @@
   display: flex !important;
 }
 .menu-items-container { 
-  background: rgb(233, 210, 160);
-  color: black;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); */
   margin: auto;
   font-family: Arial, sans-serif;
   position: relative;
@@ -37,19 +47,27 @@
 .category-title {
   text-align: center;
   text-transform: uppercase;
+  font-family: 'Pewter Corroded', sans-serif;
 }
 .subtitle {
   text-align: center;
+  font-family: 'Pewter Corroded', sans-serif;
 }
-.strong {
+.menu-item-div {
+ /* display: flex; */
+ /* flex-direction: column; */
   text-transform: uppercase;
 }
+
 .menu-item-joined { 
   list-style-type: none; 
 }
 .category-list {
-  padding-right: 7%;
-  padding-left: 7%;
+  /* padding-right: 7%;
+  padding-left: 7%; */
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 .split-container {
   display: flex;
@@ -69,10 +87,15 @@
 .menu-item {
   list-style-type: none; 
 }
-.final-step-div {
+.final-step-show {
+  display: block;
   height: 200;
   margin-bottom: 40px;
 }
+.final-step-hidden {
+ display: none;
+}
+
 @media print {
   .print {
     display: block;

@@ -26,6 +26,8 @@ export default function Categories({
   menuSampleDataFunc,
   categoriesList,
 }: Props) {
+  const [showFinalStep, setShowfinalStep] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [fadeInOut, setFadeInOut] = useState(false);
   const [menuPreview, setMenuPreview] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
@@ -33,8 +35,8 @@ export default function Categories({
     Record<string, { subtitle?: string; items: Field[] }>
   >({});
   const [styleForm, setStyleForm] = useState<StyleFormType>({
-    menuWidth: "",
-    menuHeight: "",
+    menuWidth: 0,
+    menuHeight: 0,
     topImage: "",
     topImageSize: 50,
     bottomImage: "",
@@ -52,15 +54,27 @@ export default function Categories({
     guyTopSize: 50,
     guyBottomSize: 50,
     guyTopMarginBottom: 0,
-    guyBottomMaringBottom: 0,
+    guyBottomMarginBottom: 0,
     title: "",
     titleSize: 20,
     footerSize: 20,
     footer: "",
     titleMarginBottom: 0,
     footerMarginBottom: 0,
-  });
+    pageBackground: "",
+    sectionBackground: [],
+    titleColor: "",
+    categoryColor: "",
+    priceColor: "",
+    priceSize: 15,
+    menuItemColor: "",
+    menuItemDescriptionColor: "",
+    textTopColor: "",
+    textBottomColor: "",
+    footerTextColor: "",
 
+  });
+console.log(styleForm)
   const handleDisclaimer = () => {
     setShowDisclaimer((prev) => !prev);
   };
@@ -161,6 +175,7 @@ export default function Categories({
         dataSample={localSelectedCategoryItems}
         styleForm={styleForm}
         setStyleForm={setStyleForm}
+        showFinalStep={showFinalStep}
       >
         <FinalStep
           goBack={handleGoBack}
@@ -168,12 +183,19 @@ export default function Categories({
           message="Confirm printing or continue editing"
         />
         <DropDown
+          setShowfinalStep={setShowfinalStep}
+          setShowModal={setShowModal}
+          showModal={showModal}
           setStyleForm={setStyleForm}
           styleForm={styleForm}
           message="formats"
           width="100"
         />
-        <PreviewTools setStyleForm={setStyleForm} styleForm={styleForm} />
+        <PreviewTools
+          setStyleForm={setStyleForm}
+          styleForm={styleForm}
+          // setShowfinalStep={setShowfinalStep}
+        />
       </PreviewMenu>
     );
   }

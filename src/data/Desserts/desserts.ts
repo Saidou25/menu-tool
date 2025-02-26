@@ -28,7 +28,7 @@ const dessertsList: MenuCategory = {
     {
       label: "Strawberry shortcake",
       description:
-        "Santo Tequila macerated strawbwerries, lime sugar, pound cake, 4 scoops of ice cream + whipped cream",
+        "Santo Tequila macerated strawbwerries, lime sugar, pound cake, four scoops of ice cream + whipped cream",
       type: "checkbox",
       price: {
         type: "number",

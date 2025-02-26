@@ -1,4 +1,4 @@
-export type FieldType = "textArea" | "text" | "checkbox" | "number";
+export type FieldType = "textArea" | "text" | "checkbox" | "number" | "color";
 
 export type Price = {
   type: "number";
@@ -24,11 +24,14 @@ export type MenuCategory = {
   items: Field[];
 };
 
+export type SectionBackground = {
+  index: number;
+  backgroundColor: string;
+}[];
+
 export type StyleFormType = {
-  // customMenuTextTop: string;
-  // customMenuTextBottom: string;
-  menuWidth: string;
-  menuHeight: string;
+  menuWidth: number;
+  menuHeight: number;
   topImage: string;
   topImageSize: number;
   bottomImage: string;
@@ -46,11 +49,22 @@ export type StyleFormType = {
   guyTopSize: number;
   guyBottomSize: number;
   guyTopMarginBottom: number;
-  guyBottomMaringBottom: number;
+  guyBottomMarginBottom: number;
   title: string;
   titleSize: number;
   titleMarginBottom: number;
   footerSize: number;
   footer: string;
   footerMarginBottom: number;
+  pageBackground: string;
+  sectionBackground: SectionBackground;
+  titleColor: string;
+  categoryColor: string;
+  priceSize: number;
+  priceColor: string;
+  menuItemColor: string;
+  menuItemDescriptionColor: string;
+  textTopColor: string;
+  textBottomColor: string;
+  footerTextColor: string;
 };
