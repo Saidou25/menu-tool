@@ -1,8 +1,8 @@
 @font-face {
-  font-family: 'Pewter Corroded';
-  src: url('../assets/fonts/PewterDEMO-KCFonts.ttf') format('truetype');
-  /* line-height: 1; 
-  display: block; */
+  font-family: "Pewter Corroded";
+  src: url("../assets/fonts/PewterDEMO-KCFonts.ttf") format("truetype");
+  margin: 0;
+  padding: 0;
 }
 .number {
   font-family: Arial, sans-serif;
@@ -14,10 +14,14 @@
   --bs-gutter-x: 0;
   --bs-gutter-y: 0;
 }
+html,
+body {
+  zoom: 100%;
+}
 
 .container-final-step {
   display: flex;
-  gap: 20px; 
+  gap: 20px;
   width: auto;
   margin: auto;
   background: rgba(22, 19, 19, 0.93);
@@ -37,8 +41,7 @@
 .bottom {
   display: flex !important;
 }
-.menu-items-container { 
-  /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); */
+.menu-items-container {
   margin: auto;
   font-family: Arial, sans-serif;
   position: relative;
@@ -47,24 +50,20 @@
 .category-title {
   text-align: center;
   text-transform: uppercase;
-  font-family: 'Pewter Corroded', sans-serif;
+  font-family: "Pewter Corroded", sans-serif;
 }
 .subtitle {
   text-align: center;
-  font-family: 'Pewter Corroded', sans-serif;
+  font-family: "Pewter Corroded", sans-serif;
 }
 .menu-item-div {
- /* display: flex; */
- /* flex-direction: column; */
   text-transform: uppercase;
 }
 
-.menu-item-joined { 
-  list-style-type: none; 
+.menu-item-joined {
+  list-style-type: none;
 }
 .category-list {
-  /* padding-right: 7%;
-  padding-left: 7%; */
   width: 100%;
   margin: 0;
   padding: 0;
@@ -85,15 +84,15 @@
   list-style-type: none;
 }
 .menu-item {
-  list-style-type: none; 
+  list-style-type: none;
 }
 .final-step-show {
   display: block;
-  height: 200;
+  /* height: 200; */
   margin-bottom: 40px;
 }
 .final-step-hidden {
- display: none;
+  display: none;
 }
 
 @media print {
@@ -120,14 +119,10 @@
     padding: 0 !important;
   }
   .menu-items-container {
-    /* width: 216mm; 
-    max-height: 372mm;
-    max-height: 372mm; */
-    /* width: 100% !important; */
     color: black;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     margin: auto !important;
-   
+
     font-family: Arial, sans-serif;
     position: relative;
   }

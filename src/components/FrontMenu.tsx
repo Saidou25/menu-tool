@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+
 import { Field, StyleFormType } from "../data/types";
 import Footer from "./Footer";
 // import './fonts.css';
 
 type FrontMenuProps = {
-  animation: string;
+  // animation: string;
   styleForm: StyleFormType;
   showDisclaimer: boolean;
   categoryOrder: string[];
@@ -13,7 +13,7 @@ type FrontMenuProps = {
 };
 
 export default function FrontMenu({
-  animation,
+  // animation,
   styleForm,
   showDisclaimer,
   categoryOrder,
@@ -49,7 +49,6 @@ export default function FrontMenu({
   };
 
   const getSectionBackground = (index: number) => {
-    console.log("index", index);
     // Check if sectionBackground is defined and is an array
     if (!Array.isArray(styleForm.sectionBackground)) {
       return ""; // Return an empty string if it's not an array
@@ -66,23 +65,17 @@ export default function FrontMenu({
     return section ? section.backgroundColor : ""; // Return the color or an empty string if not found
   };
 
-  useEffect(() => {
-    console.log("stle form", styleForm.sectionBackground);
-  }, [styleForm]);
+  // useEffect(() => {
+  //   console.log("stle form", styleForm.sectionBackground);
+  // }, [styleForm]);
 
   return (
-    <div>
-      <style>{animation}</style> {/* Inject the keyframes */}
-      {/* <div
-        className={`${showFinalStep ? "final-step-show" : "final-step-hidden"}`}
-        style={{ animation: "menuSizeAnimation 10s ease-in-out" }} // Apply the animation
-      ></div> */}
       <div
         className="menu-items-container print"
         style={{
           padding: `${styleForm.pagePaddingTopAndBottom}px ${styleForm.pagePaddingLeftAndRight}px`,
-          // width: `${+styleForm.menuWidth}mm`,
-          // height: `${+styleForm.menuHeight}mm`,
+          width: `${+styleForm.menuWidth}mm`,
+          height: `${+styleForm.menuHeight}mm`,
           maxHeight: `${+styleForm.menuHeight}mm`,
           animation: "menuSizeAnimation 0.5s linear forwards",
           overflow: "hidden",
@@ -129,9 +122,10 @@ export default function FrontMenu({
           ) {
             return (
               <div className="split-container" key="Salads-Soups">
-                {["Salads", "Soups"].map((cat) =>
+                {["Salads", "Soups"].map((cat, index) =>
                   organizedData[cat]?.items.length > 0 ? (
-                    <div key={cat} className="split-div"> <input type="color" />
+                    <div key={cat} className="split-div"
+                    style={{ backgroundColor: getSectionBackground(index) }}> <input type="color" />
                       <h3 className="category-title">{cat}</h3>
                       <ul className="split-list">
                         {organizedData[cat].items.map((item, idx) => (
@@ -274,6 +268,5 @@ export default function FrontMenu({
         )}
         {showDisclaimer && <Footer />}
       </div>
-    </div>
   );
 }

@@ -101,7 +101,7 @@ ModalProps) => {
         {/* <br className="no-print" /> */}
         {/* Render the first set of categories: Front menu */}
         <FrontMenu
-        animation={animation}
+        // animation={animation}
           categoryOrder={firstCategories}
           styleForm={styleForm}
           organizedData={organizedData}

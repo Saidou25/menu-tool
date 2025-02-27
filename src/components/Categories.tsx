@@ -72,9 +72,8 @@ export default function Categories({
     textTopColor: "",
     textBottomColor: "",
     footerTextColor: "",
-
   });
-console.log(styleForm)
+
   const handleDisclaimer = () => {
     setShowDisclaimer((prev) => !prev);
   };

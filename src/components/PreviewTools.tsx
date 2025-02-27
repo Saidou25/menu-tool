@@ -86,7 +86,7 @@ const displayLabels = [
   },
   {
     label: "background color",
-    subLabels: ["page background", "section background"],
+    subLabels: ["page background"],
   },
   {
     label: "text color",
@@ -138,7 +138,7 @@ export default function PreviewTools({
     "title": "titleMarginBottom",
     "footer": "footerMarginBottom",
     "page background": "pageBackground",
-    "section background": "sectionBackground",
+    // "section background": "sectionBackground",
     "title color": "titleColor",
     "category color": "categoryColor",
     "price": "priceSize",
@@ -156,7 +156,7 @@ export default function PreviewTools({
     if (
       [
         "page background",
-        "section background",
+        // "section background",
         "title color",
         "category color",
         "price color",
@@ -180,7 +180,7 @@ export default function PreviewTools({
     if (
       [
         "page background",
-        "section background",
+        // "section background",
         "title color",
         "category color",
         "price color",
