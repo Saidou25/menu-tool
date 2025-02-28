@@ -71,7 +71,7 @@ export default function DropDown({
   }, [message]);
 
   return (
-    <>
+    <div className="no-print">
       {showModal ? (
         <MenuSizeModal
           setShowModal={setShowModal}
@@ -81,7 +81,7 @@ export default function DropDown({
           setShowfinalStep={setShowfinalStep}
         />
       ) : (
-        <div className="container-dropdown" style={{ width: `${width}%` }}>
+        <div className="container-dropdown no-print" style={{ width: `${width}%` }}>
           {message === "menus" && (
             <h4 className="message">
               Select the menu you would like to work with
@@ -128,6 +128,6 @@ export default function DropDown({
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

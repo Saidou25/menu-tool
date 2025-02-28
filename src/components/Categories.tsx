@@ -26,6 +26,7 @@ export default function Categories({
   menuSampleDataFunc,
   categoriesList,
 }: Props) {
+  const [showColorInputs, setShowColorInputs] = useState(false);
   const [showFinalStep, setShowfinalStep] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [fadeInOut, setFadeInOut] = useState(false);
@@ -176,6 +177,7 @@ export default function Categories({
         styleForm={styleForm}
         setStyleForm={setStyleForm}
         showFinalStep={showFinalStep}
+        showColorInputs={showColorInputs}
       >
         <FinalStep
           goBack={handleGoBack}
@@ -194,7 +196,8 @@ export default function Categories({
         <PreviewTools
           setStyleForm={setStyleForm}
           styleForm={styleForm}
-          // setShowfinalStep={setShowfinalStep}
+          setShowColorInputs={setShowColorInputs}
+          showColorInputs={showColorInputs}
         />
       </PreviewMenu>
     );

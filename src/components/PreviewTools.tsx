@@ -4,6 +4,8 @@ import { StyleFormType } from "../data/types";
 import "./PreviewTools.css";
 
 type PreviewToolsProps = {
+  showColorInputs: boolean;
+  setShowColorInputs: (item: boolean) => void;
   styleForm: StyleFormType;
   setStyleForm: React.Dispatch<React.SetStateAction<StyleFormType>>;
 };
@@ -106,6 +108,8 @@ const displayLabels = [
 export default function PreviewTools({
   styleForm,
   setStyleForm,
+  showColorInputs,
+  setShowColorInputs,
 }: PreviewToolsProps) {
   const [localStyleForm, setLocalStyleForm] =
     useState<StyleFormType>(styleForm);
@@ -117,7 +121,7 @@ export default function PreviewTools({
   const keyMap: { [key: string]: keyof StyleFormType } = {
     "padding top and bottom": "pagePaddingTopAndBottom",
     "padding left and right": "pagePaddingLeftAndRight",
-    "category": "categoryFontSize",
+    category: "categoryFontSize",
     "menu item": "itemFontSize",
     "menu item description": "descriptionFontSize",
     "category block": "categoryMarginBottom",
@@ -135,13 +139,13 @@ export default function PreviewTools({
     "text bottom": "footer",
     "title text": "titleSize",
     "footer text": "footerSize",
-    "title": "titleMarginBottom",
-    "footer": "footerMarginBottom",
+    title: "titleMarginBottom",
+    footer: "footerMarginBottom",
     "page background": "pageBackground",
     // "section background": "sectionBackground",
     "title color": "titleColor",
     "category color": "categoryColor",
-    "price": "priceSize",
+    price: "priceSize",
     "price color": "priceColor",
     "menu item color": "menuItemColor",
     "menu item description color": "menuItemDescriptionColor",
@@ -242,17 +246,27 @@ export default function PreviewTools({
   };
 
   return (
-    <div className="preview-tools-container">
-      <h2 className="confirm-title no-print">Preview Tool</h2>
+    <div className="preview-tools-container no-print">
+      <h2 className="confirm-title">Preview Tool</h2>
       <br />
       <div className="lulu">
         {displayLabels.map((displayLabel) => (
           <div key={displayLabel.label} className="label-container">
-            <b>{displayLabel.label}: </b>
+            {displayLabel.label === "Colors" ? (
+              <>
+             
+              {displayLabel.label}: <input
+                type="checkbox"
+                checked={showColorInputs}
+                onClick={() => setShowColorInputs(!showColorInputs)}
+              /> Check if you want to hide color inputs
+              </>
+            ) : (
+              <b>{displayLabel.label}: </b>
+            )}
             {displayLabel.subLabels.map((item, index) => (
               <ul className="line" key={item}>
                 <li className="li ps-4 d-flex align-items-center">
-                  
                   <span>{item}&nbsp;</span>
 
                   {/* Only display image preview for file inputs */}
@@ -309,17 +323,22 @@ export default function PreviewTools({
                   </>
                 ) : getInputType(item) === "color" ? (
                   // Render color picker input correctly
+
                   <input
                     type="color"
                     value={
-                      keyMap[item as keyof typeof keyMap] === "sectionBackground"
+                      keyMap[item as keyof typeof keyMap] ===
+                      "sectionBackground"
                         ? localStyleForm.sectionBackground.length > 0
-                          ? localStyleForm.sectionBackground[0]?.backgroundColor || "#000000"
+                          ? localStyleForm.sectionBackground[0]
+                              ?.backgroundColor || "#000000"
                           : "#000000"
-                        : (localStyleForm[keyMap[item as keyof typeof keyMap]] as string)?.trim() ||
-                          "#000000"
+                        : (
+                            localStyleForm[
+                              keyMap[item as keyof typeof keyMap]
+                            ] as string
+                          )?.trim() || "#000000"
                     }
-                    
                     name={item}
                     onChange={handleChange}
                   />
@@ -331,16 +350,20 @@ export default function PreviewTools({
                     placeholder={getPlaceholderType(item)}
                     min={0}
                     value={
-                      keyMap[item as keyof typeof keyMap] === "sectionBackground"
+                      keyMap[item as keyof typeof keyMap] ===
+                      "sectionBackground"
                         ? localStyleForm.sectionBackground.length > 0
-                          ? localStyleForm.sectionBackground[0].backgroundColor || "#000000"
+                          ? localStyleForm.sectionBackground[0]
+                              .backgroundColor || "#000000"
                           : "#000000"
                         : getInputType(item) === "number"
-                        ? Number(localStyleForm[keyMap[item as keyof typeof keyMap]]) || 0
-                        : (localStyleForm[keyMap[item as keyof typeof keyMap]] as string) || ""
+                        ? Number(
+                            localStyleForm[keyMap[item as keyof typeof keyMap]]
+                          ) || 0
+                        : (localStyleForm[
+                            keyMap[item as keyof typeof keyMap]
+                          ] as string) || ""
                     }
-                    
-                    
                     name={item}
                     onChange={handleChange}
                   />

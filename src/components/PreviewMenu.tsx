@@ -7,6 +7,7 @@ import BackMenu from "./BackMenu"; // Import BackMenu component
 import "./PreviewMenu.css";
 
 type ModalProps = {
+  showColorInputs: boolean;
   showFinalStep: boolean;
   children: React.ReactNode[];
   showDisclaimer: boolean;
@@ -19,6 +20,7 @@ type ModalProps = {
 };
 
 const PreviewMenu = ({
+  showColorInputs,
   showFinalStep,
   children,
   showDisclaimer,
@@ -81,14 +83,14 @@ ModalProps) => {
     }
     to { 
       width: ${styleForm.menuWidth}mm; 
-      height: ${styleForm.menuHeight}mm; 
+      height: 100%; 
     }
   }
 `;
 
   return (
-    <div className="container-final-step">
-       <style>{animation}</style> {/* Inject the keyframes */}
+    <div className="container-final-step no-print">
+       <style>{animation}</style> 
       <div
         className={`${showFinalStep ? "final-step-show" : "final-step-hidden"}`}
         style={{ animation: "menuSizeAnimation 0.5s linear forwards" }} // Apply the animation
@@ -107,6 +109,7 @@ ModalProps) => {
           organizedData={organizedData}
           showDisclaimer={showDisclaimer}
           setStyleForm={setStyleForm}
+          showColorInputs={showColorInputs}
         />
         {/* Render BackMenu only if there are additional categories */}
         {Object.keys(secondPageData).length > 0 && (
@@ -118,9 +121,9 @@ ModalProps) => {
           />
         )}
       </div>
-      <div className="tool-section">
-        {children[1]} {/* Renders MenuTools*/}
-        {children[2]} {/* Renders MenuTools*/}
+      <div className="tool-section no-print">
+        {children[1]} {/* Renders dropdown*/}
+        {children[2]} {/* Renders preview tools*/}
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import Footer from "./Footer";
 
 type FrontMenuProps = {
   // animation: string;
+  showColorInputs: boolean;
   styleForm: StyleFormType;
   showDisclaimer: boolean;
   categoryOrder: string[];
@@ -13,6 +14,7 @@ type FrontMenuProps = {
 
 export default function FrontMenu({
   // animation,
+  showColorInputs,
   styleForm,
   showDisclaimer,
   categoryOrder,
@@ -122,7 +124,7 @@ export default function FrontMenu({
         padding: `${styleForm.pagePaddingTopAndBottom}px ${styleForm.pagePaddingLeftAndRight}px`,
         width: `${+styleForm.menuWidth}mm`,
         height: `${+styleForm.menuHeight}mm`,
-        maxHeight: `${+styleForm.menuHeight}mm`,
+        minHeight: `${+styleForm.menuHeight}mm`,
         animation: "menuSizeAnimation 0.5s linear forwards",
         overflow: "hidden",
         backgroundColor: styleForm.pageBackground,
@@ -179,22 +181,34 @@ export default function FrontMenu({
                       backgroundColor: getSectionBackground(realCategoryIndex),
                     }}
                   >
-                    <input
-                      type="color"
-                      onChange={(event) =>
-                        handleCatetegoryBackgroundChange(
-                          event.target.value,
-                          realCategoryIndex
-                        )
-                      }
-                    />
-                    <h3 className="category-title">{cat}</h3>
+                    <h3
+                      className="category-title"
+                      style={{
+                        fontSize: `${styleForm.categoryFontSize}px`,
+                        color: styleForm.categoryColor,
+                        marginBottom: `${styleForm.categoryMarginBottom}px`,
+                      }}
+                    >
+                      {cat}{" "}
+                      {showColorInputs && (
+                        <input
+                          className="no-print"
+                          type="color"
+                          onChange={(event) =>
+                            handleCatetegoryBackgroundChange(
+                              event.target.value,
+                              realCategoryIndex
+                            )
+                          }
+                        />
+                      )}
+                    </h3>
                     <ul className="split-list">
                       {organizedData[cat].items.map((item, idx) => (
                         <li key={idx} className="menu-item-joined">
-                          <div>
-                            {item.label} {item.price.value?.toFixed(2)}
-                          </div>
+                          <span className="soup-salad-label">{item.label}</span>
+                          &nbsp;{item.price.value?.toFixed(2)}
+                          {/* </div> */}
                           <div
                             style={{
                               color: getDescriptionLetterColor(
@@ -203,18 +217,23 @@ export default function FrontMenu({
                               ),
                             }}
                           >
-                            {item.description}
+                            <span className="soup-salad-description">
+                              {item.description}
+                            </span>
+                            {item.description && showColorInputs && (
+                              <input
+                                type="color"
+                                className="no-print"
+                                onChange={(event) =>
+                                  handleletterSectionChange(
+                                    event.target.value,
+                                    realCategoryIndex,
+                                    idx
+                                  )
+                                }
+                              />
+                            )}
                           </div>
-                          <input
-                            type="color"
-                            onChange={(event) =>
-                              handleletterSectionChange(
-                                event.target.value,
-                                realCategoryIndex,
-                                idx
-                              )
-                            }
-                          />
                         </li>
                       ))}
                     </ul>
@@ -242,19 +261,22 @@ export default function FrontMenu({
                 }}
               >
                 {category}
-                <input
-                  type="color"
-                  onChange={(event) =>
-                    handleCatetegoryBackgroundChange(
-                      event.target.value,
-                      categoryIndex
-                    )
-                  }
-                  style={{ marginBottom: "0", paddingBottom: "0" }}
-                />
+                {showColorInputs && (
+                  <input
+                    type="color"
+                    className="no-print"
+                    onChange={(event) =>
+                      handleCatetegoryBackgroundChange(
+                        event.target.value,
+                        categoryIndex
+                      )
+                    }
+                    style={{ marginBottom: "0", paddingBottom: "0" }}
+                  />
+                )}
               </h3>
               <div className="subtitle">{categoryData.subtitle}</div>
-              <ul className="row category-list">
+              <ul className="row category-list print">
                 {categoryData.items.map((item, itemIndex, arr) => (
                   <li
                     id={`li-${categoryIndex}`}
@@ -291,7 +313,7 @@ export default function FrontMenu({
                           color: styleForm.priceColor,
                         }}
                       >
-                        {item.price.value?.toFixed(2)}
+                        &nbsp;{item.price.value?.toFixed(2)}
                       </span>
                     </div>
 
@@ -315,17 +337,20 @@ export default function FrontMenu({
                       >
                         {item.description}
                       </span>
-                      <input
-                        type="color"
-                        onChange={(event) =>
-                          handleletterSectionChange(
-                            event.target.value,
-                            categoryIndex,
-                            itemIndex
-                          )
-                        }
-                        style={{ marginBottom: "0", paddingBottom: "0" }}
-                      />
+                      {showColorInputs && (
+                        <input
+                          className="no-print"
+                          type="color"
+                          onChange={(event) =>
+                            handleletterSectionChange(
+                              event.target.value,
+                              categoryIndex,
+                              itemIndex
+                            )
+                          }
+                          style={{ marginBottom: "0", paddingBottom: "0" }}
+                        />
+                      )}
                     </div>
                   </li>
                 ))}

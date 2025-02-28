@@ -12,8 +12,8 @@ export default function FinalStep({
   onConfirm,
 }: FinalStepsProps) {
   return (
-    <div className="final-step-div">
-      <h2 className="confirm-title no-print">Final step</h2>
+    <div className="final-step-div no-print">
+      <h2 className="confirm-title">Final step</h2>
       <br className="no-print" />
       <p className="confirm-text no-print">{message}</p>
       <br className="no-print" />

@@ -20,7 +20,7 @@ const BackMenu = ({
       <br className="no-print" />
       <h3 className="no-print">Menu back</h3>
       <br className="no-print" />
-      <div className="menu-items-container print"
+      <div className="menu-items-container"
       style={{
         padding: `${styleForm.pagePaddingTopAndBottom}px ${styleForm.pagePaddingLeftAndRight}px`,
         width: `${+styleForm.menuWidth}mm`,
