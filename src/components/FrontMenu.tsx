@@ -1,4 +1,3 @@
-
 import { Field, StyleFormType } from "../data/types";
 import Footer from "./Footer";
 // import './fonts.css';
@@ -20,23 +19,26 @@ export default function FrontMenu({
   organizedData,
   setStyleForm,
 }: FrontMenuProps) {
-  const handleChange = (color: string, index: number) => {
+  const handleCatetegoryBackgroundChange = (
+    color: string,
+    categoryIndex: number
+  ) => {
     setStyleForm((prevState) => {
       const newSectionBackground = [...prevState.sectionBackground];
       const existingIndex = newSectionBackground.findIndex(
-        (bg) => bg.index === index
+        (bg) => bg.categoryIndex === categoryIndex
       );
 
       if (existingIndex !== -1) {
         // Update the existing entry
         newSectionBackground[existingIndex] = {
-          index,
+          categoryIndex,
           backgroundColor: color,
         };
       } else {
         // Add a new entry
         newSectionBackground.push({
-          index,
+          categoryIndex,
           backgroundColor: color,
         });
       }
@@ -44,6 +46,43 @@ export default function FrontMenu({
       return {
         ...prevState,
         sectionBackground: newSectionBackground,
+      };
+    });
+  };
+
+  const handleletterSectionChange = (
+    color: string,
+    categoryIndex: number,
+    index: number
+  ) => {
+    setStyleForm((prevState) => {
+      const newdescriptionLetterColor = [...prevState.descriptionLetterColor];
+
+      // Find the existing entry
+      const existingIndex = newdescriptionLetterColor.findIndex(
+        (entry) =>
+          entry.categoryIndex === categoryIndex && entry.index === index
+      );
+
+      if (existingIndex !== -1) {
+        // Update existing entry
+        newdescriptionLetterColor[existingIndex] = {
+          categoryIndex,
+          index,
+          descriptionLetterColor: color,
+        };
+      } else {
+        // Add new entry
+        newdescriptionLetterColor.push({
+          categoryIndex,
+          index,
+          descriptionLetterColor: color,
+        });
+      }
+
+      return {
+        ...prevState,
+        descriptionLetterColor: newdescriptionLetterColor,
       };
     });
   };
@@ -59,214 +98,277 @@ export default function FrontMenu({
     }
 
     const section = styleForm.sectionBackground.find(
-      (bg) => bg.index === index
+      (bg) => bg.categoryIndex === index
     );
 
     return section ? section.backgroundColor : ""; // Return the color or an empty string if not found
   };
+  const getDescriptionLetterColor = (categoryIndex: number, index: number) => {
+    if (!Array.isArray(styleForm.descriptionLetterColor)) {
+      return "";
+    }
 
-  // useEffect(() => {
-  //   console.log("stle form", styleForm.sectionBackground);
-  // }, [styleForm]);
+    const descriptionSection = styleForm.descriptionLetterColor.find(
+      (entry) => entry.categoryIndex === categoryIndex && entry.index === index
+    );
+
+    return descriptionSection ? descriptionSection.descriptionLetterColor : "";
+  };
 
   return (
-      <div
-        className="menu-items-container print"
-        style={{
-          padding: `${styleForm.pagePaddingTopAndBottom}px ${styleForm.pagePaddingLeftAndRight}px`,
-          width: `${+styleForm.menuWidth}mm`,
-          height: `${+styleForm.menuHeight}mm`,
-          maxHeight: `${+styleForm.menuHeight}mm`,
-          animation: "menuSizeAnimation 0.5s linear forwards",
-          overflow: "hidden",
-          backgroundColor: styleForm.pageBackground,
-        }}
-      >
-        {styleForm.guyTop && (
-          <div style={{ width: `${styleForm.guyTopSize}px`, margin: "auto" }}>
-            <img
-              className="image-fluid"
-              alt=""
-              src={styleForm.guyTop}
-              style={{ maxWidth: "100%", height: "auto" }}
-            />
-          </div>
-        )}
-        {styleForm.title && (
-          <div
-            className="category-title"
-            style={{
-              fontSize: `${styleForm.titleSize}px`,
-              color: styleForm.titleColor,
-            }}
-          >
-            {styleForm.title}
-          </div>
-        )}
-        {styleForm.topImage && (
-          <div style={{ width: `${styleForm.topImageSize}px`, margin: "auto" }}>
-            <img
-              className="image-fluid"
-              alt=""
-              src={styleForm.topImage}
-              style={{ maxWidth: "100%", height: "auto" }}
-            />
-          </div>
-        )}
-        {categoryOrder.map((category, index) => {
-          const categoryData = organizedData[category];
-          if (
-            category === "Salads" &&
-            (organizedData["Salads"]?.items.length > 0 ||
-              organizedData["Soups"]?.items.length > 0)
-          ) {
-            return (
-              <div className="split-container" key="Salads-Soups">
-                {["Salads", "Soups"].map((cat, index) =>
-                  organizedData[cat]?.items.length > 0 ? (
-                    <div key={cat} className="split-div"
-                    style={{ backgroundColor: getSectionBackground(index) }}> <input type="color" />
-                      <h3 className="category-title">{cat}</h3>
-                      <ul className="split-list">
-                        {organizedData[cat].items.map((item, idx) => (
-                          <li key={idx} className="menu-item-joined">
-                            <div>
-                              {item.label} {item.price.value?.toFixed(2)}
-                            </div>
-                            <div>{item.description}</div>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : null
-                )}
-              </div>
-            );
-          }
+    <div
+      className="menu-items-container print"
+      style={{
+        padding: `${styleForm.pagePaddingTopAndBottom}px ${styleForm.pagePaddingLeftAndRight}px`,
+        width: `${+styleForm.menuWidth}mm`,
+        height: `${+styleForm.menuHeight}mm`,
+        maxHeight: `${+styleForm.menuHeight}mm`,
+        animation: "menuSizeAnimation 0.5s linear forwards",
+        overflow: "hidden",
+        backgroundColor: styleForm.pageBackground,
+      }}
+    >
+      {styleForm.guyTop && (
+        <div style={{ width: `${styleForm.guyTopSize}px`, margin: "auto" }}>
+          <img
+            className="image-fluid"
+            alt=""
+            src={styleForm.guyTop}
+            style={{ maxWidth: "100%", height: "auto" }}
+          />
+        </div>
+      )}
+      {styleForm.title && (
+        <div
+          className="category-title"
+          style={{
+            fontSize: `${styleForm.titleSize}px`,
+            color: styleForm.titleColor,
+          }}
+        >
+          {styleForm.title}
+        </div>
+      )}
+      {styleForm.topImage && (
+        <div style={{ width: `${styleForm.topImageSize}px`, margin: "auto" }}>
+          <img
+            className="image-fluid"
+            alt=""
+            src={styleForm.topImage}
+            style={{ maxWidth: "100%", height: "auto" }}
+          />
+        </div>
+      )}
+      {categoryOrder.map((category, categoryIndex) => {
+        const categoryData = organizedData[category];
+        if (
+          category === "Salads" &&
+          (organizedData["Salads"]?.items.length > 0 ||
+            organizedData["Soups"]?.items.length > 0)
+        ) {
+          return (
+            <div className="split-container" key="Salads-Soups">
+              {["Salads", "Soups"].map((cat) => {
+                const realCategoryIndex = categoryOrder.indexOf(cat); // Get the actual index
 
-          if (category === "Soups") return null;
-
-          if (categoryData && categoryData.items.length > 0) {
-            return (
-              <div key={category}
-              style={{ backgroundColor: getSectionBackground(index) }}
-              >
-                <h3
-                  className="category-title"
-                  style={{
-                    fontSize: `${styleForm.categoryFontSize}px`,
-                    color: styleForm.categoryColor,
-                    marginBottom: `${styleForm.categoryMarginBottom}px`,
-                  }}
-                >
-                  {category}
-                  <input
-                    type="color"
-                    onChange={(event) =>
-                      handleChange(event.target.value, index)
-                    }
-                    style={{ marginBottom: "0", paddingBottom: "0"}}
-                  />
-                </h3>
-                <div className="subtitle">{categoryData.subtitle}</div>
-                <ul className="row category-list">
-                  {categoryData.items.map((item, index, arr) => (
-                    <li
-                      id={`li-${index}`}
-                      key={index}
-                      className={
-                        (arr?.length % 2 !== 0 &&
-                          index === arr?.length - 1 &&
-                          category !== "Sides") ||
-                        styleForm.menuWidth <= 110 // Slim width format
-                          ? "col-12 menu-item-odd"
-                          : "col-6 menu-item"
+                return organizedData[cat]?.items.length > 0 ? (
+                  <div
+                    key={cat}
+                    className="split-div"
+                    style={{
+                      backgroundColor: getSectionBackground(realCategoryIndex),
+                    }}
+                  >
+                    <input
+                      type="color"
+                      onChange={(event) =>
+                        handleCatetegoryBackgroundChange(
+                          event.target.value,
+                          realCategoryIndex
+                        )
                       }
-                      
-                    >
-                      <div className="menu-item-div">
-                        {/* <div className="div-div"> */}
-                        <span
-                          style={{
-                            fontSize: `${styleForm.itemFontSize}px`,
-                            paddingBottom: `${styleForm.itemMarginBottom}px`,
-                            letterSpacing: "1px",
-                            fontFamily: "Pewter Corroded, sans-serif",
-                            color: styleForm.menuItemColor,
-                            // marginBottom: "-20px",
-                            // verticalAlign: "bottom"
-                          }}
-                        >
-                          {item.label}
-                        </span>
-                        {/* </div> */}
+                    />
+                    <h3 className="category-title">{cat}</h3>
+                    <ul className="split-list">
+                      {organizedData[cat].items.map((item, idx) => (
+                        <li key={idx} className="menu-item-joined">
+                          <div>
+                            {item.label} {item.price.value?.toFixed(2)}
+                          </div>
+                          <div
+                            style={{
+                              color: getDescriptionLetterColor(
+                                realCategoryIndex,
+                                idx
+                              ),
+                            }}
+                          >
+                            {item.description}
+                          </div>
+                          <input
+                            type="color"
+                            onChange={(event) =>
+                              handleletterSectionChange(
+                                event.target.value,
+                                realCategoryIndex,
+                                idx
+                              )
+                            }
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null;
+              })}
+            </div>
+          );
+        }
 
-                        <span
-                          style={{
-                            fontSize: `${styleForm.priceSize}px`,
-                            color: styleForm.priceColor,
-                          }}
-                        >
-                          {item.price.value?.toFixed(2)}
-                        </span>
-                      </div>
+        if (category === "Soups") return null;
 
-                      <div
-                        className="item-description"
+        if (categoryData && categoryData.items.length > 0) {
+          return (
+            <div
+              key={category}
+              style={{ backgroundColor: getSectionBackground(categoryIndex) }}
+            >
+              <h3
+                className="category-title"
+                style={{
+                  fontSize: `${styleForm.categoryFontSize}px`,
+                  color: styleForm.categoryColor,
+                  marginBottom: `${styleForm.categoryMarginBottom}px`,
+                }}
+              >
+                {category}
+                <input
+                  type="color"
+                  onChange={(event) =>
+                    handleCatetegoryBackgroundChange(
+                      event.target.value,
+                      categoryIndex
+                    )
+                  }
+                  style={{ marginBottom: "0", paddingBottom: "0" }}
+                />
+              </h3>
+              <div className="subtitle">{categoryData.subtitle}</div>
+              <ul className="row category-list">
+                {categoryData.items.map((item, itemIndex, arr) => (
+                  <li
+                    id={`li-${categoryIndex}`}
+                    key={itemIndex}
+                    className={
+                      (arr?.length % 2 !== 0 &&
+                        categoryIndex === arr?.length - 1 &&
+                        category !== "Sides") ||
+                      styleForm.menuWidth <= 110 // Slim width format
+                        ? "col-12 menu-item-odd"
+                        : "col-6 menu-item"
+                    }
+                  >
+                    <div className="menu-item-div">
+                      {/* <div className="div-div"> */}
+                      <span
                         style={{
-                          fontFamily: "Pewter Corroded, sans-serif",
-                          fontSize: `${styleForm.descriptionFontSize}px`,
-                          marginBottom: `${styleForm.descriptionMarginBottom}px`,
+                          fontSize: `${styleForm.itemFontSize}px`,
+                          paddingBottom: `${styleForm.itemMarginBottom}px`,
                           letterSpacing: "1px",
-                          color: styleForm.menuItemDescriptionColor,
+                          fontFamily: "Pewter Corroded, sans-serif",
+                          color: styleForm.menuItemColor,
+                          // marginBottom: "-20px",
+                          // verticalAlign: "bottom"
                         }}
                       >
-                        <span>{item.description}</span>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            );
-          }
-          return null;
-        })}
-        {styleForm.bottomImage && (
-          <div
-            style={{ width: `${styleForm.bottomImageSize}px`, margin: "auto" }}
-          >
-            <img
-              className="image-fluid"
-              alt=""
-              src={styleForm.bottomImage}
-              style={{ maxWidth: "100%", height: "auto" }}
-            />
-          </div>
-        )}
-        {styleForm.guyBottom && (
-          <div
-            style={{ width: `${styleForm.guyBottomSize}px`, margin: "auto" }}
-          >
-            <img
-              className="image-fluid"
-              alt=""
-              src={styleForm.guyBottom}
-              style={{ maxWidth: "100%", height: "auto" }}
-            />
-          </div>
-        )}
-        {styleForm.footer && (
-          <div
-            className="category-title"
-            style={{
-              fontSize: `${styleForm.footerSize}px`,
-              color: styleForm.footerTextColor,
-            }}
-          >
-            {styleForm.footer}
-          </div>
-        )}
-        {showDisclaimer && <Footer />}
-      </div>
+                        {item.label}
+                      </span>
+                      {/* </div> */}
+
+                      <span
+                        style={{
+                          fontSize: `${styleForm.priceSize}px`,
+                          color: styleForm.priceColor,
+                        }}
+                      >
+                        {item.price.value?.toFixed(2)}
+                      </span>
+                    </div>
+
+                    <div
+                      className="item-description"
+                      style={{
+                        fontFamily: "Pewter Corroded, sans-serif",
+                        fontSize: `${styleForm.descriptionFontSize}px`,
+                        marginBottom: `${styleForm.descriptionMarginBottom}px`,
+                        letterSpacing: "1px",
+                        color: styleForm.menuItemDescriptionColor,
+                      }}
+                    >
+                      <span
+                        style={{
+                          color: getDescriptionLetterColor(
+                            categoryIndex,
+                            itemIndex
+                          ),
+                        }}
+                      >
+                        {item.description}
+                      </span>
+                      <input
+                        type="color"
+                        onChange={(event) =>
+                          handleletterSectionChange(
+                            event.target.value,
+                            categoryIndex,
+                            itemIndex
+                          )
+                        }
+                        style={{ marginBottom: "0", paddingBottom: "0" }}
+                      />
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        }
+        return null;
+      })}
+      {styleForm.bottomImage && (
+        <div
+          style={{ width: `${styleForm.bottomImageSize}px`, margin: "auto" }}
+        >
+          <img
+            className="image-fluid"
+            alt=""
+            src={styleForm.bottomImage}
+            style={{ maxWidth: "100%", height: "auto" }}
+          />
+        </div>
+      )}
+      {styleForm.guyBottom && (
+        <div style={{ width: `${styleForm.guyBottomSize}px`, margin: "auto" }}>
+          <img
+            className="image-fluid"
+            alt=""
+            src={styleForm.guyBottom}
+            style={{ maxWidth: "100%", height: "auto" }}
+          />
+        </div>
+      )}
+      {styleForm.footer && (
+        <div
+          className="category-title"
+          style={{
+            fontSize: `${styleForm.footerSize}px`,
+            color: styleForm.footerTextColor,
+          }}
+        >
+          {styleForm.footer}
+        </div>
+      )}
+      {showDisclaimer && <Footer />}
+    </div>
   );
 }

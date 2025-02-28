@@ -63,6 +63,7 @@ export default function Categories({
     footerMarginBottom: 0,
     pageBackground: "",
     sectionBackground: [],
+    descriptionLetterColor: [],
     titleColor: "",
     categoryColor: "",
     priceColor: "",

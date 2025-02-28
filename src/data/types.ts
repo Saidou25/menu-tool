@@ -25,8 +25,14 @@ export type MenuCategory = {
 };
 
 export type SectionBackground = {
-  index: number;
+  categoryIndex: number;
   backgroundColor: string;
+}[];
+
+export type DescriptionLetterColor = {
+  categoryIndex: number;
+  index: number;
+  descriptionLetterColor: string;
 }[];
 
 export type StyleFormType = {
@@ -58,6 +64,7 @@ export type StyleFormType = {
   footerMarginBottom: number;
   pageBackground: string;
   sectionBackground: SectionBackground;
+  descriptionLetterColor: DescriptionLetterColor;
   titleColor: string;
   categoryColor: string;
   priceSize: number;
