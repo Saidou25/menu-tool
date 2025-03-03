@@ -1,0 +1,25 @@
+.sharables-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .sharables {
+    position: relative;
+    padding-top: 20px; /* Creates space for the title */
+    border-top: 2px solid black; /* Top border */
+    margin-top: 10%;
+    border: 1px solid white;
+  }
+  
+  .share-span {
+    position: absolute;
+    top: -22px; /* Adjusts the height above the border */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    padding: 10px !important; /* Adds spacing around text */
+    z-index: 2; /* Keeps it above other elements */
+    color: black;
+  }
+  

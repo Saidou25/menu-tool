@@ -114,7 +114,7 @@ export default function DropDown({
                   <button
                     className="dropdown-item"
                     onClick={() => {
-                      (item === "Dinner" || item === "Desserts") &&
+                      (item === "Dinner" || item === "Desserts" || "Custom") &&
                       selectDropDownItem
                         ? selectDropDownItem(item)
                         : handleMenuFormat(item);

@@ -11,6 +11,7 @@ import PreviewTools from "./PreviewTools";
 import "./Categories.css";
 
 type Props = {
+  custom: boolean;
   categoriesList: Array<{ title: string; subtitle?: string; items: Field[] }>;
   selectedData: Record<string, { subtitle?: string; items: Field[] }>; // Update here
   menuSampleDataFunc: (
@@ -22,6 +23,7 @@ type Props = {
 };
 
 export default function Categories({
+  custom,
   selectedData,
   menuSampleDataFunc,
   categoriesList,
@@ -169,6 +171,7 @@ export default function Categories({
   if (menuPreview) {
     return (
       <PreviewMenu
+      custom={custom}
         goBack={handleGoBack}
         onConfirm={handleConfirm}
         message="Confirm printing or continue editing"

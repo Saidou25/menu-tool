@@ -8,9 +8,11 @@ import DropDown from "./components/DropDown";
 // import Button from "./components/Button";
 
 import "./App.css";
+// import Sharables from "./components/Sharables";
 
 function App() {
   const [categoriesList, setCategoriesList] = useState<MenuCategory[]>([]);
+  const [custom, setCustom] = useState(false);
   const [showSelectMenu, setShowSelectMenu] = useState(true);
   const [menuSampleData, setMenuSampleData] = useState<
     Record<string, { subtitle?: string; items: Field[] }>
@@ -36,6 +38,22 @@ function App() {
       setCategoriesList([Desserts.dessertsList]);
       setShowSelectMenu(false);
     }
+    if (item === "Custom") {
+      // Set categoriesList to the lists from the Dinner folder
+      setCategoriesList([
+        Dinner.sandwichesList,
+        Dinner.soupsList,
+        Dinner.wingsList,
+        Dinner.saladsList,
+        Dinner.sharablesList,
+        Dinner.burgersList,
+        Dinner.bigEatsList,
+        Dinner.sidesList,
+        Desserts.dessertsList
+      ]);
+      setCustom(true);
+      setShowSelectMenu(false);
+    }
   };
 
   const funcSetMenuSampleData = (
@@ -46,7 +64,7 @@ function App() {
   ) => {
     setMenuSampleData(localSelectedCategoryItems);
   };
-
+// return (<Sharables />)
   if (showSelectMenu) {
     return (
       <div className="dropDown-div">
@@ -60,6 +78,7 @@ function App() {
         categoriesList={categoriesList}
         menuSampleDataFunc={funcSetMenuSampleData}
         selectedData={menuSampleData}
+        custom={custom}
       />
     </div>
   );

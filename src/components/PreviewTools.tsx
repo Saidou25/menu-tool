@@ -258,7 +258,7 @@ export default function PreviewTools({
               {displayLabel.label}: <input
                 type="checkbox"
                 checked={showColorInputs}
-                onClick={() => setShowColorInputs(!showColorInputs)}
+                onChange={() => setShowColorInputs(!showColorInputs)}
               /> Check if you want to hide color inputs
               </>
             ) : (

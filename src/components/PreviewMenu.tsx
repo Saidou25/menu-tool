@@ -3,10 +3,12 @@ import { Field, StyleFormType } from "../data/types";
 
 import FrontMenu from "./FrontMenu";
 import BackMenu from "./BackMenu"; // Import BackMenu component
+import CustomMenu from "./CustomMenu";
 
 import "./PreviewMenu.css";
 
 type ModalProps = {
+  custom: boolean;
   showColorInputs: boolean;
   showFinalStep: boolean;
   children: React.ReactNode[];
@@ -20,19 +22,19 @@ type ModalProps = {
 };
 
 const PreviewMenu = ({
+  custom,
   showColorInputs,
   showFinalStep,
   children,
   showDisclaimer,
   dataSample,
   styleForm,
-  setStyleForm
+  setStyleForm,
 }: // setStyleForm,
 ModalProps) => {
   const [organizedData, setOrganizedData] = useState<
     Record<string, { subtitle?: string; items: Field[] }>
   >({});
-
 
   const categoryOrder = Object.keys(dataSample).includes("Sharables")
     ? [
@@ -65,7 +67,7 @@ ModalProps) => {
   // Split the categories into two parts
   const firstCategories = categoryOrder.slice(0, 5);
   const extraCategories = categoryOrder.slice(5);
-
+console.log(categoryOrder)
   // Define secondPageData based on categories with data
   const secondPageData: Record<string, { subtitle?: string; items: Field[] }> =
     {};
@@ -89,43 +91,55 @@ ModalProps) => {
 `;
 
   return (
-    <div className="container-final-step no-print">
-       <style>{animation}</style> 
-      <div
-        className={`${showFinalStep ? "final-step-show" : "final-step-hidden"}`}
-        style={{ animation: "menuSizeAnimation 0.5s linear forwards" }} // Apply the animation
-      >
-        {children[0]} {/* Renders FinalStep*/}
-        {/* <br className="no-print" /> */}
-        {Object.keys(secondPageData).length > 0 && (
-          <h3 className="no-print">Menu front</h3>
-        )}
-        {/* <br className="no-print" /> */}
-        {/* Render the first set of categories: Front menu */}
-        <FrontMenu
-        // animation={animation}
-          categoryOrder={firstCategories}
-          styleForm={styleForm}
-          organizedData={organizedData}
-          showDisclaimer={showDisclaimer}
-          setStyleForm={setStyleForm}
-          showColorInputs={showColorInputs}
-        />
-        {/* Render BackMenu only if there are additional categories */}
-        {Object.keys(secondPageData).length > 0 && (
-          <BackMenu
-            styleForm={styleForm}
-            categoryOrder={extraCategories}
-            secondPageData={secondPageData}
-            showDisclaimer={showDisclaimer}
-          />
-        )}
+    <>
+      <div className="container-final-step no-print">
+        <style>{animation}</style>
+        <div
+          className={`${
+            showFinalStep ? "final-step-show" : "final-step-hidden"
+          }`}
+          style={{ animation: "menuSizeAnimation 0.5s linear forwards" }} // Apply the animation
+        >
+          {children[0]} {/* Renders FinalStep*/}
+          {/* <br className="no-print" /> */}
+          {Object.keys(secondPageData).length > 0 && !custom && (
+            <h3 className="no-print">Menu front</h3>
+          )}
+          {/* <br className="no-print" /> */}
+          {custom ? (
+            <>
+              <CustomMenu categoryOrder={categoryOrder} organizedData={organizedData} />
+            </>
+          ) : (
+            <>
+              {/* Render the first set of categories: Front menu */}
+              <FrontMenu
+                // animation={animation}
+                categoryOrder={firstCategories}
+                styleForm={styleForm}
+                organizedData={organizedData}
+                showDisclaimer={showDisclaimer}
+                setStyleForm={setStyleForm}
+                showColorInputs={showColorInputs}
+              />
+              {/* Render BackMenu only if there are additional categories */}
+              {Object.keys(secondPageData).length > 0 && (
+                <BackMenu
+                  styleForm={styleForm}
+                  categoryOrder={extraCategories}
+                  secondPageData={secondPageData}
+                  showDisclaimer={showDisclaimer}
+                />
+              )}
+            </>
+          )}
+        </div>
+        <div className="tool-section no-print">
+          {children[1]} {/* Renders dropdown*/}
+          {children[2]} {/* Renders preview tools*/}
+        </div>
       </div>
-      <div className="tool-section no-print">
-        {children[1]} {/* Renders dropdown*/}
-        {children[2]} {/* Renders preview tools*/}
-      </div>
-    </div>
+    </>
   );
 };
 
