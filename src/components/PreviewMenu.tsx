@@ -67,7 +67,7 @@ ModalProps) => {
   // Split the categories into two parts
   const firstCategories = categoryOrder.slice(0, 5);
   const extraCategories = categoryOrder.slice(5);
-console.log(categoryOrder)
+
   // Define secondPageData based on categories with data
   const secondPageData: Record<string, { subtitle?: string; items: Field[] }> =
     {};
@@ -108,7 +108,11 @@ console.log(categoryOrder)
           {/* <br className="no-print" /> */}
           {custom ? (
             <>
-              <CustomMenu categoryOrder={categoryOrder} organizedData={organizedData} />
+              <CustomMenu categoryOrder={categoryOrder} organizedData={organizedData} 
+              styleForm={styleForm}
+              setStyleForm={setStyleForm}
+              showColorInputs={showColorInputs}
+              />
             </>
           ) : (
             <>

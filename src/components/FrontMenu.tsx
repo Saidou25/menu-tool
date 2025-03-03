@@ -1,4 +1,8 @@
 import { Field, StyleFormType } from "../data/types";
+import { useCategoryBackgroundColor } from "../hooks/useCategoryBackgrounColor";
+import { useDescriptionLettersColor } from "../hooks/useDescriptionLettersColor";
+import { useGetDescriptionLetterColor } from "../hooks/useGetDescriptionLettersColor";
+import { useGetSectionBackground } from "../hooks/useGetSectionBackground";
 import Footer from "./Footer";
 // import './fonts.css';
 
@@ -6,116 +10,27 @@ type FrontMenuProps = {
   // animation: string;
   showColorInputs: boolean;
   styleForm: StyleFormType;
+  setStyleForm: React.Dispatch<React.SetStateAction<StyleFormType>>;
   showDisclaimer: boolean;
   categoryOrder: string[];
   organizedData: Record<string, { subtitle?: string; items: Field[] }>;
-  setStyleForm: React.Dispatch<React.SetStateAction<StyleFormType>>;
 };
 
 export default function FrontMenu({
   // animation,
   showColorInputs,
   styleForm,
+  setStyleForm,
   showDisclaimer,
   categoryOrder,
   organizedData,
-  setStyleForm,
 }: FrontMenuProps) {
-  const handleCatetegoryBackgroundChange = (
-    color: string,
-    categoryIndex: number
-  ) => {
-    setStyleForm((prevState) => {
-      const newSectionBackground = [...prevState.sectionBackground];
-      const existingIndex = newSectionBackground.findIndex(
-        (bg) => bg.categoryIndex === categoryIndex
-      );
-
-      if (existingIndex !== -1) {
-        // Update the existing entry
-        newSectionBackground[existingIndex] = {
-          categoryIndex,
-          backgroundColor: color,
-        };
-      } else {
-        // Add a new entry
-        newSectionBackground.push({
-          categoryIndex,
-          backgroundColor: color,
-        });
-      }
-
-      return {
-        ...prevState,
-        sectionBackground: newSectionBackground,
-      };
-    });
-  };
-
-  const handleletterSectionChange = (
-    color: string,
-    categoryIndex: number,
-    index: number
-  ) => {
-    setStyleForm((prevState) => {
-      const newdescriptionLetterColor = [...prevState.descriptionLetterColor];
-
-      // Find the existing entry
-      const existingIndex = newdescriptionLetterColor.findIndex(
-        (entry) =>
-          entry.categoryIndex === categoryIndex && entry.index === index
-      );
-
-      if (existingIndex !== -1) {
-        // Update existing entry
-        newdescriptionLetterColor[existingIndex] = {
-          categoryIndex,
-          index,
-          descriptionLetterColor: color,
-        };
-      } else {
-        // Add new entry
-        newdescriptionLetterColor.push({
-          categoryIndex,
-          index,
-          descriptionLetterColor: color,
-        });
-      }
-
-      return {
-        ...prevState,
-        descriptionLetterColor: newdescriptionLetterColor,
-      };
-    });
-  };
-
-  const getSectionBackground = (index: number) => {
-    // Check if sectionBackground is defined and is an array
-    if (!Array.isArray(styleForm.sectionBackground)) {
-      return ""; // Return an empty string if it's not an array
-    }
-
-    if (styleForm.sectionBackground.length === 0) {
-      return ""; // Return an empty string if the array is empty
-    }
-
-    const section = styleForm.sectionBackground.find(
-      (bg) => bg.categoryIndex === index
-    );
-
-    return section ? section.backgroundColor : ""; // Return the color or an empty string if not found
-  };
-  const getDescriptionLetterColor = (categoryIndex: number, index: number) => {
-    if (!Array.isArray(styleForm.descriptionLetterColor)) {
-      return "";
-    }
-
-    const descriptionSection = styleForm.descriptionLetterColor.find(
-      (entry) => entry.categoryIndex === categoryIndex && entry.index === index
-    );
-
-    return descriptionSection ? descriptionSection.descriptionLetterColor : "";
-  };
+  
+  const handleCategoryBackgroundColor = useCategoryBackgroundColor(setStyleForm)
+  const handleDescriptionLettersColor = useDescriptionLettersColor(setStyleForm);
+  const getSectionBackground = useGetSectionBackground(styleForm);
+  const getDescriptionLetterColor = useGetDescriptionLetterColor(styleForm);
+ 
 
   return (
     <div
@@ -195,7 +110,7 @@ export default function FrontMenu({
                           className="no-print"
                           type="color"
                           onChange={(event) =>
-                            handleCatetegoryBackgroundChange(
+                            handleCategoryBackgroundColor(
                               event.target.value,
                               realCategoryIndex
                             )
@@ -225,7 +140,7 @@ export default function FrontMenu({
                                 type="color"
                                 className="no-print"
                                 onChange={(event) =>
-                                  handleletterSectionChange(
+                                  handleDescriptionLettersColor(
                                     event.target.value,
                                     realCategoryIndex,
                                     idx
@@ -266,7 +181,7 @@ export default function FrontMenu({
                     type="color"
                     className="no-print"
                     onChange={(event) =>
-                      handleCatetegoryBackgroundChange(
+                      handleCategoryBackgroundColor(
                         event.target.value,
                         categoryIndex
                       )
@@ -342,7 +257,7 @@ export default function FrontMenu({
                           className="no-print"
                           type="color"
                           onChange={(event) =>
-                            handleletterSectionChange(
+                            handleDescriptionLettersColor(
                               event.target.value,
                               categoryIndex,
                               itemIndex
