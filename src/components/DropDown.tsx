@@ -44,7 +44,7 @@ export default function DropDown({
       const formatSizes: Record<string, { width: number; height: number }> = {
         Letter: { width: 216, height: 279 },
         A4: { width: 210, height: 297 },
-        Legal: { width: 210, height: 350 },
+        Legal: { width: 216, height: 356 },
         Custom: { width: 110, height: 356 },
         // Add more formats here in the future
       };

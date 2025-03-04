@@ -116,6 +116,7 @@ ModalProps) => {
               setStyleForm={setStyleForm}
               showColorInputs={showColorInputs}
               showJoinInputs={showJoinInputs}
+              showDisclaimer={showDisclaimer}
               />
             </>
           ) : (

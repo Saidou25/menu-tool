@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Field, StyleFormType } from "../data/types";
 import { useCategoryBackgroundColor } from "../hooks/useCategoryBackgrounColor";
 import { useDescriptionLettersColor } from "../hooks/useDescriptionLettersColor";
 import { useGetSectionBackground } from "../hooks/useGetSectionBackground";
 import { useGetDescriptionLetterColor } from "../hooks/useGetDescriptionLettersColor";
-import { join } from "path";
+import Footer from "./Footer";
 // import "./CustomMenu.css";
 
 type Props = {
@@ -14,6 +14,7 @@ type Props = {
   showJoinInputs: boolean;
   styleForm: StyleFormType;
   setStyleForm: React.Dispatch<React.SetStateAction<StyleFormType>>;
+  showDisclaimer: boolean;
 };
 
 export default function CustomMenu({
@@ -23,6 +24,7 @@ export default function CustomMenu({
   showJoinInputs,
   styleForm,
   setStyleForm,
+  showDisclaimer,
 }: Props) {
   const [joinedCategories, setJoinedCategories] = useState<
     Record<string, boolean>
@@ -43,11 +45,54 @@ export default function CustomMenu({
         width: `${+styleForm.menuWidth}mm`,
         height: `${+styleForm.menuHeight}mm`,
         maxHeight: `${+styleForm.menuHeight}mm`,
-        animation: "menuSizeAnimation 0.5s linear forwards",
+        // animation: "menuSizeAnimation 0.5s linear forwards",
         overflow: "hidden",
         backgroundColor: styleForm.pageBackground,
       }}
     >
+      {styleForm.guyTop && (
+        <div style={{ width: `${styleForm.guyTopSize}px`, margin: "auto" }}>
+          <img
+            className="image-fluid"
+            alt=""
+            src={styleForm.guyTop}
+            style={{ maxWidth: "100%", height: "auto" }}
+          />
+          <button
+            type="button"
+            onClick={() => setStyleForm({ ...styleForm, guyTop: "" })}
+          >
+            delete
+          </button>
+        </div>
+      )}
+      {styleForm.title && (
+        <div
+          className="category-title"
+          style={{
+            fontSize: `${styleForm.titleSize}px`,
+            color: styleForm.titleColor,
+          }}
+        >
+          {styleForm.title}
+        </div>
+      )}
+      {styleForm.topImage && (
+        <div style={{ width: `${styleForm.topImageSize}px`, margin: "auto" }}>
+          <img
+            className="image-fluid"
+            alt=""
+            src={styleForm.topImage}
+            style={{ maxWidth: "100%", height: "auto" }}
+          />
+          <button
+            type="button"
+            onClick={() => setStyleForm({ ...styleForm, topImage: "" })}
+          >
+            delete
+          </button>
+        </div>
+      )}
       {categoryOrder.map((category, categoryIndex) => {
         const categoryData = organizedData[category]; // Get data based on order
 
@@ -105,7 +150,7 @@ export default function CustomMenu({
 
             <div className="subtitle">{categoryData.subtitle}</div>
             <ul
-              className="row category-list print"
+              className="row"
               style={
                 joinedCategories[category]
                   ? { display: "flex", flexDirection: "column" }
@@ -117,22 +162,26 @@ export default function CustomMenu({
                   id={`li-${categoryIndex}`}
                   key={itemIndex}
                   className={
-                    (arr.length % 2 !== 0 && // Odd number of items
-                      itemIndex === arr.length - 1 && // Last item in the list
-                      category !== "Sides" && // Not "Sides"
-                      !Object.keys(joinedCategories).some(
-                        (joinedCategory) => joinedCategory === category
-                      )) || // Category not in joinedCategories
-                    styleForm.menuWidth <= 110
+                    joinedCategories[category] // If category is joined, make items col-12
+                      ? "col-12 menu-item"
+                      : (arr.length % 2 !== 0 && // Odd number of items
+                          itemIndex === arr.length - 1 && // Last item
+                          category !== "Sides" && // Not "Sides"
+                          !Object.keys(joinedCategories).some(
+                            (joinedCategory) => joinedCategory === category
+                          )) ||
+                        styleForm.menuWidth <= 110
                       ? "col-12 menu-item-odd"
                       : "col-6 menu-item"
                   }
                 >
-                  <div className="menu-item-div">
+                  <div
+                    className="menu-item-div"
+                    style={{ marginBottom: `${styleForm.itemMarginBottom}px` }}
+                  >
                     <span
                       style={{
                         fontSize: `${styleForm.itemFontSize}px`,
-                        paddingBottom: `${styleForm.itemMarginBottom}px`,
                         letterSpacing: "1px",
                         fontFamily: "Pewter Corroded, sans-serif",
                         color: styleForm.menuItemColor,
@@ -193,6 +242,52 @@ export default function CustomMenu({
           </div>
         );
       })}
+      {styleForm.bottomImage && (
+        <div
+          style={{ width: `${styleForm.bottomImageSize}px`, margin: "auto" }}
+        >
+          <img
+            className="image-fluid"
+            alt=""
+            src={styleForm.bottomImage}
+            style={{ maxWidth: "100%", height: "auto" }}
+          />
+          <button
+            type="button"
+            onClick={() => setStyleForm({ ...styleForm, bottomImage: "" })}
+          >
+            delete
+          </button>
+        </div>
+      )}
+      {styleForm.guyBottom && (
+        <div style={{ width: `${styleForm.guyBottomSize}px`, margin: "auto" }}>
+          <img
+            className="image-fluid"
+            alt=""
+            src={styleForm.guyBottom}
+            style={{ maxWidth: "100%", height: "auto" }}
+          />
+          <button
+            type="button"
+            onClick={() => setStyleForm({ ...styleForm, guyBottom: "" })}
+          >
+            delete
+          </button>
+        </div>
+      )}
+      {styleForm.footer && (
+        <div
+          className="category-title"
+          style={{
+            fontSize: `${styleForm.footerSize}px`,
+            color: styleForm.footerTextColor,
+          }}
+        >
+          {styleForm.footer}
+        </div>
+      )}
+      {showDisclaimer && <Footer />}
     </div>
   );
 }

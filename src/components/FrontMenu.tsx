@@ -40,7 +40,7 @@ export default function FrontMenu({
         width: `${+styleForm.menuWidth}mm`,
         height: `${+styleForm.menuHeight}mm`,
         minHeight: `${+styleForm.menuHeight}mm`,
-        animation: "menuSizeAnimation 0.5s linear forwards",
+        // animation: "menuSizeAnimation 0.5s linear forwards",
         overflow: "hidden",
         backgroundColor: styleForm.pageBackground,
       }}

@@ -79,8 +79,8 @@ const displayLabels = [
     subLabels: [
       "title",
       "category block",
-      "menu item description block",
       "menu item and price block",
+      "menu item description block",
       "footer",
     ],
   },

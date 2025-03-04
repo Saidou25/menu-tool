@@ -11,6 +11,11 @@
   --bs-gutter-x: 0;
   --bs-gutter-y: 0;
 }
+.item-description {
+  flex: 1 1 100%;
+  width: 100% !important;
+  display: block;
+}
 
 .container-final-step {
   display: flex;
