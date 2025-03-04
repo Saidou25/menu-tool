@@ -77,8 +77,10 @@ export default function Categories({
     textTopColor: "",
     textBottomColor: "",
     footerTextColor: "",
+    subtitleFontSize: 15,
+    subtitleFontColor: ""
   });
-console.log(styleForm.itemMarginBottom)
+
   const handleDisclaimer = () => {
     setShowDisclaimer((prev) => !prev);
   };

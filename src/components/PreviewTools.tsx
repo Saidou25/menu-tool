@@ -22,7 +22,7 @@ const displayLabels = [
     subLabels: ["text top"],
   },
   {
-    label: "Add Guy' s logo at the top",
+    label: "Add Guy's logo at the top",
     subLabels: ["top logo"],
   },
   {
@@ -34,7 +34,7 @@ const displayLabels = [
     subLabels: ["bottom image"],
   },
   {
-    label: "Add Guy' s logo at the bottom",
+    label: "Add Guy's logo at the bottom",
     subLabels: ["bottom logo"],
   },
   {
@@ -47,18 +47,19 @@ const displayLabels = [
     subLabels: [],
   },
   {
-    label: "Font size",
+    label: "Fonts sizes",
     subLabels: [
       "title text",
-      "category",
-      "menu item",
-      "price",
-      "menu item description",
+      "categories",
+      "subtitles",
+      "menu items",
+      "prices",
+      "menu items' description",
       "footer text",
     ],
   },
   {
-    label: "Image size",
+    label: "Images sizes",
     subLabels: [
       "top logo size",
       "top image size",
@@ -67,20 +68,20 @@ const displayLabels = [
     ],
   },
   {
-    label: "Adjust menu layout:",
+    label: "Menu layout",
     subLabels: [],
   },
   {
-    label: "Page padding",
+    label: "Menu padding",
     subLabels: ["padding top and bottom", "padding left and right"],
   },
   {
     label: "Margin bottom",
     subLabels: [
       "title",
-      "category block",
-      "menu item and price block",
-      "menu item description block",
+      "category blocks",
+      "menu item and price blocks",
+      "menu item's description blocks",
       "footer",
     ],
   },
@@ -97,16 +98,17 @@ const displayLabels = [
     subLabels: ["page background"],
   },
   {
-    label: "text color",
+    label: "Texts colors",
     subLabels: [
-      "title color",
-      "text top color",
-      "category color",
-      "price color",
-      "menu item color",
-      "menu item description color",
-      "text bottom color",
-      "footer text color",
+      "title's color",
+      "top text's color",
+      "categories' color",
+      "subtitles' color",
+      "menu items' color",
+      "prices' color",
+      "menu items' description color",
+      "bottom text's color",
+      "footer text's color",
     ],
   },
 ];
@@ -129,12 +131,12 @@ export default function PreviewTools({
   const keyMap: { [key: string]: keyof StyleFormType } = {
     "padding top and bottom": "pagePaddingTopAndBottom",
     "padding left and right": "pagePaddingLeftAndRight",
-    category: "categoryFontSize",
-    "menu item": "itemFontSize",
-    "menu item description": "descriptionFontSize",
-    "category block": "categoryMarginBottom",
-    "menu item and price block": "itemMarginBottom",
-    "menu item description block": "descriptionMarginBottom",
+    "categories": "categoryFontSize",
+    "menu items": "itemFontSize",
+    "menu items' description": "descriptionFontSize",
+    "category blocks": "categoryMarginBottom",
+    "menu item and price blocks": "itemMarginBottom",
+    "menu items' description blocks": "descriptionMarginBottom",
     "top image size": "topImageSize",
     "bottom image size": "bottomImageSize",
     "top image": "topImage",
@@ -151,15 +153,17 @@ export default function PreviewTools({
     footer: "footerMarginBottom",
     "page background": "pageBackground",
     // "section background": "sectionBackground",
-    "title color": "titleColor",
-    "category color": "categoryColor",
-    price: "priceSize",
-    "menu item color": "menuItemColor",
-    "price color": "priceColor",
-    "menu item description color": "menuItemDescriptionColor",
-    "text top color": "textTopColor",
-    "text bottom color": "textBottomColor",
-    "footer text color": "footerTextColor",
+    "title's color": "titleColor",
+    "categories' color": "categoryColor",
+    prices: "priceSize",
+    "menu items' color": "menuItemColor",
+    "prices' color": "priceColor",
+    "subtitles' color": "subtitleFontColor",
+    "subtitles": "subtitleFontSize",
+    "menu items' description color": "menuItemDescriptionColor",
+    "top text's color": "textTopColor",
+    "bottom text's color": "textBottomColor",
+    "footer text's color": "footerTextColor",
   };
 
   const getInputType = (item: string): "file" | "text" | "number" | "color" => {
@@ -169,14 +173,15 @@ export default function PreviewTools({
       [
         "page background",
         // "section background",
-        "title color",
-        "category color",
-        "price color",
-        "menu item color",
-        "menu item description color",
-        "text top color",
-        "text bottom color",
-        "footer text color",
+        "title's color",
+        "categories' color",
+        "prices' color",
+        "menu items' color",
+        "menu items' description color",
+        "subtitles' color",
+        "top text's color",
+        "bottom text's color",
+        "footer text's color",
       ].includes(item)
     ) {
       return "color";
@@ -193,14 +198,15 @@ export default function PreviewTools({
       [
         "page background",
         // "section background",
-        "title color",
-        "category color",
-        "price color",
-        "menu item color",
-        "menu item description color",
-        "text top color",
-        "text bottom color",
-        "footer text color",
+        "title's color",
+        "categories' color",
+        "prices' color",
+        "subtitles' color",
+        "menu items' color",
+        "menu items' description color",
+        "top text's color",
+        "bottom text's color",
+        "footer text's color",
       ].includes(item)
     ) {
       return "color";
@@ -262,30 +268,29 @@ export default function PreviewTools({
           <div key={displayLabel.label} className="label-container">
             {displayLabel.label === "Join categories" ? (
               <span className="li">
-               <b>{displayLabel.label}: </b>
+                <b>{displayLabel.label}: </b>
+                <br />
                 <input
                   type="checkbox"
                   onChange={() => setShowJoinInputs(!showJoinInputs)}
                   checked={showJoinInputs}
                 />
-                Check if you want to hide join section checkboxs
+                Check if you want to show join section checkboxes
               </span>
             ) : (
               <b>{displayLabel.label}: </b>
             )}
 
-            {displayLabel.label === "Colors" ? (
+            {displayLabel.label === "Colors" && (
               <>
-                {displayLabel.label}:{" "}
+                {/* {displayLabel.label}:{console.log(displayLabel.label)}<br /> */}
                 <input
                   type="checkbox"
                   checked={showColorInputs}
                   onChange={() => setShowColorInputs(!showColorInputs)}
                 />{" "}
-                Check if you want to hide color inputs
+                Check if you want to show color inputs
               </>
-            ) : (
-              <b>{displayLabel.label}: </b>
             )}
             {displayLabel.subLabels.map((item, index) => (
               <ul className="line" key={item}>
@@ -312,7 +317,7 @@ export default function PreviewTools({
 
                 {/* Handle File Upload Inputs */}
                 {getInputType(item) === "file" ? (
-                  <>
+                  <div>
                     <label
                       htmlFor={`file-upload-${item}-${index}`}
                       className="custom-file-upload"
@@ -343,10 +348,9 @@ export default function PreviewTools({
                       accept="image/*"
                       onChange={handleChange}
                     />
-                  </>
+                  </div>
                 ) : getInputType(item) === "color" ? (
                   // Render color picker input correctly
-
                   <input
                     type="color"
                     value={

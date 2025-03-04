@@ -71,7 +71,13 @@ export default function DropDown({
   }, [message]);
 
   return (
-    <div className="no-print">
+    <div
+      className={
+        message === "menus"
+          ? "container-dropdown-menus no-print"
+          : "container-dropdown no-print"
+      }
+    >
       {showModal ? (
         <MenuSizeModal
           setShowModal={setShowModal}
@@ -81,19 +87,20 @@ export default function DropDown({
           setShowfinalStep={setShowfinalStep}
         />
       ) : (
-        <div className="container-dropdown no-print" style={{ width: `${width}%` }}>
+        <div className="no-print" style={{ width: `${width}%` }}>
           {message === "menus" && (
-            <h4 className="message">
-              Select the menu you would like to work with
-            </h4>
+            <div className="menus">
+              <h2 className="confirm-title no-print">Please select a menu</h2>
+              <br />
+            </div>
           )}
           {message === "formats" && (
-            <>
+            <div className="select-menu-div">
               <h2 className="confirm-title no-print">Format</h2>
               <br className="no-print" />
               <p className="confirm-text no-print">Select your menu's format</p>
               <br className="no-print" />
-            </>
+            </div>
           )}
           <div className="btn-group">
             <button type="button" className="btn btn-danger">

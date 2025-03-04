@@ -6,10 +6,26 @@
     text-align: center;
     height: 200;
     margin-bottom: 40px;
-   
-    /* margin: 10px 0; */
+    justify-content: center;
   }
-  
+.container-dropdown-menus {
+    display: flex;
+    justify-content: center;
+    /* height: 200; */
+    /* margin-bottom: 40px; */
+    /* justify-content: center; */
+    background-color: rgb(43, 96, 103);
+    width: 100%;
+    padding: 5%;
+    margin: auto;
+  }
+  .menus {
+    width: 100% !important;
+  }
+  .select-menu-div {
+    background-color: black;
+    /* width: 100%; */
+  }
   /* Styling the button group */
   .btn-group {
     width: 100%;

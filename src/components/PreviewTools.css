@@ -1,16 +1,10 @@
 .preview-tools-container {
-  /* background-color: black; */
   padding: 2% 2% 0 2%;
-  /* border: 1px solid white; */
   height: 75vh;
   overflow: scroll;
-  /* position: sticky; */
-  /* top: 0;  */
-  /* z-index: 1000;  */
+  position: sticky;
+  top: 4%;
 }
-/* .label-container {
-  border: 1px solid white;
-} */
  .selected-image {
   width: 10px;
   height: 10px;
@@ -21,7 +15,6 @@
   align-items: center;
   margin: 0;
   padding: 0;
-  /* border: 1px solid white; */
 }
 .li {
   list-style-type: none;
@@ -31,16 +24,12 @@
   align-items: center;
   gap: 10px;
   cursor: pointer;
-  /* flex-direction: row-reverse; */
 }
 .file-button {
-  /* width: 45%; */
   background-color: white;
-  /* background-color: #007bff; */
   border: none;
   padding: 2px;
   cursor: pointer;
-  /* border-radius: 5px; */
   transition: background-color 0.3s ease;
 }
 .input-style {

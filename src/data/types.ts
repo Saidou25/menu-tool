@@ -49,6 +49,8 @@ export type StyleFormType = {
   itemFontSize: number;
   itemMarginBottom: number;
   descriptionFontSize: number;
+  subtitleFontSize: number;
+  subtitleFontColor: string;
   descriptionMarginBottom: number;
   guyTop: string;
   guyBottom: string;

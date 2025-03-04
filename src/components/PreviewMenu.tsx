@@ -80,28 +80,28 @@ ModalProps) => {
     }
   });
 
-  const animation = `
-  @keyframes menuSizeAnimation {
-    from {
-      width: 0; 
-      height: 0;
-    }
-    to { 
-      width: ${styleForm.menuWidth}mm; 
-      height: 100%; 
-    }
-  }
-`;
+//   const animation = `
+//   @keyframes menuSizeAnimation {
+//     from {
+//       width: 0; 
+//       height: 0;
+//     }
+//     to { 
+//       width: ${styleForm.menuWidth}mm; 
+//       height: 100%; 
+//     }
+//   }
+// `;
 
   return (
     <>
       <div className="container-final-step no-print">
-        <style>{animation}</style>
+        {/* <style>{animation}</style> */}
         <div
           className={`${
             showFinalStep ? "final-step-show" : "final-step-hidden"
           }`}
-          style={{ animation: "menuSizeAnimation 0.5s linear forwards" }} // Apply the animation
+          // style={{ animation: "menuSizeAnimation 0.5s linear forwards" }} 
         >
           {children[0]} {/* Renders FinalStep*/}
           {/* <br className="no-print" /> */}

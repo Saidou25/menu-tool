@@ -43,7 +43,7 @@ export default function CustomMenu({
       style={{
         padding: `${styleForm.pagePaddingTopAndBottom}px ${styleForm.pagePaddingLeftAndRight}px`,
         width: `${+styleForm.menuWidth}mm`,
-        height: `${+styleForm.menuHeight}mm`,
+        // height: `${+styleForm.menuHeight}mm`,
         maxHeight: `${+styleForm.menuHeight}mm`,
         // animation: "menuSizeAnimation 0.5s linear forwards",
         overflow: "hidden",
@@ -148,7 +148,20 @@ export default function CustomMenu({
               )}
             </div>
 
-            <div className="subtitle">{categoryData.subtitle}</div>
+            <div
+              className="subtitle"
+              // style={{
+              //   color: styleForm.subtitleFontColor,
+              //   fontSize: styleForm.subtitleFontSize,
+              // }}
+            ><span  style={{
+              color: styleForm.subtitleFontColor,
+              fontSize: `${styleForm.subtitleFontSize}px`,
+            }}>
+
+              {categoryData.subtitle}
+            </span>
+            </div>
             <ul
               className="row"
               style={
@@ -238,10 +251,10 @@ export default function CustomMenu({
                 </li>
               ))}
             </ul>
-            {/* </div> */}
           </div>
         );
       })}
+      {showDisclaimer && <Footer />}
       {styleForm.bottomImage && (
         <div
           style={{ width: `${styleForm.bottomImageSize}px`, margin: "auto" }}
@@ -287,7 +300,7 @@ export default function CustomMenu({
           {styleForm.footer}
         </div>
       )}
-      {showDisclaimer && <Footer />}
+      {/* {showDisclaimer && <Footer />} */}
     </div>
   );
 }
