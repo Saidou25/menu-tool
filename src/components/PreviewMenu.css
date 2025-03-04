@@ -7,9 +7,6 @@
 .number {
   font-family: Arial, sans-serif;
 }
-.number-fallback {
-  font-family: Arial, sans-serif; /* Use a default font for numbers */
-}
 .row {
   --bs-gutter-x: 0;
   --bs-gutter-y: 0;
@@ -74,8 +71,6 @@ h3 {
 }
 .split-container {
   display: flex;
-  /* padding-right: 7%; */
-  /* padding-left: 7%; */
 }
 .split-div {
   width: 50%;

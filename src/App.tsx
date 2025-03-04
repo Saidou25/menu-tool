@@ -8,6 +8,7 @@ import DropDown from "./components/DropDown";
 // import Button from "./components/Button";
 
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 // import Sharables from "./components/Sharables";
 
 function App() {

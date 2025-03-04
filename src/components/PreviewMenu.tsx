@@ -9,6 +9,8 @@ import "./PreviewMenu.css";
 
 type ModalProps = {
   custom: boolean;
+  showJoinInputs: boolean;
+  setShowJoinInputs: (item: boolean) => void;
   showColorInputs: boolean;
   showFinalStep: boolean;
   children: React.ReactNode[];
@@ -23,6 +25,7 @@ type ModalProps = {
 
 const PreviewMenu = ({
   custom,
+  showJoinInputs,
   showColorInputs,
   showFinalStep,
   children,
@@ -112,6 +115,7 @@ ModalProps) => {
               styleForm={styleForm}
               setStyleForm={setStyleForm}
               showColorInputs={showColorInputs}
+              showJoinInputs={showJoinInputs}
               />
             </>
           ) : (

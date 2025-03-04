@@ -6,6 +6,8 @@ import "./PreviewTools.css";
 type PreviewToolsProps = {
   showColorInputs: boolean;
   setShowColorInputs: (item: boolean) => void;
+  showJoinInputs: boolean;
+  setShowJoinInputs: (item: boolean) => void;
   styleForm: StyleFormType;
   setStyleForm: React.Dispatch<React.SetStateAction<StyleFormType>>;
 };
@@ -49,8 +51,8 @@ const displayLabels = [
     subLabels: [
       "title text",
       "category",
-      "price",
       "menu item",
+      "price",
       "menu item description",
       "footer text",
     ],
@@ -77,10 +79,14 @@ const displayLabels = [
     subLabels: [
       "title",
       "category block",
-      "menu item and price block",
       "menu item description block",
+      "menu item and price block",
       "footer",
     ],
+  },
+  {
+    label: "Join categories",
+    subLabels: [],
   },
   {
     label: "Colors",
@@ -110,6 +116,8 @@ export default function PreviewTools({
   setStyleForm,
   showColorInputs,
   setShowColorInputs,
+  showJoinInputs,
+  setShowJoinInputs,
 }: PreviewToolsProps) {
   const [localStyleForm, setLocalStyleForm] =
     useState<StyleFormType>(styleForm);
@@ -146,8 +154,8 @@ export default function PreviewTools({
     "title color": "titleColor",
     "category color": "categoryColor",
     price: "priceSize",
-    "price color": "priceColor",
     "menu item color": "menuItemColor",
+    "price color": "priceColor",
     "menu item description color": "menuItemDescriptionColor",
     "text top color": "textTopColor",
     "text bottom color": "textBottomColor",
@@ -252,14 +260,29 @@ export default function PreviewTools({
       <div className="lulu">
         {displayLabels.map((displayLabel) => (
           <div key={displayLabel.label} className="label-container">
+            {displayLabel.label === "Join categories" ? (
+              <span className="li">
+               <b>{displayLabel.label}: </b>
+                <input
+                  type="checkbox"
+                  onChange={() => setShowJoinInputs(!showJoinInputs)}
+                  checked={showJoinInputs}
+                />
+                Check if you want to hide join section checkboxs
+              </span>
+            ) : (
+              <b>{displayLabel.label}: </b>
+            )}
+
             {displayLabel.label === "Colors" ? (
               <>
-             
-              {displayLabel.label}: <input
-                type="checkbox"
-                checked={showColorInputs}
-                onChange={() => setShowColorInputs(!showColorInputs)}
-              /> Check if you want to hide color inputs
+                {displayLabel.label}:{" "}
+                <input
+                  type="checkbox"
+                  checked={showColorInputs}
+                  onChange={() => setShowColorInputs(!showColorInputs)}
+                />{" "}
+                Check if you want to hide color inputs
               </>
             ) : (
               <b>{displayLabel.label}: </b>

@@ -28,6 +28,7 @@ export default function Categories({
   menuSampleDataFunc,
   categoriesList,
 }: Props) {
+  const [showJoinInputs, setShowJoinInputs] = useState(false);
   const [showColorInputs, setShowColorInputs] = useState(false);
   const [showFinalStep, setShowfinalStep] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -181,6 +182,8 @@ export default function Categories({
         setStyleForm={setStyleForm}
         showFinalStep={showFinalStep}
         showColorInputs={showColorInputs}
+        setShowJoinInputs={setShowJoinInputs}
+        showJoinInputs={showJoinInputs}
       >
         <FinalStep
           goBack={handleGoBack}
@@ -200,7 +203,9 @@ export default function Categories({
           setStyleForm={setStyleForm}
           styleForm={styleForm}
           setShowColorInputs={setShowColorInputs}
+          setShowJoinInputs={setShowJoinInputs}
           showColorInputs={showColorInputs}
+          showJoinInputs={showJoinInputs}
         />
       </PreviewMenu>
     );
