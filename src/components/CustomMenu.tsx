@@ -4,10 +4,8 @@ import { useDescriptionLettersColor } from "../hooks/useDescriptionLettersColor"
 import { useGetSectionBackground } from "../hooks/useGetSectionBackground";
 import { useGetDescriptionLetterColor } from "../hooks/useGetDescriptionLettersColor";
 import Footer from "./Footer";
-// import { useDecoration } from "../hooks/useDecoration";
-// import { useDecoration } from "../hooks/useDecoration";
-// import "./CustomMenu.css";
 import "./Sharables.css";
+import { useEffect } from "react";
 
 type Props = {
   categoryOrder: string[];
@@ -37,24 +35,41 @@ export default function CustomMenu({
   showDecorations,
   setShowDecorations,
   showDecorationCheckboxes,
-  // setShowDecorationCheckboxes,
   styleForm,
   setStyleForm,
   joinedCategories,
   setJoinedCategories,
   showDisclaimer,
 }: Props) {
-  // const [joinedCategories, setJoinedCategories] = useState<
-  //   Record<string, boolean>
-  // >({});
-  // console.log(Object.keys(joinedCategories));
   const handleCategoryBackgroundColor =
     useCategoryBackgroundColor(setStyleForm);
   const handleDescriptionLettersColor =
     useDescriptionLettersColor(setStyleForm);
   const getSectionBackground = useGetSectionBackground(styleForm);
   const getDescriptionLetterColor = useGetDescriptionLetterColor(styleForm);
-// const handleDecorations = useDecoration(setStyleForm);
+
+  useEffect(() => {
+    const style = document.createElement("style");
+    style.innerHTML = `
+    .content-container::before {
+      left: 0;
+      width: ${styleForm.contentContainerWidth}%;
+    }
+    .content-container::after {
+      right: 0;
+      width: ${styleForm.contentContainerWidth}%;
+    }
+  `;
+    document.head.appendChild(style);
+
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, [styleForm.contentContainerWidth]);
+
+  // In your component JSX:
+  <div className="content-container">{/* Your content here */}</div>;
+
   return (
     <div
       className="row menu-items-container print"
@@ -138,31 +153,54 @@ export default function CustomMenu({
           if (!categoryData) return null; // Skip if no data for this category
 
           return (
+            // <div key={categoryIndex}>
+
             <div
-            className={
-              joinedCategories[category]
-                ? "col-6"
-                : category === showDecorations
-                ? "col-12 sharables"
-                : "col-12"
-            }
-              key={categoryIndex}
+              className={
+                joinedCategories[category]
+                  ? "col-6"
+                  : category === showDecorations
+                  ? "col-12 content-container"
+                  : "col-12"
+              }
+              key={category}
               style={{
                 backgroundColor: getSectionBackground(categoryIndex),
                 marginBottom: `${styleForm.categoriesMarginBottom}px`,
               }}
             >
-              <div className={category === showDecorations ? "share-span" : ""}
-              style={{ display: "flex", justifyContent: "center" }}>
+              <div
+                className={category === showDecorations ? "share-span" : ""}
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginBottom: "0",
+                }}
+              >
                 <h2
                   className="category-title"
                   style={{
                     fontSize: `${styleForm.categoryFontSize}px`,
                     color: styleForm.categoryColor,
-                    marginBottom: `${styleForm.categoryMarginBottom}px`,
-                  }}
+                    marginBottom: category === showDecorations ? "20px":`${styleForm.categoryMarginBottom}px`,
+                  }} // To do: handle this dynamically
                 >
-                  {category}
+                  <span
+                    className={category === showDecorations ? "gap-text" : ""}
+                    style={{
+                      top:
+                        category === showDecorations
+                          ? `${styleForm.gapTextTop}px`
+                          : "",
+                      lineHeight: "1",
+                      display: "inline",
+                      verticalAlign: "baseline",
+                      // marginBottom: category === showDecorations ? "20px": "" 
+                    }}
+                  >
+                    {category}
+                  </span>
+                  
                 </h2>
 
                 {showJoinInputs && (
@@ -206,33 +244,21 @@ export default function CustomMenu({
                   </>
                 )}
                 {showDecorationCheckboxes && (
-                  <>
-                    <input
-                      type="checkbox"
-                      className="no-print"
-                      checked={showDecorations === category}
-                      onChange={() =>
-                        setShowDecorations(category)
-                      }
-                    />
-                    {/* <button
-                      type="button"
-                      onClick={() =>
-                        handleDecorations("", categoryIndex)
-                      }
-                    >
-                      reset
-                    </button> */}
-                  </>
+                  <input
+                    type="checkbox"
+                    className="no-print"
+                    checked={showDecorations === category}
+                    onChange={() => setShowDecorations(category)}
+                  />
                 )}
               </div>
 
               <div
                 className="subtitle"
-                // style={{
-                //   color: styleForm.subtitleFontColor,
-                //   fontSize: styleForm.subtitleFontSize,
-                // }}
+                style={{
+                  color: styleForm.subtitleFontColor,
+                  fontSize: styleForm.subtitleFontSize,
+                }}
               >
                 <span
                   style={{
@@ -336,6 +362,8 @@ export default function CustomMenu({
                 ))}
               </ul>
             </div>
+            // </div>
+            // </div>
           );
         })}
         {showDisclaimer && <Footer />}
@@ -388,7 +416,7 @@ export default function CustomMenu({
         )}
       </div>
 
-      {/* {showDisclaimer && <Footer />} */}
+      {showDisclaimer && <Footer />}
     </div>
   );
 }

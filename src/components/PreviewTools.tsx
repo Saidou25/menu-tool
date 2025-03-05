@@ -110,7 +110,7 @@ const displayLabels = [
   },
   {
     label: "Decorations",
-    subLabels: [],
+    subLabels: ["gap text", "content width"],
   },
   {
     label: "background color",
@@ -191,6 +191,8 @@ export default function PreviewTools({
     "top text's color": "textTopColor",
     "bottom text's color": "textBottomColor",
     "footer text's color": "footerTextColor",
+    "gap text": "gapTextTop",
+    "content width": "contentContainerWidth"
   };
 
   const getInputType = (item: string): "file" | "text" | "number" | "color" => {
@@ -426,7 +428,7 @@ export default function PreviewTools({
                     className="input-style"
                     type={getInputType(item)}
                     placeholder={getPlaceholderType(item)}
-                    min={0}
+                    min={item !== "gap text" ? 0 : ""}
                     value={
                       keyMap[item as keyof typeof keyMap] ===
                       "sectionBackground"

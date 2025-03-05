@@ -88,8 +88,10 @@ export default function Categories({
     subtitleFontSize: 15,
     subtitleFontColor: "",
     decoration: "",
+    gapTextTop: -11,
+    contentContainerWidth: 45,
   });
-console.log(showDecorations);
+// console.log(styleForm.contentContainerWidth);
   const handleDisclaimer = () => {
     setShowDisclaimer((prev) => !prev);
   };

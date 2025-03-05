@@ -1,28 +1,43 @@
-.sharables {
+.content-container {
   position: relative;
-  padding-top: 40px;
-  border-top: 2px solid black; /* Top border */
-  margin-top: 3%;
-  border: 1px solid white;
-  background: transparent;
+  border-left: 1px solid white; /* Side border */
+  border-right: 1px solid white; /* Side border */
+  border-bottom: 1px solid white; /* Bottom border */
+  padding-top: 20px; /* Padding for content */
+  margin-top: 20px;
 }
 
-.share-span {
-  position: absolute;
-  top: -12px; /* Adjusts the height above the border */
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 0 10px; /* Ensures spacing around the text */
-  background: transparent; /* No solid background */
+.content {
+  padding: 20px; /* Padding for content inside the container */
+  color: white; /* Text color */
 }
-/* This creates a fake "gap" in the border */
-.sharables::before {
+
+.content-container::before,
+.content-container::after {
   content: "";
   position: absolute;
-  top: -1px; /* Aligns with the border */
-  left: 50%;
-  width: calc(100% / 6); /* Adjusts the gap width */
-  height: 2px; /* Same as the border thickness */
-  background-color: white; /* Same as the background to "erase" the border */
-  transform: translateX(-50%);
+  top: 0;
+  height: 1px; /* Border height */
+  background-color: white; /* Color of the top border */
+}
+
+.content-container::before {
+  left: 0;
+  width: 45%; /* Left segment width */
+}
+
+.content-container::after {
+  right: 0;
+  width: 45%; /* Right segment width */
+}
+
+.gap-text {
+  position: absolute;
+  /* top: -11px; Position the text above the top border */
+  left: 50%; /* Center the text horizontally */
+  transform: translateX(-50%); /* Adjust the centering */
+  color: white; /* Text color */
+  /* font-size: 1.5rem; Font size */
+  z-index: 1; /* Ensure the text appears above the borders */
+  width: 100%;
 }

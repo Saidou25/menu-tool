@@ -79,4 +79,6 @@ export type StyleFormType = {
   textTopColor: string;
   textBottomColor: string;
   footerTextColor: string;
+  gapTextTop: number;
+  contentContainerWidth: number;
 };
