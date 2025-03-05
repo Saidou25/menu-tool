@@ -22,6 +22,10 @@ const displayLabels = [
     subLabels: ["text top"],
   },
   {
+    label: "Background image",
+    subLabels: ["background image"],
+  },
+  {
     label: "Add Guy's logo at the top",
     subLabels: ["top logo"],
   },
@@ -139,6 +143,7 @@ export default function PreviewTools({
     "menu items' description blocks": "descriptionMarginBottom",
     "top image size": "topImageSize",
     "bottom image size": "bottomImageSize",
+    "background image": "backgroundImage",
     "top image": "topImage",
     "bottom image": "bottomImage",
     "top logo": "guyTop", // Logo file for top
@@ -167,7 +172,7 @@ export default function PreviewTools({
   };
 
   const getInputType = (item: string): "file" | "text" | "number" | "color" => {
-    if (["top image", "bottom image", "top logo", "bottom logo"].includes(item))
+    if (["background image", "top image", "bottom image", "top logo", "bottom logo"].includes(item))
       return "file";
     if (
       [
@@ -192,7 +197,7 @@ export default function PreviewTools({
   };
 
   const getPlaceholderType = (item: string) => {
-    if (["top image", "bottom image", "top logo", "bottom logo"].includes(item))
+    if (["background image", "top image", "bottom image", "top logo", "bottom logo"].includes(item))
       return "file";
     if (
       [
@@ -226,6 +231,7 @@ export default function PreviewTools({
     // Determine the new value based on the input type
     let newValue: string | number;
     if (
+      keyToUpdate === "backgroundImage" ||
       keyToUpdate === "topImage" ||
       keyToUpdate === "bottomImage" ||
       keyToUpdate === "guyTop" ||

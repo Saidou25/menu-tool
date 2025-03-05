@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Field, StyleFormType } from "../data/types";
 import { useCategoryBackgroundColor } from "../hooks/useCategoryBackgrounColor";
 import { useDescriptionLettersColor } from "../hooks/useDescriptionLettersColor";
@@ -14,6 +13,10 @@ type Props = {
   showJoinInputs: boolean;
   styleForm: StyleFormType;
   setStyleForm: React.Dispatch<React.SetStateAction<StyleFormType>>;
+  joinedCategories: Record<string, boolean>;
+  setJoinedCategories: React.Dispatch<
+    React.SetStateAction<Record<string, boolean>>
+  >;
   showDisclaimer: boolean;
 };
 
@@ -24,11 +27,13 @@ export default function CustomMenu({
   showJoinInputs,
   styleForm,
   setStyleForm,
+  joinedCategories,
+  setJoinedCategories,
   showDisclaimer,
 }: Props) {
-  const [joinedCategories, setJoinedCategories] = useState<
-    Record<string, boolean>
-  >({});
+  // const [joinedCategories, setJoinedCategories] = useState<
+  //   Record<string, boolean>
+  // >({});
   // console.log(Object.keys(joinedCategories));
   const handleCategoryBackgroundColor =
     useCategoryBackgroundColor(setStyleForm);
@@ -50,256 +55,294 @@ export default function CustomMenu({
         backgroundColor: styleForm.pageBackground,
       }}
     >
-      {styleForm.guyTop && (
-        <div style={{ width: `${styleForm.guyTopSize}px`, margin: "auto" }}>
-          <img
-            className="image-fluid"
-            alt=""
-            src={styleForm.guyTop}
-            style={{ maxWidth: "100%", height: "auto" }}
-          />
+      <div
+        className="row background-image"
+        style={{
+          backgroundImage: `url(${styleForm.backgroundImage})`,
+          width: `${+styleForm.menuWidth}mm`,
+          maxHeight: `${+styleForm.menuHeight}mm`,
+          margin: "auto",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        {styleForm.backgroundImage && (
           <button
             type="button"
-            onClick={() => setStyleForm({ ...styleForm, guyTop: "" })}
+            onClick={() => setStyleForm({ ...styleForm, backgroundImage: "" })}
           >
-            delete
+            delete background image
           </button>
-        </div>
-      )}
-      {styleForm.title && (
-        <div
-          className="category-title"
-          style={{
-            fontSize: `${styleForm.titleSize}px`,
-            color: styleForm.titleColor,
-          }}
-        >
-          {styleForm.title}
-        </div>
-      )}
-      {styleForm.topImage && (
-        <div style={{ width: `${styleForm.topImageSize}px`, margin: "auto" }}>
-          <img
-            className="image-fluid"
-            alt=""
-            src={styleForm.topImage}
-            style={{ maxWidth: "100%", height: "auto" }}
-          />
-          <button
-            type="button"
-            onClick={() => setStyleForm({ ...styleForm, topImage: "" })}
-          >
-            delete
-          </button>
-        </div>
-      )}
-      {categoryOrder.map((category, categoryIndex) => {
-        const categoryData = organizedData[category]; // Get data based on order
+        )}
 
-        if (!categoryData) return null; // Skip if no data for this category
-
-        return (
-          <div
-            className={joinedCategories[category] ? "col-6" : "col-12"}
-            key={categoryIndex}
-            style={{ backgroundColor: getSectionBackground(categoryIndex) }}
-          >
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <h2
-                className="category-title"
-                style={{
-                  fontSize: `${styleForm.categoryFontSize}px`,
-                  color: styleForm.categoryColor,
-                  marginBottom: `${styleForm.categoryMarginBottom}px`,
-                }}
-              >
-                {category}
-              </h2>
-
-              {showJoinInputs && (
-                <input
-                  className="custom-input"
-                  type="checkbox"
-                  onChange={() =>
-                    setJoinedCategories((prev) => {
-                      const newState = { ...prev };
-                      if (newState[category]) {
-                        delete newState[category]; // Remove the category when toggled off
-                      } else {
-                        newState[category] = true; // Add category when toggled on
-                      }
-                      return newState;
-                    })
-                  }
-                  checked={joinedCategories[category] || false}
-                />
-              )}
-              {showColorInputs && (
-                <input
-                  type="color"
-                  className="no-print"
-                  onChange={(event) =>
-                    handleCategoryBackgroundColor(
-                      event.target.value,
-                      categoryIndex
-                    )
-                  }
-                />
-              )}
-            </div>
-
-            <div
-              className="subtitle"
-              // style={{
-              //   color: styleForm.subtitleFontColor,
-              //   fontSize: styleForm.subtitleFontSize,
-              // }}
-            ><span  style={{
-              color: styleForm.subtitleFontColor,
-              fontSize: `${styleForm.subtitleFontSize}px`,
-            }}>
-
-              {categoryData.subtitle}
-            </span>
-            </div>
-            <ul
-              className="row"
-              style={
-                joinedCategories[category]
-                  ? { display: "flex", flexDirection: "column" }
-                  : {}
-              }
+        {styleForm.guyTop && (
+          <div style={{ width: `${styleForm.guyTopSize}px`, margin: "auto" }}>
+            <img
+              className="image-fluid"
+              alt=""
+              src={styleForm.guyTop}
+              style={{ maxWidth: "100%", height: "auto" }}
+            />
+            <button
+              type="button"
+              onClick={() => setStyleForm({ ...styleForm, guyTop: "" })}
             >
-              {categoryData.items.map((item, itemIndex, arr) => (
-                <li
-                  id={`li-${categoryIndex}`}
-                  key={itemIndex}
-                  className={
-                    joinedCategories[category] // If category is joined, make items col-12
-                      ? "col-12 menu-item"
-                      : (arr.length % 2 !== 0 && // Odd number of items
-                          itemIndex === arr.length - 1 && // Last item
-                          category !== "Sides" && // Not "Sides"
-                          !Object.keys(joinedCategories).some(
-                            (joinedCategory) => joinedCategory === category
-                          )) ||
-                        styleForm.menuWidth <= 110
-                      ? "col-12 menu-item-odd"
-                      : "col-6 menu-item"
-                  }
+              delete
+            </button>
+          </div>
+        )}
+        {styleForm.title && (
+          <div
+            className="category-title"
+            style={{
+              fontSize: `${styleForm.titleSize}px`,
+              color: styleForm.titleColor,
+            }}
+          >
+            {styleForm.title}
+          </div>
+        )}
+        {styleForm.topImage && (
+          <div style={{ width: `${styleForm.topImageSize}px`, margin: "auto" }}>
+            <img
+              className="image-fluid"
+              alt=""
+              src={styleForm.topImage}
+              style={{ maxWidth: "100%", height: "auto" }}
+            />
+            <button
+              type="button"
+              onClick={() => setStyleForm({ ...styleForm, topImage: "" })}
+            >
+              delete
+            </button>
+          </div>
+        )}
+        {categoryOrder.map((category, categoryIndex) => {
+          const categoryData = organizedData[category]; // Get data based on order
+
+          if (!categoryData) return null; // Skip if no data for this category
+
+          return (
+            <div
+              className={joinedCategories[category] ? "col-6" : "col-12"}
+              key={categoryIndex}
+              style={{ backgroundColor: getSectionBackground(categoryIndex) }}
+            >
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <h2
+                  className="category-title"
+                  style={{
+                    fontSize: `${styleForm.categoryFontSize}px`,
+                    color: styleForm.categoryColor,
+                    marginBottom: `${styleForm.categoryMarginBottom}px`,
+                  }}
                 >
-                  <div
-                    className="menu-item-div"
-                    style={{ marginBottom: `${styleForm.itemMarginBottom}px` }}
+                  {category}
+                </h2>
+
+                {showJoinInputs && (
+                  <input
+                    className="custom-input"
+                    type="checkbox"
+                    onChange={() =>
+                      setJoinedCategories((prev) => {
+                        const newState = { ...prev };
+                        if (newState[category]) {
+                          delete newState[category]; // Remove the category when toggled off
+                        } else {
+                          newState[category] = true; // Add category when toggled on
+                        }
+                        return newState;
+                      })
+                    }
+                    checked={joinedCategories[category] || false}
+                  />
+                )}
+                {showColorInputs && (
+                  <>
+                    <input
+                      type="color"
+                      className="no-print"
+                      onChange={(event) =>
+                        handleCategoryBackgroundColor(
+                          event.target.value,
+                          categoryIndex
+                        )
+                      }
+                    />
+                    <button
+                      type="button"
+                      onClick={() =>
+                        handleCategoryBackgroundColor("", categoryIndex)
+                      }
+                    >
+                      reset
+                    </button>
+                  </>
+                )}
+              </div>
+
+              <div
+                className="subtitle"
+                // style={{
+                //   color: styleForm.subtitleFontColor,
+                //   fontSize: styleForm.subtitleFontSize,
+                // }}
+              >
+                <span
+                  style={{
+                    color: styleForm.subtitleFontColor,
+                    fontSize: `${styleForm.subtitleFontSize}px`,
+                  }}
+                >
+                  {categoryData.subtitle}
+                </span>
+              </div>
+              <ul
+                className="row"
+                style={
+                  joinedCategories[category]
+                    ? { display: "flex", flexDirection: "column" }
+                    : {}
+                }
+              >
+                {categoryData.items.map((item, itemIndex, arr) => (
+                  <li
+                    id={`li-${categoryIndex}`}
+                    key={itemIndex}
+                    className={
+                      joinedCategories[category] // If category is joined, make items col-12
+                        ? "col-12 menu-item"
+                        : (arr.length % 2 !== 0 && // Odd number of items
+                            itemIndex === arr.length - 1 && // Last item
+                            category !== "Sides" && // Not "Sides"
+                            !Object.keys(joinedCategories).some(
+                              (joinedCategory) => joinedCategory === category
+                            )) ||
+                          styleForm.menuWidth <= 110
+                        ? "col-12 menu-item-odd"
+                        : "col-6 menu-item"
+                    }
                   >
-                    <span
+                    <div
+                      className="menu-item-div"
                       style={{
-                        fontSize: `${styleForm.itemFontSize}px`,
-                        letterSpacing: "1px",
+                        marginBottom: `${styleForm.itemMarginBottom}px`,
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: `${styleForm.itemFontSize}px`,
+                          letterSpacing: "1px",
+                          fontFamily: "Pewter Corroded, sans-serif",
+                          color: styleForm.menuItemColor,
+                        }}
+                      >
+                        {item.label}
+                      </span>
+
+                      <span
+                        style={{
+                          fontSize: `${styleForm.priceSize}px`,
+                          color: styleForm.priceColor,
+                        }}
+                      >
+                        &nbsp;{item.price.value?.toFixed(2)}
+                      </span>
+                    </div>
+
+                    <div
+                      className="item-description"
+                      style={{
                         fontFamily: "Pewter Corroded, sans-serif",
-                        color: styleForm.menuItemColor,
+                        fontSize: `${styleForm.descriptionFontSize}px`,
+                        marginBottom: `${styleForm.descriptionMarginBottom}px`,
+                        letterSpacing: "1px",
+                        color: styleForm.menuItemDescriptionColor,
                       }}
                     >
-                      {item.label}
-                    </span>
-
-                    <span
-                      style={{
-                        fontSize: `${styleForm.priceSize}px`,
-                        color: styleForm.priceColor,
-                      }}
-                    >
-                      &nbsp;{item.price.value?.toFixed(2)}
-                    </span>
-                  </div>
-
-                  <div
-                    className="item-description"
-                    style={{
-                      fontFamily: "Pewter Corroded, sans-serif",
-                      fontSize: `${styleForm.descriptionFontSize}px`,
-                      marginBottom: `${styleForm.descriptionMarginBottom}px`,
-                      letterSpacing: "1px",
-                      color: styleForm.menuItemDescriptionColor,
-                    }}
-                  >
-                    <span
-                      style={{
-                        color: getDescriptionLetterColor(
-                          categoryIndex,
-                          itemIndex
-                        ),
-                      }}
-                    >
-                      {item.description}
-                    </span>
-                    {showColorInputs && (
-                      <input
-                        className="no-print"
-                        type="color"
-                        onChange={(event) =>
-                          handleDescriptionLettersColor(
-                            event.target.value,
+                      <span
+                        style={{
+                          color: getDescriptionLetterColor(
                             categoryIndex,
                             itemIndex
-                          )
-                        }
-                        style={{ marginBottom: "0", paddingBottom: "0" }}
-                      />
-                    )}
-                  </div>
-                </li>
-              ))}
-            </ul>
+                          ),
+                        }}
+                      >
+                        {item.description}
+                      </span>
+                      {showColorInputs && (
+                        <input
+                          className="no-print"
+                          type="color"
+                          onChange={(event) =>
+                            handleDescriptionLettersColor(
+                              event.target.value,
+                              categoryIndex,
+                              itemIndex
+                            )
+                          }
+                          style={{ marginBottom: "0", paddingBottom: "0" }}
+                        />
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })}
+        {showDisclaimer && <Footer />}
+        {styleForm.bottomImage && (
+          <div
+            style={{ width: `${styleForm.bottomImageSize}px`, margin: "auto" }}
+          >
+            <img
+              className="image-fluid"
+              alt=""
+              src={styleForm.bottomImage}
+              style={{ maxWidth: "100%", height: "auto" }}
+            />
+            <button
+              type="button"
+              onClick={() => setStyleForm({ ...styleForm, bottomImage: "" })}
+            >
+              delete
+            </button>
           </div>
-        );
-      })}
-      {showDisclaimer && <Footer />}
-      {styleForm.bottomImage && (
-        <div
-          style={{ width: `${styleForm.bottomImageSize}px`, margin: "auto" }}
-        >
-          <img
-            className="image-fluid"
-            alt=""
-            src={styleForm.bottomImage}
-            style={{ maxWidth: "100%", height: "auto" }}
-          />
-          <button
-            type="button"
-            onClick={() => setStyleForm({ ...styleForm, bottomImage: "" })}
+        )}
+        {styleForm.guyBottom && (
+          <div
+            style={{ width: `${styleForm.guyBottomSize}px`, margin: "auto" }}
           >
-            delete
-          </button>
-        </div>
-      )}
-      {styleForm.guyBottom && (
-        <div style={{ width: `${styleForm.guyBottomSize}px`, margin: "auto" }}>
-          <img
-            className="image-fluid"
-            alt=""
-            src={styleForm.guyBottom}
-            style={{ maxWidth: "100%", height: "auto" }}
-          />
-          <button
-            type="button"
-            onClick={() => setStyleForm({ ...styleForm, guyBottom: "" })}
+            <img
+              className="image-fluid"
+              alt=""
+              src={styleForm.guyBottom}
+              style={{ maxWidth: "100%", height: "auto" }}
+            />
+            <button
+              type="button"
+              onClick={() => setStyleForm({ ...styleForm, guyBottom: "" })}
+            >
+              delete
+            </button>
+          </div>
+        )}
+        {styleForm.footer && (
+          <div
+            className="category-title"
+            style={{
+              fontSize: `${styleForm.footerSize}px`,
+              color: styleForm.footerTextColor,
+            }}
           >
-            delete
-          </button>
-        </div>
-      )}
-      {styleForm.footer && (
-        <div
-          className="category-title"
-          style={{
-            fontSize: `${styleForm.footerSize}px`,
-            color: styleForm.footerTextColor,
-          }}
-        >
-          {styleForm.footer}
-        </div>
-      )}
+            {styleForm.footer}
+          </div>
+        )}
+      </div>
+
       {/* {showDisclaimer && <Footer />} */}
     </div>
   );

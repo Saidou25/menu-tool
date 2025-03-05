@@ -35,12 +35,16 @@ export default function Categories({
   const [fadeInOut, setFadeInOut] = useState(false);
   const [menuPreview, setMenuPreview] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
+  const [joinedCategories, setJoinedCategories] = useState<
+    Record<string, boolean>
+  >({});
   const [localSelectedCategoryItems, setLocalSelectedCategoryItems] = useState<
     Record<string, { subtitle?: string; items: Field[] }>
   >({});
   const [styleForm, setStyleForm] = useState<StyleFormType>({
     menuWidth: 0,
     menuHeight: 0,
+    backgroundImage: "",
     topImage: "",
     topImageSize: 50,
     bottomImage: "",
@@ -78,7 +82,7 @@ export default function Categories({
     textBottomColor: "",
     footerTextColor: "",
     subtitleFontSize: 15,
-    subtitleFontColor: ""
+    subtitleFontColor: "",
   });
 
   const handleDisclaimer = () => {
@@ -174,7 +178,7 @@ export default function Categories({
   if (menuPreview) {
     return (
       <PreviewMenu
-      custom={custom}
+        custom={custom}
         goBack={handleGoBack}
         onConfirm={handleConfirm}
         message="Confirm printing or continue editing"
@@ -186,6 +190,8 @@ export default function Categories({
         showColorInputs={showColorInputs}
         setShowJoinInputs={setShowJoinInputs}
         showJoinInputs={showJoinInputs}
+        joinedCategories={joinedCategories}
+        setJoinedCategories={setJoinedCategories}
       >
         <FinalStep
           goBack={handleGoBack}

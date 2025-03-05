@@ -21,6 +21,9 @@ type ModalProps = {
   dataSample: Record<string, { subtitle?: string; items: Field[] }>;
   styleForm: StyleFormType;
   setStyleForm: React.Dispatch<React.SetStateAction<StyleFormType>>;
+  joinedCategories: Record<string, boolean>;
+  setJoinedCategories: React.Dispatch<React.SetStateAction<Record<string, boolean>>>;
+ 
 };
 
 const PreviewMenu = ({
@@ -33,6 +36,8 @@ const PreviewMenu = ({
   dataSample,
   styleForm,
   setStyleForm,
+  joinedCategories,
+  setJoinedCategories,
 }: // setStyleForm,
 ModalProps) => {
   const [organizedData, setOrganizedData] = useState<
@@ -117,6 +122,8 @@ ModalProps) => {
               showColorInputs={showColorInputs}
               showJoinInputs={showJoinInputs}
               showDisclaimer={showDisclaimer}
+              joinedCategories={joinedCategories}
+              setJoinedCategories={setJoinedCategories}
               />
             </>
           ) : (

@@ -38,6 +38,7 @@ export type DescriptionLetterColor = {
 export type StyleFormType = {
   menuWidth: number;
   menuHeight: number;
+  backgroundImage: string;
   topImage: string;
   topImageSize: number;
   bottomImage: string;
