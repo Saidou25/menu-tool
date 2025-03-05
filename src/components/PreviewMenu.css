@@ -33,6 +33,14 @@
   color: white;
   margin: auto;
 }
+.preview-tools-title {
+  text-align: center;
+  color: white;
+  background: rgba(24, 21, 21, 1);
+  margin: auto;
+  position: sticky;
+  top: 0;
+}
 .top {
   display: flex;
 }

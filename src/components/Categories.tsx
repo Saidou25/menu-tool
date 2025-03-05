@@ -29,12 +29,15 @@ export default function Categories({
   categoriesList,
 }: Props) {
   const [showJoinInputs, setShowJoinInputs] = useState(false);
+  const [hidePrices, setHidePrices] = useState(false);
   const [showColorInputs, setShowColorInputs] = useState(false);
   const [showFinalStep, setShowfinalStep] = useState(false);
+  const [showDecorationCheckboxes, setShowDecorationsCheckboxes] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [fadeInOut, setFadeInOut] = useState(false);
   const [menuPreview, setMenuPreview] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
+  const [showDecorations, setShowDecorations] = useState("");
   const [joinedCategories, setJoinedCategories] = useState<
     Record<string, boolean>
   >({});
@@ -52,6 +55,7 @@ export default function Categories({
     pagePaddingTopAndBottom: 0,
     pagePaddingLeftAndRight: 0,
     categoryFontSize: 30,
+    categoriesMarginBottom: 0,
     categoryMarginBottom: 0,
     itemFontSize: 20,
     itemMarginBottom: 0,
@@ -83,8 +87,9 @@ export default function Categories({
     footerTextColor: "",
     subtitleFontSize: 15,
     subtitleFontColor: "",
+    decoration: "",
   });
-
+console.log(showDecorations);
   const handleDisclaimer = () => {
     setShowDisclaimer((prev) => !prev);
   };
@@ -192,6 +197,12 @@ export default function Categories({
         showJoinInputs={showJoinInputs}
         joinedCategories={joinedCategories}
         setJoinedCategories={setJoinedCategories}
+        hidePrices={hidePrices}
+        showDecorations={showDecorations}
+        setShowDecorations={setShowDecorations}
+        showDecorationCheckboxes={showDecorationCheckboxes}
+        setShowDecorationCheckboxes={setShowDecorationsCheckboxes}
+        
       >
         <FinalStep
           goBack={handleGoBack}
@@ -214,6 +225,12 @@ export default function Categories({
           setShowJoinInputs={setShowJoinInputs}
           showColorInputs={showColorInputs}
           showJoinInputs={showJoinInputs}
+          hidePrices={hidePrices}
+          setHidePrices={setHidePrices}
+          showDecorations={showDecorations}
+          // setShowDecorations={setShowDecorations}
+           showDecorationCheckboxes={showDecorationCheckboxes}
+        setShowDecorationCheckboxes={setShowDecorationsCheckboxes}
         />
       </PreviewMenu>
     );

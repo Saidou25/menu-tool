@@ -8,6 +8,12 @@ type PreviewToolsProps = {
   setShowColorInputs: (item: boolean) => void;
   showJoinInputs: boolean;
   setShowJoinInputs: (item: boolean) => void;
+  hidePrices: boolean;
+  setHidePrices: (item: boolean) => void;
+  showDecorationCheckboxes: boolean;
+  setShowDecorationCheckboxes: (item: boolean) => void;
+  showDecorations: string;
+  // setShowDecorations: (item: boolean) => void;
   styleForm: StyleFormType;
   setStyleForm: React.Dispatch<React.SetStateAction<StyleFormType>>;
 };
@@ -83,9 +89,10 @@ const displayLabels = [
     label: "Margin bottom",
     subLabels: [
       "title",
-      "category blocks",
+      "categories' section",
+      "categories' title",
       "menu item and price blocks",
-      "menu item's description blocks",
+      "menu items' description blocks",
       "footer",
     ],
   },
@@ -95,6 +102,14 @@ const displayLabels = [
   },
   {
     label: "Colors",
+    subLabels: [],
+  },
+  {
+    label: "Prices",
+    subLabels: [],
+  },
+  {
+    label: "Decorations",
     subLabels: [],
   },
   {
@@ -124,6 +139,12 @@ export default function PreviewTools({
   setShowColorInputs,
   showJoinInputs,
   setShowJoinInputs,
+  hidePrices,
+  setHidePrices,
+  // showDecorations,
+  // setShowDecorations,
+  showDecorationCheckboxes,
+  setShowDecorationCheckboxes
 }: PreviewToolsProps) {
   const [localStyleForm, setLocalStyleForm] =
     useState<StyleFormType>(styleForm);
@@ -138,7 +159,8 @@ export default function PreviewTools({
     "categories": "categoryFontSize",
     "menu items": "itemFontSize",
     "menu items' description": "descriptionFontSize",
-    "category blocks": "categoryMarginBottom",
+    "categories' title": "categoryMarginBottom",
+    "categories' section": "categoriesMarginBottom",
     "menu item and price blocks": "itemMarginBottom",
     "menu items' description blocks": "descriptionMarginBottom",
     "top image size": "topImageSize",
@@ -267,36 +289,59 @@ export default function PreviewTools({
 
   return (
     <div className="preview-tools-container no-print">
-      <h2 className="confirm-title">Preview Tool</h2>
+      <h2 className="preview-tools-title ">Preview Tool</h2>
       <br />
       <div className="lulu">
         {displayLabels.map((displayLabel) => (
           <div key={displayLabel.label} className="label-container">
             {displayLabel.label === "Join categories" ? (
-              <span className="li">
+              <>
                 <b>{displayLabel.label}: </b>
-                <br />
+              <div className="ps-4">
                 <input
                   type="checkbox"
                   onChange={() => setShowJoinInputs(!showJoinInputs)}
                   checked={showJoinInputs}
-                />
+                />&nbsp;
                 Check if you want to show join section checkboxes
-              </span>
+              </div>
+              </>
             ) : (
               <b>{displayLabel.label}: </b>
             )}
 
             {displayLabel.label === "Colors" && (
-              <>
+              <div className="ps-4">
                 {/* {displayLabel.label}:{console.log(displayLabel.label)}<br /> */}
                 <input
                   type="checkbox"
                   checked={showColorInputs}
                   onChange={() => setShowColorInputs(!showColorInputs)}
-                />{" "}
+                />&nbsp;
                 Check if you want to show color inputs
-              </>
+              </div>
+            )}
+            {displayLabel.label === "Prices" && (
+              <div className="ps-4">
+                {/* {displayLabel.label}:{console.log(displayLabel.label)}<br /> */}
+                <input
+                  type="checkbox"
+                  checked={hidePrices}
+                  onChange={() => setHidePrices(!hidePrices)}
+                />&nbsp;
+                Check if you want to hide prices
+              </div>
+            )}
+            {displayLabel.label === "Decorations" && (
+              <div className="ps-4">
+                {/* {displayLabel.label}:{console.log(displayLabel.label)}<br /> */}
+                <input
+                  type="checkbox"
+                  checked={showDecorationCheckboxes}
+                  onChange={() => setShowDecorationCheckboxes(!showDecorationCheckboxes)}
+                />&nbsp;
+                Check if you want to show decorations
+              </div>
             )}
             {displayLabel.subLabels.map((item, index) => (
               <ul className="line" key={item}>

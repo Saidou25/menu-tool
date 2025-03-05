@@ -39,6 +39,8 @@ export type StyleFormType = {
   menuWidth: number;
   menuHeight: number;
   backgroundImage: string;
+  categoriesMarginBottom: number;
+  decoration: string;
   topImage: string;
   topImageSize: number;
   bottomImage: string;

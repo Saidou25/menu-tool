@@ -4,12 +4,20 @@ import { useDescriptionLettersColor } from "../hooks/useDescriptionLettersColor"
 import { useGetSectionBackground } from "../hooks/useGetSectionBackground";
 import { useGetDescriptionLetterColor } from "../hooks/useGetDescriptionLettersColor";
 import Footer from "./Footer";
+// import { useDecoration } from "../hooks/useDecoration";
+// import { useDecoration } from "../hooks/useDecoration";
 // import "./CustomMenu.css";
+import "./Sharables.css";
 
 type Props = {
   categoryOrder: string[];
   organizedData: Record<string, { subtitle?: string; items: Field[] }>;
   showColorInputs: boolean;
+  hidePrices: boolean;
+  showDecorations: string;
+  showDecorationCheckboxes: boolean;
+  setShowDecorations: (category: string) => void;
+  setShowDecorationCheckboxes: (item: boolean) => void;
   showJoinInputs: boolean;
   styleForm: StyleFormType;
   setStyleForm: React.Dispatch<React.SetStateAction<StyleFormType>>;
@@ -25,6 +33,11 @@ export default function CustomMenu({
   organizedData,
   showColorInputs,
   showJoinInputs,
+  hidePrices,
+  showDecorations,
+  setShowDecorations,
+  showDecorationCheckboxes,
+  // setShowDecorationCheckboxes,
   styleForm,
   setStyleForm,
   joinedCategories,
@@ -41,7 +54,7 @@ export default function CustomMenu({
     useDescriptionLettersColor(setStyleForm);
   const getSectionBackground = useGetSectionBackground(styleForm);
   const getDescriptionLetterColor = useGetDescriptionLetterColor(styleForm);
-
+// const handleDecorations = useDecoration(setStyleForm);
   return (
     <div
       className="row menu-items-container print"
@@ -97,6 +110,7 @@ export default function CustomMenu({
             style={{
               fontSize: `${styleForm.titleSize}px`,
               color: styleForm.titleColor,
+              marginBottom: `${styleForm.titleMarginBottom}px`,
             }}
           >
             {styleForm.title}
@@ -125,11 +139,21 @@ export default function CustomMenu({
 
           return (
             <div
-              className={joinedCategories[category] ? "col-6" : "col-12"}
+            className={
+              joinedCategories[category]
+                ? "col-6"
+                : category === showDecorations
+                ? "col-12 sharables"
+                : "col-12"
+            }
               key={categoryIndex}
-              style={{ backgroundColor: getSectionBackground(categoryIndex) }}
+              style={{
+                backgroundColor: getSectionBackground(categoryIndex),
+                marginBottom: `${styleForm.categoriesMarginBottom}px`,
+              }}
             >
-              <div style={{ display: "flex", justifyContent: "center" }}>
+              <div className={category === showDecorations ? "share-span" : ""}
+              style={{ display: "flex", justifyContent: "center" }}>
                 <h2
                   className="category-title"
                   style={{
@@ -179,6 +203,26 @@ export default function CustomMenu({
                     >
                       reset
                     </button>
+                  </>
+                )}
+                {showDecorationCheckboxes && (
+                  <>
+                    <input
+                      type="checkbox"
+                      className="no-print"
+                      checked={showDecorations === category}
+                      onChange={() =>
+                        setShowDecorations(category)
+                      }
+                    />
+                    {/* <button
+                      type="button"
+                      onClick={() =>
+                        handleDecorations("", categoryIndex)
+                      }
+                    >
+                      reset
+                    </button> */}
                   </>
                 )}
               </div>
@@ -241,15 +285,16 @@ export default function CustomMenu({
                       >
                         {item.label}
                       </span>
-
-                      <span
-                        style={{
-                          fontSize: `${styleForm.priceSize}px`,
-                          color: styleForm.priceColor,
-                        }}
-                      >
-                        &nbsp;{item.price.value?.toFixed(2)}
-                      </span>
+                      {!hidePrices && (
+                        <span
+                          style={{
+                            fontSize: `${styleForm.priceSize}px`,
+                            color: styleForm.priceColor,
+                          }}
+                        >
+                          &nbsp;{item.price.value?.toFixed(2)}
+                        </span>
+                      )}
                     </div>
 
                     <div

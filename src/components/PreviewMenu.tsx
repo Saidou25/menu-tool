@@ -13,6 +13,12 @@ type ModalProps = {
   setShowJoinInputs: (item: boolean) => void;
   showColorInputs: boolean;
   showFinalStep: boolean;
+  showDecorations: string;
+  setShowDecorations: (category: string) => void;
+  showDecorationCheckboxes: boolean;
+  setShowDecorationCheckboxes: (item: boolean) => void;
+  hidePrices: boolean;
+  // setHidePrices: (item: boolean) => void;
   children: React.ReactNode[];
   showDisclaimer: boolean;
   message: string;
@@ -22,8 +28,10 @@ type ModalProps = {
   styleForm: StyleFormType;
   setStyleForm: React.Dispatch<React.SetStateAction<StyleFormType>>;
   joinedCategories: Record<string, boolean>;
-  setJoinedCategories: React.Dispatch<React.SetStateAction<Record<string, boolean>>>;
- 
+  setJoinedCategories: React.Dispatch<
+    React.SetStateAction<Record<string, boolean>>
+  >;
+  // setShowDecorations: (category: string) => void;
 };
 
 const PreviewMenu = ({
@@ -31,13 +39,18 @@ const PreviewMenu = ({
   showJoinInputs,
   showColorInputs,
   showFinalStep,
+  hidePrices,
+  showDecorations,
   children,
   showDisclaimer,
   dataSample,
   styleForm,
+  showDecorationCheckboxes,
   setStyleForm,
   joinedCategories,
   setJoinedCategories,
+  setShowDecorations,
+  setShowDecorationCheckboxes,
 }: // setStyleForm,
 ModalProps) => {
   const [organizedData, setOrganizedData] = useState<
@@ -85,18 +98,18 @@ ModalProps) => {
     }
   });
 
-//   const animation = `
-//   @keyframes menuSizeAnimation {
-//     from {
-//       width: 0; 
-//       height: 0;
-//     }
-//     to { 
-//       width: ${styleForm.menuWidth}mm; 
-//       height: 100%; 
-//     }
-//   }
-// `;
+  //   const animation = `
+  //   @keyframes menuSizeAnimation {
+  //     from {
+  //       width: 0;
+  //       height: 0;
+  //     }
+  //     to {
+  //       width: ${styleForm.menuWidth}mm;
+  //       height: 100%;
+  //     }
+  //   }
+  // `;
 
   return (
     <>
@@ -106,7 +119,7 @@ ModalProps) => {
           className={`${
             showFinalStep ? "final-step-show" : "final-step-hidden"
           }`}
-          // style={{ animation: "menuSizeAnimation 0.5s linear forwards" }} 
+          // style={{ animation: "menuSizeAnimation 0.5s linear forwards" }}
         >
           {children[0]} {/* Renders FinalStep*/}
           {/* <br className="no-print" /> */}
@@ -116,14 +129,21 @@ ModalProps) => {
           {/* <br className="no-print" /> */}
           {custom ? (
             <>
-              <CustomMenu categoryOrder={categoryOrder} organizedData={organizedData} 
-              styleForm={styleForm}
-              setStyleForm={setStyleForm}
-              showColorInputs={showColorInputs}
-              showJoinInputs={showJoinInputs}
-              showDisclaimer={showDisclaimer}
-              joinedCategories={joinedCategories}
-              setJoinedCategories={setJoinedCategories}
+              <CustomMenu
+                categoryOrder={categoryOrder}
+                organizedData={organizedData}
+                styleForm={styleForm}
+                setStyleForm={setStyleForm}
+                showColorInputs={showColorInputs}
+                showJoinInputs={showJoinInputs}
+                showDisclaimer={showDisclaimer}
+                joinedCategories={joinedCategories}
+                setJoinedCategories={setJoinedCategories}
+                hidePrices={hidePrices}
+                showDecorations={showDecorations}
+                setShowDecorations={setShowDecorations}
+                showDecorationCheckboxes={showDecorationCheckboxes}
+                setShowDecorationCheckboxes={setShowDecorationCheckboxes}
               />
             </>
           ) : (
