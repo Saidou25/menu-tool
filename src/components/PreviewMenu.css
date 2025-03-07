@@ -48,10 +48,8 @@
   display: flex !important;
 }
 .menu-items-container {
-  /* margin: auto; */
   font-family: Arial, sans-serif;
   position: relative;
-  /* min-height: 100vh; */
 }
 h3 {
   margin: 0;
@@ -101,16 +99,11 @@ h3 {
 }
 .final-step-show {
   display: block;
-  /* height: 200; */
   margin-bottom: 40px;
 }
 .final-step-hidden {
   display: none;
 }
-/* .category-title,
-.category-title span {
-  line-height: 1;
-} */
 @media print {
   .print {
     display: block;

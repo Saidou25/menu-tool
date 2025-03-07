@@ -24,12 +24,20 @@ const displayLabels = [
     subLabels: [],
   },
   {
-    label: "Custom title at the top",
-    subLabels: ["text top"],
+    label: "Prices checkboxes",
+    subLabels: [],
+  },
+  {
+    label: "Decorations checkboxes",
+    subLabels: ["gap text", "content width"],
   },
   {
     label: "Background image",
     subLabels: ["background image"],
+  },
+  {
+    label: "Custom title at the top",
+    subLabels: ["text top"],
   },
   {
     label: "Add Guy's logo at the top",
@@ -82,6 +90,10 @@ const displayLabels = [
     subLabels: [],
   },
   {
+    label: "Join categories checkboxes",
+    subLabels: [],
+  },
+  {
     label: "Menu padding",
     subLabels: ["padding top and bottom", "padding left and right"],
   },
@@ -97,20 +109,12 @@ const displayLabels = [
     ],
   },
   {
-    label: "Join categories",
+    label: "Texts and background colors",
     subLabels: [],
   },
   {
-    label: "Colors",
+    label: "Colors checkboxes",
     subLabels: [],
-  },
-  {
-    label: "Prices",
-    subLabels: [],
-  },
-  {
-    label: "Decorations",
-    subLabels: ["gap text", "content width"],
   },
   {
     label: "background color",
@@ -144,7 +148,7 @@ export default function PreviewTools({
   // showDecorations,
   // setShowDecorations,
   showDecorationCheckboxes,
-  setShowDecorationCheckboxes
+  setShowDecorationCheckboxes,
 }: PreviewToolsProps) {
   const [localStyleForm, setLocalStyleForm] =
     useState<StyleFormType>(styleForm);
@@ -156,7 +160,7 @@ export default function PreviewTools({
   const keyMap: { [key: string]: keyof StyleFormType } = {
     "padding top and bottom": "pagePaddingTopAndBottom",
     "padding left and right": "pagePaddingLeftAndRight",
-    "categories": "categoryFontSize",
+    categories: "categoryFontSize",
     "menu items": "itemFontSize",
     "menu items' description": "descriptionFontSize",
     "categories' title": "categoryMarginBottom",
@@ -186,17 +190,25 @@ export default function PreviewTools({
     "menu items' color": "menuItemColor",
     "prices' color": "priceColor",
     "subtitles' color": "subtitleFontColor",
-    "subtitles": "subtitleFontSize",
+    subtitles: "subtitleFontSize",
     "menu items' description color": "menuItemDescriptionColor",
     "top text's color": "textTopColor",
     "bottom text's color": "textBottomColor",
     "footer text's color": "footerTextColor",
     "gap text": "gapTextTop",
-    "content width": "contentContainerWidth"
+    "content width": "contentContainerWidth",
   };
 
   const getInputType = (item: string): "file" | "text" | "number" | "color" => {
-    if (["background image", "top image", "bottom image", "top logo", "bottom logo"].includes(item))
+    if (
+      [
+        "background image",
+        "top image",
+        "bottom image",
+        "top logo",
+        "bottom logo",
+      ].includes(item)
+    )
       return "file";
     if (
       [
@@ -221,7 +233,15 @@ export default function PreviewTools({
   };
 
   const getPlaceholderType = (item: string) => {
-    if (["background image", "top image", "bottom image", "top logo", "bottom logo"].includes(item))
+    if (
+      [
+        "background image",
+        "top image",
+        "bottom image",
+        "top logo",
+        "bottom logo",
+      ].includes(item)
+    )
       return "file";
     if (
       [
@@ -294,55 +314,62 @@ export default function PreviewTools({
       <h2 className="preview-tools-title ">Preview Tool</h2>
       <br />
       <div className="lulu">
-        {displayLabels.map((displayLabel) => (
-          <div key={displayLabel.label} className="label-container">
-            {displayLabel.label === "Join categories" ? (
+        {displayLabels.map((displayLabel, index) => (
+          <div
+            key={displayLabel.label}
+            className={[0, 10, 13, 17].includes(index) ? "" : "label-container"}
+          >
+            {[0, 10, 13, 17].includes(index) && <br />}
+            {[0, 10, 13, 17].includes(index) ? (
               <>
-                <b>{displayLabel.label}: </b>
+                <input type="checkbox" />
+                <span>{displayLabel.label}: </span>
+              </>
+            ) : (
+              <span>{displayLabel.label}: </span>
+            )}
+
+            {[0, 10, 13, 17].includes(index) && <br />}
+            {displayLabel.label === "Join categories checkboxes" && (
               <div className="ps-4">
                 <input
                   type="checkbox"
                   onChange={() => setShowJoinInputs(!showJoinInputs)}
                   checked={showJoinInputs}
-                />&nbsp;
-                Check if you want to show join section checkboxes
-              </div>
-              </>
-            ) : (
-              <b>{displayLabel.label}: </b>
-            )}
-
-            {displayLabel.label === "Colors" && (
-              <div className="ps-4">
-                {/* {displayLabel.label}:{console.log(displayLabel.label)}<br /> */}
-                <input
-                  type="checkbox"
-                  checked={showColorInputs}
-                  onChange={() => setShowColorInputs(!showColorInputs)}
-                />&nbsp;
-                Check if you want to show color inputs
+                />
+                &nbsp; Check if you want to show join section checkboxes
               </div>
             )}
-            {displayLabel.label === "Prices" && (
+            {displayLabel.label === "Prices checkboxes" && (
               <div className="ps-4">
-                {/* {displayLabel.label}:{console.log(displayLabel.label)}<br /> */}
                 <input
                   type="checkbox"
                   checked={hidePrices}
                   onChange={() => setHidePrices(!hidePrices)}
-                />&nbsp;
-                Check if you want to hide prices
+                />
+                &nbsp; Check if you want to hide prices
               </div>
             )}
-            {displayLabel.label === "Decorations" && (
+            {displayLabel.label === "Decorations checkboxes" && (
               <div className="ps-4">
-                {/* {displayLabel.label}:{console.log(displayLabel.label)}<br /> */}
                 <input
                   type="checkbox"
                   checked={showDecorationCheckboxes}
-                  onChange={() => setShowDecorationCheckboxes(!showDecorationCheckboxes)}
-                />&nbsp;
-                Check if you want to show decorations
+                  onChange={() =>
+                    setShowDecorationCheckboxes(!showDecorationCheckboxes)
+                  }
+                />
+                &nbsp; Check if you want to show decorations
+              </div>
+            )}
+            {displayLabel.label === "Colors checkboxes" && (
+              <div className="ps-4">
+                <input
+                  type="checkbox"
+                  checked={showColorInputs}
+                  onChange={() => setShowColorInputs(!showColorInputs)}
+                />
+                &nbsp; Check if you want to show color inputs
               </div>
             )}
             {displayLabel.subLabels.map((item, index) => (
