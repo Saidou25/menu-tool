@@ -12,9 +12,14 @@
 .label-container {
   /* margin: 2px; */
   padding: 5px;
-  background-color: rgb(44, 44, 45);;
+  /* background-color: rgb(44, 44, 45); */
 }
-
+.lulu {
+  background-color: rgb(44, 44, 45);
+  padding: 0 5px 0 5px;
+  border: 1px solid white;
+  border-radius: 5px;
+}
 .line {
   display: flex;
   justify-content: space-between;

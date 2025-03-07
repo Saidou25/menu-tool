@@ -3,8 +3,9 @@
   border-left: 1px solid white; /* Side border */
   border-right: 1px solid white; /* Side border */
   border-bottom: 1px solid white; /* Bottom border */
-  padding-top: 20px; /* Padding for content */
+  padding-top: 20px; 
   margin-top: 20px;
+  background-color: blue;
 }
 
 .content {

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Field, StyleFormType } from "../data/types";
 import { useCategoryBackgroundColor } from "../hooks/useCategoryBackgrounColor";
 import { useDescriptionLettersColor } from "../hooks/useDescriptionLettersColor";
@@ -5,7 +6,6 @@ import { useGetSectionBackground } from "../hooks/useGetSectionBackground";
 import { useGetDescriptionLetterColor } from "../hooks/useGetDescriptionLettersColor";
 import Footer from "./Footer";
 import "./Sharables.css";
-import { useEffect } from "react";
 
 type Props = {
   categoryOrder: string[];
@@ -68,7 +68,7 @@ export default function CustomMenu({
   }, [styleForm.contentContainerWidth]);
 
   // In your component JSX:
-  <div className="content-container">{/* Your content here */}</div>;
+  // <div className="content-container">{/* Your content here */}</div>;
 
   return (
     <div
@@ -270,7 +270,7 @@ export default function CustomMenu({
                 </span>
               </div>
               <ul
-                className="row"
+                className="row p-0"
                 style={
                   joinedCategories[category]
                     ? { display: "flex", flexDirection: "column" }
