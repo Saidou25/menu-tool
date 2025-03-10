@@ -87,7 +87,7 @@ export default function DropDown({
           setShowfinalStep={setShowfinalStep}
         />
       ) : (
-        <div className="no-print" style={{ width: `${width}%` }}>
+        <div className="spotlight no-print" style={{ width: `${width}%` }}>
           {message === "menus" && (
             <div className="menus">
               <h2 className="confirm-title no-print">Please select a menu</h2>
