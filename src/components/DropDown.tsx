@@ -71,70 +71,77 @@ export default function DropDown({
   }, [message]);
 
   return (
-    <div
-      className={
-        message === "menus"
-          ? "container-dropdown-menus no-print"
-          : "container-dropdown no-print"
-      }
-    >
-      {showModal ? (
-        <MenuSizeModal
-          setShowModal={setShowModal}
-          styleForm={styleForm}
-          setStyleForm={setStyleForm}
-          showModal={showModal}
-          setShowfinalStep={setShowfinalStep}
-        />
-      ) : (
-        <div className="spotlight no-print" style={{ width: `${width}%` }}>
-          {message === "menus" && (
-            <div className="menus">
-              <h2 className="confirm-title no-print">Please select a menu</h2>
-              <br />
+      <div
+        className={
+          message === "menus"
+            ? "container-dropdown-menus no-print"
+            : "container-dropdown no-print"
+        }
+      >
+        {showModal ? (
+          <MenuSizeModal
+            setShowModal={setShowModal}
+            styleForm={styleForm}
+            setStyleForm={setStyleForm}
+            showModal={showModal}
+            setShowfinalStep={setShowfinalStep}
+          />
+        ) : (
+          <div
+            className="container-dropdown no-print"
+            // style={{ width: `${width}%` }}
+          >
+            {message === "menus" && (
+              <div className="menus">
+                <h2 className="confirm-title no-print">Please select a menu</h2>
+                <br />
+              </div>
+            )}
+            {message === "formats" && (
+              <div className="select-menu-div">
+                <h2 className="confirm-title no-print">Format</h2>
+                <br className="no-print" />
+                <p className="confirm-text no-print">
+                  Select your menu's format
+                </p>
+                <br className="no-print" />
+              </div>
+            )}
+            <div className="btn-group">
+              <button type="button" className="btn btn-danger">
+                {message === "menus" && <>menus</>}
+                {message === "formats" && <>Select</>}
+              </button>
+              <button
+                type="button"
+                className="btn btn-danger dropdown-toggle dropdown-toggle-split"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <span className="visually-hidden">Toggle Dropdown</span>
+              </button>
+              <ul className="dropdown-menu">
+                {dropDownList.map((item, index) => (
+                  <li key={index}>
+                    <button
+                      className="dropdown-item"
+                      onClick={() => {
+                        (item === "Dinner" ||
+                          item === "Desserts" ||
+                          "Custom") &&
+                        selectDropDownItem
+                          ? selectDropDownItem(item)
+                          : handleMenuFormat(item);
+                      }}
+                    >
+                      {item}
+                    </button>
+                  </li>
+                ))}
+              </ul>
             </div>
-          )}
-          {message === "formats" && (
-            <div className="select-menu-div">
-              <h2 className="confirm-title no-print">Format</h2>
-              <br className="no-print" />
-              <p className="confirm-text no-print">Select your menu's format</p>
-              <br className="no-print" />
-            </div>
-          )}
-          <div className="btn-group">
-            <button type="button" className="btn btn-danger">
-              {message === "menus" && <>menus</>}
-              {message === "formats" && <>Select</>}
-            </button>
-            <button
-              type="button"
-              className="btn btn-danger dropdown-toggle dropdown-toggle-split"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <span className="visually-hidden">Toggle Dropdown</span>
-            </button>
-            <ul className="dropdown-menu">
-              {dropDownList.map((item, index) => (
-                <li key={index}>
-                  <button
-                    className="dropdown-item"
-                    onClick={() => {
-                      (item === "Dinner" || item === "Desserts" || "Custom") &&
-                      selectDropDownItem
-                        ? selectDropDownItem(item)
-                        : handleMenuFormat(item);
-                    }}
-                  >
-                    {item}
-                  </button>
-                </li>
-              ))}
-            </ul>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
   );
 }

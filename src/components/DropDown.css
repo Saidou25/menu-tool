@@ -1,156 +1,128 @@
 /* Container styling */
 .container-dropdown {
-    display: flex;
+  height: 200;
+  margin-bottom: 40px;
+}
+.container-dropdown-menus {
+  display: flex;
+  justify-content: center;
+  width: 30%;
+  padding: 2%;
+  margin-top: 7%;
+  border-radius: 10px;
+  background: radial-gradient(
+    ellipse farthest-corner at center,
+    rgba(191, 77, 236, 0.8) 10%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  padding: 20px;
+  font-size: 24px;
+  text-align: center;
+  border: 2px solid #bf4dec; /* Neon border color */
+  box-shadow: 0 0 10px #bf4dec, 0 0 20px rgb(191, 77, 236),
+    0 0 40px rgb(191, 77, 236), 0 0 80px #bf4dec;
+}
+
+.tool-container {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 5vh;
+}
+
+.menu-tool {
+  padding-top: 35%;
+}
+
+.menus {
+  width: 100% !important;
+}
+
+/* Styling the button group */
+.btn-group {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Customizing the main button */
+.btn-danger {
+  background-color: #dc3545;
+  border: none;
+  font-size: 16px;
+  padding: 2px 20px;
+  border-radius: 0;
+  transition: background-color 0.3s ease;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+/* Styling the dropdown toggle button */
+.dropdown-toggle::after {
+  content: ""; /* Ensures the element exists */
+  display: inline-block;
+  margin-left: 8px; /* Space between text and arrow */
+  vertical-align: middle;
+  margin: 0;
+  /* Creating a custom arrow */
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid white; /* Color of the arrow */
+}
+
+.dropdown-toggle-split {
+  background-color: #dc3545;
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+  /* padding: 10px; */
+}
+
+.dropdown-toggle-split:hover {
+  background-color: #c82333;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+  width: 100%;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Dropdown menu items */
+.dropdown-item {
+  font-size: 16px;
+  padding: 10px 15px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.dropdown-item:hover {
+  background-color: #f8d7da; /* Light red */
+  color: #721c24; /* Darker text */
+}
+
+/* Message Styling */
+.message {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .btn-group {
     flex-direction: column;
     align-items: center;
-    text-align: center;
-    height: 200;
-    margin-bottom: 40px;
-    justify-content: center;
-    position: relative;
-  }
-  .container-dropdown-menus {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    /* height: 200; */
-    /* margin-bottom: 40px; */
-    /* justify-content: center; */
-    background-color: rgb(43, 96, 103);
-    /* background: radial-gradient(circle at center, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0.9) 60%); */
-    /* position: fixed; */
-    width: 100%;
-    padding: 5%;
-    margin: auto;
   }
 
-  /* .container {
-    width: 300px;
-    height: 200px;
-    background: white;
-    margin: 100px auto;
-    position: relative;
-  } */
-  
-  .spotlight {
-    position: absolute;
-    /* width: 400px;
-    height: 300px; */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: radial-gradient(circle, rgba(255, 255, 150, 0.8) 10%, rgba(0, 0, 0, 0) 70%);
-    mix-blend-mode: screen;
-    z-index: -1;
-  }
-  
-
-  .menus {
-    width: 100% !important;
-  }
-
-/* .spotlight { */
-  /* padding: 2%; */
-  /* width: 100vw; */
-  /* height: 100vh; */
-  /* background: radial-gradient(circle at center, rgba(218, 156, 244, 0.2) 0%, rgba(0, 0, 0, 0.9) 60%); */
-  /* position: fixed; */
-  /* top: 0; */
-  /* left: 0; */
-  /* pointer-events: none; Ensures it does not block interactions */
-/* } */
-
-
-
-
-
-  /* Styling the button group */
-  .btn-group {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-  
-  /* Customizing the main button */
   .btn-danger {
-    background-color: #dc3545; /* Bootstrap red */
-    border: none;
-    font-size: 16px;
-    padding: 2px 20px;
-    border-radius: 0;
-    transition: background-color 0.3s ease;
-  }
-  
-  .btn-danger:hover {
-    background-color: #c82333; /* Darker red */
-  }
-  
-  /* Styling the dropdown toggle button */
-  .dropdown-toggle::after {
-    content: ""; /* Ensures the element exists */
-    display: inline-block;
-    margin-left: 8px; /* Space between text and arrow */
-    vertical-align: middle;
-    margin: 0;
-    /* Creating a custom arrow */
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 6px solid white; /* Color of the arrow */
-  }
-  
-  .dropdown-toggle-split {
-    background-color: #dc3545;
-    border-left: 1px solid rgba(255, 255, 255, 0.5);
-    /* padding: 10px; */
-  }
-  
-  .dropdown-toggle-split:hover {
-    background-color: #c82333;
-  }
-  
-  /* Dropdown menu */
-  .dropdown-menu {
     width: 100%;
-    text-align: center;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   }
-  
-  /* Dropdown menu items */
-  .dropdown-item {
-    font-size: 16px;
-    padding: 10px 15px;
-    transition: background-color 0.2s ease-in-out;
+
+  .dropdown-menu {
+    width: auto;
   }
-  
-  .dropdown-item:hover {
-    background-color: #f8d7da; /* Light red */
-    color: #721c24; /* Darker text */
-  }
-  
-  /* Message Styling */
-  .message {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .btn-group {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .btn-danger {
-      width: 100%;
-    }
-  
-    .dropdown-menu {
-      width: auto;
-    }
-  }
-  
+}
