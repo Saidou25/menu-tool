@@ -35,7 +35,8 @@ export default function Categories({
   const [hidePrices, setHidePrices] = useState(false);
   const [showColorInputs, setShowColorInputs] = useState(false);
   const [showFinalStep, setShowfinalStep] = useState(false);
-  const [showDecorationCheckboxes, setShowDecorationsCheckboxes] = useState(false);
+  const [showDecorationCheckboxes, setShowDecorationsCheckboxes] =
+    useState(false);
   const [showModal, setShowModal] = useState(false);
   const [fadeInOut, setFadeInOut] = useState(false);
   const [menuPreview, setMenuPreview] = useState(false);
@@ -93,8 +94,13 @@ export default function Categories({
     decoration: "",
     gapTextTop: -11,
     contentContainerWidth: 45,
+    paddingCategories: 0,
+    paddingDecoration: 0,
+    decorationWidth: 90,
+    // joindedPaddingLeft: 0,
+    // joinPaddingRignt: 0,
   });
-// console.log(styleForm.contentContainerWidth);
+  // console.log(styleForm.contentContainerWidth);
   const handleDisclaimer = () => {
     setShowDisclaimer((prev) => !prev);
   };
@@ -207,7 +213,6 @@ export default function Categories({
         setShowDecorations={setShowDecorations}
         showDecorationCheckboxes={showDecorationCheckboxes}
         setShowDecorationCheckboxes={setShowDecorationsCheckboxes}
-        
       >
         <FinalStep
           goBack={handleGoBack}
@@ -234,8 +239,8 @@ export default function Categories({
           setHidePrices={setHidePrices}
           showDecorations={showDecorations}
           // setShowDecorations={setShowDecorations}
-           showDecorationCheckboxes={showDecorationCheckboxes}
-        setShowDecorationCheckboxes={setShowDecorationsCheckboxes}
+          showDecorationCheckboxes={showDecorationCheckboxes}
+          setShowDecorationCheckboxes={setShowDecorationsCheckboxes}
         />
       </PreviewMenu>
     );
@@ -243,12 +248,25 @@ export default function Categories({
 
   return (
     <>
-    <Logo className="restart" h1ClassName="restart-tool" title="" subtitle="Restart" 
-    setCategoriesList={setCategoriesList} />
-    <Logo className="preview-btn" h1ClassName="preview-tool" title="" subtitle="Preview menu"
-    setMenuPreview={setMenuPreview} menuPreview={menuPreview} />
+      <Logo
+        className="restart"
+        h1ClassName="restart-tool"
+        title=""
+        subtitle="Restart"
+        setCategoriesList={setCategoriesList}
+      />
+      <Logo
+        className="preview-btn"
+        h1ClassName="preview-tool"
+        title=""
+        subtitle="Preview menu"
+        setMenuPreview={setMenuPreview}
+        menuPreview={menuPreview}
+      />
       <div className="row">
-        <h1 className="pb-5 ps-5">Select categories and items for your menu:</h1>
+        <h1 className="pb-5 ps-5">
+          Select categories and items for your menu:
+        </h1>
         {categoriesList.map((category, index) => (
           <div className="col-3 categories ps-5 ms-5" key={index}>
             <CategoryItems

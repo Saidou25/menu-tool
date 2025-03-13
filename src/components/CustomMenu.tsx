@@ -48,6 +48,40 @@ export default function CustomMenu({
   const getSectionBackground = useGetSectionBackground(styleForm);
   const getDescriptionLetterColor = useGetDescriptionLetterColor(styleForm);
 
+  const getDynamicStyles = (className: string, categoryIndex: number) => {
+    if (className === "col-6") {
+      if (categoryIndex === 0 || categoryIndex % 2 === 0) {
+        return {
+          backgroundColor: getSectionBackground(categoryIndex),
+          paddingLeft: `${styleForm.paddingCategories}px`,
+        };
+      } else {
+        return {
+          paddingRight: `${styleForm.paddingCategories}px`,
+          // marginBottom: `${styleForm.categoriesMarginBottom}px`,
+        };
+      }
+      // console.log(className, categoryIndex, joinedCategories)
+    } else if (className === "col-12 content-container") {
+      return {
+        // backgroundColor: getSectionBackground(categoryIndex),
+        // marginBottom: `${styleForm.categoriesMarginBottom}px`,
+        width: `${styleForm.decorationWidth}%`,
+        paddingRight: `${styleForm.paddingDecoration}px`,
+        paddingLeft: `${styleForm.paddingDecoration}px`,
+        margin: "auto",
+      };
+    } else if (className === "col-12") {
+      return {
+        backgroundColor: getSectionBackground(categoryIndex),
+        // marginBottom: `${styleForm.categoriesMarginBottom}px`,
+        paddingRight: `${styleForm.paddingCategories}px`,
+        paddingLeft: `${styleForm.paddingCategories}px`,
+      };
+    }
+    return {};
+  };
+
   useEffect(() => {
     const style = document.createElement("style");
     style.innerHTML = `
@@ -59,7 +93,7 @@ export default function CustomMenu({
       right: 0;
       width: ${styleForm.contentContainerWidth}%;
     }
-  `;
+    `;
     document.head.appendChild(style);
 
     return () => {
@@ -76,7 +110,7 @@ export default function CustomMenu({
       style={{
         padding: `${styleForm.pagePaddingTopAndBottom}px ${styleForm.pagePaddingLeftAndRight}px`,
         width: `${+styleForm.menuWidth}mm`,
-        // height: `${+styleForm.menuHeight}mm`,
+        height: `${+styleForm.menuHeight}mm`,
         maxHeight: `${+styleForm.menuHeight}mm`,
         // animation: "menuSizeAnimation 0.5s linear forwards",
         overflow: "hidden",
@@ -165,8 +199,18 @@ export default function CustomMenu({
               }
               key={category}
               style={{
+                ...getDynamicStyles(
+                  joinedCategories[category]
+                    ? "col-6"
+                    : category === showDecorations
+                    ? "col-12 content-container"
+                    : "col-12",
+                  categoryIndex
+                ),
                 backgroundColor: getSectionBackground(categoryIndex),
                 marginBottom: `${styleForm.categoriesMarginBottom}px`,
+                // paddingRight: `${styleForm.paddingCategories}px`,
+                // paddingLeft: `${styleForm.paddingCategories}px`,
               }}
             >
               <div
@@ -182,7 +226,10 @@ export default function CustomMenu({
                   style={{
                     fontSize: `${styleForm.categoryFontSize}px`,
                     color: styleForm.categoryColor,
-                    marginBottom: category === showDecorations ? "20px":`${styleForm.categoryMarginBottom}px`,
+                    marginBottom:
+                      category === showDecorations
+                        ? "20px"
+                        : `${styleForm.categoryMarginBottom}px`,
                   }} // To do: handle this dynamically
                 >
                   <span
@@ -195,12 +242,11 @@ export default function CustomMenu({
                       lineHeight: "1",
                       display: "inline",
                       verticalAlign: "baseline",
-                      // marginBottom: category === showDecorations ? "20px": "" 
+                      // marginBottom: category === showDecorations ? "20px": ""
                     }}
                   >
                     {category}
                   </span>
-                  
                 </h2>
 
                 {showJoinInputs && (

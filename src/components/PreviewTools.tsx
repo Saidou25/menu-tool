@@ -99,6 +99,14 @@ const displayTools = [
         subLabels: ["padding top and bottom", "padding left and right"],
       },
       {
+        label: "Padding categories",
+        subLabels: ["padding sections"],
+      },
+      {
+        label: "Decoration width and padding",
+        subLabels: ["decoration width", "decoration padding"],
+      },
+      {
         label: "Margin bottom",
         subLabels: [
           "title",
@@ -202,6 +210,9 @@ export default function PreviewTools({
     "footer text's color": "footerTextColor",
     "gap text": "gapTextTop",
     "content width": "contentContainerWidth",
+    "padding sections": "paddingCategories",
+    "decoration width": "decorationWidth",
+    "decoration padding": "paddingDecoration",
   };
 
   const getInputType = (item: string): "file" | "text" | "number" | "color" => {
@@ -345,142 +356,138 @@ export default function PreviewTools({
               <br />
               {showToolItems.includes(displayTool.title) ? (
                 // <div className="lulu-div">
-                  <div className="lulu">
-                    {displayTool.displayLabels?.map((displayLabel) => (
-                      <div key={displayLabel.label} className="label-container">
-                        <span>{displayLabel.label}: </span>
+                <div className="lulu">
+                  {displayTool.displayLabels?.map((displayLabel) => (
+                    <div key={displayLabel.label} className="label-container">
+                      <span>{displayLabel.label}: </span>
 
-                        {/* Only display image preview for file inputs */}
-                        {/* Only display image preview for file inputs */}
-                        {displayLabel.label === "Background image" &&
-                          styleForm.backgroundImage && (
-                            <img
-                              className="selected-image"
-                              src={styleForm.backgroundImage?.toString()}
-                              alt="Uploaded"
-                              style={{
-                                width: "25px",
-                                height: "auto",
-                                marginLeft: "5px",
-                              }} // Adjust size as needed
-                            />
-                          )}
-                        {displayLabel.label ===
-                          "Add an image or a logo at the top" &&
-                          styleForm.topImage && (
-                            <img
-                              className="selected-image"
-                              src={styleForm.topImage?.toString()}
-                              alt="Uploaded"
-                              style={{
-                                width: "25px",
-                                height: "auto",
-                                marginLeft: "5px",
-                              }} // Adjust size as needed
-                            />
-                          )}
-                        {displayLabel.label === "Add Guy's logo at the top" &&
-                          styleForm.guyTop && (
-                            <img
-                              className="selected-image"
-                              src={styleForm.guyTop?.toString()}
-                              alt="Uploaded"
-                              style={{
-                                width: "25px",
-                                height: "auto",
-                                marginLeft: "5px",
-                              }} // Adjust size as needed
-                            />
-                          )}
-                        {displayLabel.label ===
-                          "Add an image or a logo at the bottom" &&
-                          styleForm.bottomImage && (
-                            <img
-                              className="selected-image"
-                              src={styleForm.bottomImage?.toString()}
-                              alt="Uploaded"
-                              style={{
-                                width: "25px",
-                                height: "auto",
-                                marginLeft: "5px",
-                              }} // Adjust size as needed
-                            />
-                          )}
-                        {displayLabel.label ===
-                          "Add Guy's logo at the bottom" &&
-                          styleForm.guyBottom && (
-                            <img
-                              className="selected-image"
-                              src={styleForm.guyBottom?.toString()}
-                              alt="Uploaded"
-                              style={{
-                                width: "25px",
-                                height: "auto",
-                                marginLeft: "5px",
-                              }} // Adjust size as needed
-                            />
-                          )}
+                      {/* Only display image preview for file inputs */}
+                      {/* Only display image preview for file inputs */}
+                      {displayLabel.label === "Background image" &&
+                        styleForm.backgroundImage && (
+                          <img
+                            className="selected-image"
+                            src={styleForm.backgroundImage?.toString()}
+                            alt="Uploaded"
+                            style={{
+                              width: "25px",
+                              height: "auto",
+                              marginLeft: "5px",
+                            }} // Adjust size as needed
+                          />
+                        )}
+                      {displayLabel.label ===
+                        "Add an image or a logo at the top" &&
+                        styleForm.topImage && (
+                          <img
+                            className="selected-image"
+                            src={styleForm.topImage?.toString()}
+                            alt="Uploaded"
+                            style={{
+                              width: "25px",
+                              height: "auto",
+                              marginLeft: "5px",
+                            }} // Adjust size as needed
+                          />
+                        )}
+                      {displayLabel.label === "Add Guy's logo at the top" &&
+                        styleForm.guyTop && (
+                          <img
+                            className="selected-image"
+                            src={styleForm.guyTop?.toString()}
+                            alt="Uploaded"
+                            style={{
+                              width: "25px",
+                              height: "auto",
+                              marginLeft: "5px",
+                            }} // Adjust size as needed
+                          />
+                        )}
+                      {displayLabel.label ===
+                        "Add an image or a logo at the bottom" &&
+                        styleForm.bottomImage && (
+                          <img
+                            className="selected-image"
+                            src={styleForm.bottomImage?.toString()}
+                            alt="Uploaded"
+                            style={{
+                              width: "25px",
+                              height: "auto",
+                              marginLeft: "5px",
+                            }} // Adjust size as needed
+                          />
+                        )}
+                      {displayLabel.label === "Add Guy's logo at the bottom" &&
+                        styleForm.guyBottom && (
+                          <img
+                            className="selected-image"
+                            src={styleForm.guyBottom?.toString()}
+                            alt="Uploaded"
+                            style={{
+                              width: "25px",
+                              height: "auto",
+                              marginLeft: "5px",
+                            }} // Adjust size as needed
+                          />
+                        )}
 
-                        {displayLabel.label ===
-                          "Join categories checkboxes" && (
-                          <div className="ps-4">
-                            <Checkbox
-                              onChange={() =>
-                                setShowJoinInputs(!showJoinInputs)
-                              }
-                              checked={showJoinInputs}
-                              className="checkbox"
-                            />
-                            &nbsp; Check if you want to show join section
-                            checkboxes
-                          </div>
-                        )}
-                        {displayLabel.label === "Prices checkboxes" && (
-                          <div className="ps-4">
-                            <input
-                              className="checkbox"
-                              type="checkbox"
-                              checked={hidePrices}
-                              onChange={() => setHidePrices(!hidePrices)}
-                            />
-                            &nbsp; Check if you want to hide prices
-                          </div>
-                        )}
-                        {displayLabel.label === "Decorations checkboxes" && (
-                          <div className="ps-4">
-                            <input
-                              className="checkbox"
-                              type="checkbox"
-                              checked={showDecorationCheckboxes}
-                              onChange={() =>
-                                setShowDecorationCheckboxes(
-                                  !showDecorationCheckboxes
-                                )
-                              }
-                            />
-                            &nbsp; Check if you want to show decorations
-                          </div>
-                        )}
-                        {displayLabel.label === "Colors checkboxes" && (
-                          <div className="ps-4">
-                            <input
-                              className="checkbox"
-                              type="checkbox"
-                              checked={showColorInputs}
-                              onChange={() =>
-                                setShowColorInputs(!showColorInputs)
-                              }
-                            />
-                            &nbsp; Check if you want to show color inputs
-                          </div>
-                        )}
-                        {displayLabel.subLabels.map((item, index) => (
-                          <ul className="line" key={item}>
-                            <li className="li ps-4 d-flex align-items-center">
-                              <span>{item}&nbsp;</span>
+                      {displayLabel.label === "Join categories checkboxes" && (
+                        <div className="ps-4">
+                          <Checkbox
+                            onChange={() => setShowJoinInputs(!showJoinInputs)}
+                            checked={showJoinInputs}
+                            className="checkbox"
+                          />
+                          &nbsp; Check if you want to show join section
+                          checkboxes
+                        </div>
+                      )}
+                      {displayLabel.label === "Prices checkboxes" && (
+                        <div className="ps-4">
+                          <input
+                            className="checkbox"
+                            type="checkbox"
+                            checked={hidePrices}
+                            onChange={() => setHidePrices(!hidePrices)}
+                          />
+                          &nbsp; Check if you want to hide prices
+                        </div>
+                      )}
+                      {displayLabel.label === "Decorations checkboxes" && (
+                        <div className="ps-4">
+                          <input
+                            className="checkbox"
+                            type="checkbox"
+                            checked={showDecorationCheckboxes}
+                            onChange={() =>
+                              setShowDecorationCheckboxes(
+                                !showDecorationCheckboxes
+                              )
+                            }
+                          />
+                          &nbsp; Check if you want to show decorations
+                        </div>
+                      )}
+                      {displayLabel.label === "Colors checkboxes" && (
+                        <div className="ps-4">
+                          <input
+                            className="checkbox"
+                            type="checkbox"
+                            checked={showColorInputs}
+                            onChange={() =>
+                              setShowColorInputs(!showColorInputs)
+                            }
+                          />
+                          &nbsp; Check if you want to show color inputs
+                        </div>
+                      )}
+                      {displayLabel.subLabels.map((item, index) => (
+                        <ul className="line" key={item}>
+                          <li className="li ps-4 d-flex align-items-center">
+                            <span>{item}&nbsp;</span>
 
-                              {/* Only display image preview for file inputs */}
-                              {/* {getInputType(item) === "file" &&
+                            {/* Only display image preview for file inputs */}
+                            {/* {getInputType(item) === "file" &&
                           localStyleForm[
                             keyMap[item as keyof typeof keyMap]
                           ] && (
@@ -497,104 +504,102 @@ export default function PreviewTools({
                               }} // Adjust size as needed
                             />
                           )} */}
-                            </li>
+                          </li>
 
-                            {/* Handle File Upload Inputs */}
-                            {getInputType(item) === "file" ? (
-                              <div>
-                                <label
-                                  htmlFor={`file-upload-${item}-${index}`}
-                                  className="custom-file-upload"
+                          {/* Handle File Upload Inputs */}
+                          {getInputType(item) === "file" ? (
+                            <div>
+                              <label
+                                htmlFor={`file-upload-${item}-${index}`}
+                                className="custom-file-upload"
+                              >
+                                <span id={`file-name-${item}`}>
+                                  {localStyleForm[
+                                    keyMap[item as keyof typeof keyMap]
+                                  ]
+                                    ? "File selected"
+                                    : "No file chosen"}
+                                </span>
+                                &nbsp;
+                                <button
+                                  type="button"
+                                  className="file-button"
+                                  onClick={() =>
+                                    document
+                                      .getElementById(
+                                        `file-upload-${item}-${index}`
+                                      )
+                                      ?.click()
+                                  }
                                 >
-                                  <span id={`file-name-${item}`}>
-                                    {localStyleForm[
-                                      keyMap[item as keyof typeof keyMap]
-                                    ]
-                                      ? "File selected"
-                                      : "No file chosen"}
-                                  </span>
-                                  &nbsp;
-                                  <button
-                                    type="button"
-                                    className="file-button"
-                                    onClick={() =>
-                                      document
-                                        .getElementById(
-                                          `file-upload-${item}-${index}`
-                                        )
-                                        ?.click()
-                                    }
-                                  >
-                                    Choose File
-                                  </button>
-                                </label>
-                                <input
-                                  id={`file-upload-${item}-${index}`}
-                                  type="file"
-                                  hidden
-                                  name={item}
-                                  accept="image/*"
-                                  onChange={handleChange}
-                                />
-                              </div>
-                            ) : getInputType(item) === "color" ? (
-                              // Render color picker input correctly
+                                  Choose File
+                                </button>
+                              </label>
                               <input
-                                type="color"
-                                value={
-                                  keyMap[item as keyof typeof keyMap] ===
-                                  "sectionBackground"
-                                    ? localStyleForm.sectionBackground.length >
-                                      0
-                                      ? localStyleForm.sectionBackground[0]
-                                          ?.backgroundColor || "#000000"
-                                      : "#000000"
-                                    : (
-                                        localStyleForm[
-                                          keyMap[item as keyof typeof keyMap]
-                                        ] as string
-                                      )?.trim() || "#000000"
-                                }
+                                id={`file-upload-${item}-${index}`}
+                                type="file"
+                                hidden
                                 name={item}
+                                accept="image/*"
                                 onChange={handleChange}
                               />
-                            ) : (
-                              // Render other input types (number, text)
-                              <input
-                                className="input-style"
-                                type={getInputType(item)}
-                                placeholder={getPlaceholderType(item)}
-                                min={item !== "gap text" ? 0 : ""}
-                                value={
-                                  keyMap[item as keyof typeof keyMap] ===
-                                  "sectionBackground"
-                                    ? localStyleForm.sectionBackground.length >
-                                      0
-                                      ? localStyleForm.sectionBackground[0]
-                                          .backgroundColor || "#000000"
-                                      : "#000000"
-                                    : getInputType(item) === "number"
-                                    ? Number(
-                                        localStyleForm[
-                                          keyMap[item as keyof typeof keyMap]
-                                        ]
-                                      ) || 0
-                                    : (localStyleForm[
+                            </div>
+                          ) : getInputType(item) === "color" ? (
+                            // Render color picker input correctly
+                            <input
+                              type="color"
+                              value={
+                                keyMap[item as keyof typeof keyMap] ===
+                                "sectionBackground"
+                                  ? localStyleForm.sectionBackground.length > 0
+                                    ? localStyleForm.sectionBackground[0]
+                                        ?.backgroundColor || "#000000"
+                                    : "#000000"
+                                  : (
+                                      localStyleForm[
                                         keyMap[item as keyof typeof keyMap]
-                                      ] as string) || ""
-                                }
-                                name={item}
-                                onChange={handleChange}
-                              />
-                            )}
-                          </ul>
-                        ))}
-                        <br />
-                      </div>
-                    ))}
-                  </div>
-                // </div>
-              ) : null}
+                                      ] as string
+                                    )?.trim() || "#000000"
+                              }
+                              name={item}
+                              onChange={handleChange}
+                            />
+                          ) : (
+                            // Render other input types (number, text)
+                            <input
+                              className="input-style"
+                              type={getInputType(item)}
+                              placeholder={getPlaceholderType(item)}
+                              min={item !== "gap text" ? 0 : ""}
+                              value={
+                                keyMap[item as keyof typeof keyMap] ===
+                                "sectionBackground"
+                                  ? localStyleForm.sectionBackground.length > 0
+                                    ? localStyleForm.sectionBackground[0]
+                                        .backgroundColor || "#000000"
+                                    : "#000000"
+                                  : getInputType(item) === "number"
+                                  ? Number(
+                                      localStyleForm[
+                                        keyMap[item as keyof typeof keyMap]
+                                      ]
+                                    ) || 0
+                                  : (localStyleForm[
+                                      keyMap[item as keyof typeof keyMap]
+                                    ] as string) || ""
+                              }
+                              name={item}
+                              onChange={handleChange}
+                            />
+                          )}
+                        </ul>
+                      ))}
+                      <br />
+                    </div>
+                  ))}
+                </div>
+              ) : // </div>
+              null}
             </div>
           ))}
       </div>

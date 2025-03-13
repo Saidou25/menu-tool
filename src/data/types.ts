@@ -81,4 +81,9 @@ export type StyleFormType = {
   footerTextColor: string;
   gapTextTop: number;
   contentContainerWidth: number;
+  paddingCategories: number;
+  decorationWidth: number;
+  paddingDecoration: number;
+  // joindedPaddingLeft: number;
+  // joinPaddingRignt: number;
 };
