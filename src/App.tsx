@@ -9,6 +9,7 @@ import DropDown from "./components/DropDown";
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Logo from "./components/Logo";
 // import Affiliate from "./components/Affiliate";
 // import Sharables from "./components/Sharables";
 
@@ -19,7 +20,7 @@ function App() {
   const [menuSampleData, setMenuSampleData] = useState<
     Record<string, { subtitle?: string; items: Field[] }>
   >({});
-  console.log(showDropown);
+ 
   // const [styleForm, setStyleForm] = useState<StyleFormType>({
   //     menuWidth: 0,
   //     menuHeight: 0,
@@ -122,6 +123,7 @@ function App() {
     return (
       <div className="row app-container g-0">
         <Categories
+        setCategoriesList={setCategoriesList}
           categoriesList={categoriesList}
           menuSampleDataFunc={funcSetMenuSampleData}
           selectedData={menuSampleData}
@@ -131,28 +133,25 @@ function App() {
     );
   return (
     <div className="row tool-container g-0">
-      <div className="col-6 spotlight">
-        <h1 className="menu-tool">Menu Tool</h1>
-        <span className="menu-tool-span">Building your menu made easy</span>
-      </div>
+      <Logo className="spotlight" h1ClassName="menu-tool"  title="Menu tool" subtitle="Building your menu made easy" />
       <div className="col-6 just-click-button">
         <WiStars className="stars1" />
         <h2 className="just-click">
-          "Quickly build your menu with just a few clicks."
+          "Quickly build your menu with just a few clicks"
         </h2>
+      </div>
+      <WiStars className="stars2" />
+      {!showDropown && (
+        <div className="button-start">
+          <button
+            className="start"
+            type="button"
+            onClick={() => setShowDropdown(true)}
+          >
+            Start
+          </button>
         </div>
-        <WiStars className="stars2" />
-        {!showDropown && (
-          <div className="button-start">
-            <button
-              className="start"
-              type="button"
-              onClick={() => setShowDropdown(true)}
-            >
-              Start
-            </button>
-          </div>
-        )}
+      )}
       {showDropown && (
         <div className="dropDown-div">
           <DropDown

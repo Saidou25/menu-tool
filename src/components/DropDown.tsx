@@ -108,13 +108,13 @@ export default function DropDown({
               </div>
             )}
             <div className="btn-group">
-              <button type="button" className="btn btn-danger">
+              <button type="button" className="btn text-white">
                 {message === "menus" && <>menus</>}
                 {message === "formats" && <>Select</>}
               </button>
               <button
                 type="button"
-                className="btn btn-danger dropdown-toggle dropdown-toggle-split"
+                className="btn dropdown-toggle dropdown-toggle-split"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >

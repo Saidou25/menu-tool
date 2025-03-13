@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Field } from "../data/types";
 import Label from "./Label";
 import SmallTittles from "./SmallTittles";
+import Checkbox from "./Checkbox";
 
 import "./CategoryItems.css";
 
@@ -51,10 +52,10 @@ export default function CategoryItems({
   return (
     <div className="category-items-container">
       <div className="categories-titles">
-        <input
+        <Checkbox
           className="checkbox-category"
           id={title}
-          type="checkbox"
+          // type="checkbox"
           onChange={handleSelectTitle}
           checked={titleSelected}
           name={title}
@@ -68,14 +69,14 @@ export default function CategoryItems({
             <div key={item.label}>
               {item.type === "checkbox" && (
                 <>
-                  <input
+                  <Checkbox
                     className={
                       fadeInOut
                         ? "checkbox-category-item-in"
                         : "checkbox-category-item-out"
                     }
                     id={item.label}
-                    type={item.type}
+                    // type={item.type}
                     onChange={() => selectCategoryItem(item)}
                     checked={selectedCategoryItems.some(
                       (existingItem) => existingItem.label === item.label

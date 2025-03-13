@@ -128,24 +128,22 @@ ModalProps) => {
           )}
           {/* <br className="no-print" /> */}
           {custom ? (
-            <>
-              <CustomMenu
-                categoryOrder={categoryOrder}
-                organizedData={organizedData}
-                styleForm={styleForm}
-                setStyleForm={setStyleForm}
-                showColorInputs={showColorInputs}
-                showJoinInputs={showJoinInputs}
-                showDisclaimer={showDisclaimer}
-                joinedCategories={joinedCategories}
-                setJoinedCategories={setJoinedCategories}
-                hidePrices={hidePrices}
-                showDecorations={showDecorations}
-                setShowDecorations={setShowDecorations}
-                showDecorationCheckboxes={showDecorationCheckboxes}
-                setShowDecorationCheckboxes={setShowDecorationCheckboxes}
-              />
-            </>
+            <CustomMenu
+              categoryOrder={categoryOrder}
+              organizedData={organizedData}
+              styleForm={styleForm}
+              setStyleForm={setStyleForm}
+              showColorInputs={showColorInputs}
+              showJoinInputs={showJoinInputs}
+              showDisclaimer={showDisclaimer}
+              joinedCategories={joinedCategories}
+              setJoinedCategories={setJoinedCategories}
+              hidePrices={hidePrices}
+              showDecorations={showDecorations}
+              setShowDecorations={setShowDecorations}
+              showDecorationCheckboxes={showDecorationCheckboxes}
+              setShowDecorationCheckboxes={setShowDecorationCheckboxes}
+            />
           ) : (
             <>
               {/* Render the first set of categories: Front menu */}

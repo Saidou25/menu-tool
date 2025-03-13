@@ -13,8 +13,14 @@
 }
 .just-click {
   text-align: center;
-  padding-top: 35%;
+  margin-top: 35%;
+  padding: 3% 0 3% 0;
+  /* text-transform: uppercase; */
   font-family: serif;
+  font-size: 3rem;
+  /* border-radius: 10px;
+  box-shadow: 0 0 10px #c87be6, 0 0 20px rgb(208, 150, 231),
+  0 0 40px rgb(191, 77, 236), 0 0 80px #c167e4; */
 }
 .button-start {
   display: flex;
@@ -52,20 +58,6 @@
     rgba(208, 137, 236, 0.989) 10%,
     rgba(0, 0, 0, 0) 70%
   );
-}
-.spotlight {
-  display: flex;
-  flex-direction: column;
-  align-items: center !important;
-  text-align: center;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(
-    circle,
-    rgba(217, 122, 255, 0.989) 10%,
-    rgba(0, 0, 0, 0) 70%
-  );
-  mix-blend-mode: screen;
 }
 
 .dropDown-div {

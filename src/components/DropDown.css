@@ -29,10 +29,6 @@
   padding-top: 5vh;
 }
 
-.menu-tool {
-  padding-top: 35%;
-}
-
 .menus {
   width: 100% !important;
 }
@@ -41,21 +37,17 @@
 .btn-group {
   width: 100%;
   display: flex;
+  /* background-color: rgb(7, 98, 101); */
+  background-color: rgba(198, 99, 237, 0.989);
   justify-content: center;
+  border-radius: 0;
+  
 }
-
-/* Customizing the main button */
-.btn-danger {
-  background-color: #dc3545;
+.btn {
   border: none;
   font-size: 16px;
   padding: 2px 20px;
-  border-radius: 0;
   transition: background-color 0.3s ease;
-}
-
-.btn-danger:hover {
-  background-color: #c82333;
 }
 
 /* Styling the dropdown toggle button */
@@ -71,16 +63,16 @@
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   border-top: 6px solid white; /* Color of the arrow */
+  
 }
 
 .dropdown-toggle-split {
-  background-color: #dc3545;
+  background-color: rgba(198, 99, 237, 0.989);
   border-left: 1px solid rgba(255, 255, 255, 0.5);
-  /* padding: 10px; */
 }
 
 .dropdown-toggle-split:hover {
-  background-color: #c82333;
+  background-color: rgba(219, 174, 236, 0.989);
 }
 
 /* Dropdown menu */
@@ -99,8 +91,8 @@
 }
 
 .dropdown-item:hover {
-  background-color: #f8d7da; /* Light red */
-  color: #721c24; /* Darker text */
+  background-color: rgba(198, 99, 237, 0.989);
+  color: white; /* Darker text */
 }
 
 /* Message Styling */

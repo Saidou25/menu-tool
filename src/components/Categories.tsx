@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Field, StyleFormType } from "../data/types";
+import { Field, MenuCategory, StyleFormType } from "../data/types";
 import SelectedCategoryItems from "./SelectedCategoryItems";
 import CategoryItems from "./CategoryItems";
 import PreviewMenu from "./PreviewMenu";
@@ -9,10 +9,12 @@ import DropDown from "./DropDown";
 import PreviewTools from "./PreviewTools";
 
 import "./Categories.css";
+import Logo from "./Logo";
 
 type Props = {
   custom: boolean;
   categoriesList: Array<{ title: string; subtitle?: string; items: Field[] }>;
+  setCategoriesList: React.Dispatch<React.SetStateAction<MenuCategory[]>>;
   selectedData: Record<string, { subtitle?: string; items: Field[] }>; // Update here
   menuSampleDataFunc: (
     localSelectedCategoryItems: Record<
@@ -26,6 +28,7 @@ export default function Categories({
   custom,
   selectedData,
   menuSampleDataFunc,
+  setCategoriesList,
   categoriesList,
 }: Props) {
   const [showJoinInputs, setShowJoinInputs] = useState(false);
@@ -240,10 +243,14 @@ export default function Categories({
 
   return (
     <>
+    <Logo className="restart" h1ClassName="restart-tool" title="" subtitle="Restart" 
+    setCategoriesList={setCategoriesList} />
+    <Logo className="preview-btn" h1ClassName="preview-tool" title="" subtitle="Preview menu"
+    setMenuPreview={setMenuPreview} menuPreview={menuPreview} />
       <div className="row">
-        <h1>Select which categories and items for your menu</h1>
+        <h1 className="pb-5 ps-5">Select categories and items for your menu:</h1>
         {categoriesList.map((category, index) => (
-          <div className="col-3 categories" key={index}>
+          <div className="col-3 categories ps-5 ms-5" key={index}>
             <CategoryItems
               selectedCategoryItems={
                 localSelectedCategoryItems[category.title]?.items || []
@@ -267,7 +274,7 @@ export default function Categories({
         ))}
       </div>
       <br />
-      <div className="categories-titles">
+      <div className="categories-titles ps-5 ms-5 pt-2">
         <input
           className="checkbox-category"
           id="disclaimer"
@@ -278,7 +285,8 @@ export default function Categories({
         />
         <SmallTittles label="Select to add FDA disclaimer to the bottom of your menu" />
       </div>
-      <div className="categories-titles">
+      <br />
+      <div className="categories-titles ps-5 ms-5 pt-3">
         <input
           className="checkbox-category"
           id="preview-menu"

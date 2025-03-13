@@ -1,0 +1,41 @@
+.spotlight {
+  display: flex;
+  flex-direction: column;
+  align-items: center !important;
+  text-align: center;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(
+    circle,
+    rgba(217, 122, 255, 0.989) 10%,
+    rgba(0, 0, 0, 0) 70%
+  );
+  mix-blend-mode: screen;
+}
+.restart,
+.preview-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center !important;
+  text-align: center;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(
+    circle,
+    rgba(217, 122, 255, 0.989) 10%,
+    rgba(0, 0, 0, 0) 70%
+  );
+  cursor: pointer;
+  mix-blend-mode: screen;
+  margin-bottom: 3%;
+  margin-right: 5%;
+}
+.menu-tool {
+  padding-top: 35%;
+}
+.restart-tool {
+  padding-top: 27%;
+}
+.preview-tool {
+  padding-top: 20%;
+}
