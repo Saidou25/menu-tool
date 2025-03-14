@@ -35,6 +35,16 @@ export type DescriptionLetterColor = {
   descriptionLetterColor: string;
 }[];
 
+export type PaddingCategorieTop = {
+  categoryIndex: number;
+  paddingCategoriesTop: number;
+}[];
+
+export type MarginCategoreTop = {
+  categoryIndex: number;
+  marginCategoriesTop: number;
+}[];
+
 export type StyleFormType = {
   menuWidth: number;
   menuHeight: number;
@@ -81,7 +91,9 @@ export type StyleFormType = {
   footerTextColor: string;
   gapTextTop: number;
   contentContainerWidth: number;
-  paddingCategories: number;
+  paddingCategoriesLeftRight: number;
+  paddingCategoriesTop: PaddingCategorieTop;
+  marginCategoriesTop: MarginCategoreTop;
   decorationWidth: number;
   paddingDecoration: number;
   // joindedPaddingLeft: number;

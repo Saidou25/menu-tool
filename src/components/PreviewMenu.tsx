@@ -17,6 +17,8 @@ type ModalProps = {
   setShowDecorations: (category: string) => void;
   showDecorationCheckboxes: boolean;
   setShowDecorationCheckboxes: (item: boolean) => void;
+  showPaddingCategoriesTop: boolean;
+  showMarginCategoriesTop: boolean;
   hidePrices: boolean;
   // setHidePrices: (item: boolean) => void;
   children: React.ReactNode[];
@@ -46,6 +48,8 @@ const PreviewMenu = ({
   dataSample,
   styleForm,
   showDecorationCheckboxes,
+  showPaddingCategoriesTop,
+  showMarginCategoriesTop,
   setStyleForm,
   joinedCategories,
   setJoinedCategories,
@@ -143,6 +147,8 @@ ModalProps) => {
               setShowDecorations={setShowDecorations}
               showDecorationCheckboxes={showDecorationCheckboxes}
               setShowDecorationCheckboxes={setShowDecorationCheckboxes}
+              showPaddingCategoriesTop={showPaddingCategoriesTop}
+              showMarginCategoriesTop={showMarginCategoriesTop}
             />
           ) : (
             <>

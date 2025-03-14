@@ -1,8 +1,8 @@
 .preview-tools-container {
   padding: 0 2% 0 3%;
-  height: 75vh;
+  /* height: 75vh; */
   width: 20vw;
-  overflow: scroll;
+  /* overflow: scroll; */
 }
 .preview-tools-title {
   z-index: 1;

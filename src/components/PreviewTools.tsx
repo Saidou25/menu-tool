@@ -14,6 +14,10 @@ type PreviewToolsProps = {
   showDecorationCheckboxes: boolean;
   setShowDecorationCheckboxes: (item: boolean) => void;
   showDecorations: string;
+  showPaddingCategoriesTop: boolean;
+  setShowPaddingCategoriesTop: (item: boolean) => void;
+  showMarginCategoriesTop: boolean;
+  setShowMarginCategoriesTop: (item: boolean) => void;
   // setShowDecorations: (item: boolean) => void;
   styleForm: StyleFormType;
   setStyleForm: React.Dispatch<React.SetStateAction<StyleFormType>>;
@@ -95,12 +99,20 @@ const displayTools = [
         subLabels: [],
       },
       {
+        label: "Categories padding top",
+        subLabels: [],
+      },
+      {
+        label: "Categories margin top",
+        subLabels: [],
+      },
+      {
         label: "Menu padding",
         subLabels: ["padding top and bottom", "padding left and right"],
       },
       {
         label: "Padding categories",
-        subLabels: ["padding sections"],
+        subLabels: ["padding right and left"],
       },
       {
         label: "Decoration width and padding",
@@ -161,6 +173,10 @@ export default function PreviewTools({
   // setShowDecorations,
   showDecorationCheckboxes,
   setShowDecorationCheckboxes,
+  showPaddingCategoriesTop,
+  setShowPaddingCategoriesTop,
+  showMarginCategoriesTop,
+  setShowMarginCategoriesTop,
 }: PreviewToolsProps) {
   const [showToolItems, setShowToolItem] = useState<string[]>([]);
   const [localStyleForm, setLocalStyleForm] =
@@ -210,7 +226,8 @@ export default function PreviewTools({
     "footer text's color": "footerTextColor",
     "gap text": "gapTextTop",
     "content width": "contentContainerWidth",
-    "padding sections": "paddingCategories",
+    "padding right and left": "paddingCategoriesLeftRight",
+    "show padding top": "paddingCategoriesTop",
     "decoration width": "decorationWidth",
     "decoration padding": "paddingDecoration",
   };
@@ -334,7 +351,9 @@ export default function PreviewTools({
   return (
     <div>
       <h2 className="preview-tools-title">Preview Tool</h2>
-      <div className="preview-tools-container no-print">
+      <div className="preview-tools-container no-print"
+      style={{ height: `${+styleForm.menuHeight}mm`, overflow: "scroll" }}
+      >
         <br />
         {displayTools &&
           displayTools.map((displayTool, index) => (
@@ -442,6 +461,29 @@ export default function PreviewTools({
                           checkboxes
                         </div>
                       )}
+
+                      {displayLabel.label === "Categories padding top" && (
+                        <div className="ps-4">
+                          <Checkbox
+                            onChange={() => setShowPaddingCategoriesTop(!showPaddingCategoriesTop)}
+                            checked={showPaddingCategoriesTop}
+                            className="checkbox"
+                          />
+                          &nbsp; Check if you want to show padding top
+                          checkboxes
+                        </div>
+                      )}
+                      {displayLabel.label === "Categories margin top" && (
+                        <div className="ps-4">
+                          <Checkbox
+                            onChange={() => setShowMarginCategoriesTop(!showMarginCategoriesTop)}
+                            checked={showMarginCategoriesTop}
+                            className="checkbox"
+                          />
+                          &nbsp; Check if you want to show margin top
+                          checkboxes
+                        </div>
+                      )}
                       {displayLabel.label === "Prices checkboxes" && (
                         <div className="ps-4">
                           <input
@@ -481,6 +523,7 @@ export default function PreviewTools({
                           &nbsp; Check if you want to show color inputs
                         </div>
                       )}
+
                       {displayLabel.subLabels.map((item, index) => (
                         <ul className="line" key={item}>
                           <li className="li ps-4 d-flex align-items-center">

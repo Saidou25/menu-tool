@@ -31,6 +31,8 @@ export default function Categories({
   setCategoriesList,
   categoriesList,
 }: Props) {
+  const [showPaddingCategoriesTop, setShowPaddingCategoriesTop] = useState(false);
+  const [showMarginCategoriesTop, setShowMarginCategoriesTop] = useState(false);
   const [showJoinInputs, setShowJoinInputs] = useState(false);
   const [hidePrices, setHidePrices] = useState(false);
   const [showColorInputs, setShowColorInputs] = useState(false);
@@ -94,7 +96,9 @@ export default function Categories({
     decoration: "",
     gapTextTop: -11,
     contentContainerWidth: 45,
-    paddingCategories: 0,
+    paddingCategoriesLeftRight: 0,
+    paddingCategoriesTop: [],
+    marginCategoriesTop: [],
     paddingDecoration: 0,
     decorationWidth: 90,
     // joindedPaddingLeft: 0,
@@ -213,6 +217,8 @@ export default function Categories({
         setShowDecorations={setShowDecorations}
         showDecorationCheckboxes={showDecorationCheckboxes}
         setShowDecorationCheckboxes={setShowDecorationsCheckboxes}
+        showPaddingCategoriesTop={showPaddingCategoriesTop}
+        showMarginCategoriesTop={showMarginCategoriesTop}
       >
         <FinalStep
           goBack={handleGoBack}
@@ -241,6 +247,10 @@ export default function Categories({
           // setShowDecorations={setShowDecorations}
           showDecorationCheckboxes={showDecorationCheckboxes}
           setShowDecorationCheckboxes={setShowDecorationsCheckboxes}
+          showPaddingCategoriesTop={showPaddingCategoriesTop}
+          setShowPaddingCategoriesTop={setShowPaddingCategoriesTop}
+          setShowMarginCategoriesTop={setShowMarginCategoriesTop}
+          showMarginCategoriesTop={showMarginCategoriesTop}
         />
       </PreviewMenu>
     );

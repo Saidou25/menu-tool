@@ -6,6 +6,10 @@ import { useGetSectionBackground } from "../hooks/useGetSectionBackground";
 import { useGetDescriptionLetterColor } from "../hooks/useGetDescriptionLettersColor";
 import Footer from "./Footer";
 import "./Sharables.css";
+import { useCategoryPaddingTop } from "../hooks/useCategoryPaddingTop";
+import { useGetCategoriesPaddingTop } from "../hooks/useGetCategoriesPaddingTop";
+import { useCategoryMarginTop } from "../hooks/useMarginCategoriesTop";
+import { useGetCategoriesMarginTop } from "../hooks/useGetMarginCategoriesTop";
 
 type Props = {
   categoryOrder: string[];
@@ -17,6 +21,8 @@ type Props = {
   setShowDecorations: (category: string) => void;
   setShowDecorationCheckboxes: (item: boolean) => void;
   showJoinInputs: boolean;
+  showPaddingCategoriesTop: boolean;
+  showMarginCategoriesTop: boolean;
   styleForm: StyleFormType;
   setStyleForm: React.Dispatch<React.SetStateAction<StyleFormType>>;
   joinedCategories: Record<string, boolean>;
@@ -40,25 +46,32 @@ export default function CustomMenu({
   joinedCategories,
   setJoinedCategories,
   showDisclaimer,
+  showPaddingCategoriesTop,
+  showMarginCategoriesTop,
 }: Props) {
+  const handleCategoryPaddingTop = useCategoryPaddingTop(setStyleForm);
   const handleCategoryBackgroundColor =
     useCategoryBackgroundColor(setStyleForm);
   const handleDescriptionLettersColor =
     useDescriptionLettersColor(setStyleForm);
+  const handleCategoryMarginTop = useCategoryMarginTop(setStyleForm);
   const getSectionBackground = useGetSectionBackground(styleForm);
   const getDescriptionLetterColor = useGetDescriptionLetterColor(styleForm);
+  const getCategoryPaddingTop = useGetCategoriesPaddingTop(styleForm);
+  const getCategoryMarginTop = useGetCategoriesMarginTop(styleForm);
 
   const getDynamicStyles = (className: string, categoryIndex: number) => {
     if (className === "col-6") {
       if (categoryIndex === 0 || categoryIndex % 2 === 0) {
         return {
           backgroundColor: getSectionBackground(categoryIndex),
-          paddingLeft: `${styleForm.paddingCategories}px`,
+          paddingLeft: `${styleForm.paddingCategoriesLeftRight}px`,
+          paddingRight: "1.5rem",
         };
       } else {
         return {
-          paddingRight: `${styleForm.paddingCategories}px`,
-          // marginBottom: `${styleForm.categoriesMarginBottom}px`,
+          paddingRight: `${styleForm.paddingCategoriesLeftRight}px`,
+          // paddingLeft: "16px"
         };
       }
       // console.log(className, categoryIndex, joinedCategories)
@@ -69,14 +82,16 @@ export default function CustomMenu({
         width: `${styleForm.decorationWidth}%`,
         paddingRight: `${styleForm.paddingDecoration}px`,
         paddingLeft: `${styleForm.paddingDecoration}px`,
-        margin: "auto",
+        borderLeft: `2px solid black`,
+        borderRight: `2px solid black`,
+        borderBottom: `2px solid black`,
       };
     } else if (className === "col-12") {
       return {
         backgroundColor: getSectionBackground(categoryIndex),
         // marginBottom: `${styleForm.categoriesMarginBottom}px`,
-        paddingRight: `${styleForm.paddingCategories}px`,
-        paddingLeft: `${styleForm.paddingCategories}px`,
+        paddingRight: `${styleForm.paddingCategoriesLeftRight}px`,
+        paddingLeft: `${styleForm.paddingCategoriesLeftRight}px`,
       };
     }
     return {};
@@ -88,10 +103,14 @@ export default function CustomMenu({
     .content-container::before {
       left: 0;
       width: ${styleForm.contentContainerWidth}%;
-    }
-    .content-container::after {
-      right: 0;
-      width: ${styleForm.contentContainerWidth}%;
+      background-color: black;
+      height: 2px;
+      }
+      .content-container::after {
+        right: 0;
+        width: ${styleForm.contentContainerWidth}%;
+        background-color: black;
+        height: 2px;
     }
     `;
     document.head.appendChild(style);
@@ -187,8 +206,6 @@ export default function CustomMenu({
           if (!categoryData) return null; // Skip if no data for this category
 
           return (
-            // <div key={categoryIndex}>
-
             <div
               className={
                 joinedCategories[category]
@@ -209,8 +226,10 @@ export default function CustomMenu({
                 ),
                 backgroundColor: getSectionBackground(categoryIndex),
                 marginBottom: `${styleForm.categoriesMarginBottom}px`,
-                // paddingRight: `${styleForm.paddingCategories}px`,
-                // paddingLeft: `${styleForm.paddingCategories}px`,
+                paddingTop: getCategoryPaddingTop(categoryIndex),
+                marginTop: getCategoryMarginTop(categoryIndex),
+                // paddingRight: `${styleForm.paddingCategoriesLeftRight}px`,
+                // paddingLeft: `${styleForm.paddingCategoriesLeftRight}px`,
               }}
             >
               <div
@@ -242,13 +261,36 @@ export default function CustomMenu({
                       lineHeight: "1",
                       display: "inline",
                       verticalAlign: "baseline",
-                      // marginBottom: category === showDecorations ? "20px": ""
+                      // marginTop: getCategoryPaddingTop(index)
                     }}
                   >
                     {category}
                   </span>
                 </h2>
-
+                {showPaddingCategoriesTop && (
+                  <input
+                    type="number"
+                    className="no-print"
+                    onChange={(event) =>
+                      handleCategoryPaddingTop(
+                        +event.target.value,
+                        categoryIndex
+                      )
+                    }
+                  />
+                )}
+                {showMarginCategoriesTop && (
+                  <input
+                    type="number"
+                    className="no-print"
+                    onChange={(event) =>
+                      handleCategoryMarginTop(
+                        +event.target.value,
+                        categoryIndex
+                      )
+                    }
+                  />
+                )}
                 {showJoinInputs && (
                   <input
                     className="custom-input"
@@ -316,14 +358,17 @@ export default function CustomMenu({
                 </span>
               </div>
               <ul
-                className="row p-0"
-                style={
-                  joinedCategories[category]
-                    ? { display: "flex", flexDirection: "column" }
-                    : {}
-                }
+                className="row p-0 justify-content-between"
+                style={{
+                  // gap: "2px", // Adjust this value as needed
+                  ...(joinedCategories[category] && {
+                    display: "flex",
+                    flexDirection: "column",
+                  }),
+                }}
               >
                 {categoryData.items.map((item, itemIndex, arr) => (
+                  // <div className="col-6 px-2">
                   <li
                     id={`li-${categoryIndex}`}
                     key={itemIndex}
@@ -338,7 +383,7 @@ export default function CustomMenu({
                             )) ||
                           styleForm.menuWidth <= 110
                         ? "col-12 menu-item-odd"
-                        : "col-6 menu-item"
+                        : "col-6 menu-item pe-4"
                     }
                   >
                     <div
@@ -408,11 +453,8 @@ export default function CustomMenu({
                 ))}
               </ul>
             </div>
-            // </div>
-            // </div>
           );
         })}
-        {showDisclaimer && <Footer />}
         {styleForm.bottomImage && (
           <div
             style={{ width: `${styleForm.bottomImageSize}px`, margin: "auto" }}
