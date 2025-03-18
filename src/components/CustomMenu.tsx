@@ -4,12 +4,13 @@ import { useCategoryBackgroundColor } from "../hooks/useCategoryBackgrounColor";
 import { useDescriptionLettersColor } from "../hooks/useDescriptionLettersColor";
 import { useGetSectionBackground } from "../hooks/useGetSectionBackground";
 import { useGetDescriptionLetterColor } from "../hooks/useGetDescriptionLettersColor";
-import Footer from "./Footer";
-import "./Sharables.css";
 import { useCategoryPaddingTop } from "../hooks/useCategoryPaddingTop";
 import { useGetCategoriesPaddingTop } from "../hooks/useGetCategoriesPaddingTop";
 import { useCategoryMarginTop } from "../hooks/useMarginCategoriesTop";
 import { useGetCategoriesMarginTop } from "../hooks/useGetMarginCategoriesTop";
+import Footer from "./Footer";
+
+import "./Sharables.css";
 
 type Props = {
   categoryOrder: string[];
@@ -200,6 +201,7 @@ export default function CustomMenu({
             </button>
           </div>
         )}
+
         {categoryOrder.map((category, categoryIndex) => {
           const categoryData = organizedData[category]; // Get data based on order
 
@@ -261,7 +263,7 @@ export default function CustomMenu({
                       lineHeight: "1",
                       display: "inline",
                       verticalAlign: "baseline",
-                      // marginTop: getCategoryPaddingTop(index)
+                      letterSpacing: "2px",
                     }}
                   >
                     {category}
@@ -279,6 +281,7 @@ export default function CustomMenu({
                     }
                   />
                 )}
+                &nbsp;
                 {showMarginCategoriesTop && (
                   <input
                     type="number"
@@ -345,13 +348,13 @@ export default function CustomMenu({
                 className="subtitle"
                 style={{
                   color: styleForm.subtitleFontColor,
-                  fontSize: styleForm.subtitleFontSize,
+                  marginBottom: `${styleForm.subtitlePaddingBottom}px`,
                 }}
               >
                 <span
                   style={{
-                    color: styleForm.subtitleFontColor,
                     fontSize: `${styleForm.subtitleFontSize}px`,
+                    letterSpacing: "1px",
                   }}
                 >
                   {categoryData.subtitle}
@@ -360,7 +363,6 @@ export default function CustomMenu({
               <ul
                 className="row p-0 justify-content-between"
                 style={{
-                  // gap: "2px", // Adjust this value as needed
                   ...(joinedCategories[category] && {
                     display: "flex",
                     flexDirection: "column",
@@ -368,7 +370,6 @@ export default function CustomMenu({
                 }}
               >
                 {categoryData.items.map((item, itemIndex, arr) => (
-                  // <div className="col-6 px-2">
                   <li
                     id={`li-${categoryIndex}`}
                     key={itemIndex}
@@ -430,6 +431,7 @@ export default function CustomMenu({
                             categoryIndex,
                             itemIndex
                           ),
+                          letterSpacing: "1px",
                         }}
                       >
                         {item.description}
@@ -502,9 +504,13 @@ export default function CustomMenu({
             {styleForm.footer}
           </div>
         )}
+        {showDisclaimer && (
+          <Footer
+            marginTop={styleForm.footerPaddingPaddingTop}
+            color={styleForm.footerTextColor}
+          />
+        )}
       </div>
-
-      {showDisclaimer && <Footer />}
     </div>
   );
 }

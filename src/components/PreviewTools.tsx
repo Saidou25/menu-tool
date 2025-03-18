@@ -124,9 +124,10 @@ const displayTools = [
           "title",
           "categories' section",
           "categories' title",
+          "subtitles margin",
           "menu item and price blocks",
           "menu items' description blocks",
-          "footer",
+          "footer margin top",
         ],
       },
     ],
@@ -220,6 +221,7 @@ export default function PreviewTools({
     "prices' color": "priceColor",
     "subtitles' color": "subtitleFontColor",
     subtitles: "subtitleFontSize",
+    "subtitles margin": "subtitlePaddingBottom",
     "menu items' description color": "menuItemDescriptionColor",
     "top text's color": "textTopColor",
     "bottom text's color": "textBottomColor",
@@ -230,6 +232,7 @@ export default function PreviewTools({
     "show padding top": "paddingCategoriesTop",
     "decoration width": "decorationWidth",
     "decoration padding": "paddingDecoration",
+    "footer margin top": "footerPaddingPaddingTop"
   };
 
   const getInputType = (item: string): "file" | "text" | "number" | "color" => {

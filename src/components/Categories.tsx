@@ -7,9 +7,9 @@ import SmallTittles from "./SmallTittles";
 import FinalStep from "./FinalStep";
 import DropDown from "./DropDown";
 import PreviewTools from "./PreviewTools";
+import Logo from "./Logo";
 
 import "./Categories.css";
-import Logo from "./Logo";
 
 type Props = {
   custom: boolean;
@@ -93,6 +93,7 @@ export default function Categories({
     footerTextColor: "",
     subtitleFontSize: 15,
     subtitleFontColor: "",
+    subtitlePaddingBottom: 0,
     decoration: "",
     gapTextTop: -11,
     contentContainerWidth: 45,
@@ -101,10 +102,10 @@ export default function Categories({
     marginCategoriesTop: [],
     paddingDecoration: 0,
     decorationWidth: 90,
-    // joindedPaddingLeft: 0,
-    // joinPaddingRignt: 0,
+    footerPaddingPaddingTop: 0,
   });
-  // console.log(styleForm.contentContainerWidth);
+ 
+
   const handleDisclaimer = () => {
     setShowDisclaimer((prev) => !prev);
   };

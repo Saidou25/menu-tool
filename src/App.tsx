@@ -6,10 +6,10 @@ import * as Desserts from "./data/Desserts";
 
 import Categories from "./components/Categories";
 import DropDown from "./components/DropDown";
+import Logo from "./components/Logo";
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Logo from "./components/Logo";
 // import Affiliate from "./components/Affiliate";
 // import Sharables from "./components/Sharables";
 

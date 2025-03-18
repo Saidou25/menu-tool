@@ -39,7 +39,7 @@ export default function FrontMenu({
         padding: `${styleForm.pagePaddingTopAndBottom}px ${styleForm.pagePaddingLeftAndRight}px`,
         width: `${+styleForm.menuWidth}mm`,
         height: `${+styleForm.menuHeight}mm`,
-        minHeight: `${+styleForm.menuHeight}mm`,
+        maxHeight: `${+styleForm.menuHeight}mm`,
         // animation: "menuSizeAnimation 0.5s linear forwards",
         overflow: "hidden",
         backgroundColor: styleForm.pageBackground,

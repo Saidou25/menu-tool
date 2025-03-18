@@ -1,9 +1,9 @@
 .footer-container {
   display: flex;
   flex-direction: column;
-  flex: 1;
+  /* flex: 1;
   position: absolute;
-  bottom: 0;
+  bottom: 0; */
 }
 .footer-text {
   text-align: center;

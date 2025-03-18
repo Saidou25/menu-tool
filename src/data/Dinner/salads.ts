@@ -2,6 +2,7 @@ import { MenuCategory } from "../types";
 
 const saladsList: MenuCategory = {
   title: "Salads",
+  subtitle: "add chicken, steak, salmon or shrimp (additional charge)",
   items: [
     {
       label: "Big Bite Caesar",

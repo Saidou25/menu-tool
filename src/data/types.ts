@@ -64,6 +64,7 @@ export type StyleFormType = {
   descriptionFontSize: number;
   subtitleFontSize: number;
   subtitleFontColor: string;
+  subtitlePaddingBottom: number;
   descriptionMarginBottom: number;
   guyTop: string;
   guyBottom: string;
@@ -96,6 +97,5 @@ export type StyleFormType = {
   marginCategoriesTop: MarginCategoreTop;
   decorationWidth: number;
   paddingDecoration: number;
-  // joindedPaddingLeft: number;
-  // joinPaddingRignt: number;
+ footerPaddingPaddingTop: number;
 };

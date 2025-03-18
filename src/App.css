@@ -5,6 +5,18 @@
   background-image: linear-gradient(180deg, rgb(18, 91, 93), rgb(4, 4, 4));
   color: rgba(255, 255, 255, 0.899);
 }
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box; /* Ensures consistent box model behavior */
+}
+/* CSS Reset for text elements */
+p, span, h1, h2, h3, h4, h5, h6, div, strong, em {
+  padding: 0;
+  margin: 0;
+line-height: 1;
+}
+
 .app-container {
   padding: 1%;
 }
