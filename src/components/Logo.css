@@ -10,7 +10,22 @@
     rgba(217, 122, 255, 0.989) 10%,
     rgba(0, 0, 0, 0) 70%
   );
-  mix-blend-mode: screen;
+  /* mix-blend-mode: screen; */
+}
+.go-back {
+  display: flex;
+  flex-direction: column;
+  align-items: center !important;
+  text-align: center;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(
+    circle,
+    rgba(179, 2, 249, 0.989) 10%,
+    rgba(0, 0, 0, 0) 70%
+  );
+  margin-right: 22%;
+  /* mix-blend-mode: screen; */
 }
 .restart,
 .preview-btn {

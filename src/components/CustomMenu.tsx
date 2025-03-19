@@ -8,6 +8,7 @@ import { useCategoryPaddingTop } from "../hooks/useCategoryPaddingTop";
 import { useGetCategoriesPaddingTop } from "../hooks/useGetCategoriesPaddingTop";
 import { useCategoryMarginTop } from "../hooks/useMarginCategoriesTop";
 import { useGetCategoriesMarginTop } from "../hooks/useGetMarginCategoriesTop";
+import { useDynamicStyles } from "../hooks/useDynamicStyles";
 import Footer from "./Footer";
 
 import "./Sharables.css";
@@ -60,43 +61,44 @@ export default function CustomMenu({
   const getDescriptionLetterColor = useGetDescriptionLetterColor(styleForm);
   const getCategoryPaddingTop = useGetCategoriesPaddingTop(styleForm);
   const getCategoryMarginTop = useGetCategoriesMarginTop(styleForm);
+  const getDynamicStyles = useDynamicStyles(styleForm);
 
-  const getDynamicStyles = (className: string, categoryIndex: number) => {
-    if (className === "col-6") {
-      if (categoryIndex === 0 || categoryIndex % 2 === 0) {
-        return {
-          backgroundColor: getSectionBackground(categoryIndex),
-          paddingLeft: `${styleForm.paddingCategoriesLeftRight}px`,
-          paddingRight: "1.5rem",
-        };
-      } else {
-        return {
-          paddingRight: `${styleForm.paddingCategoriesLeftRight}px`,
-          // paddingLeft: "16px"
-        };
-      }
-      // console.log(className, categoryIndex, joinedCategories)
-    } else if (className === "col-12 content-container") {
-      return {
-        // backgroundColor: getSectionBackground(categoryIndex),
-        // marginBottom: `${styleForm.categoriesMarginBottom}px`,
-        width: `${styleForm.decorationWidth}%`,
-        paddingRight: `${styleForm.paddingDecoration}px`,
-        paddingLeft: `${styleForm.paddingDecoration}px`,
-        borderLeft: `2px solid black`,
-        borderRight: `2px solid black`,
-        borderBottom: `2px solid black`,
-      };
-    } else if (className === "col-12") {
-      return {
-        backgroundColor: getSectionBackground(categoryIndex),
-        // marginBottom: `${styleForm.categoriesMarginBottom}px`,
-        paddingRight: `${styleForm.paddingCategoriesLeftRight}px`,
-        paddingLeft: `${styleForm.paddingCategoriesLeftRight}px`,
-      };
-    }
-    return {};
-  };
+  // const getDynamicStyles = (className: string, categoryIndex: number) => {
+  //   if (className === "col-6") {
+  //     if (categoryIndex === 0 || categoryIndex % 2 === 0) {
+  //       return {
+  //         backgroundColor: getSectionBackground(categoryIndex),
+  //         paddingLeft: `${styleForm.paddingCategoriesLeftRight}px`,
+  //         paddingRight: "1.5rem",
+  //       };
+  //     } else {
+  //       return {
+  //         paddingRight: `${styleForm.paddingCategoriesLeftRight}px`,
+  //         // paddingLeft: "16px"
+  //       };
+  //     }
+  //     // console.log(className, categoryIndex, joinedCategories)
+  //   } else if (className === "col-12 content-container") {
+  //     return {
+  //       // backgroundColor: getSectionBackground(categoryIndex),
+  //       // marginBottom: `${styleForm.categoriesMarginBottom}px`,
+  //       width: `${styleForm.decorationWidth}%`,
+  //       paddingRight: `${styleForm.paddingDecoration}px`,
+  //       paddingLeft: `${styleForm.paddingDecoration}px`,
+  //       borderLeft: `2px solid black`,
+  //       borderRight: `2px solid black`,
+  //       borderBottom: `2px solid black`,
+  //     };
+  //   } else if (className === "col-12") {
+  //     return {
+  //       backgroundColor: getSectionBackground(categoryIndex),
+  //       // marginBottom: `${styleForm.categoriesMarginBottom}px`,
+  //       paddingRight: `${styleForm.paddingCategoriesLeftRight}px`,
+  //       paddingLeft: `${styleForm.paddingCategoriesLeftRight}px`,
+  //     };
+  //   }
+  //   return {};
+  // };
 
   useEffect(() => {
     const style = document.createElement("style");
@@ -121,14 +123,11 @@ export default function CustomMenu({
     };
   }, [styleForm.contentContainerWidth]);
 
-  // In your component JSX:
-  // <div className="content-container">{/* Your content here */}</div>;
-
   return (
     <div
-      className="row menu-items-container print"
+      className="row menu-items-container"
       style={{
-        padding: `${styleForm.pagePaddingTopAndBottom}px ${styleForm.pagePaddingLeftAndRight}px`,
+        paddingTop: `${styleForm.pagePaddingTopAndBottom}px ${styleForm.pagePaddingLeftAndRight}px`,
         width: `${+styleForm.menuWidth}mm`,
         height: `${+styleForm.menuHeight}mm`,
         maxHeight: `${+styleForm.menuHeight}mm`,

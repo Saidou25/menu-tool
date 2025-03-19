@@ -1,15 +1,19 @@
 import "./PreviewMenu.css";
 
 type FinalStepsProps = {
+  view: boolean;
+  setView: React.Dispatch<React.SetStateAction<boolean>>;
   message: string;
   goBack: () => void;
-  onConfirm: () => void;
+  // onConfirm: () => void;
 };
 
 export default function FinalStep({
+  setView,
+  // view,
   message,
   goBack,
-  onConfirm,
+  // onConfirm,
 }: FinalStepsProps) {
   return (
     <div className="final-step-div no-print">
@@ -21,8 +25,8 @@ export default function FinalStep({
         <button className="col-6 button" onClick={goBack} type="button">
           Edit
         </button>
-        <button className="col-6 button" onClick={onConfirm} type="button">
-          Print
+        <button className="col-6 button" onClick={() => setView((prev: boolean) => !prev)} type="button">
+          Preview
         </button>
       </div>
       <br />

@@ -10,7 +10,8 @@
 
 .content {
   padding: 20px; /* Padding for content inside the container */
-  /* color: white; Text color */
+  /* color: white;  */
+  font-weight: "600"
 }
 
 .content-container::before,

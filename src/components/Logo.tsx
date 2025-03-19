@@ -9,6 +9,7 @@ type LogoProps = {
   menuPreview?: boolean;
   setCategoriesList?: React.Dispatch<React.SetStateAction<MenuCategory[]>>;
   setMenuPreview?: React.Dispatch<React.SetStateAction<boolean>>;
+  setView?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function Logo({
@@ -18,12 +19,15 @@ export default function Logo({
   subtitle,
   setMenuPreview,
   setCategoriesList,
+  setView
 }: LogoProps) {
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     if (event.currentTarget.className === "preview-btn") {
       setMenuPreview?.((prev) => !prev);
-    } else {
+    } else if (event.currentTarget.className === "restart"){
       setCategoriesList?.([]);
+    } else if (event.currentTarget.className === "go-back no-print"){
+      setView?.((prev) => !prev);
     }
   };
   return (

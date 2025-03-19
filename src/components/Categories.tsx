@@ -31,6 +31,7 @@ export default function Categories({
   setCategoriesList,
   categoriesList,
 }: Props) {
+  const [view, setView] = useState(false);
   const [showPaddingCategoriesTop, setShowPaddingCategoriesTop] = useState(false);
   const [showMarginCategoriesTop, setShowMarginCategoriesTop] = useState(false);
   const [showJoinInputs, setShowJoinInputs] = useState(false);
@@ -220,11 +221,15 @@ export default function Categories({
         setShowDecorationCheckboxes={setShowDecorationsCheckboxes}
         showPaddingCategoriesTop={showPaddingCategoriesTop}
         showMarginCategoriesTop={showMarginCategoriesTop}
+        view={view}
+        setView={setView}
       >
         <FinalStep
           goBack={handleGoBack}
-          onConfirm={handleConfirm}
+          // onConfirm={handleConfirm}
           message="Confirm printing or continue editing"
+          view={view}
+          setView={setView}
         />
         <DropDown
           setShowfinalStep={setShowfinalStep}

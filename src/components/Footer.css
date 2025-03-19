@@ -1,12 +1,20 @@
+@font-face {
+  font-family: "Pewter Corroded";
+  src: url("../assets/fonts/PewterDEMO-KCFonts.ttf") format("truetype");
+  margin: 0;
+  padding: 0;
+}
 .footer-container {
   display: flex;
   flex-direction: column;
-  /* flex: 1;
-  position: absolute;
-  bottom: 0; */
+  padding: 0 1% 0 1%;
+  font-family: "Pewter Corroded";
+  letter-spacing: 1px;
+  font-weight: 600;
 }
 .footer-text {
   text-align: center;
+  font-size: 14px;
 }
 .guy-fieri {
   text-align: center;

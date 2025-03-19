@@ -4,10 +4,13 @@ import { Field, StyleFormType } from "../data/types";
 import FrontMenu from "./FrontMenu";
 import BackMenu from "./BackMenu"; // Import BackMenu component
 import CustomMenu from "./CustomMenu";
+import View from "./View";
 
 import "./PreviewMenu.css";
 
 type ModalProps = {
+  setView: React.Dispatch<React.SetStateAction<boolean>>;
+  view: boolean;
   custom: boolean;
   showJoinInputs: boolean;
   setShowJoinInputs: (item: boolean) => void;
@@ -37,6 +40,7 @@ type ModalProps = {
 };
 
 const PreviewMenu = ({
+  setView,
   custom,
   showJoinInputs,
   showColorInputs,
@@ -55,8 +59,10 @@ const PreviewMenu = ({
   setJoinedCategories,
   setShowDecorations,
   setShowDecorationCheckboxes,
+  view,
 }: // setStyleForm,
 ModalProps) => {
+  
   const [organizedData, setOrganizedData] = useState<
     Record<string, { subtitle?: string; items: Field[] }>
   >({});
@@ -114,10 +120,33 @@ ModalProps) => {
   //     }
   //   }
   // `;
+  if (view) {
+    return (
+      <View
+      setView={setView}
+        categoryOrder={categoryOrder}
+        organizedData={organizedData}
+        styleForm={styleForm}
+        setStyleForm={setStyleForm}
+        showColorInputs={showColorInputs}
+        showJoinInputs={showJoinInputs}
+        showDisclaimer={showDisclaimer}
+        joinedCategories={joinedCategories}
+        setJoinedCategories={setJoinedCategories}
+        hidePrices={hidePrices}
+        showDecorations={showDecorations}
+        setShowDecorations={setShowDecorations}
+        showDecorationCheckboxes={showDecorationCheckboxes}
+        setShowDecorationCheckboxes={setShowDecorationCheckboxes}
+        showPaddingCategoriesTop={showPaddingCategoriesTop}
+        showMarginCategoriesTop={showMarginCategoriesTop}
+      />
+    );
+  }
 
   return (
     <>
-      <div className="container-final-step no-print">
+      <div className="container-final-step">
         {/* <style>{animation}</style> */}
         <div
           className={`${
@@ -126,11 +155,9 @@ ModalProps) => {
           // style={{ animation: "menuSizeAnimation 0.5s linear forwards" }}
         >
           {children[0]} {/* Renders FinalStep*/}
-          {/* <br className="no-print" /> */}
           {Object.keys(secondPageData).length > 0 && !custom && (
             <h3 className="no-print">Menu front</h3>
           )}
-          {/* <br className="no-print" /> */}
           {custom ? (
             <CustomMenu
               categoryOrder={categoryOrder}
