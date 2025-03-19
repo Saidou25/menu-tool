@@ -45,6 +45,11 @@ export type MarginCategoreTop = {
   marginCategoriesTop: number;
 }[];
 
+export type subSubtitleFontColor = {
+  categoryIndex: number;
+  subtitleFontColor: string;
+}[];
+
 export type StyleFormType = {
   menuWidth: number;
   menuHeight: number;
@@ -63,7 +68,7 @@ export type StyleFormType = {
   itemMarginBottom: number;
   descriptionFontSize: number;
   subtitleFontSize: number;
-  subtitleFontColor: string;
+  subtitleFontColor: subSubtitleFontColor;
   subtitlePaddingBottom: number;
   descriptionMarginBottom: number;
   guyTop: string;

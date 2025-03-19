@@ -9,6 +9,7 @@ import Footer from "./Footer";
 
 import "./View.css";
 import Logo from "./Logo";
+import { useGetSubtitleFontColor } from "../hooks/useGetSubtitleFontColor";
 
 type Props = {
   setView: React.Dispatch<React.SetStateAction<boolean>>;
@@ -47,6 +48,7 @@ export default function View({
   const getCategoryPaddingTop = useGetCategoriesPaddingTop(styleForm);
   const getCategoryMarginTop = useGetCategoriesMarginTop(styleForm);
   const getDynamicStyles = useDynamicStyles(styleForm);
+  const getSubtitleFontColor = useGetSubtitleFontColor(styleForm);
 
   useEffect(() => {
     const style = document.createElement("style");
@@ -83,7 +85,7 @@ export default function View({
       <div
         className="row menu-items-container print"
         style={{
-          paddingTop: `${styleForm.pagePaddingTopAndBottom}px ${styleForm.pagePaddingLeftAndRight}px`,
+          padding: `${styleForm.pagePaddingTopAndBottom}px ${styleForm.pagePaddingLeftAndRight}px 0 ${styleForm.pagePaddingLeftAndRight}px`,
           width: `${+styleForm.menuWidth}mm`,
           height: `${+styleForm.menuHeight}mm`,
           maxHeight: `${+styleForm.menuHeight}mm`,
@@ -200,7 +202,7 @@ export default function View({
                         display: "inline",
                         verticalAlign: "baseline",
                         letterSpacing: "2px",
-                        fontWeight: "600",
+                        fontWeight: "800",
                       }}
                     >
                       {category}
@@ -210,7 +212,7 @@ export default function View({
                 <div
                   className="subtitle"
                   style={{
-                    color: styleForm.subtitleFontColor,
+                    color: getSubtitleFontColor(categoryIndex),
                     marginBottom: `${styleForm.subtitlePaddingBottom}px`,
                   }}
                 >

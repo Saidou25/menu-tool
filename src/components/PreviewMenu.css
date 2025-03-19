@@ -1,8 +1,7 @@
 @font-face {
   font-family: "Pewter Corroded";
   src: url("../assets/fonts/PewterDEMO-KCFonts.ttf") format("truetype");
-  margin: 0;
-  padding: 0;
+ line-height: 1;
 }
 .number {
   font-family: Arial, sans-serif;
@@ -51,14 +50,11 @@
   font-family: Arial, sans-serif;
   position: relative;
 }
-h3 {
-  margin: 0;
-}
+
 .category-title {
   text-align: center;
   text-transform: uppercase;
   font-family: "Pewter Corroded", sans-serif;
-  line-height: 1;
   display: flex;
   align-items: baseline;
 }
@@ -80,8 +76,6 @@ h3 {
 }
 .category-list {
   width: 100%;
-  margin: 0;
-  padding: 0;
 }
 .split-container {
   display: flex;
@@ -89,9 +83,7 @@ h3 {
 .split-div {
   width: 50%;
 }
-.split-list {
-  padding: 0;
-}
+
 .menu-item-odd {
   text-align: center;
   list-style-type: none;

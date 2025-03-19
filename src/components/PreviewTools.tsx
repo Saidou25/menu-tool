@@ -108,7 +108,7 @@ const displayTools = [
       },
       {
         label: "Menu padding",
-        subLabels: ["padding top and bottom", "padding left and right"],
+        subLabels: ["padding top", "padding left and right"],
       },
       {
         label: "Padding categories",
@@ -149,7 +149,6 @@ const displayTools = [
           "title's color",
           "top text's color",
           "categories' color",
-          "subtitles' color",
           "menu items' color",
           "prices' color",
           "menu items' description color",
@@ -188,7 +187,7 @@ export default function PreviewTools({
   }, [styleForm]);
 
   const keyMap: { [key: string]: keyof StyleFormType } = {
-    "padding top and bottom": "pagePaddingTopAndBottom",
+    "padding top": "pagePaddingTopAndBottom",
     "padding left and right": "pagePaddingLeftAndRight",
     categories: "categoryFontSize",
     "menu items": "itemFontSize",
@@ -219,7 +218,6 @@ export default function PreviewTools({
     prices: "priceSize",
     "menu items' color": "menuItemColor",
     "prices' color": "priceColor",
-    "subtitles' color": "subtitleFontColor",
     subtitles: "subtitleFontSize",
     "subtitles margin": "subtitlePaddingBottom",
     "menu items' description color": "menuItemDescriptionColor",
@@ -255,7 +253,7 @@ export default function PreviewTools({
         "prices' color",
         "menu items' color",
         "menu items' description color",
-        "subtitles' color",
+        "",
         "top text's color",
         "bottom text's color",
         "footer text's color",
@@ -286,7 +284,6 @@ export default function PreviewTools({
         "title's color",
         "categories' color",
         "prices' color",
-        "subtitles' color",
         "menu items' color",
         "menu items' description color",
         "top text's color",

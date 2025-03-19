@@ -93,7 +93,7 @@ export default function Categories({
     textBottomColor: "",
     footerTextColor: "",
     subtitleFontSize: 15,
-    subtitleFontColor: "",
+    subtitleFontColor: [],
     subtitlePaddingBottom: 0,
     decoration: "",
     gapTextTop: -11,

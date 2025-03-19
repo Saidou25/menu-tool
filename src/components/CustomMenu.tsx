@@ -12,6 +12,8 @@ import { useDynamicStyles } from "../hooks/useDynamicStyles";
 import Footer from "./Footer";
 
 import "./Sharables.css";
+import { useSubtitleFontColor } from "../hooks/useSubtitleFontColor";
+import { useGetSubtitleFontColor } from "../hooks/useGetSubtitleFontColor";
 
 type Props = {
   categoryOrder: string[];
@@ -57,11 +59,13 @@ export default function CustomMenu({
   const handleDescriptionLettersColor =
     useDescriptionLettersColor(setStyleForm);
   const handleCategoryMarginTop = useCategoryMarginTop(setStyleForm);
+  const handleSubtitleFontColor = useSubtitleFontColor(setStyleForm);
   const getSectionBackground = useGetSectionBackground(styleForm);
   const getDescriptionLetterColor = useGetDescriptionLetterColor(styleForm);
   const getCategoryPaddingTop = useGetCategoriesPaddingTop(styleForm);
   const getCategoryMarginTop = useGetCategoriesMarginTop(styleForm);
   const getDynamicStyles = useDynamicStyles(styleForm);
+  const getSubtitleFontColor = useGetSubtitleFontColor(styleForm);
 
   // const getDynamicStyles = (className: string, categoryIndex: number) => {
   //   if (className === "col-6") {
@@ -127,7 +131,7 @@ export default function CustomMenu({
     <div
       className="row menu-items-container"
       style={{
-        paddingTop: `${styleForm.pagePaddingTopAndBottom}px ${styleForm.pagePaddingLeftAndRight}px`,
+        padding: `${styleForm.pagePaddingTopAndBottom}px ${styleForm.pagePaddingLeftAndRight}px 0 ${styleForm.pagePaddingLeftAndRight}px`,
         width: `${+styleForm.menuWidth}mm`,
         height: `${+styleForm.menuHeight}mm`,
         maxHeight: `${+styleForm.menuHeight}mm`,
@@ -346,7 +350,7 @@ export default function CustomMenu({
               <div
                 className="subtitle"
                 style={{
-                  color: styleForm.subtitleFontColor,
+                  color: getSubtitleFontColor(categoryIndex),
                   marginBottom: `${styleForm.subtitlePaddingBottom}px`,
                 }}
               >
@@ -358,6 +362,28 @@ export default function CustomMenu({
                 >
                   {categoryData.subtitle}
                 </span>
+                {showColorInputs && (
+                  <>
+                    <input
+                      type="color"
+                      className="no-print"
+                      onChange={(event) =>
+                        handleSubtitleFontColor(
+                          event.target.value,
+                          categoryIndex
+                        )
+                      }
+                    />
+                    <button
+                      type="button"
+                      onClick={() =>
+                        handleCategoryBackgroundColor("", categoryIndex)
+                      }
+                    >
+                      reset
+                    </button>
+                  </>
+                )}
               </div>
               <ul
                 className="row p-0 justify-content-between"
