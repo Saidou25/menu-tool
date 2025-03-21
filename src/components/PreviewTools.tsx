@@ -5,6 +5,8 @@ import "./PreviewTools.css";
 import Checkbox from "./Checkbox";
 
 type PreviewToolsProps = {
+  showImagesDeleteButtons: boolean;
+  setShowImagesDeleteButtons: (item: boolean) => void;
   showColorInputs: boolean;
   setShowColorInputs: (item: boolean) => void;
   showJoinInputs: boolean;
@@ -121,7 +123,9 @@ const displayTools = [
       {
         label: "Margin bottom",
         subLabels: [
-          "title",
+          "title padding top",
+          "title padding bottom",
+          "title margin bottom",
           "categories' section",
           "categories' title",
           "subtitles margin",
@@ -147,6 +151,7 @@ const displayTools = [
         label: "Texts colors",
         subLabels: [
           "title's color",
+          "title's background color",
           "top text's color",
           "categories' color",
           "menu items' color",
@@ -158,9 +163,15 @@ const displayTools = [
       },
     ],
   },
+  {
+    title: "Check to hide images' delete buttons",
+    displayLabels: [],
+  },
 ];
 
 export default function PreviewTools({
+  showImagesDeleteButtons,
+  setShowImagesDeleteButtons,
   styleForm,
   setStyleForm,
   showColorInputs,
@@ -209,11 +220,14 @@ export default function PreviewTools({
     "text bottom": "footer",
     "title text": "titleSize",
     "footer text": "footerSize",
-    title: "titleMarginBottom",
+    "title margin bottom": "titleMarginBottom",
     footer: "footerMarginBottom",
     "page background": "pageBackground",
     // "section background": "sectionBackground",
     "title's color": "titleColor",
+    "title's background color": "titleBackgroundColor",
+    "title padding top": "titlePaddingTop",
+    "title padding bottom": "titlePaddingBottom",
     "categories' color": "categoryColor",
     prices: "priceSize",
     "menu items' color": "menuItemColor",
@@ -230,7 +244,7 @@ export default function PreviewTools({
     "show padding top": "paddingCategoriesTop",
     "decoration width": "decorationWidth",
     "decoration padding": "paddingDecoration",
-    "footer margin top": "footerPaddingPaddingTop"
+    "footer margin top": "footerPaddingPaddingTop",
   };
 
   const getInputType = (item: string): "file" | "text" | "number" | "color" => {
@@ -247,13 +261,12 @@ export default function PreviewTools({
     if (
       [
         "page background",
-        // "section background",
         "title's color",
+        "title's background color",
         "categories' color",
         "prices' color",
         "menu items' color",
         "menu items' description color",
-        "",
         "top text's color",
         "bottom text's color",
         "footer text's color",
@@ -343,16 +356,21 @@ export default function PreviewTools({
   };
 
   const handleToolsChecboxes = (item: string) => {
-    setShowToolItem((prev) =>
-      prev.includes(item) ? prev.filter((i) => i !== item) : [...prev, item]
-    );
+    if (item === "Check to hide images' delete buttons") {
+      setShowImagesDeleteButtons(!showImagesDeleteButtons);;
+    } 
+      setShowToolItem((prev) =>
+        prev.includes(item) ? prev.filter((i) => i !== item) : [...prev, item]
+      );
+    
   };
 
   return (
     <div className="no-print">
       <h2 className="preview-tools-title">Preview Tool</h2>
-      <div className="preview-tools-container"
-      style={{ height: `${+styleForm.menuHeight}mm`, overflow: "scroll" }}
+      <div
+        className="preview-tools-container"
+        style={{ height: `${+styleForm.menuHeight}mm`, overflow: "scroll" }}
       >
         <br />
         {displayTools &&
@@ -465,7 +483,11 @@ export default function PreviewTools({
                       {displayLabel.label === "Categories padding top" && (
                         <div className="ps-4">
                           <Checkbox
-                            onChange={() => setShowPaddingCategoriesTop(!showPaddingCategoriesTop)}
+                            onChange={() =>
+                              setShowPaddingCategoriesTop(
+                                !showPaddingCategoriesTop
+                              )
+                            }
                             checked={showPaddingCategoriesTop}
                             className="checkbox"
                           />
@@ -476,12 +498,15 @@ export default function PreviewTools({
                       {displayLabel.label === "Categories margin top" && (
                         <div className="ps-4">
                           <Checkbox
-                            onChange={() => setShowMarginCategoriesTop(!showMarginCategoriesTop)}
+                            onChange={() =>
+                              setShowMarginCategoriesTop(
+                                !showMarginCategoriesTop
+                              )
+                            }
                             checked={showMarginCategoriesTop}
                             className="checkbox"
                           />
-                          &nbsp; Check if you want to show margin top
-                          checkboxes
+                          &nbsp; Check if you want to show margin top checkboxes
                         </div>
                       )}
                       {displayLabel.label === "Prices checkboxes" && (

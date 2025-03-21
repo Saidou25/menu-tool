@@ -79,14 +79,17 @@ export type StyleFormType = {
   guyBottomMarginBottom: number;
   title: string;
   titleSize: number;
+  titleColor: string;
+  titlePaddingTop: number;
+  titlePaddingBottom: number;
   titleMarginBottom: number;
+  titleBackgroundColor: string;
   footerSize: number;
   footer: string;
   footerMarginBottom: number;
   pageBackground: string;
   sectionBackground: SectionBackground;
   descriptionLetterColor: DescriptionLetterColor;
-  titleColor: string;
   categoryColor: string;
   priceSize: number;
   priceColor: string;
@@ -102,5 +105,5 @@ export type StyleFormType = {
   marginCategoriesTop: MarginCategoreTop;
   decorationWidth: number;
   paddingDecoration: number;
- footerPaddingPaddingTop: number;
+  footerPaddingPaddingTop: number;
 };

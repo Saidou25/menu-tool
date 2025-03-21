@@ -8,10 +8,19 @@ import FinalStep from "./FinalStep";
 import DropDown from "./DropDown";
 import PreviewTools from "./PreviewTools";
 import Logo from "./Logo";
+import CustomCategoryItems from "./CustomCategoryItems";
 
 import "./Categories.css";
+import CustomCategoryForm from "./CustomCategoryForm";
+import SelectedCustomCategoryItems from "./SelectedCustomCategoryItem";
 
 type Props = {
+  setCustomCategoryList: React.Dispatch<React.SetStateAction<MenuCategory[]>>;
+  customCategoryList: Array<{
+    title: string;
+    subtitle?: string;
+    items: Field[];
+  }>;
   custom: boolean;
   categoriesList: Array<{ title: string; subtitle?: string; items: Field[] }>;
   setCategoriesList: React.Dispatch<React.SetStateAction<MenuCategory[]>>;
@@ -30,9 +39,22 @@ export default function Categories({
   menuSampleDataFunc,
   setCategoriesList,
   categoriesList,
+  // setCustomCategoryList,
+  customCategoryList,
 }: Props) {
+  const [categoryIndexList, setShowCategoryIndexList] = useState([]);
+  const [customCategories, setCustomCategories] = useState<
+    { categoryItem: string }[]
+  >([]);
+  const [showSelect, setShowSelect] = useState(false);
+  const [showCreate, setShowCreate] = useState(false);
+  const [showItems, setShowItems] = useState<number[]>([]);
+  // const [showItems, setShowItems] = useState<string[]>([]);
+
   const [view, setView] = useState(false);
-  const [showPaddingCategoriesTop, setShowPaddingCategoriesTop] = useState(false);
+  const [showImagesDeleteButtons, setShowImagesDeleteButtons] = useState(false);
+  const [showPaddingCategoriesTop, setShowPaddingCategoriesTop] =
+    useState(false);
   const [showMarginCategoriesTop, setShowMarginCategoriesTop] = useState(false);
   const [showJoinInputs, setShowJoinInputs] = useState(false);
   const [hidePrices, setHidePrices] = useState(false);
@@ -51,6 +73,14 @@ export default function Categories({
   const [localSelectedCategoryItems, setLocalSelectedCategoryItems] = useState<
     Record<string, { subtitle?: string; items: Field[] }>
   >({});
+  const [
+    localSelectedCustomCategoryItems,
+    setLocalSelectedCustomCategoryItems,
+  ] = useState<Record<string, { subtitle?: string; items: Field[] }>>({});
+  const [
+    // localCustomSelectedCategoryItems,
+    // setLocalCustomSelectedCategoryItems,
+  ] = useState<Record<string, { subtitle?: string; items: Field[] }>>({});
   const [styleForm, setStyleForm] = useState<StyleFormType>({
     menuWidth: 0,
     menuHeight: 0,
@@ -76,6 +106,9 @@ export default function Categories({
     guyBottomMarginBottom: 0,
     title: "",
     titleSize: 20,
+    titlePaddingBottom: 0,
+    titlePaddingTop: 0,
+    titleBackgroundColor: "",
     footerSize: 20,
     footer: "",
     titleMarginBottom: 0,
@@ -105,8 +138,38 @@ export default function Categories({
     decorationWidth: 90,
     footerPaddingPaddingTop: 0,
   });
- 
+  // console.log(customCategories);
 
+  const handleClick = (item: string) => {
+    const newCustomCategories = customCategories.filter(
+      (category) => category.categoryItem !== item
+    );
+    setCustomCategories(newCustomCategories);
+  };
+
+  const handleShowItems = (categoryIndex: number) => {
+    setShowItems((prev) => {
+      if (prev.includes(categoryIndex)) {
+        // Remove the item if it exists
+        return prev.filter((item) => item !== categoryIndex);
+      } else {
+        // Add the item if it doesn't exist
+        return [...prev, categoryIndex];
+      }
+    });
+  };
+
+  // console.log(showItems);
+
+  const setShowSelectCreate = (item: string) => {
+    if (item === "select") {
+      setShowSelect(true);
+      setShowCreate(false);
+    } else {
+      setShowSelect(false);
+      setShowCreate(true);
+    }
+  };
   const handleDisclaimer = () => {
     setShowDisclaimer((prev) => !prev);
   };
@@ -223,6 +286,8 @@ export default function Categories({
         showMarginCategoriesTop={showMarginCategoriesTop}
         view={view}
         setView={setView}
+        setShowImagesDeleteButtons={setShowImagesDeleteButtons}
+        showImagesDeleteButtons={showImagesDeleteButtons}
       >
         <FinalStep
           goBack={handleGoBack}
@@ -257,6 +322,8 @@ export default function Categories({
           setShowPaddingCategoriesTop={setShowPaddingCategoriesTop}
           setShowMarginCategoriesTop={setShowMarginCategoriesTop}
           showMarginCategoriesTop={showMarginCategoriesTop}
+          setShowImagesDeleteButtons={setShowImagesDeleteButtons}
+          showImagesDeleteButtons={showImagesDeleteButtons}
         />
       </PreviewMenu>
     );
@@ -279,35 +346,128 @@ export default function Categories({
         setMenuPreview={setMenuPreview}
         menuPreview={menuPreview}
       />
-      <div className="row">
-        <h1 className="pb-5 ps-5">
-          Select categories and items for your menu:
-        </h1>
-        {categoriesList.map((category, index) => (
-          <div className="col-3 categories ps-5 ms-5" key={index}>
-            <CategoryItems
-              selectedCategoryItems={
-                localSelectedCategoryItems[category.title]?.items || []
-              }
-              fields={category.items}
-              title={category.title}
-              showCategoryItemsFunc={(updatedItems) =>
-                showCategoryItems(category.title, updatedItems)
-              }
-              fadeInOutFunc={funcFadeInOut}
-            >
-              <SelectedCategoryItems
+      <div className="d-flex pb-5 ps-5">
+        <input
+          type="checkbox"
+          checked={showSelect}
+          onChange={() => setShowSelectCreate("select")}
+        />
+        <h1 className="">Select categories and items for your menu:</h1>
+      </div>
+
+      {showSelect && !showCreate && (
+        <div className="row">
+          {categoriesList.map((category, index) => (
+            <div className="col-3 categories ps-5 ms-5" key={index}>
+              <CategoryItems
                 selectedCategoryItems={
                   localSelectedCategoryItems[category.title]?.items || []
                 }
-                handlePriceChange={handlePriceChange}
-                fadeInOut={fadeInOut}
-              />
-            </CategoryItems>
-          </div>
-        ))}
-      </div>
+                fields={category.items}
+                title={category.title}
+                showCategoryItemsFunc={(updatedItems) =>
+                  showCategoryItems(category.title, updatedItems)
+                }
+                fadeInOutFunc={funcFadeInOut}
+              >
+                <SelectedCategoryItems
+                  selectedCategoryItems={
+                    localSelectedCategoryItems[category.title]?.items || []
+                  }
+                  handlePriceChange={handlePriceChange}
+                  fadeInOut={fadeInOut}
+                />
+              </CategoryItems>
+            </div>
+          ))}
+          <div></div>
+        </div>
+      )}
+
       <br />
+      <div className="d-flex pb-5 ps-5">
+        <input
+          type="checkbox"
+          checked={showCreate}
+          onChange={() => setShowSelectCreate("create")}
+        />
+        <h1 className="">Create categories and items from scratch:</h1>
+      </div>
+      {showCreate && !showSelect && (
+        <CustomCategoryForm
+          setCustomCategories={setCustomCategories}
+          customCategories={customCategories}
+        />
+      )}
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+
+      {/* {showCreate && !showSelect && ( */}
+      <>
+        {customCategories &&
+          customCategories.map((customCategory, categoryIndex) => (
+            <div key={`${customCategory}-${categoryIndex}`}>
+              <div className="row">
+                <div className="col-4">
+                  <span>{customCategory.categoryItem}</span>
+                  <input
+                    type="checkbox"
+                    onChange={() => handleShowItems(categoryIndex)}
+                    checked={showItems.includes(categoryIndex)} // Checkbox state
+                  />
+                  check to select items
+                  <button
+                    type="button"
+                    value={customCategory.categoryItem}
+                    onClick={() => handleClick(customCategory.categoryItem)}
+                  >
+                    remove
+                  </button>
+                  {/* {showItems &&
+                      customCategoryList.map((Category, index) => (
+                        <div key={index}>
+                          <SelectedCustomCategoryItems
+                            customCategoryList={customCategoryList}
+                            selectedCustomCategoryItems={
+                              localSelectedCategoryItems[Category.title]
+                                ?.items || []
+                            }
+                            handlePriceChange={handlePriceChange}
+                            fadeInOut={fadeInOut}
+                          />
+                        </div>
+                      ))} */}
+                </div>
+                <div className="col-8 d-flex">
+                  <div className="row">
+                    {/* Only render if categoryIndex is selected */}
+                    {showItems.includes(categoryIndex) &&
+                        customCategoryList.map((Category) => (
+                          <CustomCategoryItems
+                            selectedCategoryItems={
+                              localSelectedCategoryItems[Category.title]
+                                ?.items || []
+                            }
+                            fields={Category.items}
+                            title={Category.title}
+                            showCategoryItemsFunc={(updatedItems) =>
+                              showCategoryItems(Category.title, updatedItems)
+                            }
+                            fadeInOutFunc={funcFadeInOut}
+                          ></CustomCategoryItems>
+                        ))
+                      }
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+      </>
+
       <div className="categories-titles ps-5 ms-5 pt-2">
         <input
           className="checkbox-category"

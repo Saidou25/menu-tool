@@ -4,6 +4,7 @@ import { useGetSectionBackground } from "./useGetSectionBackground";
 export function useDynamicStyles(styleForm: StyleFormType) {
   const getSectionBackground = useGetSectionBackground(styleForm);
   const getDynamicStyles = (className: string, categoryIndex: number) => {
+
     if (className === "col-6") {
       if (categoryIndex === 0 || categoryIndex % 2 === 0) {
         return {

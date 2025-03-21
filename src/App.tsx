@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MenuCategory, Field } from "./data/types"; // Import both MenuCategory and Field from types.ts
 import { WiStars } from "react-icons/wi";
 import * as Dinner from "./data/Dinner"; // Import all the lists from the Dinner folder
@@ -14,13 +14,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // import Sharables from "./components/Sharables";
 
 function App() {
+  const [createCategory, setCreateCategory] = useState(true);
   const [categoriesList, setCategoriesList] = useState<MenuCategory[]>([]);
+  const [customCategoryList, setCustomCategoryList] = useState<MenuCategory[]>([]);
   const [custom, setCustom] = useState(false);
   const [showDropown, setShowDropdown] = useState(false);
   const [menuSampleData, setMenuSampleData] = useState<
-    Record<string, { subtitle?: string; items: Field[] }>
+    Record<string, { subtitle?: string; items: Field[], custom?: string }>
   >({});
- 
+
   // const [styleForm, setStyleForm] = useState<StyleFormType>({
   //     menuWidth: 0,
   //     menuHeight: 0,
@@ -75,6 +77,20 @@ function App() {
   // Dummy values for required props
   // const dummyBoolean = false;
 
+  const customCategory = () => {
+    setCustomCategoryList([
+      Dinner.sandwichesList,
+      Dinner.soupsList,
+      Dinner.wingsList,
+      Dinner.saladsList,
+      Dinner.sharablesList,
+      Dinner.burgersList,
+      Dinner.bigEatsList,
+      Dinner.sidesList,
+      Desserts.dessertsList,
+    ]);
+  };
+
   const selectMenu = (item: string) => {
     if (item === "Dinner") {
       // Set categoriesList to the lists from the Dinner folder
@@ -119,12 +135,22 @@ function App() {
     setMenuSampleData(localSelectedCategoryItems);
   };
 
+  useEffect(() => {
+    if (createCategory) {
+      customCategory();
+    }
+  }, [createCategory]);
+
+ 
+
   if (categoriesList.length)
     return (
       <div className="row app-container g-0">
         <Categories
-        setCategoriesList={setCategoriesList}
+          setCategoriesList={setCategoriesList}
           categoriesList={categoriesList}
+          setCustomCategoryList={setCustomCategoryList}
+          customCategoryList={customCategoryList}
           menuSampleDataFunc={funcSetMenuSampleData}
           selectedData={menuSampleData}
           custom={custom}
@@ -133,7 +159,12 @@ function App() {
     );
   return (
     <div className="row tool-container g-0">
-      <Logo className="spotlight" h1ClassName="menu-tool"  title="Menu tool" subtitle="Building your menu made easy" />
+      <Logo
+        className="spotlight"
+        h1ClassName="menu-tool"
+        title="Menu tool"
+        subtitle="Building your menu made easy"
+      />
       <div className="col-6 just-click-button">
         <WiStars className="stars1" />
         <h2 className="just-click">

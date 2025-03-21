@@ -15,7 +15,7 @@ type CategoriesProps = {
   fadeInOutFunc: (newState: boolean) => void;
 };
 
-export default function CategoryItems({
+export default function CustomCategoryItems({
   fields,
   title,
   children,
@@ -50,7 +50,7 @@ export default function CategoryItems({
   };
 
   return (
-    <div className="category-items-container">
+    <div className="col-4 category-items-container">
       <div className="categories-titles">
         <Checkbox
           className="checkbox-category"

@@ -11,11 +11,12 @@ import { useGetCategoriesMarginTop } from "../hooks/useGetMarginCategoriesTop";
 import { useDynamicStyles } from "../hooks/useDynamicStyles";
 import Footer from "./Footer";
 
-import "./Sharables.css";
+import "./CustomMenu.css";
 import { useSubtitleFontColor } from "../hooks/useSubtitleFontColor";
 import { useGetSubtitleFontColor } from "../hooks/useGetSubtitleFontColor";
 
 type Props = {
+  showImagesDeleteButtons: boolean;
   categoryOrder: string[];
   organizedData: Record<string, { subtitle?: string; items: Field[] }>;
   showColorInputs: boolean;
@@ -37,6 +38,7 @@ type Props = {
 };
 
 export default function CustomMenu({
+  showImagesDeleteButtons,
   categoryOrder,
   organizedData,
   showColorInputs,
@@ -151,7 +153,7 @@ export default function CustomMenu({
           backgroundPosition: "center",
         }}
       >
-        {styleForm.backgroundImage && (
+        {showImagesDeleteButtons && styleForm.backgroundImage && (
           <button
             type="button"
             onClick={() => setStyleForm({ ...styleForm, backgroundImage: "" })}
@@ -168,24 +170,40 @@ export default function CustomMenu({
               src={styleForm.guyTop}
               style={{ maxWidth: "100%", height: "auto" }}
             />
-            <button
-              type="button"
-              onClick={() => setStyleForm({ ...styleForm, guyTop: "" })}
-            >
-              delete
-            </button>
+            {showImagesDeleteButtons && (
+              <button
+                type="button"
+                onClick={() => setStyleForm({ ...styleForm, guyTop: "" })}
+              >
+                delete
+              </button>
+            )}
           </div>
         )}
         {styleForm.title && (
           <div
-            className="category-title"
+            className="title"
             style={{
               fontSize: `${styleForm.titleSize}px`,
+              backgroundColor: styleForm.titleBackgroundColor,
               color: styleForm.titleColor,
+              paddingTop: `${styleForm.titlePaddingTop}px`,
+              paddingBottom: `${styleForm.titlePaddingBottom}px`,
               marginBottom: `${styleForm.titleMarginBottom}px`,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontFamily: "Pewter Corroded, sans-serif",
             }}
           >
-            {styleForm.title}
+            <span
+              style={{
+                textTransform: "uppercase",
+                letterSpacing: "2px"
+              }}
+            >
+              {styleForm.title}
+            </span>
           </div>
         )}
         {styleForm.topImage && (
@@ -196,12 +214,14 @@ export default function CustomMenu({
               src={styleForm.topImage}
               style={{ maxWidth: "100%", height: "auto" }}
             />
-            <button
-              type="button"
-              onClick={() => setStyleForm({ ...styleForm, topImage: "" })}
-            >
-              delete
-            </button>
+            {showImagesDeleteButtons && (
+              <button
+                type="button"
+                onClick={() => setStyleForm({ ...styleForm, topImage: "" })}
+              >
+                delete
+              </button>
+            )}
           </div>
         )}
 
@@ -482,48 +502,73 @@ export default function CustomMenu({
             </div>
           );
         })}
+       
+        <div className="row" style={{ gap: "10px" }}>  {/* Gap could be dynamic */}
         {styleForm.bottomImage && (
-          <div
-            style={{ width: `${styleForm.bottomImageSize}px`, margin: "auto" }}
+          <div className="col-5"
+            // style={{ width: `${styleForm.bottomImageSize}px`, margin: "auto" }}
+            style={{
+              // width: `${styleForm.guyBottomSize}px`,
+              margin: "auto",
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
           >
             <img
               className="image-fluid"
               alt=""
               src={styleForm.bottomImage}
-              style={{ maxWidth: "100%", height: "auto" }}
+              style={{  width: `${styleForm.bottomImageSize}px`, height: "auto" }}
             />
-            <button
-              type="button"
-              onClick={() => setStyleForm({ ...styleForm, bottomImage: "" })}
-            >
-              delete
-            </button>
+            {showImagesDeleteButtons && (
+              <button
+                type="button"
+                onClick={() => setStyleForm({ ...styleForm, bottomImage: "" })}
+              >
+                delete
+              </button>
+            )}
           </div>
         )}
+
         {styleForm.guyBottom && (
-          <div
-            style={{ width: `${styleForm.guyBottomSize}px`, margin: "auto" }}
-          >
+          <div className="col-5"
+            style={{
+              // width: `${styleForm.guyBottomSize}px`,
+              margin: "auto",
+              display: "flex",
+              justifyContent: "flex-start",
+            }}
+            >
             <img
               className="image-fluid"
               alt=""
               src={styleForm.guyBottom}
-              style={{ maxWidth: "100%", height: "auto" }}
+              style={{
+                 width: `${styleForm.guyBottomSize}px`, height: "auto" 
+                }}
+              // width: `${styleForm.guyBottomSize}px`,
             />
-            <button
-              type="button"
-              onClick={() => setStyleForm({ ...styleForm, guyBottom: "" })}
-            >
-              delete
-            </button>
+            {showImagesDeleteButtons && (
+              <button
+                type="button"
+                onClick={() => setStyleForm({ ...styleForm, guyBottom: "" })}
+              >
+                delete
+              </button>
+            )}
           </div>
         )}
+        </div>
         {styleForm.footer && (
           <div
             className="category-title"
             style={{
               fontSize: `${styleForm.footerSize}px`,
-              color: styleForm.footerTextColor,
+              color: styleForm.textBottomColor,
+              letterSpacing: "1px",
+              display: "flex",
+              justifyContent: "center"
             }}
           >
             {styleForm.footer}

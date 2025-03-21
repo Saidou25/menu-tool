@@ -3,22 +3,21 @@ import { Field } from "../data/types";
 import "./SelectedCategoryItems.css";
 
 type Props = {
-  selectedCategoryItems?: Field[];
   selectedCustomCategoryItems?: Field[];
   handlePriceChange: (name: string, value: number) => void;
   fadeInOut: boolean;
 };
 
-export default function SelectedCategoryItems({
-  selectedCategoryItems,
+export default function SelectedCustomCategoryItems({
+    selectedCustomCategoryItems,
   handlePriceChange,
 }: Props) {
-  const allItems = selectedCategoryItems ?? [];
+  const allItems = selectedCustomCategoryItems ?? [];
 
   return (
     <div className="row g-0 mb-2">
       {allItems?.map((item) => (
-        <SelectedCategoryItem
+        <SelectedCustomCategoryItem
           key={item.label}
           item={item}
           handlePriceChange={handlePriceChange}
@@ -33,7 +32,7 @@ type PreviewItemProps = {
   handlePriceChange: (name: string, value: number) => void;
 };
 
-function SelectedCategoryItem({ item, handlePriceChange }: PreviewItemProps) {
+function SelectedCustomCategoryItem({ item, handlePriceChange }: PreviewItemProps) {
   return (
     <div className="row preview-item-container g-0">
       <span className="col-7">{item.label}</span>

@@ -9,6 +9,8 @@ import View from "./View";
 import "./PreviewMenu.css";
 
 type ModalProps = {
+  showImagesDeleteButtons: boolean;
+  setShowImagesDeleteButtons: (item: boolean) => void;
   setView: React.Dispatch<React.SetStateAction<boolean>>;
   view: boolean;
   custom: boolean;
@@ -51,6 +53,8 @@ const PreviewMenu = ({
   showDisclaimer,
   dataSample,
   styleForm,
+  showImagesDeleteButtons,
+  // setShowImagesDeleteButtons,
   showDecorationCheckboxes,
   showPaddingCategoriesTop,
   showMarginCategoriesTop,
@@ -62,7 +66,6 @@ const PreviewMenu = ({
   view,
 }: // setStyleForm,
 ModalProps) => {
-  
   const [organizedData, setOrganizedData] = useState<
     Record<string, { subtitle?: string; items: Field[] }>
   >({});
@@ -123,7 +126,7 @@ ModalProps) => {
   if (view) {
     return (
       <View
-      setView={setView}
+        setView={setView}
         categoryOrder={categoryOrder}
         organizedData={organizedData}
         styleForm={styleForm}
@@ -176,6 +179,7 @@ ModalProps) => {
               setShowDecorationCheckboxes={setShowDecorationCheckboxes}
               showPaddingCategoriesTop={showPaddingCategoriesTop}
               showMarginCategoriesTop={showMarginCategoriesTop}
+              showImagesDeleteButtons={showImagesDeleteButtons}
             />
           ) : (
             <>

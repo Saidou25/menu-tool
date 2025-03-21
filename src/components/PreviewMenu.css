@@ -2,6 +2,8 @@
   font-family: "Pewter Corroded";
   src: url("../assets/fonts/PewterDEMO-KCFonts.ttf") format("truetype");
  line-height: 1;
+ padding: 0;
+margin: 0;
 }
 .number {
   font-family: Arial, sans-serif;
