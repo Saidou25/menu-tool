@@ -123,6 +123,7 @@ ModalProps) => {
   //     }
   //   }
   // `;
+  console.log(categoryOrder)
   if (view) {
     return (
       <View

@@ -36,7 +36,6 @@ type Props = {
   >;
   showDisclaimer: boolean;
 };
-
 export default function CustomMenu({
   showImagesDeleteButtons,
   categoryOrder,
@@ -69,6 +68,9 @@ export default function CustomMenu({
   const getDynamicStyles = useDynamicStyles(styleForm);
   const getSubtitleFontColor = useGetSubtitleFontColor(styleForm);
 
+
+console.log(organizedData)
+console.log(categoryOrder)
   // const getDynamicStyles = (className: string, categoryIndex: number) => {
   //   if (className === "col-6") {
   //     if (categoryIndex === 0 || categoryIndex % 2 === 0) {

@@ -1,5 +1,10 @@
-import { useEffect, useState } from "react";
-import { Field, MenuCategory, StyleFormType } from "../data/types";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import {
+  Field,
+  MenuCategory,
+  MenuCustomCategory,
+  StyleFormType,
+} from "../data/types";
 import SelectedCategoryItems from "./SelectedCategoryItems";
 import CategoryItems from "./CategoryItems";
 import PreviewMenu from "./PreviewMenu";
@@ -12,7 +17,6 @@ import CustomCategoryItems from "./CustomCategoryItems";
 
 import "./Categories.css";
 import CustomCategoryForm from "./CustomCategoryForm";
-import SelectedCustomCategoryItems from "./SelectedCustomCategoryItem";
 
 type Props = {
   setCustomCategoryList: React.Dispatch<React.SetStateAction<MenuCategory[]>>;
@@ -42,14 +46,22 @@ export default function Categories({
   // setCustomCategoryList,
   customCategoryList,
 }: Props) {
-  const [categoryIndexList, setShowCategoryIndexList] = useState([]);
+  const [newArray, setNewArray] = useState<MenuCategory[]>([]); // Use correct type
+  // const [allItems, setAllItems] = useState<any[]>([]);
+  const [consolidatedView, setConsolitedView] = useState<{
+    item: boolean;
+    title: string;
+  }>({ item: false, title: "" });
   const [customCategories, setCustomCategories] = useState<
+    { categoryItem: string }[]
+  >([]);
+  const [NewCustomCategories, setNewCustomCategories] = useState<
     { categoryItem: string }[]
   >([]);
   const [showSelect, setShowSelect] = useState(false);
   const [showCreate, setShowCreate] = useState(false);
-  const [showItems, setShowItems] = useState<number[]>([]);
-  // const [showItems, setShowItems] = useState<string[]>([]);
+  // const [showItems, setShowItems] = useState<number[]>([]);
+  const [showItems, setShowItems] = useState<string[]>([]);
 
   const [view, setView] = useState(false);
   const [showImagesDeleteButtons, setShowImagesDeleteButtons] = useState(false);
@@ -73,9 +85,18 @@ export default function Categories({
   const [localSelectedCategoryItems, setLocalSelectedCategoryItems] = useState<
     Record<string, { subtitle?: string; items: Field[] }>
   >({});
+  // const [
+  //   localSelectedCustomCategoryItems,
+  //   setLocalSelectedCustomCategoryItems,
+  // ] = useState<
+  //   Record<string, { subtitle?: string; subCategory?: string; items: Field[] }>
+  // >({});
+  const [newCustomArray, setNewCutomArray] = useState<MenuCustomCategory[]>([]); // Use correct type
+  const [customArrTitles, setCustomArrTitles] = useState<string[]>([]);
+
   const [
-    localSelectedCustomCategoryItems,
-    setLocalSelectedCustomCategoryItems,
+    // localSelectedCustomCategoryItems,
+    // setLocalSelectedCustomCategoryItems,
   ] = useState<Record<string, { subtitle?: string; items: Field[] }>>({});
   const [
     // localCustomSelectedCategoryItems,
@@ -138,28 +159,50 @@ export default function Categories({
     decorationWidth: 90,
     footerPaddingPaddingTop: 0,
   });
-  // console.log(customCategories);
-
   const handleClick = (item: string) => {
-    const newCustomCategories = customCategories.filter(
-      (category) => category.categoryItem !== item
-    );
-    setCustomCategories(newCustomCategories);
+    const updatedNewArray = newCustomArray.filter((newArr) => newArr.title !== item);
+    setNewCutomArray(updatedNewArray);
   };
 
-  const handleShowItems = (categoryIndex: number) => {
+  const handleShowItems = (title: string) => {
     setShowItems((prev) => {
-      if (prev.includes(categoryIndex)) {
+      if (prev.includes(title)) {
         // Remove the item if it exists
-        return prev.filter((item) => item !== categoryIndex);
+        return prev.filter((item) => item !== title);
       } else {
         // Add the item if it doesn't exist
-        return [...prev, categoryIndex];
+        return [...prev, title];
       }
     });
   };
 
-  // console.log(showItems);
+  // const handleCheckboxChange = (categoryTitle: string, item: Field) => {
+  //   console.log("in handle checkbaooo");
+  //   setLocalSelectedCategoryItems((prevState) => {
+  //     const newItems = prevState[categoryTitle]?.items || [];
+  //     const itemExists = newItems.find((i) => i.label === item.label);
+
+  //     if (itemExists) {
+  //       // Remove the item if it's already selected
+  //       return {
+  //         ...prevState,
+  //         [categoryTitle]: {
+  //           ...prevState[categoryTitle],
+  //           items: newItems.filter((i) => i.label !== item.label),
+  //         },
+  //       };
+  //     } else {
+  //       // Add the item if it's not selected
+  //       return {
+  //         ...prevState,
+  //         [categoryTitle]: {
+  //           ...prevState[categoryTitle],
+  //           items: [...newItems, item],
+  //         },
+  //       };
+  //     }
+  //   });
+  // };
 
   const setShowSelectCreate = (item: string) => {
     if (item === "select") {
@@ -211,7 +254,6 @@ export default function Categories({
     });
   };
 
-  // Update selected category items when a selection is made in a category
   const showCategoryItems = (
     categoryTitle: string,
     updatedSelectedCategoryItems: Field[]
@@ -219,8 +261,8 @@ export default function Categories({
     setLocalSelectedCategoryItems((prevState) => ({
       ...prevState,
       [categoryTitle]: {
-        subtitle: prevState[categoryTitle]?.subtitle || "", // Preserve existing subtitle
-        items: updatedSelectedCategoryItems, // Update selected items
+        ...prevState[categoryTitle], // Ensure other fields (like subtitle) are preserved
+        items: updatedSelectedCategoryItems,
       },
     }));
   };
@@ -259,6 +301,52 @@ export default function Categories({
       });
     }
   }, [selectedData, categoriesList]); // Runs only when dependencies change
+
+  // useEffect(() => {
+  //   // Populate allItems when newArray or customCategoryList changes
+  //   const items = newArray.map((category) => category.items).flat(); // Flatten the array of items from newArray
+  //   setAllItems(items); // Set the allItems state with the combined items
+  // }, [newArray]);
+
+  // console.log("new Array", newCustomArray);
+  const render = (newArrTitle: string) => {
+    const flatArr = [];
+    const firstLevel = newCustomArray.find(
+      (item) => item.title === newArrTitle
+    );
+    // console.log("first level", firstLevel?.subCategories);
+    const subCat = firstLevel?.subCategories;
+    if (subCat) {
+      for (let subCategory of subCat) flatArr.push(subCategory.items);
+    }
+  
+    return (
+      <div>
+        {flatArr.flat().length > 0 ? (
+          flatArr.flat().map((flat) => (
+            <div className="row preview-item-container g-0">
+              <span className="col-7">{flat.label}</span>
+              <div className="col-5 d-flex">
+                <span>$&nbsp;</span>
+                <input
+                  className="container-fluid price-input"
+                  placeholder={flat.price.placeholder}
+                  //  name={item.label} // Use label as item identifier
+                  value={flat.price.value === 0 ? "" : flat.price.value} // Show placeholder if value is 0
+                  type="number"
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    handlePriceChange(e.target.name, +e.target.value)
+                  }
+                />
+              </div>
+            </div>
+          ))
+        ) : (
+          <span>No items found</span>
+        )}
+      </div>
+    );
+  };
 
   if (menuPreview) {
     return (
@@ -380,7 +468,6 @@ export default function Categories({
               </CategoryItems>
             </div>
           ))}
-          <div></div>
         </div>
       )}
 
@@ -397,6 +484,14 @@ export default function Categories({
         <CustomCategoryForm
           setCustomCategories={setCustomCategories}
           customCategories={customCategories}
+          newCustomCategories={NewCustomCategories}
+          setNewCustomCategories={setNewCustomCategories}
+          setNewArray={setNewArray}
+          newArray={newArray}
+          setNewCustomArray={setNewCutomArray}
+          newCustomArray={newCustomArray}
+          customArrTitles={customArrTitles}
+          setCustomArrTitles={setCustomArrTitles}
         />
       )}
       <br />
@@ -405,64 +500,128 @@ export default function Categories({
       <br />
       <br />
       <br />
-
-      {/* {showCreate && !showSelect && ( */}
       <>
-        {customCategories &&
-          customCategories.map((customCategory, categoryIndex) => (
-            <div key={`${customCategory}-${categoryIndex}`}>
+        {newCustomArray &&
+          newCustomArray.map((newArr, categoryIndex) => (
+            <div key={`${newArr}-${categoryIndex}`} id={newArr.title}>
               <div className="row">
                 <div className="col-4">
-                  <span>{customCategory.categoryItem}</span>
+                  <span>{newArr.title}</span>
+                  <br />
                   <input
                     type="checkbox"
-                    onChange={() => handleShowItems(categoryIndex)}
-                    checked={showItems.includes(categoryIndex)} // Checkbox state
+                    onChange={() => handleShowItems(newArr.title)}
+                    checked={showItems.includes(newArr.title)} // Checkbox state
                   />
                   check to select items
+                  <br />
+                  <input
+                    type="checkbox"
+                    onChange={() =>
+                      setConsolitedView((prevState) => ({
+                        item:
+                          prevState.title === newArr.title
+                            ? !prevState.item
+                            : true,
+                        title: newArr.title, // Keep the selected title consistent
+                      }))
+                    }
+                    checked={
+                      consolidatedView.item &&
+                      consolidatedView.title === newArr.title
+                    }
+                  />
+                  consolited view
+                  <br />
                   <button
                     type="button"
-                    value={customCategory.categoryItem}
-                    onClick={() => handleClick(customCategory.categoryItem)}
+                    value={newArr.title}
+                    onClick={() => handleClick(newArr.title)}
                   >
                     remove
                   </button>
-                  {/* {showItems &&
-                      customCategoryList.map((Category, index) => (
-                        <div key={index}>
-                          <SelectedCustomCategoryItems
-                            customCategoryList={customCategoryList}
-                            selectedCustomCategoryItems={
-                              localSelectedCategoryItems[Category.title]
-                                ?.items || []
-                            }
-                            handlePriceChange={handlePriceChange}
-                            fadeInOut={fadeInOut}
-                          />
-                        </div>
-                      ))} */}
                 </div>
-                <div className="col-8 d-flex">
-                  <div className="row">
-                    {/* Only render if categoryIndex is selected */}
-                    {showItems.includes(categoryIndex) &&
-                        customCategoryList.map((Category) => (
-                          <CustomCategoryItems
-                            selectedCategoryItems={
-                              localSelectedCategoryItems[Category.title]
-                                ?.items || []
-                            }
-                            fields={Category.items}
-                            title={Category.title}
-                            showCategoryItemsFunc={(updatedItems) =>
-                              showCategoryItems(Category.title, updatedItems)
-                            }
-                            fadeInOutFunc={funcFadeInOut}
-                          ></CustomCategoryItems>
-                        ))
-                      }
+                {newCustomArray.length > 0 &&
+                consolidatedView.item &&
+                consolidatedView.title === newArr.title ? (
+                  <div className="col-8 preview-item-container g-0">
+                    {render(newArr.title)}
                   </div>
-                </div>
+                ) : (
+                  <div className="col-8 d-flex">
+                    <div className="row">
+                      {/* Only render if categoryIndex is selected */}
+                      {showItems.includes(newArr.title) &&
+                        customCategoryList.map((Category) => (
+                          <div
+                            className="col-4 category-items-container"
+                            key={Category.title}
+                          >
+                            {/* {newCustomArray.length > 0 &&
+                          consolidatedView.item &&
+                          consolidatedView.title === newArr.title ? (
+                            <div className="preview-item-container g-0">
+                              {render(newArr.title, consolidatedView.title)}
+                            </div>
+                          ) : ( */}
+                            <CustomCategoryItems
+                              newArr={newArr}
+                              newCustomArray={newCustomArray}
+                              setNewCustomArray={setNewCutomArray}
+                              setNewArray={setNewArray}
+                              newArray={newArray}
+                              selectedData={selectedData}
+                              consolidatedView={consolidatedView}
+                              selectedCategoryItems={
+                                localSelectedCategoryItems[Category.title]
+                                  ?.items || []
+                              }
+                              fields={Category.items}
+                              title={Category.title}
+                              // fadeInOutFunc={funcFadeInOut}
+                            >
+                              <div className="row g-0">
+                                {newCustomArray &&
+                                  newCustomArray.map((customItem) => (
+                                    <div
+                                      key={customItem.title}
+                                      className="preview-items-container"
+                                    >
+                                      {customItem.subCategories &&
+                                        customItem.subCategories.map(
+                                          (subCategory) => (
+                                            <span
+                                              className="col-7"
+                                              key={subCategory.subCategoryTitle}
+                                            >
+                                              {customItem.title ===
+                                                newArr.title &&
+                                                subCategory.subCategoryTitle ===
+                                                  Category.title &&
+                                                subCategory.items.length &&
+                                                subCategory.items.map(
+                                                  (item, index) => (
+                                                    <div
+                                                      key={index}
+                                                      className="item-label"
+                                                    >
+                                                      <span>{item.label}</span>
+                                                    </div>
+                                                  )
+                                                )}
+                                            </span>
+                                          )
+                                        )}
+                                    </div>
+                                  ))}
+                              </div>
+                            </CustomCategoryItems>
+                            {/* )} */}
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           ))}

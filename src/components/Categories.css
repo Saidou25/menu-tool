@@ -2,7 +2,13 @@
   --bs-gutter-x: 0;
   --bs-gutter-y: 0;
 }
-
+.preview-items-container {
+  background-color: black; 
+  
+}
+.item-label {
+  padding: 5px;
+}
 .categories {
   opacity: 0;
   animation: fadeIn 0.3s ease-in-out forwards;

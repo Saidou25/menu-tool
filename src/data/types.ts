@@ -24,6 +24,13 @@ export type MenuCategory = {
   items: Field[];
 };
 
+export type MenuCustomCategory = {
+  title: string;
+  subCategories: { subCategoryTitle: string, items: Field[] }[]; // Array of objects containing an `items` array
+  subtitle?: string; // Optional subtitle
+};
+
+
 export type SectionBackground = {
   categoryIndex: number;
   backgroundColor: string;

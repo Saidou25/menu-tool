@@ -10,6 +10,7 @@ type CheckboxProps = {
 }
 
 export default function Checkbox({ className, id, onChange, checked, name }: CheckboxProps) {
+ 
   return (
     <input
     className={className
