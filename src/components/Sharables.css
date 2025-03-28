@@ -39,7 +39,8 @@
   /* top: -11px; Position the text above the top border */
   left: 50%; /* Center the text horizontally */
   transform: translateX(-50%); /* Adjust the centering */
-  /* color: white; Text color */
+  /* color: blue;  */
+  text-align: center;
   /* font-size: 1.5rem; Font size */
   z-index: 1; /* Ensure the text appears above the borders */
   width: 100%;

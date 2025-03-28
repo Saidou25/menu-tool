@@ -9,11 +9,11 @@ import { useGetCategoriesPaddingTop } from "../hooks/useGetCategoriesPaddingTop"
 import { useCategoryMarginTop } from "../hooks/useMarginCategoriesTop";
 import { useGetCategoriesMarginTop } from "../hooks/useGetMarginCategoriesTop";
 import { useDynamicStyles } from "../hooks/useDynamicStyles";
+import { useSubtitleFontColor } from "../hooks/useSubtitleFontColor";
+import { useGetSubtitleFontColor } from "../hooks/useGetSubtitleFontColor";
 import Footer from "./Footer";
 
 import "./CustomMenu.css";
-import { useSubtitleFontColor } from "../hooks/useSubtitleFontColor";
-import { useGetSubtitleFontColor } from "../hooks/useGetSubtitleFontColor";
 
 type Props = {
   showImagesDeleteButtons: boolean;
@@ -67,43 +67,6 @@ export default function CustomMenu({
   const getCategoryMarginTop = useGetCategoriesMarginTop(styleForm);
   const getDynamicStyles = useDynamicStyles(styleForm);
   const getSubtitleFontColor = useGetSubtitleFontColor(styleForm);
-
-  // const getDynamicStyles = (className: string, categoryIndex: number) => {
-  //   if (className === "col-6") {
-  //     if (categoryIndex === 0 || categoryIndex % 2 === 0) {
-  //       return {
-  //         backgroundColor: getSectionBackground(categoryIndex),
-  //         paddingLeft: `${styleForm.paddingCategoriesLeftRight}px`,
-  //         paddingRight: "1.5rem",
-  //       };
-  //     } else {
-  //       return {
-  //         paddingRight: `${styleForm.paddingCategoriesLeftRight}px`,
-  //         // paddingLeft: "16px"
-  //       };
-  //     }
-  //     // console.log(className, categoryIndex, joinedCategories)
-  //   } else if (className === "col-12 content-container") {
-  //     return {
-  //       // backgroundColor: getSectionBackground(categoryIndex),
-  //       // marginBottom: `${styleForm.categoriesMarginBottom}px`,
-  //       width: `${styleForm.decorationWidth}%`,
-  //       paddingRight: `${styleForm.paddingDecoration}px`,
-  //       paddingLeft: `${styleForm.paddingDecoration}px`,
-  //       borderLeft: `2px solid black`,
-  //       borderRight: `2px solid black`,
-  //       borderBottom: `2px solid black`,
-  //     };
-  //   } else if (className === "col-12") {
-  //     return {
-  //       backgroundColor: getSectionBackground(categoryIndex),
-  //       // marginBottom: `${styleForm.categoriesMarginBottom}px`,
-  //       paddingRight: `${styleForm.paddingCategoriesLeftRight}px`,
-  //       paddingLeft: `${styleForm.paddingCategoriesLeftRight}px`,
-  //     };
-  //   }
-  //   return {};
-  // };
 
   useEffect(() => {
     const style = document.createElement("style");
@@ -198,7 +161,7 @@ export default function CustomMenu({
             <span
               style={{
                 textTransform: "uppercase",
-                letterSpacing: "2px"
+                letterSpacing: "2px",
               }}
             >
               {styleForm.title}
@@ -501,63 +464,72 @@ export default function CustomMenu({
             </div>
           );
         })}
-       
-        <div className="row" style={{ gap: "10px" }}>  {/* Gap could be dynamic */}
-        {styleForm.bottomImage && (
-          <div className="col-5"
-            // style={{ width: `${styleForm.bottomImageSize}px`, margin: "auto" }}
-            style={{
-              // width: `${styleForm.guyBottomSize}px`,
-              margin: "auto",
-              display: "flex",
-              justifyContent: "flex-end",
-            }}
-          >
-            <img
-              className="image-fluid"
-              alt=""
-              src={styleForm.bottomImage}
-              style={{  width: `${styleForm.bottomImageSize}px`, height: "auto" }}
-            />
-            {showImagesDeleteButtons && (
-              <button
-                type="button"
-                onClick={() => setStyleForm({ ...styleForm, bottomImage: "" })}
-              >
-                delete
-              </button>
-            )}
-          </div>
-        )}
 
-        {styleForm.guyBottom && (
-          <div className="col-5"
-            style={{
-              // width: `${styleForm.guyBottomSize}px`,
-              margin: "auto",
-              display: "flex",
-              justifyContent: "flex-start",
-            }}
-            >
-            <img
-              className="image-fluid"
-              alt=""
-              src={styleForm.guyBottom}
+        <div className="row" style={{ gap: "10px" }}>
+          {" "}
+          {/* Gap could be dynamic */}
+          {styleForm.bottomImage && (
+            <div
+              className="col-5"
+              // style={{ width: `${styleForm.bottomImageSize}px`, margin: "auto" }}
               style={{
-                 width: `${styleForm.guyBottomSize}px`, height: "auto" 
+                // width: `${styleForm.guyBottomSize}px`,
+                margin: "auto",
+                display: "flex",
+                justifyContent: "flex-end",
+              }}
+            >
+              <img
+                className="image-fluid"
+                alt=""
+                src={styleForm.bottomImage}
+                style={{
+                  width: `${styleForm.bottomImageSize}px`,
+                  height: "auto",
                 }}
-              // width: `${styleForm.guyBottomSize}px`,
-            />
-            {showImagesDeleteButtons && (
-              <button
-                type="button"
-                onClick={() => setStyleForm({ ...styleForm, guyBottom: "" })}
-              >
-                delete
-              </button>
-            )}
-          </div>
-        )}
+              />
+              {showImagesDeleteButtons && (
+                <button
+                  type="button"
+                  onClick={() =>
+                    setStyleForm({ ...styleForm, bottomImage: "" })
+                  }
+                >
+                  delete
+                </button>
+              )}
+            </div>
+          )}
+          {styleForm.guyBottom && (
+            <div
+              className="col-5"
+              style={{
+                // width: `${styleForm.guyBottomSize}px`,
+                margin: "auto",
+                display: "flex",
+                justifyContent: "flex-start",
+              }}
+            >
+              <img
+                className="image-fluid"
+                alt=""
+                src={styleForm.guyBottom}
+                style={{
+                  width: `${styleForm.guyBottomSize}px`,
+                  height: "auto",
+                }}
+                // width: `${styleForm.guyBottomSize}px`,
+              />
+              {showImagesDeleteButtons && (
+                <button
+                  type="button"
+                  onClick={() => setStyleForm({ ...styleForm, guyBottom: "" })}
+                >
+                  delete
+                </button>
+              )}
+            </div>
+          )}
         </div>
         {styleForm.footer && (
           <div
@@ -567,7 +539,7 @@ export default function CustomMenu({
               color: styleForm.textBottomColor,
               letterSpacing: "1px",
               display: "flex",
-              justifyContent: "center"
+              justifyContent: "center",
             }}
           >
             {styleForm.footer}

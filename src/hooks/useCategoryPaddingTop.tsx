@@ -6,6 +6,7 @@ export function useCategoryPaddingTop(
 ) {
   const handleCategoryPaddingTop = useCallback(
     (marginTop: number, categoryIndex: number) => {
+      
       setStyleForm((prevState) => {
         const newPaddingCategoriesTop = [...prevState.paddingCategoriesTop];
         const existingIndex = newPaddingCategoriesTop.findIndex(

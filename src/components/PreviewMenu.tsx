@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { Field, StyleFormType } from "../data/types";
 
 import FrontMenu from "./FrontMenu";
-import BackMenu from "./BackMenu"; // Import BackMenu component
+import BackMenu from "./BackMenu"; 
 import CustomMenu from "./CustomMenu";
 import View from "./View";
+import CustomCategoriesMenu from "./CustomCategoriesMenu";
 
 import "./PreviewMenu.css";
-import CustomCategoriesMenu from "./CustomCategoriesMenu";
 
 type ModalProps = {
   newCustomArray: any[];
@@ -27,7 +27,6 @@ type ModalProps = {
   showPaddingCategoriesTop: boolean;
   showMarginCategoriesTop: boolean;
   hidePrices: boolean;
-  // setHidePrices: (item: boolean) => void;
   children: React.ReactNode[];
   showDisclaimer: boolean;
   message: string;
@@ -40,7 +39,6 @@ type ModalProps = {
   setJoinedCategories: React.Dispatch<
     React.SetStateAction<Record<string, boolean>>
   >;
-  // setShowDecorations: (category: string) => void;
 };
 
 const PreviewMenu = ({
@@ -57,7 +55,6 @@ const PreviewMenu = ({
   dataSample,
   styleForm,
   showImagesDeleteButtons,
-  // setShowImagesDeleteButtons,
   showDecorationCheckboxes,
   showPaddingCategoriesTop,
   showMarginCategoriesTop,
@@ -67,7 +64,7 @@ const PreviewMenu = ({
   setShowDecorations,
   setShowDecorationCheckboxes,
   view,
-}: // setStyleForm,
+}: 
 ModalProps) => {
   const [organizedData, setOrganizedData] = useState<
     Record<string, { subtitle?: string; items: Field[] }>
@@ -169,9 +166,26 @@ ModalProps) => {
             <h3 className="no-print">Menu front</h3>
           )}
           {newCustomArray?.length && (
-            <CustomCategoriesMenu newCustomArray={newCustomArray} styleForm={styleForm} />
+            <CustomCategoriesMenu
+              newCustomArray={newCustomArray}
+              styleForm={styleForm}
+              setStyleForm={setStyleForm}
+              showColorInputs={showColorInputs}
+              showJoinInputs={showJoinInputs}
+              showDisclaimer={showDisclaimer}
+              joinedCategories={joinedCategories}
+              setJoinedCategories={setJoinedCategories}
+              hidePrices={hidePrices}
+              showDecorations={showDecorations}
+              setShowDecorations={setShowDecorations}
+              showDecorationCheckboxes={showDecorationCheckboxes}
+              setShowDecorationCheckboxes={setShowDecorationCheckboxes}
+              showPaddingCategoriesTop={showPaddingCategoriesTop}
+              showMarginCategoriesTop={showMarginCategoriesTop}
+              showImagesDeleteButtons={showImagesDeleteButtons}
+            />
           )}
-          {custom && !newCustomArray ? (
+          {custom && !newCustomArray.length&& (
             <CustomMenu
               categoryOrder={categoryOrder}
               organizedData={organizedData}
@@ -191,29 +205,32 @@ ModalProps) => {
               showMarginCategoriesTop={showMarginCategoriesTop}
               showImagesDeleteButtons={showImagesDeleteButtons}
             />
-          ) : (
-            <>
-              {/* Render the first set of categories: Front menu */}
-              <FrontMenu
-                // animation={animation}
-                categoryOrder={firstCategories}
-                styleForm={styleForm}
-                organizedData={organizedData}
-                showDisclaimer={showDisclaimer}
-                setStyleForm={setStyleForm}
-                showColorInputs={showColorInputs}
-              />
-              {/* Render BackMenu only if there are additional categories */}
-              {Object.keys(secondPageData).length > 0 && (
-                <BackMenu
-                  styleForm={styleForm}
-                  categoryOrder={extraCategories}
-                  secondPageData={secondPageData}
-                  showDisclaimer={showDisclaimer}
-                />
-              )}
-            </>
+          )} 
+          {!custom && !newCustomArray.length&& (
+               <>
+               {/* Render the first set of categories: Front menu */}
+               <FrontMenu
+                 // animation={animation}
+                 categoryOrder={firstCategories}
+                 styleForm={styleForm}
+                 organizedData={organizedData}
+                 showDisclaimer={showDisclaimer}
+                 setStyleForm={setStyleForm}
+                 showColorInputs={showColorInputs}
+               />
+               {/* Render BackMenu only if there are additional categories */}
+               {Object.keys(secondPageData).length > 0 && (
+                 <BackMenu
+                   styleForm={styleForm}
+                   categoryOrder={extraCategories}
+                   secondPageData={secondPageData}
+                   showDisclaimer={showDisclaimer}
+                 />
+               )}
+             </>
           )}
+         
+          {/* )} */}
         </div>
         <div className="tool-section no-print">
           {children[1]} {/* Renders dropdown*/}
