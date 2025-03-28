@@ -351,6 +351,7 @@ export default function Categories({
   if (menuPreview) {
     return (
       <PreviewMenu
+      newCustomArray={newCustomArray}
         custom={custom}
         goBack={handleGoBack}
         onConfirm={handleConfirm}
@@ -557,19 +558,10 @@ export default function Categories({
                             className="col-4 category-items-container"
                             key={Category.title}
                           >
-                            {/* {newCustomArray.length > 0 &&
-                          consolidatedView.item &&
-                          consolidatedView.title === newArr.title ? (
-                            <div className="preview-item-container g-0">
-                              {render(newArr.title, consolidatedView.title)}
-                            </div>
-                          ) : ( */}
                             <CustomCategoryItems
                               newArr={newArr}
                               newCustomArray={newCustomArray}
                               setNewCustomArray={setNewCutomArray}
-                              setNewArray={setNewArray}
-                              newArray={newArray}
                               selectedData={selectedData}
                               consolidatedView={consolidatedView}
                               selectedCategoryItems={
@@ -616,7 +608,6 @@ export default function Categories({
                                   ))}
                               </div>
                             </CustomCategoryItems>
-                            {/* )} */}
                           </div>
                         ))}
                     </div>

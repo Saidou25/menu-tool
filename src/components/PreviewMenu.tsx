@@ -7,8 +7,10 @@ import CustomMenu from "./CustomMenu";
 import View from "./View";
 
 import "./PreviewMenu.css";
+import CustomCategoriesMenu from "./CustomCategoriesMenu";
 
 type ModalProps = {
+  newCustomArray: any[];
   showImagesDeleteButtons: boolean;
   setShowImagesDeleteButtons: (item: boolean) => void;
   setView: React.Dispatch<React.SetStateAction<boolean>>;
@@ -42,6 +44,7 @@ type ModalProps = {
 };
 
 const PreviewMenu = ({
+  newCustomArray,
   setView,
   custom,
   showJoinInputs,
@@ -123,7 +126,7 @@ ModalProps) => {
   //     }
   //   }
   // `;
-  console.log(categoryOrder)
+
   if (view) {
     return (
       <View
@@ -148,6 +151,9 @@ ModalProps) => {
     );
   }
 
+  {
+    newCustomArray;
+  }
   return (
     <>
       <div className="container-final-step">
@@ -162,7 +168,10 @@ ModalProps) => {
           {Object.keys(secondPageData).length > 0 && !custom && (
             <h3 className="no-print">Menu front</h3>
           )}
-          {custom ? (
+          {newCustomArray?.length && (
+            <CustomCategoriesMenu newCustomArray={newCustomArray} styleForm={styleForm} />
+          )}
+          {custom && !newCustomArray ? (
             <CustomMenu
               categoryOrder={categoryOrder}
               organizedData={organizedData}
