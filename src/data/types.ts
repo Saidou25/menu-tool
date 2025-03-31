@@ -113,4 +113,5 @@ export type StyleFormType = {
   decorationWidth: number;
   paddingDecoration: number;
   footerPaddingPaddingTop: number;
+  footerPaddingBottom: number;
 };

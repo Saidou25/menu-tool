@@ -100,3 +100,21 @@ margin: 0;
 .final-step-hidden {
   display: none;
 }
+.prev {
+  display: block;
+}
+@media print {
+  .tool-section {
+    display: none !important;
+  }
+  .prev {
+    display: none !important;
+  }
+  .no-ptint {
+    display: none !important;
+  }
+  .final-step-show {
+    display: block;
+    margin-bottom: 0;
+  }
+}

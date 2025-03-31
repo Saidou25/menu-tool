@@ -19,16 +19,20 @@ export default function Logo({
   subtitle,
   setMenuPreview,
   setCategoriesList,
-  setView
+  setView,
 }: LogoProps) {
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+   
     if (event.currentTarget.className === "preview-btn") {
       setMenuPreview?.((prev) => !prev);
-    } else if (event.currentTarget.className === "restart"){
+    } else if (event.currentTarget.className === "restart") {
       setCategoriesList?.([]);
-    } else if (event.currentTarget.className === "go-back no-print"){
+    } else if (event.currentTarget.className === "go-back no-print") {
       setView?.((prev) => !prev);
     }
+    // else if (event.currentTarget.className === "print-document no-print") {
+    //   window.print();
+    // }
   };
   return (
     <div className={`${className}`} onClick={(e) => handleClick(e)}>

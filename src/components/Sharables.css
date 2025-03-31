@@ -45,3 +45,44 @@
   z-index: 1; /* Ensure the text appears above the borders */
   width: 100%;
 }
+.custom-menu-items-container {
+  font-family: Arial, sans-serif;
+  position: relative;
+}
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .custom-menu-items-container {
+    font-family: Arial, sans-serif;
+    position: relative;
+    width: 100%;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .container-final-step {
+    display: flex;
+    gap: 20px;
+    width: auto;
+    margin: auto;
+    background: rgba(22, 19, 19, 0.93);
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .print {
+    display: block;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .confirmation {
+    background-color: white;
+  }
+
+  .footer-container {
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -17,5 +17,10 @@
       display: flex;
       flex-direction: column;
     }
+    .custom-menu-items-container {
+        margin: auto !important;
+        padding: 0 !important;
+        /* margin: 0 !important; */
+    }
   }
   

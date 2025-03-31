@@ -547,6 +547,7 @@ export default function CustomMenu({
         )}
         {showDisclaimer && (
           <Footer
+          paddingBottom={styleForm.footerPaddingBottom}
             marginTop={styleForm.footerPaddingPaddingTop}
             color={styleForm.footerTextColor}
           />

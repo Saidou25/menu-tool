@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
-import { Field, StyleFormType } from "../data/types";
+import { Field, MenuCategory, StyleFormType } from "../data/types";
 
 import FrontMenu from "./FrontMenu";
-import BackMenu from "./BackMenu"; 
+import BackMenu from "./BackMenu";
 import CustomMenu from "./CustomMenu";
 import View from "./View";
 import CustomCategoriesMenu from "./CustomCategoriesMenu";
 
 import "./PreviewMenu.css";
+import CustomMenuView from "./CustomMenuView";
 
 type ModalProps = {
+  flatItemsCategories: MenuCategory[];
+  setFlatItemsCategories: React.Dispatch<React.SetStateAction<MenuCategory[]>>;
+
   newCustomArray: any[];
   showImagesDeleteButtons: boolean;
   setShowImagesDeleteButtons: (item: boolean) => void;
@@ -42,6 +46,8 @@ type ModalProps = {
 };
 
 const PreviewMenu = ({
+  flatItemsCategories,
+  setFlatItemsCategories,
   newCustomArray,
   setView,
   custom,
@@ -64,8 +70,7 @@ const PreviewMenu = ({
   setShowDecorations,
   setShowDecorationCheckboxes,
   view,
-}: 
-ModalProps) => {
+}: ModalProps) => {
   const [organizedData, setOrganizedData] = useState<
     Record<string, { subtitle?: string; items: Field[] }>
   >({});
@@ -124,7 +129,20 @@ ModalProps) => {
   //   }
   // `;
 
-  if (view) {
+  if (view && newCustomArray.length) {
+    return (
+      <CustomMenuView
+        flatItemsCategories={flatItemsCategories}
+        styleForm={styleForm}
+        showDisclaimer={showDisclaimer}
+        joinedCategories={joinedCategories}
+        hidePrices={hidePrices}
+        showDecorations={showDecorations}
+        setView={setView}
+      />
+    );
+  }
+  if (view && !newCustomArray.length) {
     return (
       <View
         setView={setView}
@@ -148,13 +166,9 @@ ModalProps) => {
     );
   }
 
-  {
-    newCustomArray;
-  }
-  return (
-    <>
+  if (newCustomArray?.length) {
+    return (
       <div className="container-final-step">
-        {/* <style>{animation}</style> */}
         <div
           className={`${
             showFinalStep ? "final-step-show" : "final-step-hidden"
@@ -167,6 +181,8 @@ ModalProps) => {
           )}
           {newCustomArray?.length && (
             <CustomCategoriesMenu
+              flatItemsCategories={flatItemsCategories}
+              setFlatItemsCategories={setFlatItemsCategories}
               newCustomArray={newCustomArray}
               styleForm={styleForm}
               setStyleForm={setStyleForm}
@@ -183,9 +199,34 @@ ModalProps) => {
               showPaddingCategoriesTop={showPaddingCategoriesTop}
               showMarginCategoriesTop={showMarginCategoriesTop}
               showImagesDeleteButtons={showImagesDeleteButtons}
+              // view={view}
+              // setView={setView}
             />
           )}
-          {custom && !newCustomArray.length&& (
+        </div>
+        <div className="tool-section no-print">
+          {children[1]} {/* Renders dropdown*/}
+          {children[2]} {/* Renders preview tools*/}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <div className="container-final-step">
+        {/* <style>{animation}</style> */}
+        <div
+          className={`${
+            showFinalStep ? "final-step-show" : "final-step-hidden"
+          }`}
+          // style={{ animation: "menuSizeAnimation 0.5s linear forwards" }}
+        >
+          {children[0]} {/* Renders FinalStep*/}
+          {Object.keys(secondPageData).length > 0 && !custom && (
+            <h3 className="no-print">Menu front</h3>
+          )}
+          {custom && !newCustomArray.length ? (
             <CustomMenu
               categoryOrder={categoryOrder}
               organizedData={organizedData}
@@ -205,31 +246,29 @@ ModalProps) => {
               showMarginCategoriesTop={showMarginCategoriesTop}
               showImagesDeleteButtons={showImagesDeleteButtons}
             />
-          )} 
-          {!custom && !newCustomArray.length&& (
-               <>
-               {/* Render the first set of categories: Front menu */}
-               <FrontMenu
-                 // animation={animation}
-                 categoryOrder={firstCategories}
-                 styleForm={styleForm}
-                 organizedData={organizedData}
-                 showDisclaimer={showDisclaimer}
-                 setStyleForm={setStyleForm}
-                 showColorInputs={showColorInputs}
-               />
-               {/* Render BackMenu only if there are additional categories */}
-               {Object.keys(secondPageData).length > 0 && (
-                 <BackMenu
-                   styleForm={styleForm}
-                   categoryOrder={extraCategories}
-                   secondPageData={secondPageData}
-                   showDisclaimer={showDisclaimer}
-                 />
-               )}
-             </>
+          ) : (
+            <>
+              {/* Render the first set of categories: Front menu */}
+              <FrontMenu
+                // animation={animation}
+                categoryOrder={firstCategories}
+                styleForm={styleForm}
+                organizedData={organizedData}
+                showDisclaimer={showDisclaimer}
+                setStyleForm={setStyleForm}
+                showColorInputs={showColorInputs}
+              />
+              {/* Render BackMenu only if there are additional categories */}
+              {Object.keys(secondPageData).length > 0 && (
+                <BackMenu
+                  styleForm={styleForm}
+                  categoryOrder={extraCategories}
+                  secondPageData={secondPageData}
+                  showDisclaimer={showDisclaimer}
+                />
+              )}
+            </>
           )}
-         
           {/* )} */}
         </div>
         <div className="tool-section no-print">

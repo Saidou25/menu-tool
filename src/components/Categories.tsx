@@ -85,23 +85,8 @@ export default function Categories({
   const [localSelectedCategoryItems, setLocalSelectedCategoryItems] = useState<
     Record<string, { subtitle?: string; items: Field[] }>
   >({});
-  // const [
-  //   localSelectedCustomCategoryItems,
-  //   setLocalSelectedCustomCategoryItems,
-  // ] = useState<
-  //   Record<string, { subtitle?: string; subCategory?: string; items: Field[] }>
-  // >({});
   const [newCustomArray, setNewCutomArray] = useState<MenuCustomCategory[]>([]); // Use correct type
   const [customArrTitles, setCustomArrTitles] = useState<string[]>([]);
-
-  const [
-    // localSelectedCustomCategoryItems,
-    // setLocalSelectedCustomCategoryItems,
-  ] = useState<Record<string, { subtitle?: string; items: Field[] }>>({});
-  const [
-    // localCustomSelectedCategoryItems,
-    // setLocalCustomSelectedCategoryItems,
-  ] = useState<Record<string, { subtitle?: string; items: Field[] }>>({});
   const [styleForm, setStyleForm] = useState<StyleFormType>({
     menuWidth: 0,
     menuHeight: 0,
@@ -158,9 +143,15 @@ export default function Categories({
     paddingDecoration: 0,
     decorationWidth: 90,
     footerPaddingPaddingTop: 0,
+    footerPaddingBottom: 0,
   });
+  const [flatItemsCategories, setFlatItemsCategories] = useState<
+    MenuCategory[]
+  >([]);
   const handleClick = (item: string) => {
-    const updatedNewArray = newCustomArray.filter((newArr) => newArr.title !== item);
+    const updatedNewArray = newCustomArray.filter(
+      (newArr) => newArr.title !== item
+    );
     setNewCutomArray(updatedNewArray);
   };
 
@@ -175,34 +166,6 @@ export default function Categories({
       }
     });
   };
-
-  // const handleCheckboxChange = (categoryTitle: string, item: Field) => {
-  //   console.log("in handle checkbaooo");
-  //   setLocalSelectedCategoryItems((prevState) => {
-  //     const newItems = prevState[categoryTitle]?.items || [];
-  //     const itemExists = newItems.find((i) => i.label === item.label);
-
-  //     if (itemExists) {
-  //       // Remove the item if it's already selected
-  //       return {
-  //         ...prevState,
-  //         [categoryTitle]: {
-  //           ...prevState[categoryTitle],
-  //           items: newItems.filter((i) => i.label !== item.label),
-  //         },
-  //       };
-  //     } else {
-  //       // Add the item if it's not selected
-  //       return {
-  //         ...prevState,
-  //         [categoryTitle]: {
-  //           ...prevState[categoryTitle],
-  //           items: [...newItems, item],
-  //         },
-  //       };
-  //     }
-  //   });
-  // };
 
   const setShowSelectCreate = (item: string) => {
     if (item === "select") {
@@ -302,29 +265,21 @@ export default function Categories({
     }
   }, [selectedData, categoriesList]); // Runs only when dependencies change
 
-  // useEffect(() => {
-  //   // Populate allItems when newArray or customCategoryList changes
-  //   const items = newArray.map((category) => category.items).flat(); // Flatten the array of items from newArray
-  //   setAllItems(items); // Set the allItems state with the combined items
-  // }, [newArray]);
-
-  // console.log("new Array", newCustomArray);
   const render = (newArrTitle: string) => {
     const flatArr = [];
     const firstLevel = newCustomArray.find(
       (item) => item.title === newArrTitle
     );
-    // console.log("first level", firstLevel?.subCategories);
     const subCat = firstLevel?.subCategories;
     if (subCat) {
       for (let subCategory of subCat) flatArr.push(subCategory.items);
     }
-  
+
     return (
       <div>
         {flatArr.flat().length > 0 ? (
-          flatArr.flat().map((flat) => (
-            <div className="row preview-item-container g-0">
+          flatArr.flat().map((flat, index) => (
+            <div key={index} className="row preview-item-container g-0">
               <span className="col-7">{flat.label}</span>
               <div className="col-5 d-flex">
                 <span>$&nbsp;</span>
@@ -351,7 +306,9 @@ export default function Categories({
   if (menuPreview) {
     return (
       <PreviewMenu
-      newCustomArray={newCustomArray}
+        flatItemsCategories={flatItemsCategories}
+        setFlatItemsCategories={setFlatItemsCategories}
+        newCustomArray={newCustomArray}
         custom={custom}
         goBack={handleGoBack}
         onConfirm={handleConfirm}
@@ -383,7 +340,7 @@ export default function Categories({
           // onConfirm={handleConfirm}
           message="Confirm printing or continue editing"
           view={view}
-          setView={setView}
+          // setView={setView}
         />
         <DropDown
           setShowfinalStep={setShowfinalStep}
@@ -553,10 +510,10 @@ export default function Categories({
                     <div className="row">
                       {/* Only render if categoryIndex is selected */}
                       {showItems.includes(newArr.title) &&
-                        customCategoryList.map((Category) => (
+                        customCategoryList.map((Category, index) => (
                           <div
                             className="col-4 category-items-container"
-                            key={Category.title}
+                            key={index}
                           >
                             <CustomCategoryItems
                               newArr={newArr}

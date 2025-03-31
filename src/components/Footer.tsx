@@ -1,14 +1,15 @@
 import "./Footer.css";
 
 type FooterProps = {
+  paddingBottom: number;
   marginTop: number;
   color: string;
 };
-export default function Footer({ marginTop, color }: FooterProps) {
+export default function Footer({ marginTop, paddingBottom, color }: FooterProps) {
   return (
     <div
       className="footer-container print"
-      style={{ marginTop: `${marginTop}px`, color: color }}
+      style={{ marginTop: `${marginTop}px`, paddingBottom: `${paddingBottom}px`, color: color }}
     >
       <span className="footer-text">*SMC = super melty cheese</span>
       <span className="footer-text">

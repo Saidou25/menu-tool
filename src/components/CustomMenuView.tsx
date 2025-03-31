@@ -1,42 +1,29 @@
 import { useEffect } from "react";
-import { Field, StyleFormType } from "../data/types";
+import { MenuCategory, StyleFormType } from "../data/types";
 import { useDynamicStyles } from "../hooks/useDynamicStyles";
 import { useGetCategoriesPaddingTop } from "../hooks/useGetCategoriesPaddingTop";
 import { useGetDescriptionLetterColor } from "../hooks/useGetDescriptionLettersColor";
 import { useGetCategoriesMarginTop } from "../hooks/useGetMarginCategoriesTop";
 import { useGetSectionBackground } from "../hooks/useGetSectionBackground";
-import Footer from "./Footer";
-
-import "./View.css";
-import Logo from "./Logo";
 import { useGetSubtitleFontColor } from "../hooks/useGetSubtitleFontColor";
+import Footer from "./Footer";
+import Logo from "./Logo";
+
+import "./CustomMenuView.css";
 
 type Props = {
-  setView: React.Dispatch<React.SetStateAction<boolean>>;
-  categoryOrder: string[];
-  organizedData: Record<string, { subtitle?: string; items: Field[] }>;
-  showColorInputs: boolean;
   hidePrices: boolean;
   showDecorations: string;
-  showDecorationCheckboxes: boolean;
-  setShowDecorations: (category: string) => void;
-  setShowDecorationCheckboxes: (item: boolean) => void;
-  showJoinInputs: boolean;
-  showPaddingCategoriesTop: boolean;
-  showMarginCategoriesTop: boolean;
   styleForm: StyleFormType;
-  setStyleForm: React.Dispatch<React.SetStateAction<StyleFormType>>;
   joinedCategories: Record<string, boolean>;
-  setJoinedCategories: React.Dispatch<
-    React.SetStateAction<Record<string, boolean>>
-  >;
   showDisclaimer: boolean;
+  flatItemsCategories: MenuCategory[];
+  setView?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function View({
-  setView,
-  categoryOrder,
-  organizedData,
+export default function CustomMenuView({
+    setView,
+  flatItemsCategories,
   hidePrices,
   showDecorations,
   styleForm,
@@ -80,10 +67,10 @@ export default function View({
         subtitle="go back"
         setView={setView}
         title=""
-        h1ClassName=""
+        h1ClassName="restart-tool"
       />
       <div
-        className="row menu-items-container print"
+        className="row custom-menu-items-container print g-0"
         style={{
           padding: `${styleForm.pagePaddingTopAndBottom}px ${styleForm.pagePaddingLeftAndRight}px 0 ${styleForm.pagePaddingLeftAndRight}px`,
           width: `${+styleForm.menuWidth}mm`,
@@ -117,14 +104,28 @@ export default function View({
           )}
           {styleForm.title && (
             <div
-              className="category-title"
+              className="title"
               style={{
                 fontSize: `${styleForm.titleSize}px`,
+                backgroundColor: styleForm.titleBackgroundColor,
                 color: styleForm.titleColor,
+                paddingTop: `${styleForm.titlePaddingTop}px`,
+                paddingBottom: `${styleForm.titlePaddingBottom}px`,
                 marginBottom: `${styleForm.titleMarginBottom}px`,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontFamily: "Pewter Corroded, sans-serif",
               }}
             >
-              {styleForm.title}
+              <span
+                style={{
+                  textTransform: "uppercase",
+                  letterSpacing: "2px",
+                }}
+              >
+                {styleForm.title}
+              </span>
             </div>
           )}
           {styleForm.topImage && (
@@ -140,26 +141,22 @@ export default function View({
             </div>
           )}
 
-          {categoryOrder.map((category, categoryIndex) => {
-            const categoryData = organizedData[category]; // Get data based on order
-
-            if (!categoryData) return null; // Skip if no data for this category
-
-            return (
+          {flatItemsCategories &&
+            flatItemsCategories.map((customCategory, categoryIndex) => (
               <div
                 className={
-                  joinedCategories[category]
+                  joinedCategories[categoryIndex]
                     ? "col-6"
-                    : category === showDecorations
+                    : customCategory.title === showDecorations
                     ? "col-12 content-container"
                     : "col-12"
                 }
-                key={category}
+                key={customCategory.title}
                 style={{
                   ...getDynamicStyles(
-                    joinedCategories[category]
+                    joinedCategories[customCategory.title]
                       ? "col-6"
-                      : category === showDecorations
+                      : customCategory.title === showDecorations
                       ? "col-12 content-container"
                       : "col-12",
                     categoryIndex
@@ -173,7 +170,9 @@ export default function View({
                 }}
               >
                 <div
-                  className={category === showDecorations ? "share-span" : ""}
+                  className={
+                    customCategory.title === showDecorations ? "share-span" : ""
+                  }
                   style={{
                     display: "flex",
                     justifyContent: "center",
@@ -181,33 +180,39 @@ export default function View({
                   }}
                 >
                   <h2
-                    className="category-title"
+                    className="customCategories-title"
                     style={{
                       fontSize: `${styleForm.categoryFontSize}px`,
                       color: styleForm.categoryColor,
                       marginBottom:
-                        category === showDecorations
+                        customCategory.title === showDecorations
                           ? "20px"
                           : `${styleForm.categoryMarginBottom}px`,
-                    }} // To do: handle this dynamically
+                    }}
                   >
                     <span
-                      className={category === showDecorations ? "gap-text" : ""}
+                      className={
+                        customCategory.title === showDecorations
+                          ? "gap-text"
+                          : ""
+                      }
                       style={{
                         top:
-                          category === showDecorations
+                          customCategory.title === showDecorations
                             ? `${styleForm.gapTextTop}px`
                             : "",
                         lineHeight: "1",
                         display: "inline",
                         verticalAlign: "baseline",
                         letterSpacing: "2px",
-                        fontWeight: "800",
+                        fontFamily: "Pewter Corroded, sans-serif",
+                        textTransform: "uppercase",
                       }}
                     >
-                      {category}
+                      {customCategory.title}
                     </span>
                   </h2>
+                  &nbsp;
                 </div>
                 <div
                   className="subtitle"
@@ -222,30 +227,31 @@ export default function View({
                       letterSpacing: "1px",
                     }}
                   >
-                    {categoryData.subtitle}
+                    {/* {customCategory.subtitle} */}
                   </span>
                 </div>
                 <ul
                   className="row p-0 justify-content-between"
                   style={{
-                    ...(joinedCategories[category] && {
+                    ...(joinedCategories[customCategory.title] && {
                       display: "flex",
                       flexDirection: "column",
                     }),
                   }}
                 >
-                  {categoryData.items.map((item, itemIndex, arr) => (
+                  {customCategory.items.map((item, itemIndex, arr) => (
                     <li
                       id={`li-${categoryIndex}`}
                       key={itemIndex}
                       className={
-                        joinedCategories[category] // If category is joined, make items col-12
+                        joinedCategories[customCategory.title] // If customCategories is joined, make items col-12
                           ? "col-12 menu-item"
                           : (arr.length % 2 !== 0 && // Odd number of items
                               itemIndex === arr.length - 1 && // Last item
-                              category !== "Sides" && // Not "Sides"
+                              customCategory.title !== "Sides" && // Not "Sides"
                               !Object.keys(joinedCategories).some(
-                                (joinedCategory) => joinedCategory === category
+                                (joinedCategory) =>
+                                  joinedCategory === customCategory.title
                               )) ||
                             styleForm.menuWidth <= 110
                           ? "col-12 menu-item-odd"
@@ -279,6 +285,7 @@ export default function View({
                           </span>
                         )}
                       </div>
+
                       <div
                         className="item-description"
                         style={{
@@ -305,41 +312,62 @@ export default function View({
                   ))}
                 </ul>
               </div>
-            );
-          })}
-          {styleForm.bottomImage && (
-            <div
-              style={{
-                width: `${styleForm.bottomImageSize}px`,
-                margin: "auto",
-              }}
-            >
-              <img
-                className="image-fluid"
-                alt=""
-                src={styleForm.bottomImage}
-                style={{ maxWidth: "100%", height: "auto" }}
-              />
-            </div>
-          )}
-          {styleForm.guyBottom && (
-            <div
-              style={{ width: `${styleForm.guyBottomSize}px`, margin: "auto" }}
-            >
-              <img
-                className="image-fluid"
-                alt=""
-                src={styleForm.guyBottom}
-                style={{ maxWidth: "100%", height: "auto" }}
-              />
-            </div>
-          )}
+            ))}
+          <div className="row" style={{ gap: "10px" }}>
+            {styleForm.bottomImage && (
+              <div
+                className="col-5"
+                // style={{ width: `${styleForm.bottomImageSize}px`, margin: "auto" }}
+                style={{
+                  // width: `${styleForm.guyBottomSize}px`,
+                  margin: "auto",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                }}
+              >
+                <img
+                  className="image-fluid"
+                  alt=""
+                  src={styleForm.bottomImage}
+                  style={{
+                    width: `${styleForm.bottomImageSize}px`,
+                    height: "auto",
+                  }}
+                />
+              </div>
+            )}
+            {styleForm.guyBottom && (
+              <div
+                className="col-5"
+                style={{
+                  // width: `${styleForm.guyBottomSize}px`,
+                  margin: "auto",
+                  display: "flex",
+                  justifyContent: "flex-start",
+                }}
+              >
+                <img
+                  className="image-fluid"
+                  alt=""
+                  src={styleForm.guyBottom}
+                  style={{
+                    width: `${styleForm.guyBottomSize}px`,
+                    height: "auto",
+                  }}
+                  // width: `${styleForm.guyBottomSize}px`,
+                />
+              </div>
+            )}
+          </div>
           {styleForm.footer && (
             <div
               className="category-title"
               style={{
                 fontSize: `${styleForm.footerSize}px`,
-                color: styleForm.footerTextColor,
+                color: styleForm.textBottomColor,
+                letterSpacing: "1px",
+                display: "flex",
+                justifyContent: "center",
               }}
             >
               {styleForm.footer}
@@ -353,6 +381,15 @@ export default function View({
             />
           )}
         </div>
+      </div>
+      <div className="no-print">
+        <Logo
+          className="print-document no-print"
+          subtitle="print"
+          // setView={setView}
+          title=""
+          h1ClassName="restart-tool"
+        />
       </div>
     </div>
   );

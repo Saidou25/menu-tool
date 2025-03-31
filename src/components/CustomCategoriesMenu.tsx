@@ -1,5 +1,5 @@
 import { MenuCategory, MenuCustomCategory, StyleFormType } from "../data/types";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useCategoryPaddingTop } from "../hooks/useCategoryPaddingTop";
 import { useCategoryBackgroundColor } from "../hooks/useCategoryBackgrounColor";
 import { useDescriptionLettersColor } from "../hooks/useDescriptionLettersColor";
@@ -12,10 +12,13 @@ import { useGetCategoriesPaddingTop } from "../hooks/useGetCategoriesPaddingTop"
 import { useDynamicStyles } from "../hooks/useDynamicStyles";
 import { useGetSubtitleFontColor } from "../hooks/useGetSubtitleFontColor";
 import Footer from "./Footer";
-// import Tools from "./Tools";
-import "./Sharables.css";
+
+import "./CustomCategoriesMenu.css";
+import { auto } from "@popperjs/core";
 
 type Props = {
+  flatItemsCategories: MenuCategory[];
+  setFlatItemsCategories: React.Dispatch<React.SetStateAction<MenuCategory[]>>
   newCustomArray: MenuCustomCategory[];
   showImagesDeleteButtons: boolean;
   showColorInputs: boolean;
@@ -34,9 +37,12 @@ type Props = {
     React.SetStateAction<Record<string, boolean>>
   >;
   showDisclaimer: boolean;
+  // setView: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function CustomCategoriesMenu({
+  flatItemsCategories,
+  setFlatItemsCategories,
   newCustomArray,
   showImagesDeleteButtons,
   showColorInputs,
@@ -53,9 +59,7 @@ export default function CustomCategoriesMenu({
   showPaddingCategoriesTop,
   showMarginCategoriesTop,
 }: Props) {
-  const [flatItemsCategories, setFlatItemsCategories] = useState<
-    MenuCategory[]
-  >([]);
+
 
   const handleCategoryPaddingTop = useCategoryPaddingTop(setStyleForm);
   const handleCategoryBackgroundColor =
@@ -136,7 +140,7 @@ export default function CustomCategoriesMenu({
 
   return (
     <div
-      className="row menu-items-container print"
+      className="row custom-menu-items-container print"
       style={{
         padding: `${styleForm.pagePaddingTopAndBottom}px ${styleForm.pagePaddingLeftAndRight}px 0 ${styleForm.pagePaddingLeftAndRight}px`,
         width: `${+styleForm.menuWidth}mm`,
@@ -386,7 +390,7 @@ export default function CustomCategoriesMenu({
                     letterSpacing: "1px",
                   }}
                 >
-                  {/* {customCategory.subtitle} */}
+                  {customCategory.subtitle}
                 </span>
                 {showColorInputs && (
                   <>
@@ -589,6 +593,7 @@ export default function CustomCategoriesMenu({
         {showDisclaimer && (
           <Footer
             marginTop={styleForm.footerPaddingPaddingTop}
+            paddingBottom={styleForm.footerPaddingBottom}
             color={styleForm.footerTextColor}
           />
         )}

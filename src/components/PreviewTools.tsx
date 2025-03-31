@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { StyleFormType } from "../data/types";
+import Checkbox from "./Checkbox";
 
 import "./PreviewTools.css";
-import Checkbox from "./Checkbox";
 
 type PreviewToolsProps = {
   showImagesDeleteButtons: boolean;
@@ -132,6 +132,7 @@ const displayTools = [
           "menu item and price blocks",
           "menu items' description blocks",
           "footer margin top",
+          "footer padding bottom"
         ],
       },
     ],
@@ -245,6 +246,7 @@ export default function PreviewTools({
     "decoration width": "decorationWidth",
     "decoration padding": "paddingDecoration",
     "footer margin top": "footerPaddingPaddingTop",
+    "footer padding bottom": "footerPaddingBottom"
   };
 
   const getInputType = (item: string): "file" | "text" | "number" | "color" => {
