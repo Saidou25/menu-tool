@@ -91,6 +91,7 @@ export default function CustomMenu({
     };
   }, [styleForm.contentContainerWidth]);
 
+ 
   return (
     <div
       className="row menu-items-container"

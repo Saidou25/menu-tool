@@ -26,6 +26,7 @@ export default function CategoryItems({
   const [titleSelected, setTitleSelected] = useState(false);
   const [fadeInOut, setFadeInOut] = useState(false);
 
+
   const handleSelectTitle = () => {
     const newState = titleSelected ? false : true;
     setTitleSelected(newState);
@@ -44,10 +45,12 @@ export default function CategoryItems({
           (existingItem) => existingItem.label !== item.label
         )
       : [...selectedCategoryItems, item];
-
+// console.log("updatedSelectedCategoryItems", updatedSelectedCategoryItems);
     // Update the selected items in the parent component
     showCategoryItemsFunc(updatedSelectedCategoryItems);
   };
+
+  // console.log("selectedCategoryItems", selectedCategoryItems);
 
   return (
     <div className="category-items-container">
@@ -76,7 +79,6 @@ export default function CategoryItems({
                         : "checkbox-category-item-out"
                     }
                     id={item.label}
-                    // type={item.type}
                     onChange={() => selectCategoryItem(item)}
                     checked={selectedCategoryItems.some(
                       (existingItem) => existingItem.label === item.label

@@ -14,11 +14,10 @@ import { useGetSubtitleFontColor } from "../hooks/useGetSubtitleFontColor";
 import Footer from "./Footer";
 
 import "./CustomCategoriesMenu.css";
-import { auto } from "@popperjs/core";
 
 type Props = {
   flatItemsCategories: MenuCategory[];
-  setFlatItemsCategories: React.Dispatch<React.SetStateAction<MenuCategory[]>>
+  setFlatItemsCategories: React.Dispatch<React.SetStateAction<MenuCategory[]>>;
   newCustomArray: MenuCustomCategory[];
   showImagesDeleteButtons: boolean;
   showColorInputs: boolean;
@@ -59,8 +58,6 @@ export default function CustomCategoriesMenu({
   showPaddingCategoriesTop,
   showMarginCategoriesTop,
 }: Props) {
-
-
   const handleCategoryPaddingTop = useCategoryPaddingTop(setStyleForm);
   const handleCategoryBackgroundColor =
     useCategoryBackgroundColor(setStyleForm);
@@ -82,7 +79,7 @@ export default function CustomCategoriesMenu({
 
       // Loop through each customCategories in the newCustomArray
       for (let customCategories of newCustomArray) {
-        // console.log("customCategories", customCategories);
+        console.log("customCategories", customCategories);
 
         // Initialize the MenuCategory with the title, subtitle, and empty items array
         const menuCategory: MenuCategory = {
@@ -92,15 +89,12 @@ export default function CustomCategoriesMenu({
         };
 
         // Loop through each subCategory to get the items
-        if (
-          customCategories.subCategories &&
-          customCategories.subCategories.length
-        ) {
+        if (customCategories?.subCategories?.length) {
           for (let subCategoryItems of customCategories.subCategories) {
             // console.log("subCategoryItems", subCategoryItems);
 
             // Ensure there are items and append them to the current customCategories's items
-            if (subCategoryItems.items && subCategoryItems.items.length) {
+            if (subCategoryItems?.items?.length) {
               menuCategory.items.push(...subCategoryItems.items);
             }
           }
@@ -110,7 +104,7 @@ export default function CustomCategoriesMenu({
         updatedCategories.push(menuCategory);
       }
 
-      // Now update the state with the fully populated categories
+      // Updates the state with the fully populated categories
       setFlatItemsCategories(updatedCategories);
     }
   }, [newCustomArray]); // The effect runs when newCustomArray changes
@@ -138,6 +132,7 @@ export default function CustomCategoriesMenu({
     };
   }, [styleForm.contentContainerWidth]);
 
+  // console.log(flatItemsCategories);
   return (
     <div
       className="row custom-menu-items-container print"
@@ -301,6 +296,7 @@ export default function CustomCategoriesMenu({
                     }}
                   >
                     {customCategory.title}
+                    {/* {customCategory.items.length ? customCategory.title : null} */}
                   </span>
                 </h2>
                 {showPaddingCategoriesTop && (

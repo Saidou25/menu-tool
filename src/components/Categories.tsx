@@ -192,10 +192,10 @@ export default function Categories({
     setMenuPreview(false);
   };
 
-  // Update price in localSelectedCategoryItems
+  // Updates price in localSelectedCategoryItems
   const handlePriceChange = (name: string, value: number) => {
     setLocalSelectedCategoryItems((prev) => {
-      // Iterate over categories to find the one containing the item
+      // Iterates over categories to find the one containing the item
       const updatedCategories = Object.keys(prev).reduce(
         (acc, categoryTitle) => {
           const updatedItems = prev[categoryTitle].items.map((item) =>
@@ -205,7 +205,7 @@ export default function Categories({
           );
 
           acc[categoryTitle] = {
-            subtitle: prev[categoryTitle].subtitle, // Preserve existing subtitle
+            subtitle: prev[categoryTitle].subtitle, // Preserves existing subtitle
             items: updatedItems,
           };
           return acc;
@@ -216,18 +216,26 @@ export default function Categories({
       return updatedCategories;
     });
   };
-
   const showCategoryItems = (
     categoryTitle: string,
     updatedSelectedCategoryItems: Field[]
   ) => {
-    setLocalSelectedCategoryItems((prevState) => ({
-      ...prevState,
-      [categoryTitle]: {
-        ...prevState[categoryTitle], // Ensure other fields (like subtitle) are preserved
-        items: updatedSelectedCategoryItems,
-      },
-    }));
+    setLocalSelectedCategoryItems((prevState) => {
+      const updatedState = { ...prevState };
+
+      if (updatedSelectedCategoryItems.length) {
+        // Updates category with selected items
+        updatedState[categoryTitle] = {
+          ...prevState[categoryTitle], // Preserves other fields (like subtitle)
+          items: updatedSelectedCategoryItems,
+        };
+      } else {
+        // Removes category from state if no items remain
+        delete updatedState[categoryTitle];
+      }
+
+      return updatedState;
+    });
   };
 
   useEffect(() => {
@@ -302,6 +310,8 @@ export default function Categories({
       </div>
     );
   };
+
+  // console.log("localSelectedCategoryItems", localSelectedCategoryItems);
 
   if (menuPreview) {
     return (

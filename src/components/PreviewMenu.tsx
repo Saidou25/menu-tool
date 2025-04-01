@@ -13,7 +13,6 @@ import CustomMenuView from "./CustomMenuView";
 type ModalProps = {
   flatItemsCategories: MenuCategory[];
   setFlatItemsCategories: React.Dispatch<React.SetStateAction<MenuCategory[]>>;
-
   newCustomArray: any[];
   showImagesDeleteButtons: boolean;
   setShowImagesDeleteButtons: (item: boolean) => void;
