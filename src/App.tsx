@@ -87,6 +87,7 @@ function App() {
       Dinner.burgersList,
       Dinner.bigEatsList,
       Dinner.sidesList,
+      Dinner.saucesList,
       Desserts.dessertsList,
     ]);
   };
@@ -120,7 +121,9 @@ function App() {
         Dinner.burgersList,
         Dinner.bigEatsList,
         Dinner.sidesList,
+        Dinner.saucesList,
         Desserts.dessertsList,
+
       ]);
       setCustom(true);
     }

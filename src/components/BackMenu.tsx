@@ -64,7 +64,7 @@ const BackMenu = ({
                         >
                           {item.label}
                           {item.price.placeholder === "Market price" ? (
-                            <span className="small"> Market Price</span>
+                            <span className="small">&nbsp;Market Price</span>
                           ) : (
                             <span>
                               {` ${item.price.value?.toFixed(2) || ""}`}

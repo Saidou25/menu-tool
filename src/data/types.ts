@@ -21,6 +21,7 @@ export type Field = {
 export type MenuCategory = {
   title: string;
   subtitle?: string; // if applicable
+  subtitle2?: string;
   items: Field[];
 };
 

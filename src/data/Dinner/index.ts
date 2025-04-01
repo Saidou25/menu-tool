@@ -6,3 +6,4 @@ export { wingsList } from "./wings";
 export { bigEatsList } from "./bigEats";
 export { sidesList } from "./sides";
 export { soupsList } from "./soups";
+export { saucesList } from "./sauces";

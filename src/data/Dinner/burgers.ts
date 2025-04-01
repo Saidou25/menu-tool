@@ -3,7 +3,9 @@ import { MenuCategory } from "../types";
 const burgersList: MenuCategory = {
   title: "Big bite burgers",
   subtitle:
-    "all our richly marbled 100% USKA brasstown beef is smash=grilled to juicy perfection + served with a seasoned fry trio",
+    "all our richly marbled 100% USDA brasstown beef is smash-grilled to juicy perfection + served with a seasoned fry trio",
+  subtitle2:
+    "all our richly marbled 100% USDA brasstown beef is smash-grilled to juicy perfection + on gluten-free buns",
   items: [
     {
       label: "Bacon mac'n' cheese",

@@ -9,6 +9,7 @@
 /* CSS Reset for text elements */
 p,
 span,
+li,
 h1,
 h2,
 h3,
@@ -18,7 +19,7 @@ h6,
 div,
 strong,
 em {
-  line-height: 1;
+  line-height: 1 !important;
 }
 .app-container {
   padding: 1%;

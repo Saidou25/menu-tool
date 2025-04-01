@@ -91,7 +91,6 @@ export default function CustomMenu({
     };
   }, [styleForm.contentContainerWidth]);
 
- 
   return (
     <div
       className="row menu-items-container"
@@ -412,14 +411,63 @@ export default function CustomMenu({
                         {item.label}
                       </span>
                       {!hidePrices && (
-                        <span
-                          style={{
-                            fontSize: `${styleForm.priceSize}px`,
-                            color: styleForm.priceColor,
-                          }}
-                        >
-                          &nbsp;{item.price.value?.toFixed(2)}
-                        </span>
+                        <>
+                          {item.price.placeholder === "Market price" ? (
+                            <span
+                              className="small"
+                              style={{
+                                fontFamily: "Pewter Corroded, sans-serif",
+                                letterSpacing: "1px",
+                                fontSize: `${styleForm.priceSize}px`,
+                                color: styleForm.priceColor,
+                              }}
+                            >
+                              &nbsp; Market Price
+                            </span>
+                          ) : (
+                            <span
+                              style={{
+                                fontSize: `${styleForm.priceSize}px`,
+                                color: styleForm.priceColor,
+                              }}
+                            >
+                              &nbsp;{item.price.value?.toFixed(2)}
+                            </span>
+                          )}
+                          {item.subSubtitle && (
+                            <span className="small">{item.subSubtitle}</span>
+                          )}
+                          <div>
+                            {item.subSubtitle1 && (
+                              <span
+                                className="small"
+                                style={{
+                                  fontFamily: "Pewter Corroded, sans-serif",
+                                  letterSpacing: "1px",
+                                  fontSize: `${styleForm.priceSize}px`,
+                                  color: styleForm.priceColor,
+                                }}
+                              >
+                                {item.subSubtitle1}&nbsp;
+                                {`${item.price.value1?.toFixed(2)}`}
+                              </span>
+                            )}
+                            {item.subSubtitle2 && (
+                              <span
+                                className="small"
+                                style={{
+                                  fontFamily: "Pewter Corroded, sans-serif",
+                                  letterSpacing: "1px",
+                                  fontSize: `${styleForm.priceSize}px`,
+                                  color: styleForm.priceColor,
+                                }}
+                              >
+                                &nbsp; {item.subSubtitle2}&nbsp;
+                                {item.price.value2?.toFixed(2)}
+                              </span>
+                            )}
+                          </div>
+                        </>
                       )}
                     </div>
 
@@ -428,7 +476,10 @@ export default function CustomMenu({
                       style={{
                         fontFamily: "Pewter Corroded, sans-serif",
                         fontSize: `${styleForm.descriptionFontSize}px`,
-                        marginBottom: `${styleForm.descriptionMarginBottom}px`,
+                        marginBottom:
+                          category !== "Sides" && category !== "Sauces" // Avoids space bellow text since there is no item description
+                            ? `${styleForm.descriptionMarginBottom}px`
+                            : "",
                         letterSpacing: "1px",
                         color: styleForm.menuItemDescriptionColor,
                       }}
@@ -548,7 +599,7 @@ export default function CustomMenu({
         )}
         {showDisclaimer && (
           <Footer
-          paddingBottom={styleForm.footerPaddingBottom}
+            paddingBottom={styleForm.footerPaddingBottom}
             marginTop={styleForm.footerPaddingPaddingTop}
             color={styleForm.footerTextColor}
           />
