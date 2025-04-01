@@ -1,21 +1,28 @@
 .label-fade-in {
   opacity: 0;
+  /* color: white; */
     animation: fadeIn 0.3s ease-in-out forwards;
   }
   .label-fade-out {
+    /* color: white; */
     opacity: 1;
     animation: fadeOut 0.3s ease-in-out forwards;
+}
+.label-title {
+  text-transform: uppercase;
 }
 @keyframes fadeIn {
     from {
       opacity: 0;
     }
     to {
+      /* color: white; */
       opacity: 1;
     }
   }
 @keyframes fadeOut {
     from {
+      /* color: white; */
       opacity: 1;
     }
     to {

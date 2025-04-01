@@ -1,0 +1,23 @@
+.custom-form-container {
+    width: 30%;
+    margin: auto;
+}
+.custom-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2%;
+    height: 200px;
+    background-color: rgb(0, 0, 0, 0.6);
+    border-radius: 10px;
+    margin-bottom: 5%;
+}
+.form-input {
+    text-transform: uppercase;
+    font-style: italic;
+    padding: 1%;
+}
+.button-container {
+    height: 5%;
+}

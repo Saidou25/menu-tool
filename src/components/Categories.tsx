@@ -17,6 +17,7 @@ import CustomCategoryItems from "./CustomCategoryItems";
 
 import "./Categories.css";
 import CustomCategoryForm from "./CustomCategoryForm";
+import Label from "./Label";
 
 type Props = {
   setCustomCategoryList: React.Dispatch<React.SetStateAction<MenuCategory[]>>;
@@ -408,6 +409,7 @@ export default function Categories({
           checked={showSelect}
           onChange={() => setShowSelectCreate("select")}
         />
+        &nbsp;&nbsp;
         <h1 className="">Select categories and items for your menu:</h1>
       </div>
 
@@ -446,7 +448,8 @@ export default function Categories({
           checked={showCreate}
           onChange={() => setShowSelectCreate("create")}
         />
-        <h1 className="">Create categories and items from scratch:</h1>
+        &nbsp;&nbsp;
+        <h1 className="">Create custom menu categories and select items:</h1>
       </div>
       {showCreate && !showSelect && (
         <CustomCategoryForm
@@ -458,8 +461,10 @@ export default function Categories({
           newArray={newArray}
           setNewCustomArray={setNewCutomArray}
           newCustomArray={newCustomArray}
-          customArrTitles={customArrTitles}
+          // customArrTitles={customArrTitles}
           setCustomArrTitles={setCustomArrTitles}
+          setFadeInOut={setFadeInOut}
+          // fadeInOut={fadInOut}
         />
       )}
       <br />
@@ -473,18 +478,26 @@ export default function Categories({
           newCustomArray.map((newArr, categoryIndex) => (
             <div key={`${newArr}-${categoryIndex}`} id={newArr.title}>
               <div className="row">
-                <div className="col-4">
-                  <span>{newArr.title}</span>
+                <div className="col-4 ps-5 ms-5">
+                  <Label title={newArr.title} fadeInOut={fadeInOut} />
+                  <br />
                   <br />
                   <input
+                    id="select-items"
                     type="checkbox"
                     onChange={() => handleShowItems(newArr.title)}
                     checked={showItems.includes(newArr.title)} // Checkbox state
+                  />&nbsp;
+                  <Label
+                    label="check to select items"
+                    htmlFor="select-items"
+                    fadeInOut={fadeInOut}
                   />
-                  check to select items
+                  <br />
                   <br />
                   <input
                     type="checkbox"
+                    id="consolited view"
                     onChange={() =>
                       setConsolitedView((prevState) => ({
                         item:
@@ -498,16 +511,26 @@ export default function Categories({
                       consolidatedView.item &&
                       consolidatedView.title === newArr.title
                     }
+                  />&nbsp;
+                  <Label
+                    label="consolited view"
+                    htmlFor="consolited view"
+                    fadeInOut={fadeInOut}
                   />
-                  consolited view
+                  <br />
                   <br />
                   <button
+                    className={fadeInOut ? "label-fade-in" : "label-fade-out"}
                     type="button"
                     value={newArr.title}
                     onClick={() => handleClick(newArr.title)}
                   >
                     remove
                   </button>
+                  <br />
+                  <br />
+                  <br />
+                  <br />
                 </div>
                 {newCustomArray.length > 0 &&
                 consolidatedView.item &&
@@ -516,7 +539,7 @@ export default function Categories({
                     {render(newArr.title)}
                   </div>
                 ) : (
-                  <div className="col-8 d-flex">
+                  <div className="col-7 d-flex">
                     <div className="row">
                       {/* Only render if categoryIndex is selected */}
                       {showItems.includes(newArr.title) &&
