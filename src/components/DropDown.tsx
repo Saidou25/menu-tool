@@ -9,7 +9,7 @@ type SelectDropDownProps = {
   showModal: boolean;
   selectDropDownItem?: (item: string) => void;
   message: string;
-  width: string;
+  width?: string;
   styleForm: StyleFormType;
   setStyleForm: React.Dispatch<React.SetStateAction<StyleFormType>>;
 };
@@ -20,7 +20,7 @@ export default function DropDown({
   setShowModal,
   styleForm,
   message,
-  width,
+  // width,
   selectDropDownItem,
   setStyleForm,
 }: SelectDropDownProps) {

@@ -1,3 +1,4 @@
+import Button from "./Button";
 import "./PreviewMenu.css";
 
 type FinalStepsProps = {
@@ -22,15 +23,15 @@ export default function FinalStep({
       <p className="confirm-text no-print">{message}</p>
       <br className="no-print" />
       <div className="row no-print">
-        <button className="col-6 button" onClick={goBack} type="button">
+        <Button className="col-6 btn" onClick={goBack} type="button" printEdit="true">
           Edit
-        </button>
+        </Button>
         {/* <button className="col-6 button" onClick={() => setView((prev: boolean) => !prev)} type="button">
           Preview
         </button> */}
-        <button className="col-6 button" onClick={() => window.print()} type="button">
+        <Button className="col-6 btn" onClick={() => window.print()} type="button" printEdit="true">
           Print
-        </button>
+        </Button>
       </div>
       <br />
       <br />

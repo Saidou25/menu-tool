@@ -12,7 +12,7 @@ const bigEatsList: MenuCategory = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "Enter price",
+        placeholder: "Enter price...",
         value1: 22.95,
         value2: 33.95,
       },
@@ -25,7 +25,7 @@ const bigEatsList: MenuCategory = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "Enter price",
+        placeholder: "Enter price...",
         value: 0,
       },
     },
@@ -36,7 +36,7 @@ const bigEatsList: MenuCategory = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "Enter price",
+        placeholder: "Enter price...",
         value: 0,
       },
     },
@@ -58,7 +58,7 @@ const bigEatsList: MenuCategory = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "Enter price",
+        placeholder: "Enter price...",
         value: 0,
       },
     },
@@ -69,7 +69,7 @@ const bigEatsList: MenuCategory = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "Enter price",
+        placeholder: "Enter price...",
         value: 0,
       },
     },
@@ -80,7 +80,7 @@ const bigEatsList: MenuCategory = {
       type: "checkbox",
       price: {
         type: "number",
-        placeholder: "Enter price",
+        placeholder: "Enter price...",
         value: 0,
       },
     },

@@ -37,14 +37,16 @@
 .btn-group {
   width: 100%;
   display: flex;
+  align-items: center;
   /* background-color: rgb(7, 98, 101); */
-  background-color: rgba(198, 99, 237, 0.989);
+  background-color:  rgba(191, 77, 236, 0.8);
   justify-content: center;
   border-radius: 0;
   
 }
 .btn {
   border: none;
+ 
   font-size: 16px;
   padding: 2px 20px;
   transition: background-color 0.3s ease;
@@ -66,9 +68,16 @@
   
 }
 
+.dropdown-toggle {
+  background-color: rgba(198, 99, 237, 0.989);
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 10px;
+}
 .dropdown-toggle-split {
   background-color: rgba(198, 99, 237, 0.989);
   border-left: 1px solid rgba(255, 255, 255, 0.5);
+  font-size: 16px;
+  padding: 10px;
 }
 
 .dropdown-toggle-split:hover {

@@ -2,6 +2,7 @@ import { MenuCategory } from "../data/types";
 import "./Logo.css";
 
 type LogoProps = {
+  fadeLogoInOut?: boolean;
   className: string;
   title: string;
   subtitle: string;
@@ -13,6 +14,7 @@ type LogoProps = {
 };
 
 export default function Logo({
+  fadeLogoInOut,
   className,
   h1ClassName,
   title,
@@ -21,11 +23,11 @@ export default function Logo({
   setCategoriesList,
   setView,
 }: LogoProps) {
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-   
-    if (event.currentTarget.className === "preview-btn") {
+    if (event.currentTarget.className.includes("preview-btn")) {
       setMenuPreview?.((prev) => !prev);
-    } else if (event.currentTarget.className === "restart") {
+    } else if (event.currentTarget.className.includes("restart")) {
       setCategoriesList?.([]);
     } else if (event.currentTarget.className === "go-back no-print") {
       setView?.((prev) => !prev);
@@ -35,7 +37,15 @@ export default function Logo({
     // }
   };
   return (
-    <div className={`${className}`} onClick={(e) => handleClick(e)}>
+    <div
+      // className={`${className}`}
+      className={
+        fadeLogoInOut && title !== "Menu tool"
+          ? `${className} label-fade-in`
+          : className
+      }
+      onClick={(e) => handleClick(e)}
+    >
       <h1 className={h1ClassName}>{title}</h1>
       <span>{subtitle}</span>
     </div>

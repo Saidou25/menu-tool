@@ -12,7 +12,7 @@
   );
   /* mix-blend-mode: screen; */
 }
-.go-back, 
+.go-back,
 .print-document {
   display: flex;
   flex-direction: column;
@@ -28,8 +28,7 @@
   margin-right: 22%;
   /* mix-blend-mode: screen; */
 }
-.restart,
-.preview-btn {
+.restart {
   display: flex;
   flex-direction: column;
   align-items: center !important;
@@ -45,6 +44,23 @@
   mix-blend-mode: screen;
   margin-bottom: 3%;
   margin-right: 5%;
+}
+.preview-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center !important;
+  text-align: center;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(
+    circle,
+    rgba(217, 122, 255, 0.989) 10%,
+    rgba(0, 0, 0, 0) 70%
+  );
+  cursor: pointer;
+  mix-blend-mode: screen;
+  position: fixed;
+  top: 45%;
 }
 .menu-tool {
   padding-top: 35%;

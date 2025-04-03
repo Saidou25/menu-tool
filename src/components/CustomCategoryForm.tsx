@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { MenuCategory, MenuCustomCategory } from "../data/types";
+import { IoMdAddCircle } from "react-icons/io";
+import { IoCloseOutline } from "react-icons/io5";
 
 import "./CustomCategoryForm.css";
-// import { IoMdAddCircle } from "react-icons/io";
+import Button from "./Button";
 
 type Props = {
-  setFadeInOut: React.Dispatch<React.SetStateAction<boolean>>
+  setFadeInOut: React.Dispatch<React.SetStateAction<boolean>>;
   // customArrTitles: string[];
   setCustomArrTitles: React.Dispatch<React.SetStateAction<string[]>>;
   newArray: MenuCategory[]; // Accept newArray from parent
@@ -35,6 +37,7 @@ export default function CustomCategoryForm({
   newCustomArray,
   setNewCustomArray,
 }: Props) {
+  const [showPlus, setShowPlus] = useState(true);
   const [showSubmit, setShowSubmit] = useState(false);
   const [catObj, setCatObj] = useState<{ newCat: string }>({ newCat: "" });
   const [newCategory, setNewCategory] = useState<MenuCategory>({
@@ -86,13 +89,14 @@ export default function CustomCategoryForm({
       { categoryItem: catCustomObj.newCustomCat },
     ]);
     setNew();
-setFadeInOut(true);
+    setFadeInOut(true);
     // Resets the form fields
     setCatObj({ newCat: "" });
     setCatCustomObj({ newCustomCat: "" });
     setNewCategory({ title: "", subtitle: "", items: [] });
     setNewCustomCategory({ title: "", subtitle: "", subCategories: [] });
     setShowSubmit(false); // Hide submit button
+    setShowPlus(!showPlus);
   };
 
   useEffect(() => {
@@ -101,32 +105,47 @@ setFadeInOut(true);
 
   return (
     <div className="custom-form-container">
-      <form className="custom-form">
-        <h5>Create a custom category</h5>
-        <br />
-        <input
-          className="form-input"
-          type="text"
-          style={{ width: "80%" }}
-          value={catObj.newCat}
-          onChange={(e) => handleChange(e.target.value)}
-          placeholder="Enter category's name..."
-        />
-        <br />
-        <br />
-        <div className="button-container">
-          {showSubmit && (
-            <button
-              type="button"
-              // style={{ width: "40%" }}
-              onClick={(e) => handleClick(e)}
-            >
-              submit
-            </button>
-          )}
+      {showPlus ? (
+        <div className="plus-container">
+          <IoMdAddCircle
+            onClick={() => setShowPlus(!showPlus)}
+            className="plus"
+          />
+          Add a category
         </div>
-      </form>
-      {/* <IoMdAddCircle /> */}
+      ) : (
+        <form className="custom-form">
+          <div className="close-container">
+            <IoCloseOutline className="close" 
+            onClick={() => setShowPlus(!showPlus)} />
+          </div>
+          <h5>Name your custom category</h5>
+          <br />
+          <input
+            className="form-input"
+            type="text"
+            style={{ width: "76%" }}
+            value={catObj.newCat}
+            onChange={(e) => handleChange(e.target.value)}
+            placeholder="Enter category's name..."
+          />
+          <br />
+          {/* <br /> */}
+          {/* <div className="button-container"> */}
+            {showSubmit && (
+              <Button
+                type="button"
+                onClick={(e) => handleClick(e)}
+                disabled={!showSubmit}
+                className="button"
+              >
+                submit
+              </Button>
+            )}
+          {/* </div> */}
+            <br />
+        </form>
+      )}
     </div>
   );
 }

@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { Field, MenuCustomCategory } from "../data/types";
-import Label from "./Label";
-import SmallTittles from "./SmallTittles";
-import Checkbox from "./Checkbox";
 
 import "./CategoryItems.css";
+import Input from "./Input";
 
 type CategoriesProps = {
   newArr: any;
@@ -100,14 +98,16 @@ CategoriesProps) {
       {/* {consolidatedView && ( */}
 
       <div className="categories-titles">
-        <Checkbox
+        <Input
+          type="checkbox"
           className="checkbox-category"
           id={title}
           onChange={handleSelectTitle}
           checked={titleSelected}
           name={title}
+          smallTitle={title}
         />
-        <SmallTittles label={title} />
+        {/* <SmallTittles label={title} /> */}
       </div>
       {/* )} */}
 
@@ -118,36 +118,32 @@ CategoriesProps) {
           fields.map((item) => (
             <div key={item.label}>
               {item.type === "checkbox" && (
-                <>
-                  <Checkbox
-                    className={
-                      fadeInOut
-                        ? "checkbox-category-item-in"
-                        : "checkbox-category-item-out"
-                    }
-                    id={`${newArr.title}-${item.label}`} // Ensure unique ID
-                    onChange={() =>
-                      selectCustomCategoryItem(newArr.title, item, title)
-                    }
-                    checked={
-                      newCustomArray
-                        .find((category) => category.title === newArr.title) // Find category
-                        ?.subCategories.find(
-                          (sub) => sub.subCategoryTitle === title
-                        ) // Find subcategory
-                        ?.items.some(
-                          (existingItem) => existingItem.label === item.label
-                        ) || false // Check if item exists
-                    }
-                    name={item.label}
-                  />
-
-                  <Label
-                    label={item.label}
-                    htmlFor={item.label}
-                    fadeInOut={fadeInOut}
-                  />
-                </>
+                <Input
+                  type="checkbox"
+                  className={
+                    fadeInOut
+                      ? "checkbox-category-item-in"
+                      : "checkbox-category-item-out"
+                  }
+                  id={`${newArr.title}-${item.label}`} // Ensure unique ID
+                  onChange={() =>
+                    selectCustomCategoryItem(newArr.title, item, title)
+                  }
+                  checked={
+                    newCustomArray
+                      .find((category) => category.title === newArr.title) // Find category
+                      ?.subCategories.find(
+                        (sub) => sub.subCategoryTitle === title
+                      ) // Find subcategory
+                      ?.items.some(
+                        (existingItem) => existingItem.label === item.label
+                      ) || false // Check if item exists
+                  }
+                  name={item.label}
+                  label={item.label}
+                  htmlFor={`${newArr.title}-${item.label}`}
+                  // fadeInOut={fadeInOut}
+                />
               )}
             </div>
           ))}

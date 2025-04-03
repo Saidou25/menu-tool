@@ -16,11 +16,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
   const [createCategory, setCreateCategory] = useState(true);
   const [categoriesList, setCategoriesList] = useState<MenuCategory[]>([]);
-  const [customCategoryList, setCustomCategoryList] = useState<MenuCategory[]>([]);
+  const [customCategoryList, setCustomCategoryList] = useState<MenuCategory[]>(
+    []
+  );
   const [custom, setCustom] = useState(false);
   const [showDropown, setShowDropdown] = useState(false);
   const [menuSampleData, setMenuSampleData] = useState<
-    Record<string, { subtitle?: string; items: Field[], custom?: string }>
+    Record<string, { subtitle?: string; items: Field[]; custom?: string }>
   >({});
 
   // const [styleForm, setStyleForm] = useState<StyleFormType>({
@@ -123,7 +125,6 @@ function App() {
         Dinner.sidesList,
         Dinner.saucesList,
         Desserts.dessertsList,
-
       ]);
       setCustom(true);
     }
@@ -144,21 +145,17 @@ function App() {
     }
   }, [createCategory]);
 
- 
-
   if (categoriesList.length)
     return (
-      <div className="row app-container g-0">
-        <Categories
-          setCategoriesList={setCategoriesList}
-          categoriesList={categoriesList}
-          setCustomCategoryList={setCustomCategoryList}
-          customCategoryList={customCategoryList}
-          menuSampleDataFunc={funcSetMenuSampleData}
-          selectedData={menuSampleData}
-          custom={custom}
-        />
-      </div>
+      <Categories
+        setCategoriesList={setCategoriesList}
+        categoriesList={categoriesList}
+        setCustomCategoryList={setCustomCategoryList}
+        customCategoryList={customCategoryList}
+        menuSampleDataFunc={funcSetMenuSampleData}
+        selectedData={menuSampleData}
+        custom={custom}
+      />
     );
   return (
     <div className="row tool-container g-0">

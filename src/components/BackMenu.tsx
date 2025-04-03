@@ -20,13 +20,15 @@ const BackMenu = ({
       <br className="no-print" />
       <h3 className="no-print">Menu back</h3>
       <br className="no-print" />
-      <div className="menu-items-container"
-      style={{
-        padding: `${styleForm.pagePaddingTopAndBottom}px ${styleForm.pagePaddingLeftAndRight}px`,
-        width: `${+styleForm.menuWidth}mm`,
-        height: `${+styleForm.menuHeight}mm`,
-        maxHeight: `${+styleForm.menuHeight}mm`,
-      }}>
+      <div
+        className="menu-items-container"
+        style={{
+          padding: `${styleForm.pagePaddingTopAndBottom}px ${styleForm.pagePaddingLeftAndRight}px`,
+          width: `${+styleForm.menuWidth}mm`,
+          height: `${+styleForm.menuHeight}mm`,
+          maxHeight: `${+styleForm.menuHeight}mm`,
+        }}
+      >
         {categoryOrder?.map((category) => {
           const categoryData = secondPageData[category];
           if (categoryData && categoryData.items.length > 0) {
@@ -84,7 +86,7 @@ const BackMenu = ({
                         )}
                         {item.subSubtitle2 && (
                           <span className="small">
-                            &nbsp; {item.subSubtitle2}&nbsp; 
+                            &nbsp; {item.subSubtitle2}&nbsp;
                             {item.price.value2?.toFixed(2)}
                           </span>
                         )}
@@ -105,7 +107,13 @@ const BackMenu = ({
           }
           return null; // Don't render empty categories
         })}
-        {showDisclaimer && <Footer />}
+        {showDisclaimer && (
+          <Footer
+            paddingBottom={styleForm.footerPaddingBottom}
+            marginTop={styleForm.footerPaddingPaddingTop}
+            color={styleForm.footerTextColor}
+          />
+        )}
       </div>
     </>
   );

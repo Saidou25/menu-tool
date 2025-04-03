@@ -1,9 +1,0 @@
-.checkbox-category-item-in,
-.checkbox-category-item-out,
-.checkbox-category,
-.checkbox {
-    cursor: pointer;
-    accent-color: black;
-    box-shadow: 0 0 10px #bf4dec, 0 0 20px rgb(191, 77, 236),
-    0 0 40px rgb(191, 77, 236), 0 0 80px #bf4dec;
-}

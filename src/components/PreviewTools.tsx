@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { StyleFormType } from "../data/types";
-import Checkbox from "./Checkbox";
 
 import "./PreviewTools.css";
+import Input from "./Input";
 
 type PreviewToolsProps = {
   showImagesDeleteButtons: boolean;
@@ -132,7 +132,7 @@ const displayTools = [
           "menu item and price blocks",
           "menu items' description blocks",
           "footer margin top",
-          "footer padding bottom"
+          "footer padding bottom",
         ],
       },
     ],
@@ -246,7 +246,7 @@ export default function PreviewTools({
     "decoration width": "decorationWidth",
     "decoration padding": "paddingDecoration",
     "footer margin top": "footerPaddingPaddingTop",
-    "footer padding bottom": "footerPaddingBottom"
+    "footer padding bottom": "footerPaddingBottom",
   };
 
   const getInputType = (item: string): "file" | "text" | "number" | "color" => {
@@ -359,12 +359,11 @@ export default function PreviewTools({
 
   const handleToolsChecboxes = (item: string) => {
     if (item === "Check to hide images' delete buttons") {
-      setShowImagesDeleteButtons(!showImagesDeleteButtons);;
-    } 
-      setShowToolItem((prev) =>
-        prev.includes(item) ? prev.filter((i) => i !== item) : [...prev, item]
-      );
-    
+      setShowImagesDeleteButtons(!showImagesDeleteButtons);
+    }
+    setShowToolItem((prev) =>
+      prev.includes(item) ? prev.filter((i) => i !== item) : [...prev, item]
+    );
   };
 
   return (
@@ -384,13 +383,15 @@ export default function PreviewTools({
               className={`tool-title-${index}`}
             >
               <br />
-              <Checkbox
+              <Input
+               type="checkbox"
                 className="checkbox"
                 onChange={() => handleToolsChecboxes(displayTool.title)}
                 checked={showToolItems.includes(displayTool.title)}
+                htmlFor="tool-title"
+                title={displayTool.title}
+                id="tool-title"
               />
-              &nbsp;
-              {displayTool.title}
               <br />
               <br />
               {showToolItems.includes(displayTool.title) ? (
@@ -472,19 +473,23 @@ export default function PreviewTools({
 
                       {displayLabel.label === "Join categories checkboxes" && (
                         <div className="ps-4">
-                          <Checkbox
+                          <Input
+                           type="checkbox"
                             onChange={() => setShowJoinInputs(!showJoinInputs)}
                             checked={showJoinInputs}
                             className="checkbox"
+                            previewTitle="Check if you want to show join section
+                          checkboxes"
+                            id="Join-categories-checkboxes"
+                            htmlFor="Join-categories-checkboxes"
                           />
-                          &nbsp; Check if you want to show join section
-                          checkboxes
                         </div>
                       )}
 
                       {displayLabel.label === "Categories padding top" && (
                         <div className="ps-4">
-                          <Checkbox
+                          <Input
+                           type="checkbox"
                             onChange={() =>
                               setShowPaddingCategoriesTop(
                                 !showPaddingCategoriesTop
@@ -492,14 +497,17 @@ export default function PreviewTools({
                             }
                             checked={showPaddingCategoriesTop}
                             className="checkbox"
+                            previewTitle="Check if you want to show padding top
+                          checkboxes"
+                            id="padding-top-checkboxes"
+                            htmlFor="padding-top-checkboxes"
                           />
-                          &nbsp; Check if you want to show padding top
-                          checkboxes
                         </div>
                       )}
                       {displayLabel.label === "Categories margin top" && (
                         <div className="ps-4">
-                          <Checkbox
+                          <Input
+                           type="checkbox"
                             onChange={() =>
                               setShowMarginCategoriesTop(
                                 !showMarginCategoriesTop
@@ -507,47 +515,57 @@ export default function PreviewTools({
                             }
                             checked={showMarginCategoriesTop}
                             className="checkbox"
+                            previewTitle="Check if you want to show margin top checkboxes"
+                            id="margin-top-checkboxes"
+                            htmlFor="margin-top-checboxes"
                           />
-                          &nbsp; Check if you want to show margin top checkboxes
                         </div>
                       )}
                       {displayLabel.label === "Prices checkboxes" && (
                         <div className="ps-4">
-                          <input
+                          <Input
+                           type="checkbox"
                             className="checkbox"
-                            type="checkbox"
                             checked={hidePrices}
                             onChange={() => setHidePrices(!hidePrices)}
+                            previewTitle="Check if you want to hide prices"
+                            id="prices-checkboxes"
+                            htmlFor="prices-checkboxes"
                           />
-                          &nbsp; Check if you want to hide prices
                         </div>
                       )}
                       {displayLabel.label === "Decorations checkboxes" && (
                         <div className="ps-4">
-                          <input
+                          <Input
+                           type="checkbox"
                             className="checkbox"
-                            type="checkbox"
                             checked={showDecorationCheckboxes}
                             onChange={() =>
                               setShowDecorationCheckboxes(
                                 !showDecorationCheckboxes
                               )
                             }
+                            previewTitle="Check if you want to show decorations"
+                            id="show-decoration"
+                            htmlFor="show-decoration"
                           />
-                          &nbsp; Check if you want to show decorations
+                         
                         </div>
                       )}
                       {displayLabel.label === "Colors checkboxes" && (
                         <div className="ps-4">
-                          <input
+                          <Input
+                           type="checkbox"
                             className="checkbox"
-                            type="checkbox"
                             checked={showColorInputs}
                             onChange={() =>
                               setShowColorInputs(!showColorInputs)
                             }
+                            previewTitle="Check if you want to show color inputs"
+                            id="color-inputs"
+                            htmlFor="color-inputs"
                           />
-                          &nbsp; Check if you want to show color inputs
+                         
                         </div>
                       )}
 
@@ -616,7 +634,8 @@ export default function PreviewTools({
                             </div>
                           ) : getInputType(item) === "color" ? (
                             // Render color picker input correctly
-                            <input
+                            <Input
+                            className="color-inputs"
                               type="color"
                               value={
                                 keyMap[item as keyof typeof keyMap] ===

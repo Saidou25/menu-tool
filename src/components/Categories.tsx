@@ -14,10 +14,12 @@ import DropDown from "./DropDown";
 import PreviewTools from "./PreviewTools";
 import Logo from "./Logo";
 import CustomCategoryItems from "./CustomCategoryItems";
-
-import "./Categories.css";
 import CustomCategoryForm from "./CustomCategoryForm";
 import Label from "./Label";
+import Button from "./Button";
+import Input from "./Input";
+
+import "./Categories.css";
 
 type Props = {
   setCustomCategoryList: React.Dispatch<React.SetStateAction<MenuCategory[]>>;
@@ -61,9 +63,7 @@ export default function Categories({
   >([]);
   const [showSelect, setShowSelect] = useState(false);
   const [showCreate, setShowCreate] = useState(false);
-  // const [showItems, setShowItems] = useState<number[]>([]);
   const [showItems, setShowItems] = useState<string[]>([]);
-
   const [view, setView] = useState(false);
   const [showImagesDeleteButtons, setShowImagesDeleteButtons] = useState(false);
   const [showPaddingCategoriesTop, setShowPaddingCategoriesTop] =
@@ -77,6 +77,7 @@ export default function Categories({
     useState(false);
   const [showModal, setShowModal] = useState(false);
   const [fadeInOut, setFadeInOut] = useState(false);
+  const [fadeLogoInOut, setFadeLogoInOut] = useState(false);
   const [menuPreview, setMenuPreview] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
   const [showDecorations, setShowDecorations] = useState("");
@@ -168,15 +169,6 @@ export default function Categories({
     });
   };
 
-  const setShowSelectCreate = (item: string) => {
-    if (item === "select") {
-      setShowSelect(true);
-      setShowCreate(false);
-    } else {
-      setShowSelect(false);
-      setShowCreate(true);
-    }
-  };
   const handleDisclaimer = () => {
     setShowDisclaimer((prev) => !prev);
   };
@@ -285,30 +277,32 @@ export default function Categories({
     }
 
     return (
-      <div>
+      <>
         {flatArr.flat().length > 0 ? (
           flatArr.flat().map((flat, index) => (
-            <div key={index} className="row preview-item-container g-0">
-              <span className="col-7">{flat.label}</span>
-              <div className="col-5 d-flex">
-                <span>$&nbsp;</span>
-                <input
-                  className="container-fluid price-input"
-                  placeholder={flat.price.placeholder}
-                  //  name={item.label} // Use label as item identifier
-                  value={flat.price.value === 0 ? "" : flat.price.value} // Show placeholder if value is 0
-                  type="number"
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    handlePriceChange(e.target.name, +e.target.value)
-                  }
-                />
+            <div key={`${flat}-${index}`} className="col-6 pe-3">
+              <div  className="row g-0">
+                <span className="col-7 gap-1">{flat.label}</span>
+                <div className="col-5 d-flex gap-1">
+                  <span>$&nbsp;</span>
+                  <input
+                    className="container-fluid price-input"
+                    placeholder={flat.price.placeholder}
+                    //  name={item.label} // Use label as item identifier
+                    value={flat.price.value === 0 ? "" : flat.price.value} // Show placeholder if value is 0
+                    type="number"
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      handlePriceChange(e.target.name, +e.target.value)
+                    }
+                  />
+                </div>
               </div>
             </div>
           ))
         ) : (
           <span>No items found</span>
         )}
-      </div>
+      </>
     );
   };
 
@@ -387,117 +381,147 @@ export default function Categories({
   }
 
   return (
-    <>
-      <Logo
-        className="restart"
-        h1ClassName="restart-tool"
-        title=""
-        subtitle="Restart"
-        setCategoriesList={setCategoriesList}
-      />
-      <Logo
-        className="preview-btn"
-        h1ClassName="preview-tool"
-        title=""
-        subtitle="Preview menu"
-        setMenuPreview={setMenuPreview}
-        menuPreview={menuPreview}
-      />
-      <div className="d-flex pb-5 ps-5">
-        <input
-          type="checkbox"
-          checked={showSelect}
-          onChange={() => setShowSelectCreate("select")}
-        />
-        &nbsp;&nbsp;
-        <h1 className="">Select categories and items for your menu:</h1>
+    <div className="row app-container g-0">
+      <div className="col-1 pt-4">
+        {(showCreate || showSelect) && (
+          <>
+            <Logo
+              className="restart"
+              h1ClassName="restart-tool"
+              title=""
+              subtitle="Restart"
+              setCategoriesList={setCategoriesList}
+              fadeLogoInOut={fadeLogoInOut}
+            />
+            <Logo
+              className="preview-btn"
+              h1ClassName="preview-tool"
+              title=""
+              subtitle="Preview menu"
+              setMenuPreview={setMenuPreview}
+              menuPreview={menuPreview}
+              fadeLogoInOut={fadeLogoInOut}
+            />
+          </>
+        )}
       </div>
+      <div className="col-11">
+        {!showCreate && (
+          <div className="d-flex pb-5 pt-5">
+              <Input
+              type="checkbox"
+                className="select-check"
+                id="select"
+                checked={showSelect}
+                onChange={() => {
+                  setShowSelect(!showSelect);
+                  setFadeLogoInOut(!fadeLogoInOut);
+                }}
+                title="Select categories and items for your menu:"
+                htmlFor="select"
+              />
+          </div>
+        )}
 
-      {showSelect && !showCreate && (
-        <div className="row">
-          {categoriesList.map((category, index) => (
-            <div className="col-3 categories ps-5 ms-5" key={index}>
-              <CategoryItems
-                selectedCategoryItems={
-                  localSelectedCategoryItems[category.title]?.items || []
-                }
-                fields={category.items}
-                title={category.title}
-                showCategoryItemsFunc={(updatedItems) =>
-                  showCategoryItems(category.title, updatedItems)
-                }
-                fadeInOutFunc={funcFadeInOut}
-              >
-                <SelectedCategoryItems
+        {showSelect && !showCreate && (
+          <div className="row">
+            {categoriesList.map((category, index) => (
+              <div className="col-3 categories ps-5" key={index}>
+                <CategoryItems
                   selectedCategoryItems={
                     localSelectedCategoryItems[category.title]?.items || []
                   }
-                  handlePriceChange={handlePriceChange}
-                  fadeInOut={fadeInOut}
-                />
-              </CategoryItems>
+                  fields={category.items}
+                  title={category.title}
+                  showCategoryItemsFunc={(updatedItems) =>
+                    showCategoryItems(category.title, updatedItems)
+                  }
+                  fadeInOutFunc={funcFadeInOut}
+                >
+                  <SelectedCategoryItems
+                    selectedCategoryItems={
+                      localSelectedCategoryItems[category.title]?.items || []
+                    }
+                    handlePriceChange={handlePriceChange}
+                    fadeInOut={fadeInOut}
+                  />
+                </CategoryItems>
+              </div>
+            ))}
+            <div className="ps-5" style={{ marginLeft: "3px" }}>
+              <input
+                className="checkbox-category"
+                id="disclaimer"
+                type="checkbox"
+                onChange={handleDisclaimer}
+                checked={showDisclaimer}
+                name="disclaimer"
+              />
+              <SmallTittles label="Select to add FDA disclaimer to the bottom of your menu" />
             </div>
-          ))}
-        </div>
-      )}
+          </div>
+        )}
 
-      <br />
-      <div className="d-flex pb-5 ps-5">
-        <input
-          type="checkbox"
-          checked={showCreate}
-          onChange={() => setShowSelectCreate("create")}
-        />
-        &nbsp;&nbsp;
-        <h1 className="">Create custom menu categories and select items:</h1>
-      </div>
-      {showCreate && !showSelect && (
-        <CustomCategoryForm
-          setCustomCategories={setCustomCategories}
-          customCategories={customCategories}
-          newCustomCategories={NewCustomCategories}
-          setNewCustomCategories={setNewCustomCategories}
-          setNewArray={setNewArray}
-          newArray={newArray}
-          setNewCustomArray={setNewCutomArray}
-          newCustomArray={newCustomArray}
-          // customArrTitles={customArrTitles}
-          setCustomArrTitles={setCustomArrTitles}
-          setFadeInOut={setFadeInOut}
-          // fadeInOut={fadInOut}
-        />
-      )}
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <>
+        {!showSelect && (
+          <div className="d-flex pb-5 pt-5">
+             <Input
+              type="checkbox"
+                className="create-check"
+                id="create"
+                checked={showCreate}
+                onChange={() => {
+                  setShowCreate(!showCreate);
+                  setFadeLogoInOut(!fadeLogoInOut);
+                }}
+                title="Create custom menu categories and select items:"
+              />
+          </div>
+        )}
+        {showCreate && !showSelect && (
+          <CustomCategoryForm
+            setCustomCategories={setCustomCategories}
+            customCategories={customCategories}
+            newCustomCategories={NewCustomCategories}
+            setNewCustomCategories={setNewCustomCategories}
+            setNewArray={setNewArray}
+            newArray={newArray}
+            setNewCustomArray={setNewCutomArray}
+            newCustomArray={newCustomArray}
+            // customArrTitles={customArrTitles}
+            setCustomArrTitles={setCustomArrTitles}
+            setFadeInOut={setFadeInOut}
+            // fadeInOut={fadInOut}
+          />
+        )}
+        <br />
+        <br />
+        <br />
+        {/* <> */}
         {newCustomArray &&
           newCustomArray.map((newArr, categoryIndex) => (
             <div key={`${newArr}-${categoryIndex}`} id={newArr.title}>
-              <div className="row">
-                <div className="col-4 ps-5 ms-5">
+              <div className="row mb-3">
+                <div className="col-2">
                   <Label title={newArr.title} fadeInOut={fadeInOut} />
                   <br />
                   <br />
-                  <input
+                  <Input
+                   type="checkbox"
                     id="select-items"
-                    type="checkbox"
                     onChange={() => handleShowItems(newArr.title)}
                     checked={showItems.includes(newArr.title)} // Checkbox state
-                  />&nbsp;
-                  <Label
                     label="check to select items"
                     htmlFor="select-items"
-                    fadeInOut={fadeInOut}
+                    className="select-items"
+                    // fadeInOut={fadeInOut}
                   />
+                  &nbsp;
                   <br />
                   <br />
-                  <input
-                    type="checkbox"
-                    id="consolited view"
+                  <Input
+                   type="checkbox"
+                  className="consolited-view"
+                    id="consolited-view"
                     onChange={() =>
                       setConsolitedView((prevState) => ({
                         item:
@@ -511,22 +535,22 @@ export default function Categories({
                       consolidatedView.item &&
                       consolidatedView.title === newArr.title
                     }
-                  />&nbsp;
-                  <Label
                     label="consolited view"
                     htmlFor="consolited view"
-                    fadeInOut={fadeInOut}
+                    // fadeInOut={fadeInOut}
                   />
+                  &nbsp;
+                 
                   <br />
                   <br />
-                  <button
-                    className={fadeInOut ? "label-fade-in" : "label-fade-out"}
+                  <Button
+                    className={fadeInOut ? "button label-fade-in" : "button label-fade-out"}
                     type="button"
                     value={newArr.title}
                     onClick={() => handleClick(newArr.title)}
                   >
                     remove
-                  </button>
+                  </Button>
                   <br />
                   <br />
                   <br />
@@ -535,11 +559,13 @@ export default function Categories({
                 {newCustomArray.length > 0 &&
                 consolidatedView.item &&
                 consolidatedView.title === newArr.title ? (
-                  <div className="col-8 preview-item-container g-0">
-                    {render(newArr.title)}
+                  <div className="col-10">
+                    <div className="row preview-item-container g-0">
+                      {render(newArr.title)}
+                    </div>
                   </div>
                 ) : (
-                  <div className="col-7 d-flex">
+                  <div className="col-10 d-flex">
                     <div className="row">
                       {/* Only render if categoryIndex is selected */}
                       {showItems.includes(newArr.title) &&
@@ -606,9 +632,9 @@ export default function Categories({
               </div>
             </div>
           ))}
-      </>
+        {/* </> */}
 
-      <div className="categories-titles ps-5 ms-5 pt-2">
+        {/* <div className="ps-5">
         <input
           className="checkbox-category"
           id="disclaimer"
@@ -618,22 +644,12 @@ export default function Categories({
           name="disclaimer"
         />
         <SmallTittles label="Select to add FDA disclaimer to the bottom of your menu" />
+      </div> */}
+        <br />
+        <br />
+        <br />
+        <br />
       </div>
-      <br />
-      <div className="categories-titles ps-5 ms-5 pt-3">
-        <input
-          className="checkbox-category"
-          id="preview-menu"
-          type="checkbox"
-          onChange={() => setMenuPreview((prev) => !prev)}
-          checked={menuPreview}
-          name="disclaimer"
-        />
-        <SmallTittles label="Preview menu" />
-      </div>
-      <br />
-      <br />
-      <br />
-    </>
+    </div>
   );
 }

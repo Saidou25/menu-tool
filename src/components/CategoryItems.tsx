@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Field } from "../data/types";
-import Label from "./Label";
 import SmallTittles from "./SmallTittles";
-import Checkbox from "./Checkbox";
+import Input from "./Input";
 
 import "./CategoryItems.css";
 
@@ -26,7 +25,6 @@ export default function CategoryItems({
   const [titleSelected, setTitleSelected] = useState(false);
   const [fadeInOut, setFadeInOut] = useState(false);
 
-
   const handleSelectTitle = () => {
     const newState = titleSelected ? false : true;
     setTitleSelected(newState);
@@ -45,7 +43,7 @@ export default function CategoryItems({
           (existingItem) => existingItem.label !== item.label
         )
       : [...selectedCategoryItems, item];
-// console.log("updatedSelectedCategoryItems", updatedSelectedCategoryItems);
+    // console.log("updatedSelectedCategoryItems", updatedSelectedCategoryItems);
     // Update the selected items in the parent component
     showCategoryItemsFunc(updatedSelectedCategoryItems);
   };
@@ -55,7 +53,8 @@ export default function CategoryItems({
   return (
     <div className="category-items-container">
       <div className="categories-titles">
-        <Checkbox
+        <Input
+         type="checkbox"
           className="checkbox-category"
           id={title}
           // type="checkbox"
@@ -71,26 +70,23 @@ export default function CategoryItems({
           fields.map((item) => (
             <div key={item.label}>
               {item.type === "checkbox" && (
-                <>
-                  <Checkbox
-                    className={
-                      fadeInOut
-                        ? "checkbox-category-item-in"
-                        : "checkbox-category-item-out"
-                    }
-                    id={item.label}
-                    onChange={() => selectCategoryItem(item)}
-                    checked={selectedCategoryItems.some(
-                      (existingItem) => existingItem.label === item.label
-                    )}
-                    name={item.label}
-                  />
-                  <Label
-                    label={item.label}
-                    htmlFor={item.label}
-                    fadeInOut={fadeInOut}
-                  />
-                </>
+                <Input
+                 type="checkbox"
+                  className={
+                    fadeInOut
+                      ? "checkbox-category-item-in"
+                      : "checkbox-category-item-out"
+                  }
+                  id={item.label}
+                  onChange={() => selectCategoryItem(item)}
+                  checked={selectedCategoryItems.some(
+                    (existingItem) => existingItem.label === item.label
+                  )}
+                  name={item.label}
+                  label={item.label}
+                  htmlFor={item.label}
+                  // fadeInOut={fadeInOut}
+                />
               )}
             </div>
           ))}

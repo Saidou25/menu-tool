@@ -12,6 +12,7 @@ import { useGetCategoriesPaddingTop } from "../hooks/useGetCategoriesPaddingTop"
 import { useDynamicStyles } from "../hooks/useDynamicStyles";
 import { useGetSubtitleFontColor } from "../hooks/useGetSubtitleFontColor";
 import Footer from "./Footer";
+import Input from "./Input";
 
 import "./CustomCategoriesMenu.css";
 
@@ -79,7 +80,6 @@ export default function CustomCategoriesMenu({
 
       // Loop through each customCategories in the newCustomArray
       for (let customCategories of newCustomArray) {
-        console.log("customCategories", customCategories);
 
         // Initialize the MenuCategory with the title, subtitle, and empty items array
         const menuCategory: MenuCategory = {
@@ -325,7 +325,7 @@ export default function CustomCategoriesMenu({
                   />
                 )}
                 {showJoinInputs && (
-                  <input
+                  <Input
                     className="custom-input"
                     type="checkbox"
                     onChange={() =>
@@ -344,9 +344,9 @@ export default function CustomCategoriesMenu({
                 )}
                 {showColorInputs && (
                   <>
-                    <input
+                    <Input
                       type="color"
-                      className="no-print"
+                     className="menu-color-inputs"
                       onChange={(event) =>
                         handleCategoryBackgroundColor(
                           event.target.value,
@@ -365,9 +365,11 @@ export default function CustomCategoriesMenu({
                   </>
                 )}
                 {showDecorationCheckboxes && (
-                  <input
+                  <Input
                     type="checkbox"
-                    className="no-print"
+                    className="show-decoration"
+                    id="show-decoration"
+                    htmlFor="show-decoration"
                     checked={showDecorations === customCategory.title}
                     onChange={() => setShowDecorations(customCategory.title)}
                   />
@@ -390,9 +392,9 @@ export default function CustomCategoriesMenu({
                 </span>
                 {showColorInputs && (
                   <>
-                    <input
+                    <Input
                       type="color"
-                      className="no-print"
+                      className="menu-color-inputs"
                       onChange={(event) =>
                         handleSubtitleFontColor(
                           event.target.value,
@@ -489,8 +491,8 @@ export default function CustomCategoriesMenu({
                         {item.description}
                       </span>
                       {showColorInputs && (
-                        <input
-                          className="no-print"
+                        <Input
+                        className="menu-color-inputs"
                           type="color"
                           onChange={(event) =>
                             handleDescriptionLettersColor(
@@ -499,7 +501,7 @@ export default function CustomCategoriesMenu({
                               itemIndex
                             )
                           }
-                          style={{ marginBottom: "0", paddingBottom: "0" }}
+                          // style={{ marginBottom: "0", paddingBottom: "0" }}
                         />
                       )}
                     </div>

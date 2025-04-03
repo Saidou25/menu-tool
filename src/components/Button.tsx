@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import "./Button.css";
 
 type ButtonType = {
+  value?: string;
   type: "button" | "submit" | "reset";
   disabled?: boolean;
   children: ReactNode;
@@ -12,6 +13,7 @@ type ButtonType = {
 };
 
 export default function Button({
+  value,
   type,
   disabled,
   children,
@@ -22,7 +24,8 @@ export default function Button({
   return (
     <div className={!printEdit ? "container-button" : "print-edit-container"}>
       <button
-        className={`${className} ${disabled ? "disabled" : ""}`}
+        className={`${className} btn`}
+        value={value}
         type={type}
         disabled={disabled}
         onClick={onClick}
