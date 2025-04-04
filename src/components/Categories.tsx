@@ -281,7 +281,7 @@ export default function Categories({
         {flatArr.flat().length > 0 ? (
           flatArr.flat().map((flat, index) => (
             <div key={`${flat}-${index}`} className="col-6 pe-3">
-              <div  className="row g-0">
+              <div className="row g-0">
                 <span className="col-7 gap-1">{flat.label}</span>
                 <div className="col-5 d-flex gap-1">
                   <span>$&nbsp;</span>
@@ -408,18 +408,18 @@ export default function Categories({
       <div className="col-11">
         {!showCreate && (
           <div className="d-flex pb-5 pt-5">
-              <Input
+            <Input
               type="checkbox"
-                className="select-check"
-                id="select"
-                checked={showSelect}
-                onChange={() => {
-                  setShowSelect(!showSelect);
-                  setFadeLogoInOut(!fadeLogoInOut);
-                }}
-                title="Select categories and items for your menu:"
-                htmlFor="select"
-              />
+              className="select-check"
+              id="select"
+              checked={showSelect}
+              onChange={() => {
+                setShowSelect(!showSelect);
+                setFadeLogoInOut(!fadeLogoInOut);
+              }}
+              title="Select categories and items for your menu:"
+              htmlFor="select"
+            />
           </div>
         )}
 
@@ -464,17 +464,17 @@ export default function Categories({
 
         {!showSelect && (
           <div className="d-flex pb-5 pt-5">
-             <Input
+            <Input
               type="checkbox"
-                className="create-check"
-                id="create"
-                checked={showCreate}
-                onChange={() => {
-                  setShowCreate(!showCreate);
-                  setFadeLogoInOut(!fadeLogoInOut);
-                }}
-                title="Create custom menu categories and select items:"
-              />
+              className="create-check"
+              id="create"
+              checked={showCreate}
+              onChange={() => {
+                setShowCreate(!showCreate);
+                setFadeLogoInOut(!fadeLogoInOut);
+              }}
+              title="Create custom menu categories and select items:"
+            />
           </div>
         )}
         {showCreate && !showSelect && (
@@ -506,7 +506,7 @@ export default function Categories({
                   <br />
                   <br />
                   <Input
-                   type="checkbox"
+                    type="checkbox"
                     id="select-items"
                     onChange={() => handleShowItems(newArr.title)}
                     checked={showItems.includes(newArr.title)} // Checkbox state
@@ -519,8 +519,8 @@ export default function Categories({
                   <br />
                   <br />
                   <Input
-                   type="checkbox"
-                  className="consolited-view"
+                    type="checkbox"
+                    className="consolited-view"
                     id="consolited-view"
                     onChange={() =>
                       setConsolitedView((prevState) => ({
@@ -540,11 +540,14 @@ export default function Categories({
                     // fadeInOut={fadeInOut}
                   />
                   &nbsp;
-                 
                   <br />
                   <br />
                   <Button
-                    className={fadeInOut ? "button label-fade-in" : "button label-fade-out"}
+                    className={
+                      fadeInOut
+                        ? "button label-fade-in"
+                        : "button label-fade-out"
+                    }
                     type="button"
                     value={newArr.title}
                     onClick={() => handleClick(newArr.title)}
@@ -634,17 +637,18 @@ export default function Categories({
           ))}
         {/* </> */}
 
-        {/* <div className="ps-5">
-        <input
-          className="checkbox-category"
-          id="disclaimer"
-          type="checkbox"
-          onChange={handleDisclaimer}
-          checked={showDisclaimer}
-          name="disclaimer"
-        />
-        <SmallTittles label="Select to add FDA disclaimer to the bottom of your menu" />
-      </div> */}
+        <div className="ps-5">
+          <Input
+            className="checkbox-category"
+            id="disclaimer"
+            type="checkbox"
+            onChange={handleDisclaimer}
+            checked={showDisclaimer}
+            name="disclaimer"
+            label="Select to add FDA disclaimer to the bottom of your menu"
+          />
+          {/* <SmallTittles label="Select to add FDA disclaimer to the bottom of your menu" /> */}
+        </div>
         <br />
         <br />
         <br />

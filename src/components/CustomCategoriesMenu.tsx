@@ -1,9 +1,9 @@
 import { MenuCategory, MenuCustomCategory, StyleFormType } from "../data/types";
 import { useEffect } from "react";
-import { useCategoryPaddingTop } from "../hooks/useCategoryPaddingTop";
+// import { useCategoryPaddingTop } from "../hooks/useCategoryPaddingTop";
 import { useCategoryBackgroundColor } from "../hooks/useCategoryBackgrounColor";
 import { useDescriptionLettersColor } from "../hooks/useDescriptionLettersColor";
-import { useCategoryMarginTop } from "../hooks/useMarginCategoriesTop";
+// import { useCategoryMarginTop } from "../hooks/useMarginCategoriesTop";
 import { useSubtitleFontColor } from "../hooks/useSubtitleFontColor";
 import { useGetSectionBackground } from "../hooks/useGetSectionBackground";
 import { useGetCategoriesMarginTop } from "../hooks/useGetMarginCategoriesTop";
@@ -15,6 +15,7 @@ import Footer from "./Footer";
 import Input from "./Input";
 
 import "./CustomCategoriesMenu.css";
+import InputBar from "./InputBar";
 
 type Props = {
   flatItemsCategories: MenuCategory[];
@@ -24,8 +25,8 @@ type Props = {
   showColorInputs: boolean;
   hidePrices: boolean;
   showDecorations: string;
-  showDecorationCheckboxes: boolean;
   setShowDecorations: (category: string) => void;
+  showDecorationCheckboxes: boolean;
   setShowDecorationCheckboxes: (item: boolean) => void;
   showJoinInputs: boolean;
   showPaddingCategoriesTop: boolean;
@@ -59,12 +60,12 @@ export default function CustomCategoriesMenu({
   showPaddingCategoriesTop,
   showMarginCategoriesTop,
 }: Props) {
-  const handleCategoryPaddingTop = useCategoryPaddingTop(setStyleForm);
+  // const handleCategoryPaddingTop = useCategoryPaddingTop(setStyleForm);
   const handleCategoryBackgroundColor =
     useCategoryBackgroundColor(setStyleForm);
   const handleDescriptionLettersColor =
     useDescriptionLettersColor(setStyleForm);
-  const handleCategoryMarginTop = useCategoryMarginTop(setStyleForm);
+  // const handleCategoryMarginTop = useCategoryMarginTop(setStyleForm);
   const handleSubtitleFontColor = useSubtitleFontColor(setStyleForm);
   const getSectionBackground = useGetSectionBackground(styleForm);
   const getDescriptionLetterColor = useGetDescriptionLetterColor(styleForm);
@@ -80,7 +81,6 @@ export default function CustomCategoriesMenu({
 
       // Loop through each customCategories in the newCustomArray
       for (let customCategories of newCustomArray) {
-
         // Initialize the MenuCategory with the title, subtitle, and empty items array
         const menuCategory: MenuCategory = {
           title: customCategories.title,
@@ -299,7 +299,25 @@ export default function CustomCategoriesMenu({
                     {/* {customCategory.items.length ? customCategory.title : null} */}
                   </span>
                 </h2>
-                {showPaddingCategoriesTop && (
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <InputBar
+                    showPaddingCategoriesTop={showPaddingCategoriesTop}
+                    showMarginCategoriesTop={showMarginCategoriesTop}
+                    showJoinInputs={showJoinInputs}
+                    showColorInputs={showColorInputs}
+                    showDecorationCheckboxes={showDecorationCheckboxes}
+                    className="input-bar"
+                    setJoinedCategories={setJoinedCategories}
+                    joinedCategories={joinedCategories}
+                    customCategory={customCategory}
+                    categoryIndex={categoryIndex}
+                    styleForm={styleForm}
+                    setStyleForm={setStyleForm}
+                    showDecorations={showDecorations}
+                    setShowDecorations={setShowDecorations}
+                  />
+                </div>
+                {/* {showPaddingCategoriesTop && (
                   <input
                     type="number"
                     className="no-print"
@@ -310,9 +328,9 @@ export default function CustomCategoriesMenu({
                       )
                     }
                   />
-                )}
+                )} */}
                 &nbsp;
-                {showMarginCategoriesTop && (
+                {/* {showMarginCategoriesTop && (
                   <input
                     type="number"
                     className="no-print"
@@ -323,8 +341,8 @@ export default function CustomCategoriesMenu({
                       )
                     }
                   />
-                )}
-                {showJoinInputs && (
+                )} */}
+                {/* {showJoinInputs && (
                   <Input
                     className="custom-input"
                     type="checkbox"
@@ -341,8 +359,8 @@ export default function CustomCategoriesMenu({
                     }
                     checked={joinedCategories[customCategory.title] || false}
                   />
-                )}
-                {showColorInputs && (
+                )} */}
+                {/* {showColorInputs && (
                   <>
                     <Input
                       type="color"
@@ -363,8 +381,8 @@ export default function CustomCategoriesMenu({
                       reset
                     </button>
                   </>
-                )}
-                {showDecorationCheckboxes && (
+                )} */}
+                {/* {showDecorationCheckboxes && (
                   <Input
                     type="checkbox"
                     className="show-decoration"
@@ -373,7 +391,7 @@ export default function CustomCategoriesMenu({
                     checked={showDecorations === customCategory.title}
                     onChange={() => setShowDecorations(customCategory.title)}
                   />
-                )}
+                )} */}
               </div>
               <div
                 className="subtitle"
@@ -390,8 +408,9 @@ export default function CustomCategoriesMenu({
                 >
                   {customCategory.subtitle}
                 </span>
-                {showColorInputs && (
+                {showColorInputs && customCategory.subtitle && (
                   <>
+                    &nbsp;
                     <Input
                       type="color"
                       className="menu-color-inputs"
@@ -490,9 +509,10 @@ export default function CustomCategoriesMenu({
                       >
                         {item.description}
                       </span>
+                      &nbsp;&nbsp;
                       {showColorInputs && (
                         <Input
-                        className="menu-color-inputs"
+                          className="menu-color-inputs"
                           type="color"
                           onChange={(event) =>
                             handleDescriptionLettersColor(

@@ -1,0 +1,24 @@
+.input-bar-container {
+  display: flex;
+  /* border: 2px solid yellow; */
+  align-items: center;
+  height: 25px;
+  
+}
+/* ---------------- InputBar ---------------- */
+
+.menu-color-inputs-input-bar {
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  /* accent-color: black; */
+  /* border: 5px solid yellow !important; */
+}
+.custom-input-input-bar-bar,
+.show-decoration-input-bar-bar {
+  cursor: pointer;
+  padding: 0 !important;
+  accent-color: black;
+  box-shadow: 0 0 10px #bf4dec, 0 0 20px rgb(191, 77, 236),
+    0 0 40px rgb(191, 77, 236), 0 0 80px #bf4dec;
+}

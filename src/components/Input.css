@@ -1,7 +1,8 @@
-.checkbox-container {
+.inputs-container {
   display: flex;
   align-items: baseline;
 }
+/* ----------- Categories ------------ */
 .checkbox-category-item-in,
 .checkbox-category-item-out,
 .checkbox-category,
@@ -17,7 +18,7 @@
   box-shadow: 0 0 10px #bf4dec, 0 0 20px rgb(191, 77, 236),
     0 0 40px rgb(191, 77, 236), 0 0 80px #bf4dec;
 }
-
+/* ----------- Preview Tool ------------ */
 .color-inputs {
   display: inline-block;
   width: 16%;
@@ -34,9 +35,10 @@
   border: 1px solid #ddd;
   margin-bottom: 3px;
 }
+/* -----------  CustomCategoriesMenu ----------------- */
 .menu-color-inputs {
   display: inline-block;
-  width: 25px; /* Ensure width and height are equal */
+  width: 25px; 
   height: 25px;
   background: linear-gradient(
     to right,
@@ -49,14 +51,16 @@
   );
   border-radius: 50%;
   border: 1px solid #ddd;
-  margin-bottom: 3px;
+  /* margin-bottom: 3px; */
 }
 
 .inputs {
   opacity: 0;
   cursor: pointer;
 }
+
 .input-style {
+  cursor: pointer;
   padding: 2px;
   width: 15%;
   height: 30px;

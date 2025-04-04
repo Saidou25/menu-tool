@@ -12,10 +12,13 @@ type InputProps = {
   checked?: boolean;
   name?: string;
   htmlFor?: string;
-  value?: string;
+  value?: string | number;
+  placeholder?: string;
+  min?: number | string;
 };
 
 export default function Input({
+  placeholder,
   value,
   smallTitle,
   type,
@@ -32,9 +35,11 @@ export default function Input({
 
   if (type === "checkbox") {
     return (
-      <div className="checkbox-container">
+      <div className="inputs-container">
         <input
-          className={className}
+          className={
+            className?.includes("input-bar") ? `${className}-bar` : className
+          }
           id={id}
           type="checkbox"
           onChange={onChange}
@@ -59,9 +64,7 @@ export default function Input({
     return (
       <label
         className={
-          className === "color-inputs"
-            ? "color-inputs"
-            : "menu-color-inputs"
+          className === "color-inputs" ? "color-inputs" : "menu-color-inputs"
         }
         htmlFor={name}
       >
@@ -69,6 +72,52 @@ export default function Input({
           className="inputs"
           type="color"
           id={name}
+          value={value}
+          onChange={onChange}
+          name={name}
+        />
+      </label>
+    );
+  }
+  if (type === "number") {
+    return (
+      <label className={className} htmlFor={htmlFor}>
+        <input
+          className="inputs"
+          type="number"
+          id={id}
+          value={value}
+          onChange={onChange}
+          name={name}
+          placeholder={placeholder}
+        />
+      </label>
+    );
+  }
+  if (type === "text") {
+    return (
+      <label className={className} htmlFor={htmlFor}>
+        <input
+          className={className}
+          type="text"
+          id={id}
+          value={value}
+          onChange={onChange}
+          name={name}
+          placeholder="enter text..."
+        />
+      </label>
+    );
+  }
+  if (type === "file") {
+    return (
+      <label className={className} htmlFor={htmlFor}>
+        <input
+          hidden
+          accept="image/*"
+          className="inputs"
+          type="file"
+          id={id}
           value={value}
           onChange={onChange}
           name={name}

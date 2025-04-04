@@ -384,7 +384,7 @@ export default function PreviewTools({
             >
               <br />
               <Input
-               type="checkbox"
+                type="checkbox"
                 className="checkbox"
                 onChange={() => handleToolsChecboxes(displayTool.title)}
                 checked={showToolItems.includes(displayTool.title)}
@@ -474,7 +474,7 @@ export default function PreviewTools({
                       {displayLabel.label === "Join categories checkboxes" && (
                         <div className="ps-4">
                           <Input
-                           type="checkbox"
+                            type="checkbox"
                             onChange={() => setShowJoinInputs(!showJoinInputs)}
                             checked={showJoinInputs}
                             className="checkbox"
@@ -489,7 +489,7 @@ export default function PreviewTools({
                       {displayLabel.label === "Categories padding top" && (
                         <div className="ps-4">
                           <Input
-                           type="checkbox"
+                            type="checkbox"
                             onChange={() =>
                               setShowPaddingCategoriesTop(
                                 !showPaddingCategoriesTop
@@ -507,7 +507,7 @@ export default function PreviewTools({
                       {displayLabel.label === "Categories margin top" && (
                         <div className="ps-4">
                           <Input
-                           type="checkbox"
+                            type="checkbox"
                             onChange={() =>
                               setShowMarginCategoriesTop(
                                 !showMarginCategoriesTop
@@ -524,7 +524,7 @@ export default function PreviewTools({
                       {displayLabel.label === "Prices checkboxes" && (
                         <div className="ps-4">
                           <Input
-                           type="checkbox"
+                            type="checkbox"
                             className="checkbox"
                             checked={hidePrices}
                             onChange={() => setHidePrices(!hidePrices)}
@@ -537,7 +537,7 @@ export default function PreviewTools({
                       {displayLabel.label === "Decorations checkboxes" && (
                         <div className="ps-4">
                           <Input
-                           type="checkbox"
+                            type="checkbox"
                             className="checkbox"
                             checked={showDecorationCheckboxes}
                             onChange={() =>
@@ -549,13 +549,12 @@ export default function PreviewTools({
                             id="show-decoration"
                             htmlFor="show-decoration"
                           />
-                         
                         </div>
                       )}
                       {displayLabel.label === "Colors checkboxes" && (
                         <div className="ps-4">
                           <Input
-                           type="checkbox"
+                            type="checkbox"
                             className="checkbox"
                             checked={showColorInputs}
                             onChange={() =>
@@ -565,7 +564,6 @@ export default function PreviewTools({
                             id="color-inputs"
                             htmlFor="color-inputs"
                           />
-                         
                         </div>
                       )}
 
@@ -623,19 +621,18 @@ export default function PreviewTools({
                                   Choose File
                                 </button>
                               </label>
-                              <input
+                              <Input
                                 id={`file-upload-${item}-${index}`}
                                 type="file"
-                                hidden
                                 name={item}
-                                accept="image/*"
                                 onChange={handleChange}
+                                htmlFor={`file-upload-${item}-${index}`}
                               />
                             </div>
                           ) : getInputType(item) === "color" ? (
                             // Render color picker input correctly
                             <Input
-                            className="color-inputs"
+                              className="color-inputs"
                               type="color"
                               value={
                                 keyMap[item as keyof typeof keyMap] ===
@@ -658,7 +655,9 @@ export default function PreviewTools({
                             <input
                               className="input-style"
                               type={getInputType(item)}
-                              placeholder={getPlaceholderType(item)}
+                              id={item}
+                              // htmlFor={item}
+                              placeholder={String(getPlaceholderType(item))}
                               min={item !== "gap text" ? 0 : ""}
                               value={
                                 keyMap[item as keyof typeof keyMap] ===
