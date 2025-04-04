@@ -48,7 +48,6 @@ export default function CategoryItems({
     showCategoryItemsFunc(updatedSelectedCategoryItems);
   };
 
-  // console.log("selectedCategoryItems", selectedCategoryItems);
 
   return (
     <div className="category-items-container">

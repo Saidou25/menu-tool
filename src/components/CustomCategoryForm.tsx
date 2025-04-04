@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { MenuCategory, MenuCustomCategory } from "../data/types";
 import { IoMdAddCircle } from "react-icons/io";
 import { IoCloseOutline } from "react-icons/io5";
@@ -9,7 +9,7 @@ import Button from "./Button";
 type Props = {
   setFadeInOut: React.Dispatch<React.SetStateAction<boolean>>;
   // customArrTitles: string[];
-  setCustomArrTitles: React.Dispatch<React.SetStateAction<string[]>>;
+  // setCustomArrTitles: React.Dispatch<React.SetStateAction<string[]>>;
   newArray: MenuCategory[]; // Accept newArray from parent
   setNewArray: React.Dispatch<React.SetStateAction<MenuCategory[]>>; // Accept setNewArray from parent
   newCustomCategories: any[];
@@ -27,7 +27,7 @@ type Props = {
 export default function CustomCategoryForm({
   // customArrTitles,
   setFadeInOut,
-  setCustomArrTitles,
+  // setCustomArrTitles,
   newArray,
   setNewArray,
   newCustomCategories,
@@ -99,9 +99,9 @@ export default function CustomCategoryForm({
     setShowPlus(!showPlus);
   };
 
-  useEffect(() => {
-    setCustomArrTitles(newCustomArray?.map((category) => category.title));
-  }, [newCustomArray]);
+  // useEffect(() => {
+  //   setCustomArrTitles(newCustomArray?.map((category) => category.title));
+  // }, [newCustomArray]);
 
   return (
     <div className="custom-form-container">

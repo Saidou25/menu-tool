@@ -49,12 +49,7 @@ export default function Categories({
   // setCustomCategoryList,
   customCategoryList,
 }: Props) {
-  const [newArray, setNewArray] = useState<MenuCategory[]>([]); // Use correct type
-  // const [allItems, setAllItems] = useState<any[]>([]);
-  const [consolidatedView, setConsolitedView] = useState<{
-    item: boolean;
-    title: string;
-  }>({ item: false, title: "" });
+  const [newArray, setNewArray] = useState<MenuCategory[]>([]); 
   const [customCategories, setCustomCategories] = useState<
     { categoryItem: string }[]
   >([]);
@@ -88,7 +83,7 @@ export default function Categories({
     Record<string, { subtitle?: string; items: Field[] }>
   >({});
   const [newCustomArray, setNewCutomArray] = useState<MenuCustomCategory[]>([]); // Use correct type
-  const [customArrTitles, setCustomArrTitles] = useState<string[]>([]);
+  // const [customArrTitles, setCustomArrTitles] = useState<string[]>([]);
   const [styleForm, setStyleForm] = useState<StyleFormType>({
     menuWidth: 0,
     menuHeight: 0,
@@ -150,6 +145,13 @@ export default function Categories({
   const [flatItemsCategories, setFlatItemsCategories] = useState<
     MenuCategory[]
   >([]);
+  const [consolidatedView, setConsolitedView] = useState<
+    {
+      item: boolean;
+      title: string;
+    }[]
+  >([]);
+
   const handleClick = (item: string) => {
     const updatedNewArray = newCustomArray.filter(
       (newArr) => newArr.title !== item
@@ -265,6 +267,20 @@ export default function Categories({
       });
     }
   }, [selectedData, categoriesList]); // Runs only when dependencies change
+
+  const handleConsolidatedView = (title: string) => {
+    setConsolitedView((prevState) => {
+      const itemExists = prevState.some((item) => item.title === title);
+
+      if (itemExists) {
+        // Remove the item if it exists
+        return prevState.filter((item) => item.title !== title);
+      } else {
+        // Add the item if it doesn't exist
+        return [...prevState, { item: true, title }];
+      }
+    });
+  };
 
   const render = (newArrTitle: string) => {
     const flatArr = [];
@@ -457,6 +473,7 @@ export default function Categories({
                 checked={showDisclaimer}
                 name="disclaimer"
               />
+              &nbsp;&nbsp;
               <SmallTittles label="Select to add FDA disclaimer to the bottom of your menu" />
             </div>
           </div>
@@ -488,11 +505,12 @@ export default function Categories({
             setNewCustomArray={setNewCutomArray}
             newCustomArray={newCustomArray}
             // customArrTitles={customArrTitles}
-            setCustomArrTitles={setCustomArrTitles}
+            // setCustomArrTitles={setCustomArrTitles}
             setFadeInOut={setFadeInOut}
             // fadeInOut={fadInOut}
           />
         )}
+       
         <br />
         <br />
         <br />
@@ -522,20 +540,11 @@ export default function Categories({
                     type="checkbox"
                     className="consolited-view"
                     id="consolited-view"
-                    onChange={() =>
-                      setConsolitedView((prevState) => ({
-                        item:
-                          prevState.title === newArr.title
-                            ? !prevState.item
-                            : true,
-                        title: newArr.title, // Keep the selected title consistent
-                      }))
-                    }
-                    checked={
-                      consolidatedView.item &&
-                      consolidatedView.title === newArr.title
-                    }
-                    label="consolited view"
+                    onChange={() => handleConsolidatedView(newArr.title)}
+                    checked={consolidatedView.some(
+                      (item) => item.title === newArr.title
+                    )}  // .some() is more efficient than .find() because it directly returns true or false without needing extra conversion.
+                    label="compact view"
                     htmlFor="consolited view"
                     // fadeInOut={fadeInOut}
                   />
@@ -559,9 +568,9 @@ export default function Categories({
                   <br />
                   <br />
                 </div>
+
                 {newCustomArray.length > 0 &&
-                consolidatedView.item &&
-                consolidatedView.title === newArr.title ? (
+                consolidatedView.some((item) => item.title === newArr.title) ? (
                   <div className="col-10">
                     <div className="row preview-item-container g-0">
                       {render(newArr.title)}
@@ -582,7 +591,7 @@ export default function Categories({
                               newCustomArray={newCustomArray}
                               setNewCustomArray={setNewCutomArray}
                               selectedData={selectedData}
-                              consolidatedView={consolidatedView}
+                              // consolidatedView={consolidatedView}
                               selectedCategoryItems={
                                 localSelectedCategoryItems[Category.title]
                                   ?.items || []
@@ -635,20 +644,21 @@ export default function Categories({
               </div>
             </div>
           ))}
-        {/* </> */}
+        {newCustomArray[0]?.subCategories.length &&
+        newCustomArray.length !== consolidatedView.length ? (
+          <div className="ps-2" style={{ marginLeft: "17%", marginTop: "5%" }}>
+            <input
+              className="checkbox-category"
+              id="disclaimer"
+              type="checkbox"
+              onChange={handleDisclaimer}
+              checked={showDisclaimer}
+              name="disclaimer"
+            />
+            <SmallTittles label="Select to add FDA disclaimer to the bottom of your menu" />
+          </div>
+        ) : null}
 
-        <div className="ps-5">
-          <Input
-            className="checkbox-category"
-            id="disclaimer"
-            type="checkbox"
-            onChange={handleDisclaimer}
-            checked={showDisclaimer}
-            name="disclaimer"
-            label="Select to add FDA disclaimer to the bottom of your menu"
-          />
-          {/* <SmallTittles label="Select to add FDA disclaimer to the bottom of your menu" /> */}
-        </div>
         <br />
         <br />
         <br />

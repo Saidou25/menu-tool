@@ -56,6 +56,9 @@
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }
+    #root {
+      padding: 0 !important;
+    }
     .app-container {
         padding: 0 !important;
       }

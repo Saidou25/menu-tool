@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Field, MenuCustomCategory } from "../data/types";
+import Input from "./Input";
 
 import "./CategoryItems.css";
-import Input from "./Input";
 
 type CategoriesProps = {
   newArr: any;
@@ -10,7 +10,7 @@ type CategoriesProps = {
   setNewCustomArray: React.Dispatch<React.SetStateAction<MenuCustomCategory[]>>;
   // newArray: MenuCategory[]; // Accept newArray from parent
   selectedData: Record<string, { subtitle?: string; items: Field[] }>; // Update here
-  consolidatedView: { item: boolean; title: string };
+  // consolidatedView: { item: boolean; title: string }[];
   fields: Field[]; // Fields data from the parent component used to display in the current the component
   title: string; // Title data from the parent component used to display in the current component
   children?: React.ReactNode; // This prop accepts the child components

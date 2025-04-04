@@ -20,8 +20,11 @@ margin: 0;
 
 .container-final-step {
   display: flex;
+ justify-content: center;  /* new */
   gap: 20px;
-  width: auto;
+  width: fit-content;
+  height: fit-content;
+  /* width: auto; */
   margin: auto;
   background: rgba(22, 19, 19, 0.93);
   padding: 20px;

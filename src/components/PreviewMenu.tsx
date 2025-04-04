@@ -6,9 +6,9 @@ import BackMenu from "./BackMenu";
 import CustomMenu from "./CustomMenu";
 import View from "./View";
 import CustomCategoriesMenu from "./CustomCategoriesMenu";
+import CustomMenuView from "./CustomMenuView";
 
 import "./PreviewMenu.css";
-import CustomMenuView from "./CustomMenuView";
 
 type ModalProps = {
   flatItemsCategories: MenuCategory[];
@@ -212,7 +212,7 @@ const PreviewMenu = ({
   }
 
   return (
-    <>
+    // <>
       <div className="container-final-step">
         {/* <style>{animation}</style> */}
         <div
@@ -275,7 +275,7 @@ const PreviewMenu = ({
           {children[2]} {/* Renders preview tools*/}
         </div>
       </div>
-    </>
+    // </>
   );
 };
 

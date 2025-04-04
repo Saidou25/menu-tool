@@ -368,7 +368,8 @@ export default function PreviewTools({
 
   return (
     <div className="no-print">
-      <h2 className="preview-tools-title">Preview Tool</h2>
+      {styleForm.menuHeight ? <h2 className="preview-tools-title">Preview Tool</h2> : null}
+      {/* <h2 className="preview-tools-title">Preview Tool</h2> */}
       <div
         className="preview-tools-container"
         style={{ height: `${+styleForm.menuHeight}mm`, overflow: "scroll" }}

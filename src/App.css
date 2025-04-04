@@ -2,6 +2,7 @@
   min-height: 100vh;
   background-image: linear-gradient(180deg, rgb(18, 91, 93), rgb(4, 4, 4));
   color: rgba(255, 255, 255, 0.899);
+  padding: 3% 0 3% 0;
 }
 * {
   box-sizing: border-box; /* Ensures consistent box model behavior */
