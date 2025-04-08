@@ -21,8 +21,20 @@ export default function Button({
   printEdit,
   onClick,
 }: ButtonType) {
+
+  
   return (
-    <div className={!printEdit ? "container-button" : "print-edit-container"}>
+    <div
+      className={
+        !printEdit && className !== "img-button" && className !== "background"
+          ? "container-button"
+          : className === "img-button"
+          ? "img-button"
+          : className === "background" 
+          ? "background"
+          : "print-edit-container"
+      }
+    >
       <button
         className={`${className} btn`}
         value={value}

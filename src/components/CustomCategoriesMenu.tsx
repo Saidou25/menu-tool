@@ -16,6 +16,7 @@ import Input from "./Input";
 import InputBar from "./InputBar";
 
 import "./CustomCategoriesMenu.css";
+import Button from "./Button";
 
 type Props = {
   flatItemsCategories: MenuCategory[];
@@ -159,12 +160,13 @@ export default function CustomCategoriesMenu({
         }}
       >
         {showImagesDeleteButtons && styleForm.backgroundImage && (
-          <button
+          <Button
             type="button"
             onClick={() => setStyleForm({ ...styleForm, backgroundImage: "" })}
+            className="background"
           >
             delete background image
-          </button>
+          </Button>
         )}
 
         {styleForm.guyTop && (
@@ -180,18 +182,19 @@ export default function CustomCategoriesMenu({
               alt=""
               src={styleForm.guyTop}
               style={{
-                maxWidth: "100%",
                 width: `${styleForm.guyTopSize}px`,
+                maxWidth: "100%",
                 height: "auto",
               }}
             />
             {showImagesDeleteButtons && (
-              <button
+              <Button
                 type="button"
                 onClick={() => setStyleForm({ ...styleForm, guyTop: "" })}
+                className="img-button"
               >
                 delete
-              </button>
+              </Button>
             )}
           </div>
         )}
@@ -222,26 +225,35 @@ export default function CustomCategoriesMenu({
           </div>
         )}
         {styleForm.topImage && (
-          <div style={{ width: `${styleForm.topImageSize}px`, margin: "auto" }}>
+          <div
+            style={{
+              width: `${styleForm.topImageSize}px`,
+              display: "flex",
+              justifyContent: "center",
+              margin: "auto"
+            }}
+          >
             <img
               className="image-fluid"
               alt=""
               src={styleForm.topImage}
-              style={{ maxWidth: "100%", height: "auto" }}
+              style={{
+                maxWidth: "100%",
+                // width: `${styleForm.topImage}px`,
+                height: "auto",
+              }}
             />
             {showImagesDeleteButtons && (
-              <button
+              <Button
                 type="button"
                 onClick={() => setStyleForm({ ...styleForm, topImage: "" })}
+                className="img-button"
               >
                 delete
-              </button>
+              </Button>
             )}
           </div>
         )}
-{/* <div className="row" style={{ 
-  
-}}> */}
         {flatItemsCategories &&
           flatItemsCategories.map((customCategory, categoryIndex) => (
             <div
@@ -256,7 +268,7 @@ export default function CustomCategoriesMenu({
               style={{
                 ...getDynamicStyles(
                   joinedCategories[customCategory.title]
-                    ? "col-6" 
+                    ? "col-6"
                     : customCategory.title === showDecorations
                     ? "col-12 content-container"
                     : "col-12",
@@ -358,14 +370,15 @@ export default function CustomCategoriesMenu({
                         )
                       }
                     />
-                    <button
+                    <Button
                       type="button"
                       onClick={() =>
                         handleCategoryBackgroundColor("", categoryIndex)
                       }
+                      className="img-button"
                     >
                       reset
-                    </button>
+                    </Button>
                   </>
                 )}
               </div>
@@ -467,7 +480,6 @@ export default function CustomCategoriesMenu({
               </ul>
             </div>
           ))}
-</div>
         <div className="row" style={{ gap: "10px" }}>
           {styleForm.bottomImage && (
             <div
@@ -490,14 +502,15 @@ export default function CustomCategoriesMenu({
                 }}
               />
               {showImagesDeleteButtons && (
-                <button
+                <Button
                   type="button"
                   onClick={() =>
                     setStyleForm({ ...styleForm, bottomImage: "" })
                   }
+                  className="img-button"
                 >
                   delete
-                </button>
+                </Button>
               )}
             </div>
           )}
@@ -522,12 +535,13 @@ export default function CustomCategoriesMenu({
                 // width: `${styleForm.guyBottomSize}px`,
               />
               {showImagesDeleteButtons && (
-                <button
+                <Button
                   type="button"
                   onClick={() => setStyleForm({ ...styleForm, guyBottom: "" })}
+                  className="img-button"
                 >
                   delete
-                </button>
+                </Button>
               )}
             </div>
           )}
@@ -554,6 +568,6 @@ export default function CustomCategoriesMenu({
           />
         )}
       </div>
-    // </div>
+    </div>
   );
 }
