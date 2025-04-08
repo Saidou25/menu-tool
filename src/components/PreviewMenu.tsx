@@ -103,7 +103,7 @@ const PreviewMenu = ({
   }, [dataSample, categoryOrder, organizedData]); // Include organizedData in dependencies for comparison
 
   // Split the categories into two parts
-  const firstCategories = categoryOrder.slice(0, 5);
+  // const firstCategories = categoryOrder.slice(0, 5);
   const extraCategories = categoryOrder.slice(5);
 
   // Define secondPageData based on categories with data

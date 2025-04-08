@@ -26,10 +26,10 @@ type Props = {
 }
 
 export default function Tools({
-    styleForm,
+    // styleForm,
     setStyleForm,
-    showDecorations,
-    setShowDecorations,
+    // showDecorations,
+    // setShowDecorations,
     showPaddingCategoriesTop,
     showMarginCategoriesTop,
     showJoinInputs,
