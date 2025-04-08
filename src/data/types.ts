@@ -77,6 +77,7 @@ export type StyleFormType = {
   descriptionFontSize: number;
   subtitleFontSize: number;
   subtitleFontColor: subSubtitleFontColor;
+  subtitleColor: string;
   subtitlePaddingBottom: number;
   descriptionMarginBottom: number;
   guyTop: string;

@@ -156,7 +156,7 @@ const displayTools = [
           "title's background color",
           "top text's color",
           "categories' color",
-          "subtitles' color",
+          // "subtitles' color",
           "menu items' color",
           "prices' color",
           "menu items' description color",
@@ -167,7 +167,7 @@ const displayTools = [
     ],
   },
   {
-    title: "Check to hide images' delete buttons",
+    title: "Check to show or hide images' delete buttons",
     displayLabels: [],
   },
 ];
@@ -364,7 +364,7 @@ export default function PreviewTools({
   };
 
   const handleToolsChecboxes = (item: string) => {
-    if (item === "Check to hide images' delete buttons") {
+    if (item === "Check to show or hide images' delete buttons") {
       setShowImagesDeleteButtons(!showImagesDeleteButtons);
     }
     setShowToolItem((prev) =>
@@ -374,7 +374,9 @@ export default function PreviewTools({
 
   return (
     <div className="no-print">
-      {styleForm.menuHeight ? <h2 className="preview-tools-title">Preview Tool</h2> : null}
+      {styleForm.menuHeight ? (
+        <h2 className="preview-tools-title">Preview Tool</h2>
+      ) : null}
       {/* <h2 className="preview-tools-title">Preview Tool</h2> */}
       <div
         className="preview-tools-container"
@@ -403,7 +405,14 @@ export default function PreviewTools({
               <br />
               {showToolItems.includes(displayTool.title) ? (
                 // <div className="lulu-div">
-                <div className="lulu">
+                <div
+                  className={
+                    displayTool.title !==
+                    "Check to show or hide images' delete buttons"
+                      ? "lulu"
+                      : "" /* Avoid white borders for that checbox */
+                  }
+                >
                   {displayTool.displayLabels?.map((displayLabel) => (
                     <div key={displayLabel.label} className="label-container">
                       <span>{displayLabel.label}: </span>
@@ -578,25 +587,6 @@ export default function PreviewTools({
                         <ul className="line" key={item}>
                           <li className="li ps-4 d-flex align-items-center">
                             <span>{item}&nbsp;</span>
-
-                            {/* Only display image preview for file inputs */}
-                            {/* {getInputType(item) === "file" &&
-                          localStyleForm[
-                            keyMap[item as keyof typeof keyMap]
-                          ] && (
-                            <img
-                              className="selected-image"
-                              src={localStyleForm[
-                                keyMap[item as keyof typeof keyMap]
-                              ].toString()}
-                              alt="Uploaded"
-                              style={{
-                                width: "25px",
-                                height: "auto",
-                                marginLeft: "5px",
-                              }} // Adjust size as needed
-                            />
-                          )} */}
                           </li>
 
                           {/* Handle File Upload Inputs */}
@@ -642,15 +632,22 @@ export default function PreviewTools({
                               className="tools"
                               type="color"
                               value={
-                                keyMap[item as keyof typeof keyMap] === "sectionBackground"
+                                keyMap[item as keyof typeof keyMap] ===
+                                "sectionBackground"
                                   ? localStyleForm.sectionBackground.length > 0
-                                    ? localStyleForm.sectionBackground[0]?.backgroundColor || "#000000"
+                                    ? localStyleForm.sectionBackground[0]
+                                        ?.backgroundColor || "#000000"
                                     : "#000000"
-                                  : typeof localStyleForm[keyMap[item as keyof typeof keyMap]] === "string"
-                                  ? (localStyleForm[keyMap[item as keyof typeof keyMap]] as string)?.trim() || "#000000"
+                                  : typeof localStyleForm[
+                                      keyMap[item as keyof typeof keyMap]
+                                    ] === "string"
+                                  ? (
+                                      localStyleForm[
+                                        keyMap[item as keyof typeof keyMap]
+                                      ] as string
+                                    )?.trim() || "#000000"
                                   : "#000000"
                               }
-                              
                               // htmlFor={item}
                               // id={item}
                               name={item}
@@ -692,8 +689,7 @@ export default function PreviewTools({
                     </div>
                   ))}
                 </div>
-              ) :
-              null}
+              ) : null}
             </div>
           ))}
       </div>

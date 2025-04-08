@@ -352,7 +352,7 @@ export default function CustomCategoriesMenu({
                   style={{
                     fontSize: `${styleForm.subtitleFontSize}px`,
                     letterSpacing: "1px",
-                    // color: styleForm.subtitleFontColor.... to Do
+                    
                   }}
                 >
                   {customCategory.subtitle}

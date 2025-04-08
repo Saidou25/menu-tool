@@ -135,6 +135,7 @@ export default function Categories({
     footerTextColor: "",
     subtitleFontSize: 15,
     subtitleFontColor: [],
+    subtitleColor: "",
     subtitlePaddingBottom: 0,
     decoration: "",
     gapTextTop: -11,

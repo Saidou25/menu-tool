@@ -3,11 +3,11 @@ import { StyleFormType } from "../data/types";
 import "./MenuSizeModal.css";
 
 type MenuSizeModalProps = {
-  setShowfinalStep: (item: boolean) => void;
-  setShowModal: (item: boolean) => void;
+  setShowfinalStep?: (item: boolean) => void;
+  setShowModal?: (item: boolean) => void;
   showModal: boolean;
-  setStyleForm: React.Dispatch<React.SetStateAction<StyleFormType>>;
-  styleForm: StyleFormType;
+  setStyleForm?: React.Dispatch<React.SetStateAction<StyleFormType>>;
+  styleForm?: StyleFormType;
 };
 
 export default function MenuSizeModal({
@@ -23,7 +23,7 @@ export default function MenuSizeModal({
     const { name, value } = e.target;
 
     // Update the state using the provided setStyleForm function
-    setStyleForm((prev) => {
+    setStyleForm?.((prev) => {
       const updatedForm = {
         ...prev,
         [name]: value,
@@ -33,12 +33,16 @@ export default function MenuSizeModal({
   };
 
   const onConfirm = () => {
-    setShowfinalStep(true);
-    setShowModal(false);
+    setShowfinalStep?.(true);
+    setShowModal?.(false);
   };
   const handleSubmit = () => {
     setMessage(
-      `Your menu is set for a width of ${styleForm.menuWidth} mm and a height of ${styleForm.menuHeight} mm`
+      `Your menu is set for a width of ${
+        styleForm?.menuWidth ? styleForm.menuWidth : 0
+      } mm and a height of ${
+        styleForm?.menuHeight ? styleForm.menuHeight : 0
+      } mm`
     );
   };
 
@@ -47,26 +51,31 @@ export default function MenuSizeModal({
       <div className="window">
         {message ? (
           <>
-            <h2 className="text-lg font-semibold no-print">Confirm your settings</h2>
+            <h2 className="text-lg font-semibold no-print">
+              Confirm your settings
+            </h2>
             <br className="no-print" />
             <p className="text-lg font-semibold no-print">{message}</p>
             <br className="no-print" />
 
-            <div className="no-print"   style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+            <div
+              className="no-print"
+              style={{ display: "flex", gap: "10px", justifyContent: "center" }}
+            >
               <button
                 className="button"
                 type="button"
                 onClick={() => {
                   setMessage("");
-                  setShowModal(true);
+                  setShowModal?.(true);
                 }}
                 style={{
-                    width: "100%",
-                    backgroundColor: "#dc3545",
-                    border: "none",
-                    color: "white",
-                    padding: "4px",
-                  }}
+                  width: "100%",
+                  backgroundColor: "#dc3545",
+                  border: "none",
+                  color: "white",
+                  padding: "4px",
+                }}
               >
                 Modify
               </button>
@@ -75,12 +84,12 @@ export default function MenuSizeModal({
                 type="button"
                 onClick={onConfirm}
                 style={{
-                    width: "100%",
-                    backgroundColor: "#dc3545",
-                    border: "none",
-                    color: "white",
-                    padding: "4px",
-                  }}
+                  width: "100%",
+                  backgroundColor: "#dc3545",
+                  border: "none",
+                  color: "white",
+                  padding: "4px",
+                }}
               >
                 Confirm
               </button>
@@ -92,29 +101,41 @@ export default function MenuSizeModal({
             <br />
             <h4>Please choose a width and height for your menu</h4>
             <br />
-            <label>Menu Width (mm): </label>
+            <label htmlFor="width">Menu Width (mm): </label>
+            <br />
             <input
+              id="width"
               type="number"
               placeholder={
-                styleForm.menuWidth > 0
-                  ? styleForm.menuWidth.toString()
+                styleForm?.menuWidth && styleForm.menuWidth > 0
+                  ? styleForm?.menuWidth.toString()
                   : "Enter width..."
               }
               name="menuWidth"
-              value={styleForm.menuWidth > 0 ? styleForm.menuWidth : ""} // Bind the input value to the state
+              value={
+                styleForm?.menuWidth && styleForm.menuWidth > 0
+                  ? styleForm?.menuWidth
+                  : ""
+              } // Bind the input value to the state
               onChange={handleChange}
             />
             <br />
-            <label>Menu Height (mm):</label>
+            <label htmlFor="height">Menu Height (mm):</label>
+            <br />
             <input
+              id="height"
               type="number"
               placeholder={
-                styleForm.menuHeight > 0
+                styleForm?.menuHeight && styleForm?.menuHeight > 0
                   ? styleForm.menuHeight.toString()
                   : "Enter height..."
               }
               name="menuHeight"
-              value={styleForm.menuHeight > 0 ? styleForm.menuHeight : ""} // Bind the input value to the state
+              value={
+                styleForm?.menuHeight && styleForm?.menuHeight > 0
+                  ? styleForm.menuHeight
+                  : ""
+              } // Bind the input value to the state
               onChange={handleChange}
             />
             <br />
@@ -124,7 +145,7 @@ export default function MenuSizeModal({
               style={{ display: "flex", gap: "10px", justifyContent: "center" }}
             >
               <button
-                onClick={() => setShowModal(false)}
+                onClick={() => setShowModal?.(false)}
                 className="button"
                 style={{
                   width: "100%",

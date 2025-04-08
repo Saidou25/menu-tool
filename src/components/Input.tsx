@@ -59,7 +59,7 @@ export default function Input({
       </div>
     );
   }
-
+// console.log(className, value);
   if (type === "color") {
     return (
       <label

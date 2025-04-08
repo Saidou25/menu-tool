@@ -42,8 +42,10 @@ em {
 }
 .start {
   margin: auto;
-  margin-top: 8%;
+  margin-top: 6%;
   padding: 3%;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   border: none;
   color: white;

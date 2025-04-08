@@ -1,4 +1,10 @@
-# React + TypeScript + Vite
+# MENU TOOL
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+##### Link to [TMIWORLD](https://saidou25.github.io/menu-tool/) (# React + TypeScript + Vite).
+
+
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 

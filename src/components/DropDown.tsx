@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import { StyleFormType } from "../data/types";
-import "./DropDown.css";
 import MenuSizeModal from "./MenuSizeModal";
 
+import "./DropDown.css";
+
 type SelectDropDownProps = {
-  setShowModal: (item: boolean) => void;
-  setShowfinalStep: (item: boolean) => void;
+  setShowModal?: (item: boolean) => void;
+  setShowfinalStep?: (item: boolean) => void;
   showModal?: boolean;
   selectDropDownItem?: (item: string) => void;
   message: string;
   width?: string;
-  styleForm: StyleFormType;
-  setStyleForm: React.Dispatch<React.SetStateAction<StyleFormType>>;
+  styleForm?: StyleFormType;
+  setStyleForm?: React.Dispatch<React.SetStateAction<StyleFormType>>;
 };
 
 export default function DropDown({
@@ -57,7 +58,7 @@ export default function DropDown({
           menuWidth: selectedFormat.width,
           menuHeight: selectedFormat.height,
         }));
-        setShowfinalStep(true);
+        setShowfinalStep?.(true);
       }
     }
   };
