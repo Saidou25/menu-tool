@@ -2,6 +2,7 @@ import { StyleFormType } from "../data/types";
 import { useCategoryBackgroundColor } from "../hooks/useCategoryBackgrounColor";
 import { useCategoryPaddingTop } from "../hooks/useCategoryPaddingTop";
 import { useCategoryMarginTop } from "../hooks/useMarginCategoriesTop";
+import Button from "./Button";
 import Input from "./Input";
 
 import "./InputBar.css";
@@ -41,12 +42,12 @@ export default function InputBar({
   showDecorations,
   setShowDecorations,
 }: InputBarProps) {
-
   const handleCategoryPaddingTop = useCategoryPaddingTop(setStyleForm);
   const handleCategoryMarginTop = useCategoryMarginTop(setStyleForm);
   const handleCategoryBackgroundColor =
     useCategoryBackgroundColor(setStyleForm);
 
+  // console.log("customCategory", customCategory.category);
   return (
     <div className="input-bar-container">
       {showPaddingCategoriesTop && (
@@ -56,6 +57,7 @@ export default function InputBar({
           onChange={(event) =>
             handleCategoryPaddingTop(+event.target.value, categoryIndex)
           }
+          style={{ width: "18%", height: "30px" }}
         />
       )}
       &nbsp;
@@ -66,26 +68,33 @@ export default function InputBar({
           onChange={(event) =>
             handleCategoryMarginTop(+event.target.value, categoryIndex)
           }
+          style={{ width: "18%", height: "30px" }}
         />
       )}
       &nbsp;
       {showJoinInputs && (
-        <Input
-          className={`custom-input-${className}`}
-          type="checkbox"
-          onChange={() =>
-            setJoinedCategories((prev) => {
-              const newState = { ...prev };
-              if (newState[customCategory.title]) {
-                delete newState[customCategory.title]; // Remove the customCategories when toggled off
-              } else {
-                newState[customCategory.title] = true; // Add customCategories when toggled on
-              }
-              return newState;
-            })
-          }
-          checked={joinedCategories[customCategory.title] || false}
-        />
+     <Input
+     className={`custom-input-${className}`}
+     type="checkbox"
+     onChange={() =>
+       setJoinedCategories((prev) => {
+         const newState = { ...prev };
+         const key = customCategory.title ?? customCategory.category; // Use whichever exists
+   
+         if (key) {
+           if (newState[key]) {
+             delete newState[key]; // Remove if it exists (toggle off)
+           } else {
+             newState[key] = true; // Add if it doesn't exist (toggle on)
+           }
+         }
+   
+         return newState;
+       })
+     }
+     checked={!!joinedCategories[customCategory.title ?? customCategory.category]}
+   />
+   
       )}
       {showColorInputs && (
         <>
@@ -96,14 +105,14 @@ export default function InputBar({
               handleCategoryBackgroundColor(event.target.value, categoryIndex)
             }
           />
-          &nbsp;
-          <button
+          &nbsp;&nbsp;
+          <Button
             type="button"
             onClick={() => handleCategoryBackgroundColor("", categoryIndex)}
           >
             reset
-          </button>
-          &nbsp;
+          </Button>
+          &nbsp;&nbsp;
         </>
       )}
       {showDecorationCheckboxes && (
@@ -112,8 +121,17 @@ export default function InputBar({
           className={`show-decoration-${className}`}
           id="show-decoration"
           htmlFor="show-decoration"
-          checked={showDecorations === customCategory.title}
-          onChange={() => setShowDecorations(customCategory.title)}
+          checked={
+            showDecorations === customCategory.title ||
+            showDecorations === customCategory.category
+          }
+          onChange={() =>
+            setShowDecorations(
+              customCategory.title
+                ? customCategory.title
+                : customCategory.category
+            )
+          }
         />
       )}
     </div>

@@ -6,7 +6,7 @@ import MenuSizeModal from "./MenuSizeModal";
 type SelectDropDownProps = {
   setShowModal: (item: boolean) => void;
   setShowfinalStep: (item: boolean) => void;
-  showModal: boolean;
+  showModal?: boolean;
   selectDropDownItem?: (item: string) => void;
   message: string;
   width?: string;

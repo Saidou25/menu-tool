@@ -60,8 +60,8 @@ margin: 0;
   text-align: center;
   text-transform: uppercase;
   font-family: "Pewter Corroded", sans-serif;
-  display: flex;
-  align-items: baseline;
+  /* display: flex; */
+  /* align-items: baseline; */
 }
 .subtitle {
   text-align: center;

@@ -32,7 +32,6 @@ export default function Input({
   label,
   htmlFor,
 }: InputProps) {
-
   if (type === "checkbox") {
     return (
       <div className="inputs-container">
@@ -60,13 +59,19 @@ export default function Input({
       </div>
     );
   }
+
   if (type === "color") {
     return (
       <label
-        className={
-          className === "color-inputs" ? "color-inputs" : "menu-color-inputs"
-        }
+        className={className !== "tools" && value !== "#000000" ? "menu-color-inputs" : ""}
         htmlFor={name}
+        style={{
+          backgroundColor: className === "tools" ? `${value}` : "#000000",
+          width: className === "tools" ?"16%" : "25px",
+          height: className === "tools" ? "2%" : "25px",
+          border: "1px solid #ddd",
+          marginBottom: className === "tools" ? "3px" : "0",
+        }}
       >
         <input
           className="inputs"

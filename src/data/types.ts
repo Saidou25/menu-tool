@@ -80,6 +80,7 @@ export type StyleFormType = {
   subtitlePaddingBottom: number;
   descriptionMarginBottom: number;
   guyTop: string;
+  guyBackgroundColor: string;
   guyBottom: string;
   guyTopSize: number;
   guyBottomSize: number;

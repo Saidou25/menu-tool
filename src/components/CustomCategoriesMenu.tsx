@@ -13,9 +13,9 @@ import { useDynamicStyles } from "../hooks/useDynamicStyles";
 import { useGetSubtitleFontColor } from "../hooks/useGetSubtitleFontColor";
 import Footer from "./Footer";
 import Input from "./Input";
+import InputBar from "./InputBar";
 
 import "./CustomCategoriesMenu.css";
-import InputBar from "./InputBar";
 
 type Props = {
   flatItemsCategories: MenuCategory[];
@@ -132,7 +132,8 @@ export default function CustomCategoriesMenu({
     };
   }, [styleForm.contentContainerWidth]);
 
-  // console.log(flatItemsCategories);
+  // console.log(joinedCategories);
+  // console.log(showDecorations);
   return (
     <div
       className="row custom-menu-items-container print"
@@ -167,12 +168,22 @@ export default function CustomCategoriesMenu({
         )}
 
         {styleForm.guyTop && (
-          <div style={{ width: `${styleForm.guyTopSize}px`, margin: "auto" }}>
+          <div
+            style={{
+              backgroundColor: styleForm.guyBackgroundColor,
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <img
               className="image-fluid"
               alt=""
               src={styleForm.guyTop}
-              style={{ maxWidth: "100%", height: "auto" }}
+              style={{
+                maxWidth: "100%",
+                width: `${styleForm.guyTopSize}px`,
+                height: "auto",
+              }}
             />
             {showImagesDeleteButtons && (
               <button
@@ -228,12 +239,14 @@ export default function CustomCategoriesMenu({
             )}
           </div>
         )}
-
+{/* <div className="row" style={{ 
+  
+}}> */}
         {flatItemsCategories &&
           flatItemsCategories.map((customCategory, categoryIndex) => (
             <div
               className={
-                joinedCategories[categoryIndex]
+                joinedCategories[customCategory.title]
                   ? "col-6"
                   : customCategory.title === showDecorations
                   ? "col-12 content-container"
@@ -243,7 +256,7 @@ export default function CustomCategoriesMenu({
               style={{
                 ...getDynamicStyles(
                   joinedCategories[customCategory.title]
-                    ? "col-6"
+                    ? "col-6" 
                     : customCategory.title === showDecorations
                     ? "col-12 content-container"
                     : "col-12",
@@ -253,8 +266,6 @@ export default function CustomCategoriesMenu({
                 marginBottom: `${styleForm.categoriesMarginBottom}px`,
                 paddingTop: getCategoryPaddingTop(categoryIndex),
                 marginTop: getCategoryMarginTop(categoryIndex),
-                // paddingRight: `${styleForm.paddingCategoriesLeftRight}px`,
-                // paddingLeft: `${styleForm.paddingCategoriesLeftRight}px`,
               }}
             >
               <div
@@ -317,81 +328,6 @@ export default function CustomCategoriesMenu({
                     setShowDecorations={setShowDecorations}
                   />
                 </div>
-                {/* {showPaddingCategoriesTop && (
-                  <input
-                    type="number"
-                    className="no-print"
-                    onChange={(event) =>
-                      handleCategoryPaddingTop(
-                        +event.target.value,
-                        categoryIndex
-                      )
-                    }
-                  />
-                )} */}
-                &nbsp;
-                {/* {showMarginCategoriesTop && (
-                  <input
-                    type="number"
-                    className="no-print"
-                    onChange={(event) =>
-                      handleCategoryMarginTop(
-                        +event.target.value,
-                        categoryIndex
-                      )
-                    }
-                  />
-                )} */}
-                {/* {showJoinInputs && (
-                  <Input
-                    className="custom-input"
-                    type="checkbox"
-                    onChange={() =>
-                      setJoinedCategories((prev) => {
-                        const newState = { ...prev };
-                        if (newState[customCategory.title]) {
-                          delete newState[customCategory.title]; // Remove the customCategories when toggled off
-                        } else {
-                          newState[customCategory.title] = true; // Add customCategories when toggled on
-                        }
-                        return newState;
-                      })
-                    }
-                    checked={joinedCategories[customCategory.title] || false}
-                  />
-                )} */}
-                {/* {showColorInputs && (
-                  <>
-                    <Input
-                      type="color"
-                     className="menu-color-inputs"
-                      onChange={(event) =>
-                        handleCategoryBackgroundColor(
-                          event.target.value,
-                          categoryIndex
-                        )
-                      }
-                    />
-                    <button
-                      type="button"
-                      onClick={() =>
-                        handleCategoryBackgroundColor("", categoryIndex)
-                      }
-                    >
-                      reset
-                    </button>
-                  </>
-                )} */}
-                {/* {showDecorationCheckboxes && (
-                  <Input
-                    type="checkbox"
-                    className="show-decoration"
-                    id="show-decoration"
-                    htmlFor="show-decoration"
-                    checked={showDecorations === customCategory.title}
-                    onChange={() => setShowDecorations(customCategory.title)}
-                  />
-                )} */}
               </div>
               <div
                 className="subtitle"
@@ -404,6 +340,7 @@ export default function CustomCategoriesMenu({
                   style={{
                     fontSize: `${styleForm.subtitleFontSize}px`,
                     letterSpacing: "1px",
+                    // color: styleForm.subtitleFontColor.... to Do
                   }}
                 >
                   {customCategory.subtitle}
@@ -530,6 +467,7 @@ export default function CustomCategoriesMenu({
               </ul>
             </div>
           ))}
+</div>
         <div className="row" style={{ gap: "10px" }}>
           {styleForm.bottomImage && (
             <div
@@ -616,6 +554,6 @@ export default function CustomCategoriesMenu({
           />
         )}
       </div>
-    </div>
+    // </div>
   );
 }

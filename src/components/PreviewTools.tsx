@@ -151,10 +151,12 @@ const displayTools = [
       {
         label: "Texts colors",
         subLabels: [
+          "Guy's logo background color",
           "title's color",
           "title's background color",
           "top text's color",
           "categories' color",
+          "subtitles' color",
           "menu items' color",
           "prices' color",
           "menu items' description color",
@@ -214,6 +216,7 @@ export default function PreviewTools({
     "top image": "topImage",
     "bottom image": "bottomImage",
     "top logo": "guyTop", // Logo file for top
+    "Guy's logo background color": "guyBackgroundColor",
     "bottom logo": "guyBottom", // Logo file for bottom
     "top logo size": "guyTopSize", // Size for top logo
     "bottom logo size": "guyBottomSize", // Size for bottom logo
@@ -234,6 +237,7 @@ export default function PreviewTools({
     "menu items' color": "menuItemColor",
     "prices' color": "priceColor",
     subtitles: "subtitleFontSize",
+    "subtitles' color": "subtitleFontColor",
     "subtitles margin": "subtitlePaddingBottom",
     "menu items' description color": "menuItemDescriptionColor",
     "top text's color": "textTopColor",
@@ -265,7 +269,9 @@ export default function PreviewTools({
         "page background",
         "title's color",
         "title's background color",
+        "Guy's logo background color",
         "categories' color",
+        "subtitles' color",
         "prices' color",
         "menu items' color",
         "menu items' description color",
@@ -633,21 +639,20 @@ export default function PreviewTools({
                           ) : getInputType(item) === "color" ? (
                             // Render color picker input correctly
                             <Input
-                              className="color-inputs"
+                              className="tools"
                               type="color"
                               value={
-                                keyMap[item as keyof typeof keyMap] ===
-                                "sectionBackground"
+                                keyMap[item as keyof typeof keyMap] === "sectionBackground"
                                   ? localStyleForm.sectionBackground.length > 0
-                                    ? localStyleForm.sectionBackground[0]
-                                        ?.backgroundColor || "#000000"
+                                    ? localStyleForm.sectionBackground[0]?.backgroundColor || "#000000"
                                     : "#000000"
-                                  : (
-                                      localStyleForm[
-                                        keyMap[item as keyof typeof keyMap]
-                                      ] as string
-                                    )?.trim() || "#000000"
+                                  : typeof localStyleForm[keyMap[item as keyof typeof keyMap]] === "string"
+                                  ? (localStyleForm[keyMap[item as keyof typeof keyMap]] as string)?.trim() || "#000000"
+                                  : "#000000"
                               }
+                              
+                              // htmlFor={item}
+                              // id={item}
                               name={item}
                               onChange={handleChange}
                             />
@@ -687,7 +692,7 @@ export default function PreviewTools({
                     </div>
                   ))}
                 </div>
-              ) : // </div>
+              ) :
               null}
             </div>
           ))}

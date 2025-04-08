@@ -3,7 +3,7 @@
   --bs-gutter-y: 0;
 }
 .preview-items-container {
-  background-color: black; 
+  background-color: black;
 }
 .item-label {
   padding: 5px;
@@ -15,6 +15,27 @@
 .categories-out {
   opacity: 1;
   animation: fadeOut 0.3s ease-in-out forwards;
+}
+/* .io-container {
+  height: 5%;
+} */
+.io {
+  color: green;
+  width: 7%;
+  height: auto;
+  box-shadow: 0 0 10px #bf4dec, 0 0 20px rgb(191, 77, 236),
+    0 0 40px rgb(191, 77, 236), 0 0 80px #bf4dec;
+  border-radius: 50%;
+  border: none;
+}
+.close-io {
+  color: white;
+  width: 7%;
+  height: auto;
+  box-shadow: 0 0 10px #bf4dec, 0 0 20px rgb(191, 77, 236),
+    0 0 40px rgb(191, 77, 236), 0 0 80px #bf4dec;
+  border-radius: 50%;
+  border: none;
 }
 @keyframes fadeIn {
   from {

@@ -1,314 +1,527 @@
+import { useEffect, useState } from "react";
 import { Field, StyleFormType } from "../data/types";
 import { useCategoryBackgroundColor } from "../hooks/useCategoryBackgrounColor";
 import { useDescriptionLettersColor } from "../hooks/useDescriptionLettersColor";
 import { useGetDescriptionLetterColor } from "../hooks/useGetDescriptionLettersColor";
 import { useGetSectionBackground } from "../hooks/useGetSectionBackground";
+import { useGetSubtitleFontColor } from "../hooks/useGetSubtitleFontColor";
+import { useSubtitleFontColor } from "../hooks/useSubtitleFontColor";
+import { useGetCategoriesPaddingTop } from "../hooks/useGetCategoriesPaddingTop";
+import { useGetCategoriesMarginTop } from "../hooks/useGetMarginCategoriesTop";
+import { useDynamicStyles } from "../hooks/useDynamicStyles";
 import Footer from "./Footer";
-// import './fonts.css';
+import Input from "./Input";
+import InputBar from "./InputBar";
+
+import "./CustomCategoriesMenu.css";
 
 type FrontMenuProps = {
   // animation: string;
+  showImagesDeleteButtons: boolean;
   showColorInputs: boolean;
   styleForm: StyleFormType;
   setStyleForm: React.Dispatch<React.SetStateAction<StyleFormType>>;
   showDisclaimer: boolean;
-  categoryOrder: string[];
   organizedData: Record<string, { subtitle?: string; items: Field[] }>;
+  joinedCategories: Record<string, boolean>;
+  showDecorations: string;
+  setShowDecorations: (category: string) => void;
+  showJoinInputs: boolean;
+  showPaddingCategoriesTop: boolean;
+  showMarginCategoriesTop: boolean;
+  showDecorationCheckboxes: boolean;
+  setJoinedCategories: React.Dispatch<
+    React.SetStateAction<Record<string, boolean>>
+  >;
+  hidePrices: boolean;
 };
 
 export default function FrontMenu({
   // animation,
+  showDecorations,
+  joinedCategories,
   showColorInputs,
   styleForm,
   setStyleForm,
   showDisclaimer,
-  categoryOrder,
+  // categoryOrder,
   organizedData,
+  showJoinInputs,
+  showPaddingCategoriesTop,
+  showMarginCategoriesTop,
+  showDecorationCheckboxes,
+  setJoinedCategories,
+  setShowDecorations,
+  hidePrices,
+  showImagesDeleteButtons,
 }: FrontMenuProps) {
+  const [datas, setDatas] = useState<{ category: string; subtitle?: string; items: Field[] }[]>(  
+    Object.entries(organizedData).map(([key, value]) => ({  
+      category: key,  
+      subtitle: value.subtitle ?? "",  
+      items: value.items  
+    }))  
+  ); // Converts organizedData into an array
+
+   const handleCategoryBackgroundColor =
+      useCategoryBackgroundColor(setStyleForm);
+    const handleDescriptionLettersColor =
+      useDescriptionLettersColor(setStyleForm);
+    // const handleCategoryMarginTop = useCategoryMarginTop(setStyleForm);
+    const handleSubtitleFontColor = useSubtitleFontColor(setStyleForm);
+    const getSectionBackground = useGetSectionBackground(styleForm);
+    const getDescriptionLetterColor = useGetDescriptionLetterColor(styleForm);
+    const getCategoryPaddingTop = useGetCategoriesPaddingTop(styleForm);
+    const getCategoryMarginTop = useGetCategoriesMarginTop(styleForm);
+    const getDynamicStyles = useDynamicStyles(styleForm);
+    const getSubtitleFontColor = useGetSubtitleFontColor(styleForm);
   
-  const handleCategoryBackgroundColor = useCategoryBackgroundColor(setStyleForm)
-  const handleDescriptionLettersColor = useDescriptionLettersColor(setStyleForm);
-  const getSectionBackground = useGetSectionBackground(styleForm);
-  const getDescriptionLetterColor = useGetDescriptionLetterColor(styleForm);
- 
+    useEffect(() => {
+      setDatas(
+        Object.entries(organizedData).map(([key, value]) => ({
+          category: key,
+          subtitle: value.subtitle ?? "",
+          items: value.items,
+        }))
+      );
+    }, [organizedData]); // Ensures state updates if organizedData changes
+
+    // console.log("showDecorations", showDecorations);
+
+    useEffect(() => {
+      const style = document.createElement("style");
+      style.innerHTML = `
+      .content-container::before {
+        left: 0;
+        width: ${styleForm.contentContainerWidth}%;
+        background-color: black;
+        height: 2px;
+        }
+        .content-container::after {
+          right: 0;
+          width: ${styleForm.contentContainerWidth}%;
+          background-color: black;
+          height: 2px;
+      }
+      `;
+      document.head.appendChild(style);
+  
+      return () => {
+        document.head.removeChild(style);
+      };
+    }, [styleForm.contentContainerWidth]);
 
   return (
-    <div
-      className="menu-items-container print"
-      style={{
-        padding: `${styleForm.pagePaddingTopAndBottom}px ${styleForm.pagePaddingLeftAndRight}px`,
-        width: `${+styleForm.menuWidth}mm`,
-        height: `${+styleForm.menuHeight}mm`,
-        maxHeight: `${+styleForm.menuHeight}mm`,
-        // animation: "menuSizeAnimation 0.5s linear forwards",
-        overflow: "hidden",
-        backgroundColor: styleForm.pageBackground,
-      }}
-    >
-      {styleForm.guyTop && (
-        <div style={{ width: `${styleForm.guyTopSize}px`, margin: "auto" }}>
-          <img
-            className="image-fluid"
-            alt=""
-            src={styleForm.guyTop}
-            style={{ maxWidth: "100%", height: "auto" }}
-          />
-        </div>
-      )}
-      {styleForm.title && (
+      <div
+        className="row custom-menu-items-container print"
+        style={{
+          padding: `${styleForm.pagePaddingTopAndBottom}px ${styleForm.pagePaddingLeftAndRight}px 0 ${styleForm.pagePaddingLeftAndRight}px`,
+          width: `${+styleForm.menuWidth}mm`,
+          height: `${+styleForm.menuHeight}mm`,
+          maxHeight: `${+styleForm.menuHeight}mm`,
+          // animation: "menuSizeAnimation 0.5s linear forwards",
+          overflow: "hidden",
+          backgroundColor: styleForm.pageBackground,
+        }}
+      >
         <div
-          className="category-title"
+          className="row background-image"
           style={{
-            fontSize: `${styleForm.titleSize}px`,
-            color: styleForm.titleColor,
+            backgroundImage: `url(${styleForm.backgroundImage})`,
+            width: `${+styleForm.menuWidth}mm`,
+            maxHeight: `${+styleForm.menuHeight}mm`,
+            margin: "auto",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         >
-          {styleForm.title}
-        </div>
-      )}
-      {styleForm.topImage && (
-        <div style={{ width: `${styleForm.topImageSize}px`, margin: "auto" }}>
-          <img
-            className="image-fluid"
-            alt=""
-            src={styleForm.topImage}
-            style={{ maxWidth: "100%", height: "auto" }}
-          />
-        </div>
-      )}
-      {categoryOrder.map((category, categoryIndex) => {
-        const categoryData = organizedData[category];
-        if (
-          category === "Salads" &&
-          (organizedData["Salads"]?.items.length > 0 ||
-            organizedData["Soups"]?.items.length > 0)
-        ) {
-          return (
-            <div className="split-container" key="Salads-Soups">
-              {["Salads", "Soups"].map((cat) => {
-                const realCategoryIndex = categoryOrder.indexOf(cat); // Get the actual index
-
-                return organizedData[cat]?.items.length > 0 ? (
-                  <div
-                    key={cat}
-                    className="split-div"
-                    style={{
-                      backgroundColor: getSectionBackground(realCategoryIndex),
-                    }}
-                  >
-                    <h3
-                      className="category-title"
-                      style={{
-                        fontSize: `${styleForm.categoryFontSize}px`,
-                        color: styleForm.categoryColor,
-                        marginBottom: `${styleForm.categoryMarginBottom}px`,
-                      }}
-                    >
-                      {cat}{" "}
-                      {showColorInputs && (
-                        <input
-                          className="no-print"
-                          type="color"
-                          onChange={(event) =>
-                            handleCategoryBackgroundColor(
-                              event.target.value,
-                              realCategoryIndex
-                            )
-                          }
-                        />
-                      )}
-                    </h3>
-                    <ul className="split-list">
-                      {organizedData[cat].items.map((item, idx) => (
-                        <li key={idx} className="menu-item-joined">
-                          <span className="soup-salad-label">{item.label}</span>
-                          &nbsp;{item.price.value?.toFixed(2)}
-                          {/* </div> */}
-                          <div
-                            style={{
-                              color: getDescriptionLetterColor(
-                                realCategoryIndex,
-                                idx
-                              ),
-                            }}
-                          >
-                            <span className="soup-salad-description">
-                              {item.description}
-                            </span>
-                            {item.description && showColorInputs && (
-                              <input
-                                type="color"
-                                className="no-print"
-                                onChange={(event) =>
-                                  handleDescriptionLettersColor(
-                                    event.target.value,
-                                    realCategoryIndex,
-                                    idx
-                                  )
-                                }
-                              />
-                            )}
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : null;
-              })}
-            </div>
-          );
-        }
-
-        if (category === "Soups") return null;
-
-        if (categoryData && categoryData.items.length > 0) {
-          return (
-            <div
-              key={category}
-              style={{ backgroundColor: getSectionBackground(categoryIndex) }}
+          {showImagesDeleteButtons && styleForm.backgroundImage && (
+            <button
+              type="button"
+              onClick={() => setStyleForm({ ...styleForm, backgroundImage: "" })}
             >
-              <h3
-                className="category-title"
+              delete background image
+            </button>
+          )}
+  
+          {styleForm.guyTop && (
+            <div style={{ backgroundColor: styleForm.guyBackgroundColor, display: "flex",
+              justifyContent: "center"
+             }}>
+              <img
+                className="image-fluid"
+                alt=""
+                src={styleForm.guyTop}
+                style={{ maxWidth: "100%", width: `${styleForm.guyTopSize}px`, height: "auto" }}
+              />
+              {showImagesDeleteButtons && (
+                <button
+                  type="button"
+                  onClick={() => setStyleForm({ ...styleForm, guyTop: "" })}
+                >
+                  delete
+                </button>
+              )}
+            </div>
+          )}
+          {styleForm.title && (
+            <div
+              className="title"
+              style={{
+                fontSize: `${styleForm.titleSize}px`,
+                backgroundColor: styleForm.titleBackgroundColor,
+                color: styleForm.titleColor,
+                paddingTop: `${styleForm.titlePaddingTop}px`,
+                paddingBottom: `${styleForm.titlePaddingBottom}px`,
+                marginBottom: `${styleForm.titleMarginBottom}px`,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontFamily: "Pewter Corroded, sans-serif",
+              }}
+            >
+              <span
                 style={{
-                  fontSize: `${styleForm.categoryFontSize}px`,
-                  color: styleForm.categoryColor,
-                  marginBottom: `${styleForm.categoryMarginBottom}px`,
+                  textTransform: "uppercase",
+                  letterSpacing: "2px",
                 }}
               >
-                {category}
-                {showColorInputs && (
-                  <input
-                    type="color"
-                    className="no-print"
-                    onChange={(event) =>
-                      handleCategoryBackgroundColor(
-                        event.target.value,
-                        categoryIndex
-                      )
-                    }
-                    style={{ marginBottom: "0", paddingBottom: "0" }}
-                  />
-                )}
-              </h3>
-              <div className="subtitle">{categoryData.subtitle}</div>
-              <ul className="row category-list print">
-                {categoryData.items.map((item, itemIndex, arr) => (
-                  <li
-                    id={`li-${categoryIndex}`}
-                    key={itemIndex}
-                    className={
-                      (arr?.length % 2 !== 0 &&
-                        categoryIndex === arr?.length - 1 &&
-                        category !== "Sides") ||
-                      styleForm.menuWidth <= 110 // Slim width format
-                        ? "col-12 menu-item-odd"
-                        : "col-6 menu-item"
-                    }
+                {styleForm.title}
+              </span>
+            </div>
+          )}
+          {styleForm.topImage && (
+            <div style={{ width: `${styleForm.topImageSize}px`, margin: "auto" }}>
+              <img
+                className="image-fluid"
+                alt=""
+                src={styleForm.topImage}
+                style={{ maxWidth: "100%", height: "auto" }}
+              />
+              {showImagesDeleteButtons && (
+                <button
+                  type="button"
+                  onClick={() => setStyleForm({ ...styleForm, topImage: "" })}
+                >
+                  delete
+                </button>
+              )}
+            </div>
+          )}
+  
+          {datas &&
+            datas.map((customCategory, categoryIndex) => (
+              <div
+                className={
+                  joinedCategories[customCategory.category]
+                    ? "col-6"
+                    :"content-container"
+                }
+                key={customCategory.category}
+                style={{
+                  ...getDynamicStyles(
+                    joinedCategories[customCategory.category]
+                      ? "col-6"
+                      : customCategory.category === showDecorations
+                      ? "col-12 content-container"
+                      : "col-12",
+                    categoryIndex
+                  ),
+                  backgroundColor: getSectionBackground(categoryIndex),
+                  marginBottom: `${styleForm.categoriesMarginBottom}px`,
+                  paddingTop: getCategoryPaddingTop(categoryIndex),
+                  marginTop: getCategoryMarginTop(categoryIndex),
+                  // paddingRight: `${styleForm.paddingCategoriesLeftRight}px`,
+                  // paddingLeft: `${styleForm.paddingCategoriesLeftRight}px`,
+                }}
+              >
+                <div
+                  className={
+                    customCategory.category === showDecorations ? "share-span" : ""
+                  }
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginBottom: "0",
+                  }}
+                >
+                  <h2
+                    className="customCategories-title"
+                    style={{
+                      fontSize: `${styleForm.categoryFontSize}px`,
+                      color: styleForm.categoryColor,
+                      marginBottom:
+                        customCategory.category === showDecorations
+                          ? "20px"
+                          : `${styleForm.categoryMarginBottom}px`,
+                    }}
                   >
-                    <div className="menu-item-div">
-                      {/* <div className="div-div"> */}
-                      <span
-                        style={{
-                          fontSize: `${styleForm.itemFontSize}px`,
-                          paddingBottom: `${styleForm.itemMarginBottom}px`,
-                          letterSpacing: "1px",
-                          fontFamily: "Pewter Corroded, sans-serif",
-                          color: styleForm.menuItemColor,
-                          // marginBottom: "-20px",
-                          // verticalAlign: "bottom"
-                        }}
-                      >
-                        {item.label}
-                      </span>
-                      {/* </div> */}
-
-                      <span
-                        style={{
-                          fontSize: `${styleForm.priceSize}px`,
-                          color: styleForm.priceColor,
-                        }}
-                      >
-                        &nbsp;{item.price.value?.toFixed(2)}
-                      </span>
-                    </div>
-
-                    <div
-                      className="item-description"
+                    <span
+                      className={
+                        customCategory.category === showDecorations ? "gap-text" : ""
+                      }
                       style={{
+                        top:
+                          customCategory.category === showDecorations
+                            ? `${styleForm.gapTextTop}px`
+                            : "",
+                        lineHeight: "1",
+                        display: "inline",
+                        verticalAlign: "baseline",
+                        letterSpacing: "2px",
                         fontFamily: "Pewter Corroded, sans-serif",
-                        fontSize: `${styleForm.descriptionFontSize}px`,
-                        marginBottom: `${styleForm.descriptionMarginBottom}px`,
-                        letterSpacing: "1px",
-                        color: styleForm.menuItemDescriptionColor,
+                        textTransform: "uppercase",
                       }}
                     >
-                      <span
+                      {customCategory.category}
+                      {/* {customCategory.items.length ? customCategory.title : null} */}
+                    </span>
+                  </h2>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <InputBar
+                      showPaddingCategoriesTop={showPaddingCategoriesTop}
+                      showMarginCategoriesTop={showMarginCategoriesTop}
+                      showJoinInputs={showJoinInputs}
+                      showColorInputs={showColorInputs}
+                      showDecorationCheckboxes={showDecorationCheckboxes}
+                      className="input-bar"
+                      setJoinedCategories={setJoinedCategories}
+                      joinedCategories={joinedCategories}
+                      customCategory={customCategory}
+                      categoryIndex={categoryIndex}
+                      styleForm={styleForm}
+                      setStyleForm={setStyleForm}
+                      showDecorations={showDecorations}
+                      setShowDecorations={setShowDecorations}
+                    />
+                  </div>
+                
+                
+              
+                </div>
+                <div
+                  className="subtitle"
+                  style={{
+                    color: getSubtitleFontColor(categoryIndex),
+                    marginBottom: `${styleForm.subtitlePaddingBottom}px`,
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: `${styleForm.subtitleFontSize}px`,
+                      letterSpacing: "1px",
+                    }}
+                  >
+                    {customCategory.subtitle}
+                  </span>
+                  {showColorInputs && customCategory.subtitle && (
+                    <>
+                      &nbsp;
+                      <Input
+                        type="color"
+                        className="menu-color-inputs"
+                        onChange={(event) =>
+                          handleSubtitleFontColor(
+                            event.target.value,
+                            categoryIndex
+                          )
+                        }
+                      />
+                      <button
+                        type="button"
+                        onClick={() =>
+                          handleCategoryBackgroundColor("", categoryIndex)
+                        }
+                      >
+                        reset
+                      </button>
+                    </>
+                  )}
+                </div>
+                <ul
+                  className="row p-0 justify-content-between"
+                  style={{
+                    ...(joinedCategories[customCategory.category] && {
+                      display: "flex",
+                      flexDirection: "column",
+                    }),
+                  }}
+                >
+                  {customCategory.items.map((item, itemIndex, arr) => (
+                    <li
+                      id={`li-${categoryIndex}`}
+                      key={itemIndex}
+                      className={
+                        joinedCategories[customCategory.category] // If customCategories is joined, make items col-12
+                          ? "col-12 menu-item"
+                          : (arr.length % 2 !== 0 && // Odd number of items
+                              itemIndex === arr.length - 1 && // Last item
+                              customCategory.category !== "Sides" && // Not "Sides"
+                              !Object.keys(joinedCategories).some(
+                                (joinedCategory) =>
+                                  joinedCategory === customCategory.category
+                              )) ||
+                            styleForm.menuWidth <= 110
+                          ? "col-12 menu-item-odd"
+                          : "col-6 menu-item pe-4"
+                      }
+                    >
+                      <div
+                        className="menu-item-div"
                         style={{
-                          color: getDescriptionLetterColor(
-                            categoryIndex,
-                            itemIndex
-                          ),
+                          marginBottom: `${styleForm.itemMarginBottom}px`,
                         }}
                       >
-                        {item.description}
-                      </span>
-                      {showColorInputs && (
-                        <input
-                          className="no-print"
-                          type="color"
-                          onChange={(event) =>
-                            handleDescriptionLettersColor(
-                              event.target.value,
+                        <span
+                          style={{
+                            fontSize: `${styleForm.itemFontSize}px`,
+                            letterSpacing: "1px",
+                            fontFamily: "Pewter Corroded, sans-serif",
+                            color: styleForm.menuItemColor,
+                          }}
+                        >
+                          {item.label}
+                        </span>
+                        {!hidePrices && (
+                          <span
+                            style={{
+                              fontSize: `${styleForm.priceSize}px`,
+                              color: styleForm.priceColor,
+                            }}
+                          >
+                            &nbsp;{item.price.value?.toFixed(2)}
+                          </span>
+                        )}
+                      </div>
+  
+                      <div
+                        className="item-description"
+                        style={{
+                          fontFamily: "Pewter Corroded, sans-serif",
+                          fontSize: `${styleForm.descriptionFontSize}px`,
+                          marginBottom: `${styleForm.descriptionMarginBottom}px`,
+                          letterSpacing: "1px",
+                          color: styleForm.menuItemDescriptionColor,
+                        }}
+                      >
+                        <span
+                          style={{
+                            color: getDescriptionLetterColor(
                               categoryIndex,
                               itemIndex
-                            )
-                          }
-                          style={{ marginBottom: "0", paddingBottom: "0" }}
-                        />
-                      )}
-                    </div>
-                  </li>
-                ))}
-              </ul>
+                            ),
+                            letterSpacing: "1px",
+                          }}
+                        >
+                          {item.description}
+                        </span>
+                        &nbsp;&nbsp;
+                        {showColorInputs && (
+                          <Input
+                            className="menu-color-inputs"
+                            type="color"
+                            onChange={(event) =>
+                              handleDescriptionLettersColor(
+                                event.target.value,
+                                categoryIndex,
+                                itemIndex
+                              )
+                            }
+                            // style={{ marginBottom: "0", paddingBottom: "0" }}
+                          />
+                        )}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          <div className="row" style={{ gap: "10px" }}>
+            {styleForm.bottomImage && (
+              <div
+                className="col-5"
+                // style={{ width: `${styleForm.bottomImageSize}px`, margin: "auto" }}
+                style={{
+                  // width: `${styleForm.guyBottomSize}px`,
+                  margin: "auto",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                }}
+              >
+                <img
+                  className="image-fluid"
+                  alt=""
+                  src={styleForm.bottomImage}
+                  style={{
+                    width: `${styleForm.bottomImageSize}px`,
+                    height: "auto",
+                  }}
+                />
+                {showImagesDeleteButtons && (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setStyleForm({ ...styleForm, bottomImage: "" })
+                    }
+                  >
+                    delete
+                  </button>
+                )}
+              </div>
+            )}
+            {styleForm.guyBottom && (
+              <div
+                className="col-5"
+                style={{
+                  // width: `${styleForm.guyBottomSize}px`,
+                  margin: "auto",
+                  display: "flex",
+                  justifyContent: "flex-start",
+                }}
+              >
+                <img
+                  className="image-fluid"
+                  alt=""
+                  src={styleForm.guyBottom}
+                  style={{
+                    width: `${styleForm.guyBottomSize}px`,
+                    height: "auto",
+                  }}
+                  // width: `${styleForm.guyBottomSize}px`,
+                />
+                {showImagesDeleteButtons && (
+                  <button
+                    type="button"
+                    onClick={() => setStyleForm({ ...styleForm, guyBottom: "" })}
+                  >
+                    delete
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+          {styleForm.footer && (
+            <div
+              className="category-title"
+              style={{
+                fontSize: `${styleForm.footerSize}px`,
+                color: styleForm.textBottomColor,
+                letterSpacing: "1px",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              {styleForm.footer}
             </div>
-          );
-        }
-        return null;
-      })}
-      {styleForm.bottomImage && (
-        <div
-          style={{ width: `${styleForm.bottomImageSize}px`, margin: "auto" }}
-        >
-          <img
-            className="image-fluid"
-            alt=""
-            src={styleForm.bottomImage}
-            style={{ maxWidth: "100%", height: "auto" }}
-          />
+                  )}
+          {showDisclaimer && (
+            <Footer
+              marginTop={styleForm.footerPaddingPaddingTop}
+              paddingBottom={styleForm.footerPaddingBottom}
+              color={styleForm.footerTextColor}
+            />
+          )}
         </div>
-      )}
-      {styleForm.guyBottom && (
-        <div style={{ width: `${styleForm.guyBottomSize}px`, margin: "auto" }}>
-          <img
-            className="image-fluid"
-            alt=""
-            src={styleForm.guyBottom}
-            style={{ maxWidth: "100%", height: "auto" }}
-          />
         </div>
-      )}
-      {styleForm.footer && (
-        <div
-          className="category-title"
-          style={{
-            fontSize: `${styleForm.footerSize}px`,
-            color: styleForm.footerTextColor,
-          }}
-        >
-          {styleForm.footer}
-        </div>
-      )}
-      {showDisclaimer && <Footer />}
-    </div>
-  );
+      );
 }

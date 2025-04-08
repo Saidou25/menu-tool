@@ -213,22 +213,41 @@ const PreviewMenu = ({
 
   return (
     // <>
-      <div className="container-final-step">
-        {/* <style>{animation}</style> */}
-        <div
-          className={`${
-            showFinalStep ? "final-step-show" : "final-step-hidden"
-          }`}
-          // style={{ animation: "menuSizeAnimation 0.5s linear forwards" }}
-        >
-          {children[0]} {/* Renders FinalStep*/}
-          {Object.keys(secondPageData).length > 0 && !custom && (
-            <h3 className="no-print">Menu front</h3>
-          )}
-          {custom && !newCustomArray.length ? (
-            <CustomMenu
-              categoryOrder={categoryOrder}
-              organizedData={organizedData}
+    <div className="container-final-step">
+      {/* <style>{animation}</style> */}
+      <div
+        className={`${showFinalStep ? "final-step-show" : "final-step-hidden"}`}
+        // style={{ animation: "menuSizeAnimation 0.5s linear forwards" }}
+      >
+        {children[0]} {/* Renders FinalStep*/}
+        {Object.keys(secondPageData).length > 0 && !custom && (
+          <h3 className="no-print">Menu front</h3>
+        )}
+        {custom && !newCustomArray.length ? (
+          <CustomMenu
+            categoryOrder={categoryOrder}
+            organizedData={organizedData}
+            styleForm={styleForm}
+            setStyleForm={setStyleForm}
+            showColorInputs={showColorInputs}
+            showJoinInputs={showJoinInputs}
+            showDisclaimer={showDisclaimer}
+            joinedCategories={joinedCategories}
+            setJoinedCategories={setJoinedCategories}
+            hidePrices={hidePrices}
+            showDecorations={showDecorations}
+            setShowDecorations={setShowDecorations}
+            showDecorationCheckboxes={showDecorationCheckboxes}
+            setShowDecorationCheckboxes={setShowDecorationCheckboxes}
+            showPaddingCategoriesTop={showPaddingCategoriesTop}
+            showMarginCategoriesTop={showMarginCategoriesTop}
+            showImagesDeleteButtons={showImagesDeleteButtons}
+          />
+        ) : (
+          <>
+            {/* Render the first set of categories: Front menu */}
+            <FrontMenu
+              // animation={animation}
               styleForm={styleForm}
               setStyleForm={setStyleForm}
               showColorInputs={showColorInputs}
@@ -240,41 +259,29 @@ const PreviewMenu = ({
               showDecorations={showDecorations}
               setShowDecorations={setShowDecorations}
               showDecorationCheckboxes={showDecorationCheckboxes}
-              setShowDecorationCheckboxes={setShowDecorationCheckboxes}
               showPaddingCategoriesTop={showPaddingCategoriesTop}
               showMarginCategoriesTop={showMarginCategoriesTop}
               showImagesDeleteButtons={showImagesDeleteButtons}
+              organizedData={organizedData}
             />
-          ) : (
-            <>
-              {/* Render the first set of categories: Front menu */}
-              <FrontMenu
-                // animation={animation}
-                categoryOrder={firstCategories}
+            {/* Render BackMenu only if there are additional categories */}
+            {Object.keys(secondPageData).length > 0 && (
+              <BackMenu
                 styleForm={styleForm}
-                organizedData={organizedData}
+                categoryOrder={extraCategories}
+                secondPageData={secondPageData}
                 showDisclaimer={showDisclaimer}
-                setStyleForm={setStyleForm}
-                showColorInputs={showColorInputs}
               />
-              {/* Render BackMenu only if there are additional categories */}
-              {Object.keys(secondPageData).length > 0 && (
-                <BackMenu
-                  styleForm={styleForm}
-                  categoryOrder={extraCategories}
-                  secondPageData={secondPageData}
-                  showDisclaimer={showDisclaimer}
-                />
-              )}
-            </>
-          )}
-          {/* )} */}
-        </div>
-        <div className="tool-section no-print">
-          {children[1]} {/* Renders dropdown*/}
-          {children[2]} {/* Renders preview tools*/}
-        </div>
+            )}
+          </>
+        )}
+        {/* )} */}
       </div>
+      <div className="tool-section no-print">
+        {children[1]} {/* Renders dropdown*/}
+        {children[2]} {/* Renders preview tools*/}
+      </div>
+    </div>
     // </>
   );
 };

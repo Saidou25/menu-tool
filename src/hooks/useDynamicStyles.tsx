@@ -3,26 +3,36 @@ import { useGetSectionBackground } from "./useGetSectionBackground";
 
 export function useDynamicStyles(styleForm: StyleFormType) {
   const getSectionBackground = useGetSectionBackground(styleForm);
-  const getDynamicStyles = (className: string, categoryIndex: number) => {
+  let arr: { className: string; categoryIndex: number }[] = []; // Array to track items
 
+  const getDynamicStyles = (className: string, categoryIndex: number) => {
     if (className === "col-6") {
-      if (categoryIndex === 0 || categoryIndex % 2 === 0) {
-        return {
-          backgroundColor: getSectionBackground(categoryIndex),
-          paddingLeft: `${styleForm.paddingCategoriesLeftRight}px`,
-          paddingRight: "1.5rem",
-        };
+      let obj = { className, categoryIndex };
+      arr.push(obj);
+      let styles: any = {
+        backgroundColor: getSectionBackground(categoryIndex),
+      };
+
+      // Only apply paddingLeft to arr[i - 1] if certain conditions are met
+      if (arr.length > 1) {
+        for (let i = 1; i < arr.length; i++) {
+          if (arr[i]?.categoryIndex === arr[i - 1]?.categoryIndex + 1) {
+            // Apply paddingLeft to arr[i - 1] only, not the current element
+            if (arr[i - 1]?.categoryIndex === categoryIndex) {
+              styles.paddingLeft = `${styleForm.paddingCategoriesLeftRight}px`;
+              styles.paddingRight = "1.5rem";
+            }
+          }
+        }
       } else {
-        return {
-          paddingRight: `${styleForm.paddingCategoriesLeftRight}px`,
-          // paddingLeft: "16px"
-        };
+        // Ensure the first item gets padding left
+        styles.paddingLeft = `${styleForm.paddingCategoriesLeftRight}px`;
+        styles.paddingRight = "1.5rem";
       }
-      // console.log(className, categoryIndex, joinedCategories)
+
+      return styles;
     } else if (className === "col-12 content-container") {
       return {
-        // backgroundColor: getSectionBackground(categoryIndex),
-        // marginBottom: `${styleForm.categoriesMarginBottom}px`,
         width: `${styleForm.decorationWidth}%`,
         paddingRight: `${styleForm.paddingDecoration}px`,
         paddingLeft: `${styleForm.paddingDecoration}px`,
@@ -33,12 +43,12 @@ export function useDynamicStyles(styleForm: StyleFormType) {
     } else if (className === "col-12") {
       return {
         backgroundColor: getSectionBackground(categoryIndex),
-        // marginBottom: `${styleForm.categoriesMarginBottom}px`,
         paddingRight: `${styleForm.paddingCategoriesLeftRight}px`,
         paddingLeft: `${styleForm.paddingCategoriesLeftRight}px`,
       };
     }
     return {};
   };
+
   return getDynamicStyles;
 }

@@ -18,8 +18,10 @@ import CustomCategoryForm from "./CustomCategoryForm";
 import Label from "./Label";
 import Button from "./Button";
 import Input from "./Input";
+import { IoMdAddCircle } from "react-icons/io";
 
 import "./Categories.css";
+import { IoCloseOutline } from "react-icons/io5";
 
 type Props = {
   setCustomCategoryList: React.Dispatch<React.SetStateAction<MenuCategory[]>>;
@@ -49,7 +51,7 @@ export default function Categories({
   // setCustomCategoryList,
   customCategoryList,
 }: Props) {
-  const [newArray, setNewArray] = useState<MenuCategory[]>([]); 
+  const [newArray, setNewArray] = useState<MenuCategory[]>([]);
   const [customCategories, setCustomCategories] = useState<
     { categoryItem: string }[]
   >([]);
@@ -82,7 +84,9 @@ export default function Categories({
   const [localSelectedCategoryItems, setLocalSelectedCategoryItems] = useState<
     Record<string, { subtitle?: string; items: Field[] }>
   >({});
-  const [newCustomArray, setNewCutomArray] = useState<MenuCustomCategory[]>([]); // Use correct type
+  const [newCustomArray, setNewCustomArray] = useState<MenuCustomCategory[]>(
+    []
+  ); // Use correct type
   // const [customArrTitles, setCustomArrTitles] = useState<string[]>([]);
   const [styleForm, setStyleForm] = useState<StyleFormType>({
     menuWidth: 0,
@@ -101,6 +105,7 @@ export default function Categories({
     itemMarginBottom: 0,
     descriptionFontSize: 15,
     descriptionMarginBottom: 0,
+    guyBackgroundColor: "",
     guyTop: "",
     guyBottom: "",
     guyTopSize: 50,
@@ -151,12 +156,37 @@ export default function Categories({
       title: string;
     }[]
   >([]);
+  const [showSubtitleInput, setShowSubtitleInput] = useState(""); // Toggles subtitle inputs
+  const [subtitle, setSubtitle] = useState("");
+
+  const handleAddSubtitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSubtitle(event.target.value); // Store the latest subtitle input
+  };
+
+  const handleRemoveSubtitle = (title: string) => {
+    setNewCustomArray((prev) =>
+      prev.map((item) =>
+        item.title === title ? { ...item, subtitle: "" } : item
+      )
+    );
+  };
+
+  const handleSubtitleClick = () => {
+    setNewCustomArray((prevArray) =>
+      prevArray.map((item) =>
+        item.title === showSubtitleInput ? { ...item, subtitle } : item
+      )
+    );
+
+    setShowSubtitleInput(""); // Hide input field
+    setSubtitle(""); // Clear input
+  };
 
   const handleClick = (item: string) => {
     const updatedNewArray = newCustomArray.filter(
       (newArr) => newArr.title !== item
     );
-    setNewCutomArray(updatedNewArray);
+    setNewCustomArray(updatedNewArray);
   };
 
   const handleShowItems = (title: string) => {
@@ -316,7 +346,7 @@ export default function Categories({
             </div>
           ))
         ) : (
-          <span>No items found</span>
+          <span>No items itemToUpdate</span>
         )}
       </>
     );
@@ -502,7 +532,7 @@ export default function Categories({
             setNewCustomCategories={setNewCustomCategories}
             setNewArray={setNewArray}
             newArray={newArray}
-            setNewCustomArray={setNewCutomArray}
+            setNewCustomArray={setNewCustomArray}
             newCustomArray={newCustomArray}
             // customArrTitles={customArrTitles}
             // setCustomArrTitles={setCustomArrTitles}
@@ -510,7 +540,7 @@ export default function Categories({
             // fadeInOut={fadInOut}
           />
         )}
-       
+
         <br />
         <br />
         <br />
@@ -522,6 +552,46 @@ export default function Categories({
                 <div className="col-2">
                   <Label title={newArr.title} fadeInOut={fadeInOut} />
                   <br />
+                  <br />
+                  {showSubtitleInput === newArr.title ? (
+                    <div className="io-container">
+                      <Input
+                        type="text"
+                        onChange={handleAddSubtitle}
+                        label="add subtitle"
+                        htmlFor={newArr.title}
+                      />
+                      <br />
+                      <br />
+                      <Button
+                        type="button"
+                        onClick={handleSubtitleClick}
+                        children="submit"
+                      />
+                    </div>
+                  ) : newArr.subtitle ? (
+                    <>
+                      <span style={{ fontSize: "20px", fontStyle: "italic" }}>
+                        {newArr.subtitle}{" "}
+                      </span>
+                      <br />
+                      <br />
+                      <IoCloseOutline className="close-io"
+                        onClick={() => handleRemoveSubtitle(newArr.title)}
+                      /> &nbsp;remove subtitle
+                      <br />
+                    </>
+                  ) : (
+                    <div className="io-container">
+                      <IoMdAddCircle
+                        className="io"
+                        id={newArr.title}
+                        onClick={() => setShowSubtitleInput(newArr.title)}
+                      />
+                      &nbsp; add subtitle
+                    </div>
+                  )}
+                  {/* <br /> */}
                   <br />
                   <Input
                     type="checkbox"
@@ -535,7 +605,6 @@ export default function Categories({
                   />
                   &nbsp;
                   <br />
-                  <br />
                   <Input
                     type="checkbox"
                     className="consolited-view"
@@ -543,13 +612,13 @@ export default function Categories({
                     onChange={() => handleConsolidatedView(newArr.title)}
                     checked={consolidatedView.some(
                       (item) => item.title === newArr.title
-                    )}  // .some() is more efficient than .find() because it directly returns true or false without needing extra conversion.
+                    )} // .some() is more efficient than .find() because it directly returns true or false without needing extra conversion.
                     label="compact view"
                     htmlFor="consolited view"
                     // fadeInOut={fadeInOut}
                   />
                   &nbsp;
-                  <br />
+                  {/* <br /> */}
                   <br />
                   <Button
                     className={
@@ -561,7 +630,7 @@ export default function Categories({
                     value={newArr.title}
                     onClick={() => handleClick(newArr.title)}
                   >
-                    remove
+                    remove category
                   </Button>
                   <br />
                   <br />
@@ -589,7 +658,7 @@ export default function Categories({
                             <CustomCategoryItems
                               newArr={newArr}
                               newCustomArray={newCustomArray}
-                              setNewCustomArray={setNewCutomArray}
+                              setNewCustomArray={setNewCustomArray}
                               selectedData={selectedData}
                               // consolidatedView={consolidatedView}
                               selectedCategoryItems={
