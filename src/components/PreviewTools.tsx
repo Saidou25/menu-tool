@@ -21,6 +21,8 @@ type PreviewToolsProps = {
   showMarginCategoriesTop: boolean;
   setShowMarginCategoriesTop: (item: boolean) => void;
   // setShowDecorations: (item: boolean) => void;
+  showCategoryImage: boolean;
+  setShowCategoryImage: (item: boolean) => void;
   styleForm: StyleFormType;
   setStyleForm: React.Dispatch<React.SetStateAction<StyleFormType>>;
 };
@@ -31,6 +33,10 @@ const displayTools = [
     displayLabels: [
       {
         label: "Prices checkboxes",
+        subLabels: [],
+      },
+      {
+        label: "Images per category checkboxes",
         subLabels: [],
       },
       {
@@ -191,6 +197,8 @@ export default function PreviewTools({
   setShowPaddingCategoriesTop,
   showMarginCategoriesTop,
   setShowMarginCategoriesTop,
+  showCategoryImage,
+  setShowCategoryImage,
 }: PreviewToolsProps) {
   const [showToolItems, setShowToolItem] = useState<string[]>([]);
   const [localStyleForm, setLocalStyleForm] =
@@ -416,8 +424,20 @@ export default function PreviewTools({
                   {displayTool.displayLabels?.map((displayLabel) => (
                     <div key={displayLabel.label} className="label-container">
                       <span>{displayLabel.label}: </span>
-
-                      {/* Only display image preview for file inputs */}
+                      {/* {displayLabel.label ===
+                        "Images per category checkboxes" && (
+                        <Input
+                          type="checkbox"
+                          className="checkbox"
+                          onChange={() =>
+                            handleToolsChecboxes(displayTool.title)
+                          }
+                          checked={showToolItems.includes(displayTool.title)}
+                          htmlFor="tool-title"
+                          title={displayTool.title}
+                          id="tool-title"
+                        />
+                      )} */}
                       {/* Only display image preview for file inputs */}
                       {displayLabel.label === "Background image" &&
                         styleForm.backgroundImage && (
@@ -537,6 +557,7 @@ export default function PreviewTools({
                           />
                         </div>
                       )}
+                   
                       {displayLabel.label === "Prices checkboxes" && (
                         <div className="ps-4">
                           <Input
@@ -547,6 +568,20 @@ export default function PreviewTools({
                             previewTitle="Check if you want to hide prices"
                             id="prices-checkboxes"
                             htmlFor="prices-checkboxes"
+                          />
+                        </div>
+                      )}
+                         {displayLabel.label ===
+                        "Images per category checkboxes" && (
+                        <div className="ps-4">
+                          <Input
+                            type="checkbox"
+                            className="checkbox"
+                            checked={showCategoryImage}
+                            onChange={() => setShowCategoryImage(!showCategoryImage)}
+                            previewTitle="check if you want to show select image file"
+                            id="images-checkboxes"
+                            htmlFor="images-checkboxes"
                           />
                         </div>
                       )}

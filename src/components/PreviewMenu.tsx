@@ -26,6 +26,8 @@ type ModalProps = {
   showDecorations: string;
   setShowDecorations: (category: string) => void;
   showDecorationCheckboxes: boolean;
+  showCategoryImage: boolean;
+  setShowCategoryImage: (item: boolean) => void;
   setShowDecorationCheckboxes: (item: boolean) => void;
   showPaddingCategoriesTop: boolean;
   showMarginCategoriesTop: boolean;
@@ -68,6 +70,8 @@ const PreviewMenu = ({
   setJoinedCategories,
   setShowDecorations,
   setShowDecorationCheckboxes,
+  showCategoryImage,
+  setShowCategoryImage,
   view,
 }: ModalProps) => {
   const [organizedData, setOrganizedData] = useState<
@@ -198,6 +202,8 @@ const PreviewMenu = ({
               showPaddingCategoriesTop={showPaddingCategoriesTop}
               showMarginCategoriesTop={showMarginCategoriesTop}
               showImagesDeleteButtons={showImagesDeleteButtons}
+              showCategoryImage={showCategoryImage}
+              setShowCategoryImage={setShowCategoryImage}
               // view={view}
               // setView={setView}
             />

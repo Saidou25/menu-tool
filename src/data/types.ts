@@ -37,6 +37,11 @@ export type SectionBackground = {
   backgroundColor: string;
 }[];
 
+export type CategoryImage = {
+  categoryIndex: number;
+  url: string;
+}[];
+
 export type DescriptionLetterColor = {
   categoryIndex: number;
   index: number;
@@ -99,6 +104,7 @@ export type StyleFormType = {
   footerMarginBottom: number;
   pageBackground: string;
   sectionBackground: SectionBackground;
+  categoryImage: CategoryImage;
   descriptionLetterColor: DescriptionLetterColor;
   categoryColor: string;
   priceSize: number;

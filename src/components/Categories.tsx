@@ -19,9 +19,9 @@ import Label from "./Label";
 import Button from "./Button";
 import Input from "./Input";
 import { IoMdAddCircle } from "react-icons/io";
+import { IoCloseOutline } from "react-icons/io5";
 
 import "./Categories.css";
-import { IoCloseOutline } from "react-icons/io5";
 
 type Props = {
   setCustomCategoryList: React.Dispatch<React.SetStateAction<MenuCategory[]>>;
@@ -58,6 +58,7 @@ export default function Categories({
   const [NewCustomCategories, setNewCustomCategories] = useState<
     { categoryItem: string }[]
   >([]);
+  const [showCategoryImage, setShowCategoryImage] = useState(false);
   const [showSelect, setShowSelect] = useState(false);
   const [showCreate, setShowCreate] = useState(false);
   const [showItems, setShowItems] = useState<string[]>([]);
@@ -123,6 +124,7 @@ export default function Categories({
     footerMarginBottom: 0,
     pageBackground: "",
     sectionBackground: [],
+    categoryImage: [],
     descriptionLetterColor: [],
     titleColor: "",
     categoryColor: "",
@@ -189,14 +191,15 @@ export default function Categories({
     );
     setNewCustomArray(updatedNewArray);
   };
-
+// console.log(newCustomArray)
   const handleShowItems = (title: string) => {
+    // console.log("show items", showItems.includes(title));
     setShowItems((prev) => {
       if (prev.includes(title)) {
         // Remove the item if it exists
         return prev.filter((item) => item !== title);
-      } else {
         // Add the item if it doesn't exist
+      } else {
         return [...prev, title];
       }
     });
@@ -386,6 +389,8 @@ export default function Categories({
         setView={setView}
         setShowImagesDeleteButtons={setShowImagesDeleteButtons}
         showImagesDeleteButtons={showImagesDeleteButtons}
+        showCategoryImage={showCategoryImage}
+        setShowCategoryImage={setShowCategoryImage}
       >
         <FinalStep
           goBack={handleGoBack}
@@ -422,6 +427,8 @@ export default function Categories({
           showMarginCategoriesTop={showMarginCategoriesTop}
           setShowImagesDeleteButtons={setShowImagesDeleteButtons}
           showImagesDeleteButtons={showImagesDeleteButtons}
+          showCategoryImage={showCategoryImage}
+          setShowCategoryImage={setShowCategoryImage}
         />
       </PreviewMenu>
     );

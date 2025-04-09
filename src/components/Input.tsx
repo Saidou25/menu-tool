@@ -32,6 +32,7 @@ export default function Input({
   label,
   htmlFor,
 }: InputProps) {
+
   if (type === "checkbox") {
     return (
       <div className="inputs-container">

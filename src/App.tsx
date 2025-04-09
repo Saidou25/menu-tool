@@ -12,6 +12,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
+  // const [createCategory, setCreateCategory] = useState(true);
   const [categoriesList, setCategoriesList] = useState<MenuCategory[]>([]);
   const [customCategoryList, setCustomCategoryList] = useState<MenuCategory[]>(
     []
@@ -21,6 +22,21 @@ function App() {
   const [menuSampleData, setMenuSampleData] = useState<
     Record<string, { subtitle?: string; items: Field[]; custom?: string }>
   >({});
+
+  const customCategory = () => {
+    setCustomCategoryList([
+      Dinner.sandwichesList,
+      Dinner.soupsList,
+      Dinner.wingsList,
+      Dinner.saladsList,
+      Dinner.sharablesList,
+      Dinner.burgersList,
+      Dinner.bigEatsList,
+      Dinner.sidesList,
+      Dinner.saucesList,
+      Desserts.dessertsList,
+    ]);
+  };
 
   const selectMenu = (item: string) => {
     if (item === "Dinner") {
@@ -54,6 +70,7 @@ function App() {
         Dinner.saucesList,
         Desserts.dessertsList,
       ]);
+      customCategory();
       setCustom(true);
     }
   };
@@ -66,6 +83,14 @@ function App() {
   ) => {
     setMenuSampleData(localSelectedCategoryItems);
   };
+
+  // useEffect(() => {
+  //   if (createCategory) {
+  //     console.log("create category: ", createCategory)
+  //     customCategory();
+  //   }
+  // }, [createCategory]);
+
 
   if (categoriesList.length)
     return (

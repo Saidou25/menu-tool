@@ -14,9 +14,10 @@ import { useGetSubtitleFontColor } from "../hooks/useGetSubtitleFontColor";
 import Footer from "./Footer";
 import Input from "./Input";
 import InputBar from "./InputBar";
+import Button from "./Button";
+import { useGetCategoryImage } from "../hooks/useGetCategoryImage";
 
 import "./CustomCategoriesMenu.css";
-import Button from "./Button";
 
 type Props = {
   flatItemsCategories: MenuCategory[];
@@ -40,6 +41,8 @@ type Props = {
   >;
   showDisclaimer: boolean;
   // setView: React.Dispatch<React.SetStateAction<boolean>>;
+  showCategoryImage: boolean;
+  setShowCategoryImage: (item: boolean) => void;
 };
 
 export default function CustomCategoriesMenu({
@@ -60,6 +63,8 @@ export default function CustomCategoriesMenu({
   showDisclaimer,
   showPaddingCategoriesTop,
   showMarginCategoriesTop,
+  showCategoryImage,
+  setShowCategoryImage,
 }: Props) {
   // const handleCategoryPaddingTop = useCategoryPaddingTop(setStyleForm);
   const handleCategoryBackgroundColor =
@@ -74,7 +79,10 @@ export default function CustomCategoriesMenu({
   const getCategoryMarginTop = useGetCategoriesMarginTop(styleForm);
   const getDynamicStyles = useDynamicStyles(styleForm);
   const getSubtitleFontColor = useGetSubtitleFontColor(styleForm);
-
+  const getCategoryImage = useGetCategoryImage(styleForm);
+  // const { url, index } = getCategoryImage(categoryIndex) || {};
+  // console.log("url: ", url);
+  // console.log("index: ", index);
   useEffect(() => {
     if (newCustomArray) {
       // Initialize an empty array to hold the updated categories with items
@@ -133,8 +141,6 @@ export default function CustomCategoriesMenu({
     };
   }, [styleForm.contentContainerWidth]);
 
-  // console.log(joinedCategories);
-  // console.log(showDecorations);
   return (
     <div
       className="row custom-menu-items-container print"
@@ -149,7 +155,7 @@ export default function CustomCategoriesMenu({
       }}
     >
       <div
-        className="row background-image"
+        className="row"
         style={{
           backgroundImage: `url(${styleForm.backgroundImage})`,
           width: `${+styleForm.menuWidth}mm`,
@@ -230,7 +236,7 @@ export default function CustomCategoriesMenu({
               width: `${styleForm.topImageSize}px`,
               display: "flex",
               justifyContent: "center",
-              margin: "auto"
+              margin: "auto",
             }}
           >
             <img
@@ -255,231 +261,242 @@ export default function CustomCategoriesMenu({
           </div>
         )}
         {flatItemsCategories &&
-          flatItemsCategories.map((customCategory, categoryIndex) => (
-            <div
-              className={
-                joinedCategories[customCategory.title]
-                  ? "col-6"
-                  : customCategory.title === showDecorations
-                  ? "col-12 content-container"
-                  : "col-12"
-              }
-              key={customCategory.title}
-              style={{
-                ...getDynamicStyles(
+          flatItemsCategories.map((customCategory, categoryIndex) => {
+            const { url, index } = getCategoryImage(categoryIndex) || {};
+            return (
+              <div
+                className={
                   joinedCategories[customCategory.title]
                     ? "col-6"
                     : customCategory.title === showDecorations
                     ? "col-12 content-container"
-                    : "col-12",
-                  categoryIndex
-                ),
-                backgroundColor: getSectionBackground(categoryIndex),
-                marginBottom: `${styleForm.categoriesMarginBottom}px`,
-                paddingTop: getCategoryPaddingTop(categoryIndex),
-                marginTop: getCategoryMarginTop(categoryIndex),
-              }}
-            >
-              <div
-                className={
-                  customCategory.title === showDecorations ? "share-span" : ""
+                    : "col-12"
                 }
+                key={`${customCategory.title}-${categoryIndex}`}
                 style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginBottom: "0",
+                  ...getDynamicStyles(
+                    joinedCategories[customCategory.title]
+                      ? "col-6"
+                      : customCategory.title === showDecorations
+                      ? "col-12 content-container"
+                      : url && index === categoryIndex
+                      ? "col-12 background-image"
+                      : "col-12",
+                    categoryIndex
+                  ),
+                  backgroundColor: getSectionBackground(categoryIndex),
+                  // backgroundImage: `url(${getCategoryImage(categoryIndex)})`,
+                  marginBottom: `${styleForm.categoriesMarginBottom}px`,
+                  paddingTop: getCategoryPaddingTop(categoryIndex),
+                  marginTop: getCategoryMarginTop(categoryIndex),
                 }}
               >
-                <h2
-                  className="customCategories-title"
+                <div
+                  className={
+                    customCategory.title === showDecorations ? "share-span" : ""
+                  }
                   style={{
-                    fontSize: `${styleForm.categoryFontSize}px`,
-                    color: styleForm.categoryColor,
-                    marginBottom:
-                      customCategory.title === showDecorations
-                        ? "20px"
-                        : `${styleForm.categoryMarginBottom}px`,
+                    display: "flex",
+                    justifyContent: "center",
+                    marginBottom: "0",
+                  }}
+                >
+                  <h2
+                    className="customCategories-title"
+                    style={{
+                      fontSize: `${styleForm.categoryFontSize}px`,
+                      color: styleForm.categoryColor,
+                      marginBottom:
+                        customCategory.title === showDecorations
+                          ? "20px"
+                          : `${styleForm.categoryMarginBottom}px`,
+                    }}
+                  >
+                    <span
+                      className={
+                        customCategory.title === showDecorations
+                          ? "gap-text"
+                          : ""
+                      }
+                      style={{
+                        top:
+                          customCategory.title === showDecorations
+                            ? `${styleForm.gapTextTop}px`
+                            : "",
+                        lineHeight: "1",
+                        display: "inline",
+                        verticalAlign: "baseline",
+                        letterSpacing: "2px",
+                        fontFamily: "Pewter Corroded, sans-serif",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {customCategory.title}
+                      {/* {customCategory.items.length ? customCategory.title : null} */}
+                    </span>
+                  </h2>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <InputBar
+                      showPaddingCategoriesTop={showPaddingCategoriesTop}
+                      showMarginCategoriesTop={showMarginCategoriesTop}
+                      showJoinInputs={showJoinInputs}
+                      showColorInputs={showColorInputs}
+                      showDecorationCheckboxes={showDecorationCheckboxes}
+                      className="input-bar"
+                      setJoinedCategories={setJoinedCategories}
+                      joinedCategories={joinedCategories}
+                      customCategory={customCategory}
+                      categoryIndex={categoryIndex}
+                      styleForm={styleForm}
+                      setStyleForm={setStyleForm}
+                      showDecorations={showDecorations}
+                      setShowDecorations={setShowDecorations}
+                      showCategoryImage={showCategoryImage}
+                      setShowCategoryImage={setShowCategoryImage}
+                      // flatItemsCategories={flatItemsCategories}
+                      url={url}
+                    />
+                  </div>
+                </div>
+                <div
+                  className="subtitle"
+                  style={{
+                    color: getSubtitleFontColor(categoryIndex),
+                    marginBottom: `${styleForm.subtitlePaddingBottom}px`,
                   }}
                 >
                   <span
-                    className={
-                      customCategory.title === showDecorations ? "gap-text" : ""
-                    }
                     style={{
-                      top:
-                        customCategory.title === showDecorations
-                          ? `${styleForm.gapTextTop}px`
-                          : "",
-                      lineHeight: "1",
-                      display: "inline",
-                      verticalAlign: "baseline",
-                      letterSpacing: "2px",
-                      fontFamily: "Pewter Corroded, sans-serif",
-                      textTransform: "uppercase",
+                      fontSize: `${styleForm.subtitleFontSize}px`,
+                      letterSpacing: "1px",
                     }}
                   >
-                    {customCategory.title}
-                    {/* {customCategory.items.length ? customCategory.title : null} */}
+                    {customCategory.subtitle}
                   </span>
-                </h2>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <InputBar
-                    showPaddingCategoriesTop={showPaddingCategoriesTop}
-                    showMarginCategoriesTop={showMarginCategoriesTop}
-                    showJoinInputs={showJoinInputs}
-                    showColorInputs={showColorInputs}
-                    showDecorationCheckboxes={showDecorationCheckboxes}
-                    className="input-bar"
-                    setJoinedCategories={setJoinedCategories}
-                    joinedCategories={joinedCategories}
-                    customCategory={customCategory}
-                    categoryIndex={categoryIndex}
-                    styleForm={styleForm}
-                    setStyleForm={setStyleForm}
-                    showDecorations={showDecorations}
-                    setShowDecorations={setShowDecorations}
-                  />
+                  {showColorInputs && customCategory.subtitle && (
+                    <>
+                      &nbsp;
+                      <Input
+                        type="color"
+                        className="menu-color-inputs"
+                        onChange={(event) =>
+                          handleSubtitleFontColor(
+                            event.target.value,
+                            categoryIndex
+                          )
+                        }
+                      />
+                      <Button
+                        type="button"
+                        onClick={() =>
+                          handleCategoryBackgroundColor("", categoryIndex)
+                        }
+                        className="img-button"
+                      >
+                        reset
+                      </Button>
+                    </>
+                  )}
                 </div>
-              </div>
-              <div
-                className="subtitle"
-                style={{
-                  color: getSubtitleFontColor(categoryIndex),
-                  marginBottom: `${styleForm.subtitlePaddingBottom}px`,
-                }}
-              >
-                <span
+                <ul
+                  className="row p-0 justify-content-between"
                   style={{
-                    fontSize: `${styleForm.subtitleFontSize}px`,
-                    letterSpacing: "1px",
-                    
+                    ...(joinedCategories[customCategory.title] && {
+                      display: "flex",
+                      flexDirection: "column",
+                    }),
                   }}
                 >
-                  {customCategory.subtitle}
-                </span>
-                {showColorInputs && customCategory.subtitle && (
-                  <>
-                    &nbsp;
-                    <Input
-                      type="color"
-                      className="menu-color-inputs"
-                      onChange={(event) =>
-                        handleSubtitleFontColor(
-                          event.target.value,
-                          categoryIndex
-                        )
+                  {customCategory.items.map((item, itemIndex, arr) => (
+                    <li
+                      id={`li-${categoryIndex}`}
+                      key={itemIndex}
+                      className={
+                        joinedCategories[customCategory.title] // If customCategories is joined, make items col-12
+                          ? "col-12 menu-item"
+                          : (arr.length % 2 !== 0 && // Odd number of items
+                              itemIndex === arr.length - 1 && // Last item
+                              customCategory.title !== "Sides" && // Not "Sides"
+                              !Object.keys(joinedCategories).some(
+                                (joinedCategory) =>
+                                  joinedCategory === customCategory.title
+                              )) ||
+                            styleForm.menuWidth <= 110
+                          ? "col-12 menu-item-odd"
+                          : "col-6 menu-item pe-4"
                       }
-                    />
-                    <Button
-                      type="button"
-                      onClick={() =>
-                        handleCategoryBackgroundColor("", categoryIndex)
-                      }
-                      className="img-button"
                     >
-                      reset
-                    </Button>
-                  </>
-                )}
-              </div>
-              <ul
-                className="row p-0 justify-content-between"
-                style={{
-                  ...(joinedCategories[customCategory.title] && {
-                    display: "flex",
-                    flexDirection: "column",
-                  }),
-                }}
-              >
-                {customCategory.items.map((item, itemIndex, arr) => (
-                  <li
-                    id={`li-${categoryIndex}`}
-                    key={itemIndex}
-                    className={
-                      joinedCategories[customCategory.title] // If customCategories is joined, make items col-12
-                        ? "col-12 menu-item"
-                        : (arr.length % 2 !== 0 && // Odd number of items
-                            itemIndex === arr.length - 1 && // Last item
-                            customCategory.title !== "Sides" && // Not "Sides"
-                            !Object.keys(joinedCategories).some(
-                              (joinedCategory) =>
-                                joinedCategory === customCategory.title
-                            )) ||
-                          styleForm.menuWidth <= 110
-                        ? "col-12 menu-item-odd"
-                        : "col-6 menu-item pe-4"
-                    }
-                  >
-                    <div
-                      className="menu-item-div"
-                      style={{
-                        marginBottom: `${styleForm.itemMarginBottom}px`,
-                      }}
-                    >
-                      <span
+                      <div
+                        className="menu-item-div"
                         style={{
-                          fontSize: `${styleForm.itemFontSize}px`,
-                          letterSpacing: "1px",
-                          fontFamily: "Pewter Corroded, sans-serif",
-                          color: styleForm.menuItemColor,
+                          marginBottom: `${styleForm.itemMarginBottom}px`,
                         }}
                       >
-                        {item.label}
-                      </span>
-                      {!hidePrices && (
                         <span
                           style={{
-                            fontSize: `${styleForm.priceSize}px`,
-                            color: styleForm.priceColor,
+                            fontSize: `${styleForm.itemFontSize}px`,
+                            letterSpacing: "1px",
+                            fontFamily: "Pewter Corroded, sans-serif",
+                            color: styleForm.menuItemColor,
                           }}
                         >
-                          &nbsp;{item.price.value?.toFixed(2)}
+                          {item.label}
                         </span>
-                      )}
-                    </div>
+                        {!hidePrices && (
+                          <span
+                            style={{
+                              fontSize: `${styleForm.priceSize}px`,
+                              color: styleForm.priceColor,
+                            }}
+                          >
+                            &nbsp;{item.price.value?.toFixed(2)}
+                          </span>
+                        )}
+                      </div>
 
-                    <div
-                      className="item-description"
-                      style={{
-                        fontFamily: "Pewter Corroded, sans-serif",
-                        fontSize: `${styleForm.descriptionFontSize}px`,
-                        marginBottom: `${styleForm.descriptionMarginBottom}px`,
-                        letterSpacing: "1px",
-                        color: styleForm.menuItemDescriptionColor,
-                      }}
-                    >
-                      <span
+                      <div
+                        className="item-description"
                         style={{
-                          color: getDescriptionLetterColor(
-                            categoryIndex,
-                            itemIndex
-                          ),
+                          fontFamily: "Pewter Corroded, sans-serif",
+                          fontSize: `${styleForm.descriptionFontSize}px`,
+                          marginBottom: `${styleForm.descriptionMarginBottom}px`,
                           letterSpacing: "1px",
+                          color: styleForm.menuItemDescriptionColor,
                         }}
                       >
-                        {item.description}
-                      </span>
-                      &nbsp;&nbsp;
-                      {showColorInputs && (
-                        <Input
-                          className="menu-color-inputs"
-                          type="color"
-                          onChange={(event) =>
-                            handleDescriptionLettersColor(
-                              event.target.value,
+                        <span
+                          style={{
+                            color: getDescriptionLetterColor(
                               categoryIndex,
                               itemIndex
-                            )
-                          }
-                          // style={{ marginBottom: "0", paddingBottom: "0" }}
-                        />
-                      )}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+                            ),
+                            letterSpacing: "1px",
+                          }}
+                        >
+                          {item.description}
+                        </span>
+                        &nbsp;&nbsp;
+                        {showColorInputs && (
+                          <Input
+                            className="menu-color-inputs"
+                            type="color"
+                            onChange={(event) =>
+                              handleDescriptionLettersColor(
+                                event.target.value,
+                                categoryIndex,
+                                itemIndex
+                              )
+                            }
+                            // style={{ marginBottom: "0", paddingBottom: "0" }}
+                          />
+                        )}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
         <div className="row" style={{ gap: "10px" }}>
           {styleForm.bottomImage && (
             <div
