@@ -9,7 +9,7 @@ import Input from "./Input";
 import "./InputBar.css";
 
 type InputBarProps = {
-  url: string | undefined;
+  url?: string | undefined;
   // flatItemsCategories: MenuCategory[];
   className: string;
   showPaddingCategoriesTop: boolean;
@@ -26,9 +26,9 @@ type InputBarProps = {
   styleForm: StyleFormType;
   setStyleForm: React.Dispatch<React.SetStateAction<StyleFormType>>;
   showDecorations: string;
-  setShowDecorations: (category: string) => void;
-  showCategoryImage: boolean;
-  setShowCategoryImage: (item: boolean) => void;
+  setShowDecorations?: (category: string) => void;
+  showCategoryImage?: boolean;
+  setShowCategoryImage?: (item: boolean) => void;
 };
 
 export default function InputBar({
@@ -217,7 +217,7 @@ export default function InputBar({
             showDecorations === customCategory.category
           }
           onChange={() =>
-            setShowDecorations(
+            setShowDecorations?.(
               customCategory.title
                 ? customCategory.title
                 : customCategory.category
