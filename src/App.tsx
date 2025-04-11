@@ -23,6 +23,16 @@ function App() {
     Record<string, { subtitle?: string; items: Field[]; custom?: string }>
   >({});
 
+  const reset = () => {
+    console.log("reset");
+    setCategoriesList([]);
+    setCustomCategoryList([]);
+    setCustom(false);
+    setShowDropdown(false);
+    setMenuSampleData({});
+
+  };
+
   const customCategory = () => {
     setCustomCategoryList([
       Dinner.sandwichesList,
@@ -84,14 +94,6 @@ function App() {
     setMenuSampleData(localSelectedCategoryItems);
   };
 
-  // useEffect(() => {
-  //   if (createCategory) {
-  //     console.log("create category: ", createCategory)
-  //     customCategory();
-  //   }
-  // }, [createCategory]);
-
-
   if (categoriesList.length)
     return (
       <Categories
@@ -102,6 +104,7 @@ function App() {
         menuSampleDataFunc={funcSetMenuSampleData}
         selectedData={menuSampleData}
         custom={custom}
+        reset={reset}
       />
     );
 

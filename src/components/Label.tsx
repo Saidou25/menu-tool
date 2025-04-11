@@ -6,14 +6,18 @@ interface LabelProps {
   htmlFor?: string;
   fadeInOut: boolean;
 }
-export default function Label({ title, label, htmlFor, fadeInOut }: LabelProps) {
-
+export default function Label({
+  title,
+  label,
+  htmlFor,
+  fadeInOut,
+}: LabelProps) {
   return (
     <label
       className={fadeInOut ? "label-fade-in" : "label-fade-out"}
       htmlFor={htmlFor}
     >
-      {title ? <h4 className="label-title">{title}</h4> : <span>{label}</span>}
+      {title ? <h3 className="label-title">{title}</h3> : <span>{label}</span>}
     </label>
   );
 }

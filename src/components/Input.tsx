@@ -46,7 +46,7 @@ export default function Input({
           checked={checked}
           name={name}
         />
-        &nbsp;&nbsp;
+        &nbsp;&nbsp; &nbsp;
         <label htmlFor={htmlFor}>
           {title && htmlFor !== "tool-title" && !smallTitle ? (
             <h1>{title}</h1>

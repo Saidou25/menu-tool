@@ -24,6 +24,7 @@ import Input from "./Input";
 import "./Categories.css";
 
 type Props = {
+  reset: () => void;
   setCustomCategoryList: React.Dispatch<React.SetStateAction<MenuCategory[]>>;
   customCategoryList: Array<{
     title: string;
@@ -43,6 +44,7 @@ type Props = {
 };
 
 export default function Categories({
+  reset,
   custom,
   selectedData,
   menuSampleDataFunc,
@@ -59,8 +61,6 @@ export default function Categories({
     { categoryItem: string }[]
   >([]);
   const [showCategoryImage, setShowCategoryImage] = useState(false);
-  const [showSelect, setShowSelect] = useState(false);
-  const [showCreate, setShowCreate] = useState(false);
   const [showItems, setShowItems] = useState<string[]>([]);
   const [view, setView] = useState(false);
   const [showImagesDeleteButtons, setShowImagesDeleteButtons] = useState(false);
@@ -456,306 +456,295 @@ export default function Categories({
 
   return (
     <div className="row app-container g-0">
-      <div className="col-1 pt-4">
-        {(showCreate || showSelect) && (
-          <>
-            <Logo
-              className="restart"
-              h1ClassName="restart-tool"
-              title=""
-              subtitle="Restart"
-              setCategoriesList={setCategoriesList}
-              fadeLogoInOut={fadeLogoInOut}
-            />
-            <Logo
-              className="preview-btn"
-              h1ClassName="preview-tool"
-              title=""
-              subtitle="Preview menu"
-              setMenuPreview={setMenuPreview}
-              menuPreview={menuPreview}
-              fadeLogoInOut={fadeLogoInOut}
-            />
-          </>
-        )}
+      <div className="col-1 pt-3">
+        <>
+          <Logo
+            className="restart"
+            h1ClassName="restart-tool"
+            title=""
+            subtitle="Restart"
+            setCategoriesList={setCategoriesList}
+            fadeLogoInOut={fadeLogoInOut}
+            reset={reset}
+          />
+          <Logo
+            className="preview-btn"
+            h1ClassName="preview-tool"
+            title=""
+            subtitle="Preview menu"
+            setMenuPreview={setMenuPreview}
+            menuPreview={menuPreview}
+            fadeLogoInOut={fadeLogoInOut}
+          />
+        </>
       </div>
       <div className="col-11">
-        {!showCreate && (
-          <div className="d-flex pb-5 pt-5">
-            <Input
-              type="checkbox"
-              className="select-check"
-              id="select"
-              checked={showSelect}
-              onChange={() => {
-                setShowSelect(!showSelect);
-                setFadeLogoInOut(!fadeLogoInOut);
-              }}
-              title="Select categories and items for your menu:"
-              htmlFor="select"
+        {custom ? (
+          <>
+            <div className="d-flex pb-5 pt-5">
+              {/* "Create custom menu categories and select items:" */}
+              <Label
+                title="Create custom menu categories and select items:"
+                fadeInOut={true}
+              />
+            </div>
+            <CustomCategoryForm
+              setCustomCategories={setCustomCategories}
+              customCategories={customCategories}
+              newCustomCategories={NewCustomCategories}
+              setNewCustomCategories={setNewCustomCategories}
+              setNewArray={setNewArray}
+              newArray={newArray}
+              setNewCustomArray={setNewCustomArray}
+              newCustomArray={newCustomArray}
+              // customArrTitles={customArrTitles}
+              // setCustomArrTitles={setCustomArrTitles}
+              setFadeInOut={setFadeInOut}
+              // fadeInOut={fadInOut}
             />
-          </div>
-        )}
+            {newCustomArray &&
+              newCustomArray.map((newArr, categoryIndex) => (
+                <div key={`${newArr}-${categoryIndex}`} id={newArr.title}>
+                  <div className="row mb-3">
+                    <div className="col-2">
+                      <Label title={newArr.title} fadeInOut={fadeInOut} />
+                      <br />
+                      <br />
+                      {showSubtitleInput === newArr.title ? (
+                        <div className="io-container">
+                          <Input
+                            type="text"
+                            onChange={handleAddSubtitle}
+                            label="add subtitle"
+                            htmlFor={newArr.title}
+                          />
+                          <br />
+                          <br />
+                          <Button
+                            type="button"
+                            onClick={handleSubtitleClick}
+                            children="submit"
+                          />
+                        </div>
+                      ) : newArr.subtitle ? (
+                        <>
+                          <span
+                            style={{ fontSize: "20px", fontStyle: "italic" }}
+                          >
+                            {newArr.subtitle}{" "}
+                          </span>
+                          <br />
+                          <br />
+                          <IoCloseOutline
+                            className="close-io"
+                            onClick={() => handleRemoveSubtitle(newArr.title)}
+                          />{" "}
+                          &nbsp;&nbsp;remove subtitle
+                          <br />
+                        </>
+                      ) : (
+                        <div className="io-container">
+                          <IoMdAddCircle
+                            className="io"
+                            id={newArr.title}
+                            onClick={() => setShowSubtitleInput(newArr.title)}
+                          />
+                          &nbsp;&nbsp; add subtitle
+                        </div>
+                      )}
+                      {/* <br /> */}
+                      <br />
+                      <Input
+                        type="checkbox"
+                        id="select-items"
+                        onChange={() => handleShowItems(newArr.title)}
+                        checked={showItems.includes(newArr.title)} // Checkbox state
+                        label="check to select items"
+                        htmlFor="select-items"
+                        className="select-items"
+                        // fadeInOut={fadeInOut}
+                      />
+                      &nbsp;&nbsp;
+                      <br />
+                      <Input
+                        type="checkbox"
+                        className="consolited-view"
+                        id="consolited-view"
+                        onChange={() => handleConsolidatedView(newArr.title)}
+                        checked={consolidatedView.some(
+                          (item) => item.title === newArr.title
+                        )} // .some() is more efficient than .find() because it directly returns true or false without needing extra conversion.
+                        label="compact view"
+                        htmlFor="consolited view"
+                        // fadeInOut={fadeInOut}
+                      />
+                      {/* &nbsp; */}
+                      <br />
+                      <Button
+                        className={
+                          fadeInOut
+                            ? "button label-fade-in"
+                            : "button label-fade-out"
+                        }
+                        type="button"
+                        value={newArr.title}
+                        onClick={() => handleClick(newArr.title)}
+                      >
+                        remove category
+                      </Button>
+                      <br />
+                      <br />
+                      <br />
+                      <br />
+                    </div>
 
-        {showSelect && !showCreate && (
-          <div className="row">
-            {categoriesList.map((category, index) => (
-              <div className="col-3 categories ps-5" key={index}>
-                <CategoryItems
-                  selectedCategoryItems={
-                    localSelectedCategoryItems[category.title]?.items || []
-                  }
-                  fields={category.items}
-                  title={category.title}
-                  showCategoryItemsFunc={(updatedItems) =>
-                    showCategoryItems(category.title, updatedItems)
-                  }
-                  fadeInOutFunc={funcFadeInOut}
-                >
-                  <SelectedCategoryItems
+                    {newCustomArray.length > 0 &&
+                    consolidatedView.some(
+                      (item) => item.title === newArr.title
+                    ) ? (
+                      <div className="col-10">
+                        <div className="row preview-item-container g-0">
+                          {render(newArr.title)}
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="col-10 d-flex">
+                        <div className="row">
+                          {/* Only render if categoryIndex is selected */}
+                          {showItems.includes(newArr.title) &&
+                            customCategoryList.map((Category, index) => (
+                              <div
+                                className="col-4 category-items-container"
+                                key={index}
+                              >
+                                <CustomCategoryItems
+                                  newArr={newArr}
+                                  newCustomArray={newCustomArray}
+                                  setNewCustomArray={setNewCustomArray}
+                                  selectedData={selectedData}
+                                  // consolidatedView={consolidatedView}
+                                  selectedCategoryItems={
+                                    localSelectedCategoryItems[Category.title]
+                                      ?.items || []
+                                  }
+                                  fields={Category.items}
+                                  title={Category.title}
+                                  // fadeInOutFunc={funcFadeInOut}
+                                >
+                                  <div className="row g-0">
+                                    {newCustomArray &&
+                                      newCustomArray.map((customItem) => (
+                                        <div
+                                          key={customItem.title}
+                                          className="preview-items-container"
+                                        >
+                                          {customItem.subCategories &&
+                                            customItem.subCategories.map(
+                                              (subCategory) => (
+                                                <span
+                                                  className="col-7"
+                                                  key={
+                                                    subCategory.subCategoryTitle
+                                                  }
+                                                >
+                                                  {customItem.title ===
+                                                    newArr.title &&
+                                                    subCategory.subCategoryTitle ===
+                                                      Category.title &&
+                                                    subCategory.items.length &&
+                                                    subCategory.items.map(
+                                                      (item, index) => (
+                                                        <div
+                                                          key={index}
+                                                          className="item-label"
+                                                        >
+                                                          <span>
+                                                            {item.label}
+                                                          </span>
+                                                        </div>
+                                                      )
+                                                    )}
+                                                </span>
+                                              )
+                                            )}
+                                        </div>
+                                      ))}
+                                  </div>
+                                </CustomCategoryItems>
+                              </div>
+                            ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            {newCustomArray[0]?.subCategories.length &&
+            newCustomArray.length !== consolidatedView.length ? (
+              <div
+                className="ps-2"
+                style={{ marginLeft: "17%", marginTop: "5%" }}
+              >
+                <input
+                  className="checkbox-category"
+                  id="disclaimer"
+                  type="checkbox"
+                  onChange={handleDisclaimer}
+                  checked={showDisclaimer}
+                  name="disclaimer"
+                />
+                <SmallTittles label="Select to add FDA disclaimer to the bottom of your menu" />
+              </div>
+            ) : null}
+          </>
+        ) : (
+          <>
+            <div className="d-flex pb-5 pt-5">
+              <Label
+                label=""
+                title="Select categories and items for your menu:"
+                fadeInOut={true}
+              />
+            </div>
+            <div className="row">
+              {categoriesList.map((category, index) => (
+                <div className="col-3 categories ps-5" key={index}>
+                  <CategoryItems
                     selectedCategoryItems={
                       localSelectedCategoryItems[category.title]?.items || []
                     }
-                    handlePriceChange={handlePriceChange}
-                    fadeInOut={fadeInOut}
-                  />
-                </CategoryItems>
-              </div>
-            ))}
-            <div className="ps-5" style={{ marginLeft: "3px" }}>
-              <input
-                className="checkbox-category"
-                id="disclaimer"
-                type="checkbox"
-                onChange={handleDisclaimer}
-                checked={showDisclaimer}
-                name="disclaimer"
-              />
-              &nbsp;&nbsp;
-              <SmallTittles label="Select to add FDA disclaimer to the bottom of your menu" />
-            </div>
-          </div>
-        )}
-
-        {!showSelect && (
-          <div className="d-flex pb-5 pt-5">
-            <Input
-              type="checkbox"
-              className="create-check"
-              id="create"
-              checked={showCreate}
-              onChange={() => {
-                setShowCreate(!showCreate);
-                setFadeLogoInOut(!fadeLogoInOut);
-              }}
-              title="Create custom menu categories and select items:"
-            />
-          </div>
-        )}
-        {showCreate && !showSelect && (
-          <CustomCategoryForm
-            setCustomCategories={setCustomCategories}
-            customCategories={customCategories}
-            newCustomCategories={NewCustomCategories}
-            setNewCustomCategories={setNewCustomCategories}
-            setNewArray={setNewArray}
-            newArray={newArray}
-            setNewCustomArray={setNewCustomArray}
-            newCustomArray={newCustomArray}
-            // customArrTitles={customArrTitles}
-            // setCustomArrTitles={setCustomArrTitles}
-            setFadeInOut={setFadeInOut}
-            // fadeInOut={fadInOut}
-          />
-        )}
-
-        <br />
-        <br />
-        <br />
-        {/* <> */}
-        {newCustomArray &&
-          newCustomArray.map((newArr, categoryIndex) => (
-            <div key={`${newArr}-${categoryIndex}`} id={newArr.title}>
-              <div className="row mb-3">
-                <div className="col-2">
-                  <Label title={newArr.title} fadeInOut={fadeInOut} />
-                  <br />
-                  <br />
-                  {showSubtitleInput === newArr.title ? (
-                    <div className="io-container">
-                      <Input
-                        type="text"
-                        onChange={handleAddSubtitle}
-                        label="add subtitle"
-                        htmlFor={newArr.title}
-                      />
-                      <br />
-                      <br />
-                      <Button
-                        type="button"
-                        onClick={handleSubtitleClick}
-                        children="submit"
-                      />
-                    </div>
-                  ) : newArr.subtitle ? (
-                    <>
-                      <span style={{ fontSize: "20px", fontStyle: "italic" }}>
-                        {newArr.subtitle}{" "}
-                      </span>
-                      <br />
-                      <br />
-                      <IoCloseOutline
-                        className="close-io"
-                        onClick={() => handleRemoveSubtitle(newArr.title)}
-                      />{" "}
-                      &nbsp;remove subtitle
-                      <br />
-                    </>
-                  ) : (
-                    <div className="io-container">
-                      <IoMdAddCircle
-                        className="io"
-                        id={newArr.title}
-                        onClick={() => setShowSubtitleInput(newArr.title)}
-                      />
-                      &nbsp; add subtitle
-                    </div>
-                  )}
-                  {/* <br /> */}
-                  <br />
-                  <Input
-                    type="checkbox"
-                    id="select-items"
-                    onChange={() => handleShowItems(newArr.title)}
-                    checked={showItems.includes(newArr.title)} // Checkbox state
-                    label="check to select items"
-                    htmlFor="select-items"
-                    className="select-items"
-                    // fadeInOut={fadeInOut}
-                  />
-                  &nbsp;
-                  <br />
-                  <Input
-                    type="checkbox"
-                    className="consolited-view"
-                    id="consolited-view"
-                    onChange={() => handleConsolidatedView(newArr.title)}
-                    checked={consolidatedView.some(
-                      (item) => item.title === newArr.title
-                    )} // .some() is more efficient than .find() because it directly returns true or false without needing extra conversion.
-                    label="compact view"
-                    htmlFor="consolited view"
-                    // fadeInOut={fadeInOut}
-                  />
-                  &nbsp;
-                  <br />
-                  <Button
-                    className={
-                      fadeInOut
-                        ? "button label-fade-in"
-                        : "button label-fade-out"
+                    fields={category.items}
+                    title={category.title}
+                    showCategoryItemsFunc={(updatedItems) =>
+                      showCategoryItems(category.title, updatedItems)
                     }
-                    type="button"
-                    value={newArr.title}
-                    onClick={() => handleClick(newArr.title)}
+                    fadeInOutFunc={funcFadeInOut}
                   >
-                    remove category
-                  </Button>
-                  <br />
-                  <br />
-                  <br />
-                  <br />
+                    <SelectedCategoryItems
+                      selectedCategoryItems={
+                        localSelectedCategoryItems[category.title]?.items || []
+                      }
+                      handlePriceChange={handlePriceChange}
+                      fadeInOut={fadeInOut}
+                    />
+                  </CategoryItems>
                 </div>
-
-                {newCustomArray.length > 0 &&
-                consolidatedView.some((item) => item.title === newArr.title) ? (
-                  <div className="col-10">
-                    <div className="row preview-item-container g-0">
-                      {render(newArr.title)}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="col-10 d-flex">
-                    <div className="row">
-                      {/* Only render if categoryIndex is selected */}
-                      {showItems.includes(newArr.title) &&
-                        customCategoryList.map((Category, index) => (
-                          <div
-                            className="col-4 category-items-container"
-                            key={index}
-                          >
-                            <CustomCategoryItems
-                              newArr={newArr}
-                              newCustomArray={newCustomArray}
-                              setNewCustomArray={setNewCustomArray}
-                              selectedData={selectedData}
-                              // consolidatedView={consolidatedView}
-                              selectedCategoryItems={
-                                localSelectedCategoryItems[Category.title]
-                                  ?.items || []
-                              }
-                              fields={Category.items}
-                              title={Category.title}
-                              // fadeInOutFunc={funcFadeInOut}
-                            >
-                              <div className="row g-0">
-                                {newCustomArray &&
-                                  newCustomArray.map((customItem) => (
-                                    <div
-                                      key={customItem.title}
-                                      className="preview-items-container"
-                                    >
-                                      {customItem.subCategories &&
-                                        customItem.subCategories.map(
-                                          (subCategory) => (
-                                            <span
-                                              className="col-7"
-                                              key={subCategory.subCategoryTitle}
-                                            >
-                                              {customItem.title ===
-                                                newArr.title &&
-                                                subCategory.subCategoryTitle ===
-                                                  Category.title &&
-                                                subCategory.items.length &&
-                                                subCategory.items.map(
-                                                  (item, index) => (
-                                                    <div
-                                                      key={index}
-                                                      className="item-label"
-                                                    >
-                                                      <span>{item.label}</span>
-                                                    </div>
-                                                  )
-                                                )}
-                                            </span>
-                                          )
-                                        )}
-                                    </div>
-                                  ))}
-                              </div>
-                            </CustomCategoryItems>
-                          </div>
-                        ))}
-                    </div>
-                  </div>
-                )}
+              ))}
+              <div className="ps-5" style={{ marginLeft: "3px" }}>
+                <input
+                  className="checkbox-category"
+                  id="disclaimer"
+                  type="checkbox"
+                  onChange={handleDisclaimer}
+                  checked={showDisclaimer}
+                  name="disclaimer"
+                />
+                &nbsp;&nbsp;
+                <SmallTittles label="Select to add FDA disclaimer to the bottom of your menu" />
               </div>
             </div>
-          ))}
-        {newCustomArray[0]?.subCategories.length &&
-        newCustomArray.length !== consolidatedView.length ? (
-          <div className="ps-2" style={{ marginLeft: "17%", marginTop: "5%" }}>
-            <input
-              className="checkbox-category"
-              id="disclaimer"
-              type="checkbox"
-              onChange={handleDisclaimer}
-              checked={showDisclaimer}
-              name="disclaimer"
-            />
-            <SmallTittles label="Select to add FDA disclaimer to the bottom of your menu" />
-          </div>
-        ) : null}
+          </>
+        )}
 
         <br />
         <br />

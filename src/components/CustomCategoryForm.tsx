@@ -33,7 +33,7 @@ export default function CustomCategoryForm({
   newCustomArray,
   setNewCustomArray,
 }: Props) {
-  const [showPlus, setShowPlus] = useState(true);
+  const [showForm, setShowForm] = useState(true);
   const [showSubmit, setShowSubmit] = useState(false);
   const [catObj, setCatObj] = useState<{ newCat: string }>({ newCat: "" });
   const [newCategory, setNewCategory] = useState<MenuCategory>({
@@ -92,15 +92,15 @@ export default function CustomCategoryForm({
     setNewCategory({ title: "", subtitle: "", items: [] });
     setNewCustomCategory({ title: "", subtitle: "", subCategories: [] });
     setShowSubmit(false); // Hide submit button
-    setShowPlus(!showPlus);
+    setShowForm(true);
   };
 
   return (
     <div className="custom-form-container">
-      {showPlus ? (
+      {!showForm ? (
         <div className="plus-container">
           <IoMdAddCircle
-            onClick={() => setShowPlus(!showPlus)}
+            onClick={() => setShowForm(true)}
             className="plus"
           /><br />
           Add a category
@@ -109,7 +109,7 @@ export default function CustomCategoryForm({
         <form className="custom-form">
           <div className="close-container">
             <IoCloseOutline className="close" 
-            onClick={() => setShowPlus(!showPlus)} />
+            onClick={() => setShowForm(!showForm)} />
           </div>
           <h5>Name your custom category</h5>
           <br />

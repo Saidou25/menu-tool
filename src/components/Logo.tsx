@@ -1,26 +1,28 @@
-import { MenuCategory } from "../data/types";
+// import { MenuCategory } from "../data/types";
 import "./Logo.css";
 
 type LogoProps = {
+  reset?: () => void;
   fadeLogoInOut?: boolean;
   className: string;
   title: string;
   subtitle: string;
   h1ClassName: string;
   menuPreview?: boolean;
-  setCategoriesList?: React.Dispatch<React.SetStateAction<MenuCategory[]>>;
+  // setCategoriesList?: React.Dispatch<React.SetStateAction<MenuCategory[]>>;
   setMenuPreview?: React.Dispatch<React.SetStateAction<boolean>>;
   setView?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function Logo({
+  reset,
   fadeLogoInOut,
   className,
   h1ClassName,
   title,
   subtitle,
   setMenuPreview,
-  setCategoriesList,
+  // setCategoriesList,
   setView,
 }: LogoProps) {
 
@@ -28,7 +30,7 @@ export default function Logo({
     if (event.currentTarget.className.includes("preview-btn")) {
       setMenuPreview?.((prev) => !prev);
     } else if (event.currentTarget.className.includes("restart")) {
-      setCategoriesList?.([]);
+      reset?.();
     } else if (event.currentTarget.className === "go-back no-print") {
       setView?.((prev) => !prev);
     }
