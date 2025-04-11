@@ -4,7 +4,6 @@ import "./SelectedCategoryItems.css";
 
 type Props = {
   selectedCategoryItems?: Field[];
-  selectedCustomCategoryItems?: Field[];
   handlePriceChange: (name: string, value: number) => void;
   fadeInOut: boolean;
 };

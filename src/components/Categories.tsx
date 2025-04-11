@@ -5,6 +5,8 @@ import {
   MenuCustomCategory,
   StyleFormType,
 } from "../data/types";
+import { IoMdAddCircle } from "react-icons/io";
+import { IoCloseOutline } from "react-icons/io5";
 import SelectedCategoryItems from "./SelectedCategoryItems";
 import CategoryItems from "./CategoryItems";
 import PreviewMenu from "./PreviewMenu";
@@ -18,8 +20,6 @@ import CustomCategoryForm from "./CustomCategoryForm";
 import Label from "./Label";
 import Button from "./Button";
 import Input from "./Input";
-import { IoMdAddCircle } from "react-icons/io";
-import { IoCloseOutline } from "react-icons/io5";
 
 import "./Categories.css";
 
@@ -87,7 +87,7 @@ export default function Categories({
   >({});
   const [newCustomArray, setNewCustomArray] = useState<MenuCustomCategory[]>(
     []
-  ); // Use correct type
+  );
   // const [customArrTitles, setCustomArrTitles] = useState<string[]>([]);
   const [styleForm, setStyleForm] = useState<StyleFormType>({
     menuWidth: 0,
@@ -191,9 +191,7 @@ export default function Categories({
     );
     setNewCustomArray(updatedNewArray);
   };
-// console.log(newCustomArray)
   const handleShowItems = (title: string) => {
-    // console.log("show items", showItems.includes(title));
     setShowItems((prev) => {
       if (prev.includes(title)) {
         // Remove the item if it exists
@@ -316,21 +314,41 @@ export default function Categories({
     });
   };
 
-  const render = (newArrTitle: string) => {
-    const flatArr = [];
-    const firstLevel = newCustomArray.find(
-      (item) => item.title === newArrTitle
+  const handleCustomPriceChange = (
+    newArrTitle: string,
+    name: string,
+    value: string
+  ) => {
+    setNewCustomArray((prev) =>
+      prev.map(
+        (category) =>
+          category.title === newArrTitle // Only update if title matches
+            ? {
+                ...category,
+                subCategories: category.subCategories.map((sub) => ({
+                  ...sub,
+                  items: sub.items.map((item) =>
+                    item.label === name
+                      ? { ...item, price: { ...item.price, value: +value } }
+                      : item
+                  ),
+                })),
+              }
+            : category // Keep other categories unchanged
+      )
     );
-    const subCat = firstLevel?.subCategories;
-    if (subCat) {
-      for (let subCategory of subCat) flatArr.push(subCategory.items);
-    }
+  };
 
+  const render = (newArrTitle: string) => {
+    const category = newCustomArray.find((item) => item.title === newArrTitle);
+    if (!category) return <span>No items found</span>;
+
+    const flatArr = category.subCategories.flatMap((sub) => sub.items); // Flattens the array
     return (
       <>
-        {flatArr.flat().length > 0 ? (
-          flatArr.flat().map((flat, index) => (
-            <div key={`${flat}-${index}`} className="col-6 pe-3">
+        {flatArr.length > 0 ? (
+          flatArr.map((flat, index) => (
+            <div key={`${flat.label}-${index}`} className="col-6 pe-3">
               <div className="row g-0">
                 <span className="col-7 gap-1">{flat.label}</span>
                 <div className="col-5 d-flex gap-1">
@@ -338,11 +356,15 @@ export default function Categories({
                   <input
                     className="container-fluid price-input"
                     placeholder={flat.price.placeholder}
-                    //  name={item.label} // Use label as item identifier
+                    name={flat.label}
                     value={flat.price.value === 0 ? "" : flat.price.value} // Show placeholder if value is 0
                     type="number"
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                      handlePriceChange(e.target.name, +e.target.value)
+                      handleCustomPriceChange(
+                        newArrTitle,
+                        e.target.name,
+                        e.target.value
+                      )
                     }
                   />
                 </div>
@@ -350,13 +372,11 @@ export default function Categories({
             </div>
           ))
         ) : (
-          <span>No items itemToUpdate</span>
+          <span>No items available</span>
         )}
       </>
     );
   };
-
-  // console.log("localSelectedCategoryItems", localSelectedCategoryItems);
 
   if (menuPreview) {
     return (
@@ -584,9 +604,11 @@ export default function Categories({
                       </span>
                       <br />
                       <br />
-                      <IoCloseOutline className="close-io"
+                      <IoCloseOutline
+                        className="close-io"
                         onClick={() => handleRemoveSubtitle(newArr.title)}
-                      /> &nbsp;remove subtitle
+                      />{" "}
+                      &nbsp;remove subtitle
                       <br />
                     </>
                   ) : (
@@ -626,7 +648,6 @@ export default function Categories({
                     // fadeInOut={fadeInOut}
                   />
                   &nbsp;
-                  {/* <br /> */}
                   <br />
                   <Button
                     className={
