@@ -109,7 +109,7 @@ function AppContent() {
   if (categoriesList.length)
     return (
       <Categories
-        setCategoriesList={setCategoriesList}
+        // setCategoriesList={setCategoriesList}
         categoriesList={categoriesList}
         setCustomCategoryList={setCustomCategoryList}
         customCategoryList={customCategoryList}
