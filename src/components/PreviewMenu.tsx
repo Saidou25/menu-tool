@@ -269,6 +269,8 @@ const PreviewMenu = ({
               showMarginCategoriesTop={showMarginCategoriesTop}
               showImagesDeleteButtons={showImagesDeleteButtons}
               organizedData={organizedData}
+              showCategoryImage={showCategoryImage}
+              setShowCategoryImage={setShowCategoryImage}
             />
             {/* Render BackMenu only if there are additional categories */}
             {Object.keys(secondPageData).length > 0 && (

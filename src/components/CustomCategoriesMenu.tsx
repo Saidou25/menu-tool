@@ -145,7 +145,10 @@ export default function CustomCategoriesMenu({
     <div
       className="row custom-menu-items-container print"
       style={{
-        padding: `${styleForm.pagePaddingTopAndBottom}px ${styleForm.pagePaddingLeftAndRight}px 0 ${styleForm.pagePaddingLeftAndRight}px`,
+        paddingTop: `${styleForm.pagePaddingTopAndBottom}px`,
+        paddingRight: `${styleForm.pagePaddingLeftAndRight}px`,
+        // paddingBottom: `${styleForm.pagePaddingTopAndBottom}px`,
+        paddingLeft: `${styleForm.pagePaddingLeftAndRight}px`,
         width: `${+styleForm.menuWidth}mm`,
         height: `${+styleForm.menuHeight}mm`,
         maxHeight: `${+styleForm.menuHeight}mm`,
@@ -174,7 +177,6 @@ export default function CustomCategoriesMenu({
             delete background image
           </Button>
         )}
-
         {styleForm.guyTop && (
           <div
             style={{
@@ -197,6 +199,36 @@ export default function CustomCategoriesMenu({
               <Button
                 type="button"
                 onClick={() => setStyleForm({ ...styleForm, guyTop: "" })}
+                className="img-button"
+              >
+                delete
+              </Button>
+            )}
+          </div>
+        )}{" "}
+        {styleForm.topImage && (
+          <div
+            style={{
+              width: `${styleForm.topImageSize}px`,
+              display: "flex",
+              justifyContent: "center",
+              margin: "auto",
+            }}
+          >
+            <img
+              className="image-fluid"
+              alt=""
+              src={styleForm.topImage}
+              style={{
+                maxWidth: "100%",
+                // width: `${styleForm.topImage}px`,
+                height: "auto",
+              }}
+            />
+            {showImagesDeleteButtons && (
+              <Button
+                type="button"
+                onClick={() => setStyleForm({ ...styleForm, topImage: "" })}
                 className="img-button"
               >
                 delete
@@ -228,36 +260,6 @@ export default function CustomCategoriesMenu({
             >
               {styleForm.title}
             </span>
-          </div>
-        )}
-        {styleForm.topImage && (
-          <div
-            style={{
-              width: `${styleForm.topImageSize}px`,
-              display: "flex",
-              justifyContent: "center",
-              margin: "auto",
-            }}
-          >
-            <img
-              className="image-fluid"
-              alt=""
-              src={styleForm.topImage}
-              style={{
-                maxWidth: "100%",
-                // width: `${styleForm.topImage}px`,
-                height: "auto",
-              }}
-            />
-            {showImagesDeleteButtons && (
-              <Button
-                type="button"
-                onClick={() => setStyleForm({ ...styleForm, topImage: "" })}
-                className="img-button"
-              >
-                delete
-              </Button>
-            )}
           </div>
         )}
         {flatItemsCategories &&
@@ -353,8 +355,8 @@ export default function CustomCategoriesMenu({
                       setShowDecorations={setShowDecorations}
                       showCategoryImage={showCategoryImage}
                       setShowCategoryImage={setShowCategoryImage}
-                      // flatItemsCategories={flatItemsCategories}
                       url={url}
+                      // flatItemsCategories={flatItemsCategories}
                     />
                   </div>
                 </div>
@@ -442,55 +444,118 @@ export default function CustomCategoriesMenu({
                         >
                           {item.label}
                         </span>
-                        {!hidePrices && (
-                          <span
-                            style={{
-                              fontSize: `${styleForm.priceSize}px`,
-                              color: styleForm.priceColor,
-                            }}
-                          >
-                            &nbsp;{item.price.value?.toFixed(2)}
-                          </span>
-                        )}
+                        {!hidePrices &&
+                          item.price.placeholder !== "Market price" && (
+                            <span
+                              style={{
+                                fontSize: `${styleForm.priceSize}px`,
+                                color: styleForm.priceColor,
+                              }}
+                            >
+                              &nbsp;{item.price.value?.toFixed(2)}
+                            </span>
+                          )}
+                        {!hidePrices &&
+                          item.price.placeholder === "Market price" && (
+                            <span
+                              style={{
+                                fontSize: `${styleForm.priceSize}px`,
+                                color: styleForm.priceColor,
+                                fontFamily: "Pewter Corroded, sans-serif",
+                                letterSpacing: "1px",
+                              }}
+                            >
+                              &nbsp;{item.price.placeholder}
+                            </span>
+                          )}
+                        {!hidePrices &&
+                          item.label === "American royal ribs" && (
+                            <div
+                              className=""
+                              style={{
+                                fontSize: `${styleForm.subtitleFontSize}px`,
+                                fontFamily: "Pewter Corroded, sans-serif",
+                                color: getSubtitleFontColor(categoryIndex),
+                                // marginBottom: `${styleForm.subtitlePaddingBottom}px`,
+                              }}
+                            >
+                              <span className="">
+                                {item.subSubtitle1} &nbsp;tewnty
+                                {/* {item.price.value1} */}
+                              </span>
+                              &nbsp;&nbsp;&nbsp;&nbsp;
+                              <span className="">
+                                {item.subSubtitle2} &nbsp;thirty
+                                {/* {item.price.value2} */}
+                              </span>
+                              {showColorInputs && (
+                                <>
+                                  &nbsp;
+                                  <Input
+                                    type="color"
+                                    className="menu-color-inputs"
+                                    onChange={(event) =>
+                                      handleSubtitleFontColor(
+                                        event.target.value,
+                                        categoryIndex
+                                      )
+                                    }
+                                  />
+                                  {/* <Button
+                                    type="button"
+                                    onClick={() =>
+                                      handleCategoryBackgroundColor(
+                                        "",
+                                        categoryIndex
+                                      )
+                                    }
+                                    className="img-button"
+                                  >
+                                    reset
+                                  </Button> */}
+                                </>
+                              )}
+                            </div>
+                          )}
                       </div>
-
-                      <div
-                        className="item-description"
-                        style={{
-                          fontFamily: "Pewter Corroded, sans-serif",
-                          fontSize: `${styleForm.descriptionFontSize}px`,
-                          marginBottom: `${styleForm.descriptionMarginBottom}px`,
-                          letterSpacing: "1px",
-                          color: styleForm.menuItemDescriptionColor,
-                        }}
-                      >
-                        <span
+                      {item.description && (
+                        <div
+                          className="item-description"
                           style={{
-                            color: getDescriptionLetterColor(
-                              categoryIndex,
-                              itemIndex
-                            ),
+                            fontFamily: "Pewter Corroded, sans-serif",
+                            fontSize: `${styleForm.descriptionFontSize}px`,
+                            marginBottom: `${styleForm.descriptionMarginBottom}px`,
                             letterSpacing: "1px",
+                            color: styleForm.menuItemDescriptionColor,
                           }}
                         >
-                          {item.description}
-                        </span>
-                        &nbsp;&nbsp;
-                        {showColorInputs && (
-                          <Input
-                            className="menu-color-inputs"
-                            type="color"
-                            onChange={(event) =>
-                              handleDescriptionLettersColor(
-                                event.target.value,
+                          <span
+                            style={{
+                              color: getDescriptionLetterColor(
                                 categoryIndex,
                                 itemIndex
-                              )
-                            }
-                            // style={{ marginBottom: "0", paddingBottom: "0" }}
-                          />
-                        )}
-                      </div>
+                              ),
+                              letterSpacing: "1px",
+                            }}
+                          >
+                            {item.description}
+                          </span>
+                          &nbsp;&nbsp;
+                          {showColorInputs && (
+                            <Input
+                              className="menu-color-inputs"
+                              type="color"
+                              onChange={(event) =>
+                                handleDescriptionLettersColor(
+                                  event.target.value,
+                                  categoryIndex,
+                                  itemIndex
+                                )
+                              }
+                            />
+                          )}
+                        </div>
+                      )}
                     </li>
                   ))}
                 </ul>

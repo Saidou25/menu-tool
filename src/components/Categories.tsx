@@ -3,7 +3,7 @@ import {
   Field,
   MenuCategory,
   MenuCustomCategory,
-  StyleFormType,
+  // StyleFormType,
 } from "../data/types";
 import { IoMdAddCircle } from "react-icons/io";
 import { IoCloseOutline } from "react-icons/io5";
@@ -22,6 +22,7 @@ import Button from "./Button";
 import Input from "./Input";
 
 import "./Categories.css";
+import { useAppState } from "../hooks/useAppState";
 
 type Props = {
   reset: () => void;
@@ -33,7 +34,7 @@ type Props = {
   }>;
   custom: boolean;
   categoriesList: Array<{ title: string; subtitle?: string; items: Field[] }>;
-  setCategoriesList: React.Dispatch<React.SetStateAction<MenuCategory[]>>;
+  // setCategoriesList: React.Dispatch<React.SetStateAction<MenuCategory[]>>;
   selectedData: Record<string, { subtitle?: string; items: Field[] }>; // Update here
   menuSampleDataFunc: (
     localSelectedCategoryItems: Record<
@@ -48,7 +49,7 @@ export default function Categories({
   custom,
   selectedData,
   menuSampleDataFunc,
-  setCategoriesList,
+  // setCategoriesList,
   categoriesList,
   // setCustomCategoryList,
   customCategoryList,
@@ -71,11 +72,11 @@ export default function Categories({
   const [hidePrices, setHidePrices] = useState(false);
   const [showColorInputs, setShowColorInputs] = useState(false);
   const [showFinalStep, setShowfinalStep] = useState(false);
-  const [showDecorationCheckboxes, setShowDecorationsCheckboxes] =
+  const [showDecorationCheckboxes, setShowDecorationCheckboxes] =
     useState(false);
   const [showModal, setShowModal] = useState(false);
   const [fadeInOut, setFadeInOut] = useState(false);
-  const [fadeLogoInOut, setFadeLogoInOut] = useState(false);
+  // const [fadeLogoInOut, setFadeLogoInOut] = useState(false);
   const [menuPreview, setMenuPreview] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
   const [showDecorations, setShowDecorations] = useState("");
@@ -89,67 +90,7 @@ export default function Categories({
     []
   );
   // const [customArrTitles, setCustomArrTitles] = useState<string[]>([]);
-  const [styleForm, setStyleForm] = useState<StyleFormType>({
-    menuWidth: 0,
-    menuHeight: 0,
-    backgroundImage: "",
-    topImage: "",
-    topImageSize: 50,
-    bottomImage: "",
-    bottomImageSize: 20,
-    pagePaddingTopAndBottom: 0,
-    pagePaddingLeftAndRight: 0,
-    categoryFontSize: 30,
-    categoriesMarginBottom: 0,
-    categoryMarginBottom: 0,
-    itemFontSize: 20,
-    itemMarginBottom: 0,
-    descriptionFontSize: 15,
-    descriptionMarginBottom: 0,
-    guyBackgroundColor: "",
-    guyTop: "",
-    guyBottom: "",
-    guyTopSize: 50,
-    guyBottomSize: 50,
-    guyTopMarginBottom: 0,
-    guyBottomMarginBottom: 0,
-    title: "",
-    titleSize: 20,
-    titlePaddingBottom: 0,
-    titlePaddingTop: 0,
-    titleBackgroundColor: "",
-    footerSize: 20,
-    footer: "",
-    titleMarginBottom: 0,
-    footerMarginBottom: 0,
-    pageBackground: "",
-    sectionBackground: [],
-    categoryImage: [],
-    descriptionLetterColor: [],
-    titleColor: "",
-    categoryColor: "",
-    priceColor: "",
-    priceSize: 15,
-    menuItemColor: "",
-    menuItemDescriptionColor: "",
-    textTopColor: "",
-    textBottomColor: "",
-    footerTextColor: "",
-    subtitleFontSize: 15,
-    subtitleFontColor: [],
-    subtitleColor: "",
-    subtitlePaddingBottom: 0,
-    decoration: "",
-    gapTextTop: -11,
-    contentContainerWidth: 45,
-    paddingCategoriesLeftRight: 0,
-    paddingCategoriesTop: [],
-    marginCategoriesTop: [],
-    paddingDecoration: 0,
-    decorationWidth: 90,
-    footerPaddingPaddingTop: 0,
-    footerPaddingBottom: 0,
-  });
+ 
   const [flatItemsCategories, setFlatItemsCategories] = useState<
     MenuCategory[]
   >([]);
@@ -161,6 +102,8 @@ export default function Categories({
   >([]);
   const [showSubtitleInput, setShowSubtitleInput] = useState(""); // Toggles subtitle inputs
   const [subtitle, setSubtitle] = useState("");
+
+const { styleForm, setStyleForm } = useAppState();
 
   const handleAddSubtitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSubtitle(event.target.value); // Store the latest subtitle input
@@ -402,7 +345,7 @@ export default function Categories({
         showDecorations={showDecorations}
         setShowDecorations={setShowDecorations}
         showDecorationCheckboxes={showDecorationCheckboxes}
-        setShowDecorationCheckboxes={setShowDecorationsCheckboxes}
+        setShowDecorationCheckboxes={setShowDecorationCheckboxes}
         showPaddingCategoriesTop={showPaddingCategoriesTop}
         showMarginCategoriesTop={showMarginCategoriesTop}
         view={view}
@@ -440,7 +383,7 @@ export default function Categories({
           showDecorations={showDecorations}
           // setShowDecorations={setShowDecorations}
           showDecorationCheckboxes={showDecorationCheckboxes}
-          setShowDecorationCheckboxes={setShowDecorationsCheckboxes}
+          setShowDecorationCheckboxes={setShowDecorationCheckboxes}
           showPaddingCategoriesTop={showPaddingCategoriesTop}
           setShowPaddingCategoriesTop={setShowPaddingCategoriesTop}
           setShowMarginCategoriesTop={setShowMarginCategoriesTop}
@@ -463,8 +406,8 @@ export default function Categories({
             h1ClassName="restart-tool"
             title=""
             subtitle="Restart"
-            setCategoriesList={setCategoriesList}
-            fadeLogoInOut={fadeLogoInOut}
+            // setCategoriesList={setCategoriesList}
+            // fadeLogoInOut={fadeLogoInOut}
             reset={reset}
           />
           <Logo
@@ -474,7 +417,7 @@ export default function Categories({
             subtitle="Preview menu"
             setMenuPreview={setMenuPreview}
             menuPreview={menuPreview}
-            fadeLogoInOut={fadeLogoInOut}
+            // fadeLogoInOut={fadeLogoInOut}
           />
         </>
       </div>

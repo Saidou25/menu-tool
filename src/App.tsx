@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { MenuCategory, Field } from "./data/types"; // Import both MenuCategory and Field from types.ts
+import { AppStateProvider, useAppState } from "./hooks/useAppState";
 import { WiStars } from "react-icons/wi";
+
 import * as Dinner from "./data/Dinner"; // Import all the lists from the Dinner folder
 import * as Desserts from "./data/Desserts";
 
@@ -11,17 +13,28 @@ import Logo from "./components/Logo";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-function App() {
+function AppContent() {
   // const [createCategory, setCreateCategory] = useState(true);
   const [categoriesList, setCategoriesList] = useState<MenuCategory[]>([]);
-  const [customCategoryList, setCustomCategoryList] = useState<MenuCategory[]>(
-    []
-  );
-  const [custom, setCustom] = useState(false);
-  const [showDropown, setShowDropdown] = useState(false);
-  const [menuSampleData, setMenuSampleData] = useState<
-    Record<string, { subtitle?: string; items: Field[]; custom?: string }>
-  >({});
+  // const [custom, setCustom] = useState(false);
+  // const [showDropown, setShowDropdown] = useState(false);
+  // const [menuSampleData, setMenuSampleData] = useState<
+  //   Record<string, { subtitle?: string; items: Field[]; custom?: string }>
+  // >({});
+  // const [customCategoryList, setCustomCategoryList] = useState<MenuCategory[]>(
+  //   []
+  // );
+
+  const {
+    custom,
+    setCustom,
+    showDropown,
+    setShowDropdown,
+    customCategoryList,
+    setCustomCategoryList,
+    menuSampleData,
+    setMenuSampleData
+  } = useAppState();
 
   const reset = () => {
     console.log("reset");
@@ -29,8 +42,7 @@ function App() {
     setCustomCategoryList([]);
     setCustom(false);
     setShowDropdown(false);
-    setMenuSampleData({});
-
+    // setMenuSampleData({});
   };
 
   const customCategory = () => {
@@ -147,5 +159,12 @@ function App() {
     </div>
   );
 }
-
+// Wraps the entire app in AppStateProvider
+function App() {
+  return (
+    <AppStateProvider>
+      <AppContent />
+    </AppStateProvider>
+  );
+}
 export default App;

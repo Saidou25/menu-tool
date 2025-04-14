@@ -14,6 +14,8 @@ import Input from "./Input";
 import InputBar from "./InputBar";
 
 import "./CustomCategoriesMenu.css";
+import Button from "./Button";
+import { useGetCategoryImage } from "../hooks/useGetCategoryImage";
 
 type FrontMenuProps = {
   // animation: string;
@@ -34,6 +36,8 @@ type FrontMenuProps = {
     React.SetStateAction<Record<string, boolean>>
   >;
   hidePrices: boolean;
+  showCategoryImage: boolean;
+  setShowCategoryImage: (item: boolean) => void;
 };
 
 export default function FrontMenu({
@@ -54,43 +58,48 @@ export default function FrontMenu({
   setShowDecorations,
   hidePrices,
   showImagesDeleteButtons,
+  showCategoryImage,
+  setShowCategoryImage,
 }: FrontMenuProps) {
-  const [datas, setDatas] = useState<{ category: string; subtitle?: string; items: Field[] }[]>(  
-    Object.entries(organizedData).map(([key, value]) => ({  
-      category: key,  
-      subtitle: value.subtitle ?? "",  
-      items: value.items  
-    }))  
+  const [datas, setDatas] = useState<
+    { category: string; subtitle?: string; items: Field[] }[]
+  >(
+    Object.entries(organizedData).map(([key, value]) => ({
+      category: key,
+      subtitle: value.subtitle ?? "",
+      items: value.items,
+    }))
   ); // Converts organizedData into an array
 
-   const handleCategoryBackgroundColor =
-      useCategoryBackgroundColor(setStyleForm);
-    const handleDescriptionLettersColor =
-      useDescriptionLettersColor(setStyleForm);
-    // const handleCategoryMarginTop = useCategoryMarginTop(setStyleForm);
-    const handleSubtitleFontColor = useSubtitleFontColor(setStyleForm);
-    const getSectionBackground = useGetSectionBackground(styleForm);
-    const getDescriptionLetterColor = useGetDescriptionLetterColor(styleForm);
-    const getCategoryPaddingTop = useGetCategoriesPaddingTop(styleForm);
-    const getCategoryMarginTop = useGetCategoriesMarginTop(styleForm);
-    const getDynamicStyles = useDynamicStyles(styleForm);
-    const getSubtitleFontColor = useGetSubtitleFontColor(styleForm);
-  
-    useEffect(() => {
-      setDatas(
-        Object.entries(organizedData).map(([key, value]) => ({
-          category: key,
-          subtitle: value.subtitle ?? "",
-          items: value.items,
-        }))
-      );
-    }, [organizedData]); // Ensures state updates if organizedData changes
+  const handleCategoryBackgroundColor =
+    useCategoryBackgroundColor(setStyleForm);
+  const handleDescriptionLettersColor =
+    useDescriptionLettersColor(setStyleForm);
+  // const handleCategoryMarginTop = useCategoryMarginTop(setStyleForm);
+  const handleSubtitleFontColor = useSubtitleFontColor(setStyleForm);
+  const getSectionBackground = useGetSectionBackground(styleForm);
+  const getDescriptionLetterColor = useGetDescriptionLetterColor(styleForm);
+  const getCategoryPaddingTop = useGetCategoriesPaddingTop(styleForm);
+  const getCategoryMarginTop = useGetCategoriesMarginTop(styleForm);
+  const getDynamicStyles = useDynamicStyles(styleForm);
+  const getSubtitleFontColor = useGetSubtitleFontColor(styleForm);
+  const getCategoryImage = useGetCategoryImage(styleForm);
 
-    // console.log("showDecorations", showDecorations);
+  useEffect(() => {
+    setDatas(
+      Object.entries(organizedData).map(([key, value]) => ({
+        category: key,
+        subtitle: value.subtitle ?? "",
+        items: value.items,
+      }))
+    );
+  }, [organizedData]); // Ensures state updates if organizedData changes
 
-    useEffect(() => {
-      const style = document.createElement("style");
-      style.innerHTML = `
+  // console.log("showDecorations", showDecorations);
+
+  useEffect(() => {
+    const style = document.createElement("style");
+    style.innerHTML = `
       .content-container::before {
         left: 0;
         width: ${styleForm.contentContainerWidth}%;
@@ -104,118 +113,131 @@ export default function FrontMenu({
           height: 2px;
       }
       `;
-      document.head.appendChild(style);
-  
-      return () => {
-        document.head.removeChild(style);
-      };
-    }, [styleForm.contentContainerWidth]);
+    document.head.appendChild(style);
+
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, [styleForm.contentContainerWidth]);
 
   return (
+    <div
+      className="row custom-menu-items-container print"
+      style={{
+        paddingTop: `${styleForm.pagePaddingTopAndBottom}px`,
+        paddingRight: `${styleForm.pagePaddingLeftAndRight}px`,
+        // paddingBottom: `${styleForm.pagePaddingTopAndBottom}px`,
+        paddingLeft: `${styleForm.pagePaddingLeftAndRight}px`,
+        width: `${+styleForm.menuWidth}mm`,
+        height: `${+styleForm.menuHeight}mm`,
+        maxHeight: `${+styleForm.menuHeight}mm`,
+        // animation: "menuSizeAnimation 0.5s linear forwards",
+        overflow: "hidden",
+        backgroundColor: styleForm.pageBackground,
+      }}
+    >
       <div
-        className="row custom-menu-items-container print"
+        className="row"
         style={{
-          padding: `${styleForm.pagePaddingTopAndBottom}px ${styleForm.pagePaddingLeftAndRight}px 0 ${styleForm.pagePaddingLeftAndRight}px`,
+          backgroundImage: `url(${styleForm.backgroundImage})`,
           width: `${+styleForm.menuWidth}mm`,
-          height: `${+styleForm.menuHeight}mm`,
           maxHeight: `${+styleForm.menuHeight}mm`,
-          // animation: "menuSizeAnimation 0.5s linear forwards",
-          overflow: "hidden",
-          backgroundColor: styleForm.pageBackground,
+          margin: "auto",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
       >
-        <div
-          className="row background-image"
-          style={{
-            backgroundImage: `url(${styleForm.backgroundImage})`,
-            width: `${+styleForm.menuWidth}mm`,
-            maxHeight: `${+styleForm.menuHeight}mm`,
-            margin: "auto",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          {showImagesDeleteButtons && styleForm.backgroundImage && (
-            <button
-              type="button"
-              onClick={() => setStyleForm({ ...styleForm, backgroundImage: "" })}
-            >
-              delete background image
-            </button>
-          )}
-  
-          {styleForm.guyTop && (
-            <div style={{ backgroundColor: styleForm.guyBackgroundColor, display: "flex",
-              justifyContent: "center"
-             }}>
-              <img
-                className="image-fluid"
-                alt=""
-                src={styleForm.guyTop}
-                style={{ maxWidth: "100%", width: `${styleForm.guyTopSize}px`, height: "auto" }}
-              />
-              {showImagesDeleteButtons && (
-                <button
-                  type="button"
-                  onClick={() => setStyleForm({ ...styleForm, guyTop: "" })}
-                >
-                  delete
-                </button>
-              )}
-            </div>
-          )}
-          {styleForm.title && (
-            <div
-              className="title"
+        {showImagesDeleteButtons && styleForm.backgroundImage && (
+          <Button
+            type="button"
+            onClick={() => setStyleForm({ ...styleForm, backgroundImage: "" })}
+          >
+            delete background image
+          </Button>
+        )}
+        {styleForm.guyTop && (
+          <div
+            style={{
+              backgroundColor: styleForm.guyBackgroundColor,
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <img
+              className="image-fluid"
+              alt=""
+              src={styleForm.guyTop}
               style={{
-                fontSize: `${styleForm.titleSize}px`,
-                backgroundColor: styleForm.titleBackgroundColor,
-                color: styleForm.titleColor,
-                paddingTop: `${styleForm.titlePaddingTop}px`,
-                paddingBottom: `${styleForm.titlePaddingBottom}px`,
-                marginBottom: `${styleForm.titleMarginBottom}px`,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                fontFamily: "Pewter Corroded, sans-serif",
+                maxWidth: "100%",
+                width: `${styleForm.guyTopSize}px`,
+                height: "auto",
+              }}
+            />
+            {showImagesDeleteButtons && (
+              <button
+                type="button"
+                onClick={() => setStyleForm({ ...styleForm, guyTop: "" })}
+              >
+                delete
+              </button>
+            )}
+          </div>
+        )}{" "}
+        {styleForm.topImage && (
+          <div style={{ width: `${styleForm.topImageSize}px`, margin: "auto" }}>
+            <img
+              className="image-fluid"
+              alt=""
+              src={styleForm.topImage}
+              style={{ maxWidth: "100%", height: "auto" }}
+            />
+            {showImagesDeleteButtons && (
+              <button
+                type="button"
+                onClick={() => setStyleForm({ ...styleForm, topImage: "" })}
+              >
+                delete
+              </button>
+            )}
+          </div>
+        )}
+        {styleForm.title && (
+          <div
+            className="title"
+            style={{
+              fontSize: `${styleForm.titleSize}px`,
+              backgroundColor: styleForm.titleBackgroundColor,
+              color: styleForm.titleColor,
+              paddingTop: `${styleForm.titlePaddingTop}px`,
+              paddingBottom: `${styleForm.titlePaddingBottom}px`,
+              marginBottom: `${styleForm.titleMarginBottom}px`,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontFamily: "Pewter Corroded, sans-serif",
+            }}
+          >
+            <span
+              style={{
+                textTransform: "uppercase",
+                letterSpacing: "2px",
               }}
             >
-              <span
-                style={{
-                  textTransform: "uppercase",
-                  letterSpacing: "2px",
-                }}
-              >
-                {styleForm.title}
-              </span>
-            </div>
-          )}
-          {styleForm.topImage && (
-            <div style={{ width: `${styleForm.topImageSize}px`, margin: "auto" }}>
-              <img
-                className="image-fluid"
-                alt=""
-                src={styleForm.topImage}
-                style={{ maxWidth: "100%", height: "auto" }}
-              />
-              {showImagesDeleteButtons && (
-                <button
-                  type="button"
-                  onClick={() => setStyleForm({ ...styleForm, topImage: "" })}
-                >
-                  delete
-                </button>
-              )}
-            </div>
-          )}
-  
-          {datas &&
-            datas.map((customCategory, categoryIndex) => (
+              {styleForm.title}
+            </span>
+          </div>
+        )}
+        {datas &&
+          datas.map((customCategory, categoryIndex) => {
+            const { url, index } = getCategoryImage(categoryIndex) || {};
+            return (
               <div
                 className={
                   joinedCategories[customCategory.category]
                     ? "col-6"
-                    :"content-container"
+                    : customCategory.category === showDecorations
+                    ? "col-12 content-container"
+                    : "col-12"
                 }
                 key={customCategory.category}
                 style={{
@@ -224,6 +246,8 @@ export default function FrontMenu({
                       ? "col-6"
                       : customCategory.category === showDecorations
                       ? "col-12 content-container"
+                      : url && index === categoryIndex
+                      ? "col-12 background-image"
                       : "col-12",
                     categoryIndex
                   ),
@@ -237,7 +261,9 @@ export default function FrontMenu({
               >
                 <div
                   className={
-                    customCategory.category === showDecorations ? "share-span" : ""
+                    customCategory.category === showDecorations
+                      ? "share-span"
+                      : ""
                   }
                   style={{
                     display: "flex",
@@ -258,7 +284,9 @@ export default function FrontMenu({
                   >
                     <span
                       className={
-                        customCategory.category === showDecorations ? "gap-text" : ""
+                        customCategory.category === showDecorations
+                          ? "gap-text"
+                          : ""
                       }
                       style={{
                         top:
@@ -293,11 +321,11 @@ export default function FrontMenu({
                       setStyleForm={setStyleForm}
                       showDecorations={showDecorations}
                       setShowDecorations={setShowDecorations}
+                      showCategoryImage={showCategoryImage}
+                      setShowCategoryImage={setShowCategoryImage}
+                      url={url}
                     />
                   </div>
-                
-                
-              
                 </div>
                 <div
                   className="subtitle"
@@ -382,18 +410,81 @@ export default function FrontMenu({
                         >
                           {item.label}
                         </span>
-                        {!hidePrices && (
-                          <span
-                            style={{
-                              fontSize: `${styleForm.priceSize}px`,
-                              color: styleForm.priceColor,
-                            }}
-                          >
-                            &nbsp;{item.price.value?.toFixed(2)}
-                          </span>
-                        )}
+                        {!hidePrices &&
+                          item.price.placeholder !== "Market price" && (
+                            <span
+                              style={{
+                                fontSize: `${styleForm.priceSize}px`,
+                                color: styleForm.priceColor,
+                              }}
+                            >
+                              &nbsp;{item.price.value?.toFixed(2)}
+                            </span>
+                          )}
+                       {!hidePrices &&
+                          item.price.placeholder === "Market price" && (
+                            <span
+                              style={{
+                                fontSize: `${styleForm.priceSize}px`,
+                                color: styleForm.priceColor,
+                                fontFamily: "Pewter Corroded, sans-serif",
+                                letterSpacing: "1px",
+                              }}
+                            >
+                              &nbsp;{item.price.placeholder}
+                            </span>
+                          )}
+                           {!hidePrices &&
+                                                    item.label === "American royal ribs" && (
+                                                      <div
+                                                        className=""
+                                                        style={{
+                                                          fontSize: `${styleForm.subtitleFontSize}px`,
+                                                          fontFamily: "Pewter Corroded, sans-serif",
+                                                          color: getSubtitleFontColor(categoryIndex),
+                                                          // marginBottom: `${styleForm.subtitlePaddingBottom}px`,
+                                                        }}
+                                                      >
+                                                        <span className="">
+                                                          {item.subSubtitle1} &nbsp;tewnty
+                                                          {/* {item.price.value1} */}
+                                                        </span>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <span className="">
+                                                          {item.subSubtitle2} &nbsp;thirty
+                                                          {/* {item.price.value2} */}
+                                                        </span>
+                                                        {showColorInputs && (
+                                                          <>
+                                                            &nbsp;
+                                                            <Input
+                                                              type="color"
+                                                              className="menu-color-inputs"
+                                                              onChange={(event) =>
+                                                                handleSubtitleFontColor(
+                                                                  event.target.value,
+                                                                  categoryIndex
+                                                                )
+                                                              }
+                                                            />
+                                                            {/* <Button
+                                                              type="button"
+                                                              onClick={() =>
+                                                                handleCategoryBackgroundColor(
+                                                                  "",
+                                                                  categoryIndex
+                                                                )
+                                                              }
+                                                              className="img-button"
+                                                            >
+                                                              reset
+                                                            </Button> */}
+                                                          </>
+                                                        )}
+                                                      </div>
+                                                    )}
                       </div>
-  
+
                       <div
                         className="item-description"
                         style={{
@@ -435,93 +526,94 @@ export default function FrontMenu({
                   ))}
                 </ul>
               </div>
-            ))}
-          <div className="row" style={{ gap: "10px" }}>
-            {styleForm.bottomImage && (
-              <div
-                className="col-5"
-                // style={{ width: `${styleForm.bottomImageSize}px`, margin: "auto" }}
-                style={{
-                  // width: `${styleForm.guyBottomSize}px`,
-                  margin: "auto",
-                  display: "flex",
-                  justifyContent: "flex-end",
-                }}
-              >
-                <img
-                  className="image-fluid"
-                  alt=""
-                  src={styleForm.bottomImage}
-                  style={{
-                    width: `${styleForm.bottomImageSize}px`,
-                    height: "auto",
-                  }}
-                />
-                {showImagesDeleteButtons && (
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setStyleForm({ ...styleForm, bottomImage: "" })
-                    }
-                  >
-                    delete
-                  </button>
-                )}
-              </div>
-            )}
-            {styleForm.guyBottom && (
-              <div
-                className="col-5"
-                style={{
-                  // width: `${styleForm.guyBottomSize}px`,
-                  margin: "auto",
-                  display: "flex",
-                  justifyContent: "flex-start",
-                }}
-              >
-                <img
-                  className="image-fluid"
-                  alt=""
-                  src={styleForm.guyBottom}
-                  style={{
-                    width: `${styleForm.guyBottomSize}px`,
-                    height: "auto",
-                  }}
-                  // width: `${styleForm.guyBottomSize}px`,
-                />
-                {showImagesDeleteButtons && (
-                  <button
-                    type="button"
-                    onClick={() => setStyleForm({ ...styleForm, guyBottom: "" })}
-                  >
-                    delete
-                  </button>
-                )}
-              </div>
-            )}
-          </div>
-          {styleForm.footer && (
+            );
+          })}
+        <div className="row" style={{ gap: "10px" }}>
+          {styleForm.bottomImage && (
             <div
-              className="category-title"
+              className="col-5"
+              // style={{ width: `${styleForm.bottomImageSize}px`, margin: "auto" }}
               style={{
-                fontSize: `${styleForm.footerSize}px`,
-                color: styleForm.textBottomColor,
-                letterSpacing: "1px",
+                // width: `${styleForm.guyBottomSize}px`,
+                margin: "auto",
                 display: "flex",
-                justifyContent: "center",
+                justifyContent: "flex-end",
               }}
             >
-              {styleForm.footer}
+              <img
+                className="image-fluid"
+                alt=""
+                src={styleForm.bottomImage}
+                style={{
+                  width: `${styleForm.bottomImageSize}px`,
+                  height: "auto",
+                }}
+              />
+              {showImagesDeleteButtons && (
+                <button
+                  type="button"
+                  onClick={() =>
+                    setStyleForm({ ...styleForm, bottomImage: "" })
+                  }
+                >
+                  delete
+                </button>
+              )}
             </div>
-                  )}
-          {showDisclaimer && (
-            <Footer
-              marginTop={styleForm.footerPaddingPaddingTop}
-              paddingBottom={styleForm.footerPaddingBottom}
-              color={styleForm.footerTextColor}
-            />
+          )}
+          {styleForm.guyBottom && (
+            <div
+              className="col-5"
+              style={{
+                // width: `${styleForm.guyBottomSize}px`,
+                margin: "auto",
+                display: "flex",
+                justifyContent: "flex-start",
+              }}
+            >
+              <img
+                className="image-fluid"
+                alt=""
+                src={styleForm.guyBottom}
+                style={{
+                  width: `${styleForm.guyBottomSize}px`,
+                  height: "auto",
+                }}
+                // width: `${styleForm.guyBottomSize}px`,
+              />
+              {showImagesDeleteButtons && (
+                <button
+                  type="button"
+                  onClick={() => setStyleForm({ ...styleForm, guyBottom: "" })}
+                >
+                  delete
+                </button>
+              )}
+            </div>
           )}
         </div>
-        </div>
-      );
+        {styleForm.footer && (
+          <div
+            className="category-title"
+            style={{
+              fontSize: `${styleForm.footerSize}px`,
+              color: styleForm.textBottomColor,
+              letterSpacing: "1px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            {styleForm.footer}
+          </div>
+        )}
+        {showDisclaimer && (
+          <Footer
+            marginTop={styleForm.footerPaddingPaddingTop}
+            paddingBottom={styleForm.footerPaddingBottom}
+            color={styleForm.footerTextColor}
+          />
+        )}
+      </div>
+    </div>
+  );
 }

@@ -114,6 +114,8 @@ export function useDynamicStyles(styleForm: StyleFormType) {
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
         backgroundSize: "cover",
+        paddingRight: `${styleForm.paddingCategoriesLeftRight}px`,
+        paddingLeft: `${styleForm.paddingCategoriesLeftRight}px`,
       };
     }
     return {};
