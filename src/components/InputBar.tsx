@@ -139,6 +139,7 @@ export default function InputBar({
             name={customCategory.title}
             onChange={handleChange}
             htmlFor={`file-upload-${customCategory.title}-${categoryIndex}`}
+            // placeholder={customCategory.}
           />
           {/* <input
             id={`file-upload-${customCategory.title}-${categoryIndex}`}
@@ -148,7 +149,7 @@ export default function InputBar({
             // htmlFor={`file-upload-${customCategory.title}-${categoryIndex}`}
           /> */}
         </div>
-      )}
+      )}&nbsp;&nbsp;
       {showPaddingCategoriesTop && (
         <input
           type="number"
@@ -156,10 +157,11 @@ export default function InputBar({
           onChange={(event) =>
             handleCategoryPaddingTop(+event.target.value, categoryIndex)
           }
-          style={{ width: "18%", height: "30px" }}
+          placeholder="0"
+          style={{ width: "60px", height: "25px" }}
         />
       )}
-      &nbsp;
+      &nbsp;&nbsp;
       {showMarginCategoriesTop && (
         <input
           type="number"
@@ -167,10 +169,11 @@ export default function InputBar({
           onChange={(event) =>
             handleCategoryMarginTop(+event.target.value, categoryIndex)
           }
-          style={{ width: "18%", height: "30px" }}
+          placeholder="0"
+          style={{ width: "60px", height: "25px" }}
         />
       )}
-      &nbsp;
+      &nbsp;&nbsp;
       {showJoinInputs && (
         <Input
           className={`custom-input-${className}`}
