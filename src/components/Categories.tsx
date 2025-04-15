@@ -89,8 +89,6 @@ export default function Categories({
   const [newCustomArray, setNewCustomArray] = useState<MenuCustomCategory[]>(
     []
   );
-  // const [customArrTitles, setCustomArrTitles] = useState<string[]>([]);
- 
   const [flatItemsCategories, setFlatItemsCategories] = useState<
     MenuCategory[]
   >([]);

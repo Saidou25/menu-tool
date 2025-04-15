@@ -42,6 +42,11 @@ export type CategoryImage = {
   url: string;
 }[];
 
+export type CategoryImageSize = {
+  categoryIndex: number;
+  width: string;
+}[];
+
 export type DescriptionLetterColor = {
   categoryIndex: number;
   index: number;
@@ -105,6 +110,7 @@ export type StyleFormType = {
   pageBackground: string;
   sectionBackground: SectionBackground;
   categoryImage: CategoryImage;
+  categoryImageSize: CategoryImageSize,
   descriptionLetterColor: DescriptionLetterColor;
   categoryColor: string;
   priceSize: number;

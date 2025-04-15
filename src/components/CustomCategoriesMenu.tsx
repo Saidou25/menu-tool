@@ -18,6 +18,8 @@ import Button from "./Button";
 import { useGetCategoryImage } from "../hooks/useGetCategoryImage";
 
 import "./CustomCategoriesMenu.css";
+// import { useGetCategoryImageSize } from "../hooks/useGetCategoryImageSize";
+// import { useCategoryImageSize } from "../hooks/useCategoryImageSize";
 
 type Props = {
   flatItemsCategories: MenuCategory[];
@@ -80,6 +82,8 @@ export default function CustomCategoriesMenu({
   const getDynamicStyles = useDynamicStyles(styleForm);
   const getSubtitleFontColor = useGetSubtitleFontColor(styleForm);
   const getCategoryImage = useGetCategoryImage(styleForm);
+  // const handleCategoryImageSize = useCategoryImageSize(setStyleForm);
+  // const getCategoryImageSize = useGetCategoryImageSize(styleForm);
   // const { url, index } = getCategoryImage(categoryIndex) || {};
   // console.log("url: ", url);
   // console.log("index: ", index);
@@ -266,6 +270,7 @@ export default function CustomCategoriesMenu({
           flatItemsCategories.map((customCategory, categoryIndex) => {
             const { url, index } = getCategoryImage(categoryIndex) || {};
             return (
+              <div className="background-image">
               <div
                 className={
                   joinedCategories[customCategory.title]
@@ -284,15 +289,24 @@ export default function CustomCategoriesMenu({
                       : url && index === categoryIndex
                       ? "col-12 background-image"
                       : "col-12",
-                    categoryIndex
+                    categoryIndex,
                   ),
                   backgroundColor: getSectionBackground(categoryIndex),
                   // backgroundImage: `url(${getCategoryImage(categoryIndex)})`,
                   marginBottom: `${styleForm.categoriesMarginBottom}px`,
                   paddingTop: getCategoryPaddingTop(categoryIndex),
                   marginTop: getCategoryMarginTop(categoryIndex),
+                  // width: getCategoryImageSize(categoryIndex),
                 }}
               >
+
+
+
+
+
+
+
+              
                 <div
                   className={
                     customCategory.title === showDecorations ? "share-span" : ""
@@ -560,7 +574,11 @@ export default function CustomCategoriesMenu({
                   ))}
                 </ul>
               </div>
+              </div>
             );
+
+
+
           })}
         <div className="row" style={{ gap: "10px" }}>
           {styleForm.bottomImage && (

@@ -26,6 +26,7 @@ export default function DropDown({
   setStyleForm,
 }: SelectDropDownProps) {
   const [dropDownList, setDropDownList] = useState<string[]>([]);
+  // const [screenWidth, setScreenWidth] = useState(0);
 
   const menuList = [
     "Dinner",
@@ -36,17 +37,19 @@ export default function DropDown({
     "Custom",
   ]; // Dropdown menu items
 
-  const formatsList = ["Letter", "Legal", "A4", "Custom", "Custom size"]; // Droptdown papper format items
+  const formatsList = ["Letter", "Legal", "A4", "Slim", "Custom size"]; // Droptdown papper format items
+
+  // const size = window.innerWidth;
 
   const handleMenuFormat = (item: string | number) => {
     if (item === "Custom size") {
-      setShowModal ? setShowModal(true) : "";
+      setShowModal?.(true);
     } else {
       const formatSizes: Record<string, { width: number; height: number }> = {
         Letter: { width: 216, height: 279 },
         A4: { width: 210, height: 297 },
         Legal: { width: 216, height: 356 },
-        Custom: { width: 110, height: 356 },
+        Slim: { width: 110, height: 356 },
         // Add more formats here in the future
       };
 
@@ -71,6 +74,11 @@ export default function DropDown({
     }
   }, [message]);
 
+  // useEffect(() => {
+  // setScreenWidth(size);
+  // }, [size]);
+
+
   return (
       <div
         className={
@@ -86,6 +94,7 @@ export default function DropDown({
             setStyleForm={setStyleForm}
             showModal={showModal}
             setShowfinalStep={setShowfinalStep}
+            // screenWidth={screenWidth}
           />
         ) : (
           <div

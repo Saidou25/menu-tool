@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { StyleFormType } from "../data/types";
 import "./MenuSizeModal.css";
+import Button from "./Button";
 
 type MenuSizeModalProps = {
   setShowfinalStep?: (item: boolean) => void;
@@ -8,6 +9,7 @@ type MenuSizeModalProps = {
   showModal: boolean;
   setStyleForm?: React.Dispatch<React.SetStateAction<StyleFormType>>;
   styleForm?: StyleFormType;
+  // screenWidth: number;
 };
 
 export default function MenuSizeModal({
@@ -15,8 +17,10 @@ export default function MenuSizeModal({
   setShowModal,
   setStyleForm,
   styleForm, // Receive the styleForm as prop
+  // screenWidth,
 }: MenuSizeModalProps) {
   const [message, setMessage] = useState("");
+  const [disabledButton, setDisabledButton] = useState(false);
 
   // Handling input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,14 +40,24 @@ export default function MenuSizeModal({
     setShowfinalStep?.(true);
     setShowModal?.(false);
   };
+
   const handleSubmit = () => {
-    setMessage(
-      `Your menu is set for a width of ${
-        styleForm?.menuWidth ? styleForm.menuWidth : 0
-      } mm and a height of ${
-        styleForm?.menuHeight ? styleForm.menuHeight : 0
-      } mm`
-    );
+    // console.log("styleForm width: ", styleForm?.menuWidth);
+    // console.log("screenWidth: ", screenWidth);
+    setDisabledButton(false);
+    if (styleForm?.menuWidth && +styleForm?.menuWidth > 356) {
+      setMessage(`The chosen width exceeds your screen size. Please change your settings."`);
+      setDisabledButton(true);
+      return;
+    } else {
+      setMessage(
+        `Your menu is set for a width of ${
+          styleForm?.menuWidth ? styleForm.menuWidth : 0
+        } mm and a height of ${
+          styleForm?.menuHeight ? styleForm.menuHeight : 0
+        } mm`
+      );
+    }
   };
 
   return (
@@ -55,44 +69,51 @@ export default function MenuSizeModal({
               Confirm your settings
             </h2>
             <br className="no-print" />
-            <p className="text-lg font-semibold no-print">{message}</p>
+            <p className="no-print">{message}</p>
+            {disabledButton && (
+              <p className="no-print">
+                Note: The maximum width you can set is 356mm.
+              </p>
+            )}
+
             <br className="no-print" />
 
             <div
               className="no-print"
               style={{ display: "flex", gap: "10px", justifyContent: "center" }}
             >
-              <button
+              <Button
                 className="button"
                 type="button"
                 onClick={() => {
                   setMessage("");
                   setShowModal?.(true);
                 }}
-                style={{
-                  width: "100%",
-                  backgroundColor: "#dc3545",
-                  border: "none",
-                  color: "white",
-                  padding: "4px",
-                }}
+                // style={{
+                //   width: "100%",
+                //   backgroundColor: "#dc3545",
+                //   border: "none",
+                //   color: "white",
+                //   padding: "4px",
+                // }}
               >
-                Modify
-              </button>
-              <button
+                Change
+              </Button>
+              <Button
                 className="button"
                 type="button"
                 onClick={onConfirm}
-                style={{
-                  width: "100%",
-                  backgroundColor: "#dc3545",
-                  border: "none",
-                  color: "white",
-                  padding: "4px",
-                }}
+                // style={{
+                //   width: "100%",
+                //   backgroundColor: "#dc3545",
+                //   border: "none",
+                //   color: "white",
+                //   padding: "4px",
+                // }}
+                disabled={disabledButton}
               >
                 Confirm
-              </button>
+              </Button>
             </div>
           </>
         ) : (
@@ -144,32 +165,34 @@ export default function MenuSizeModal({
               className="no-print"
               style={{ display: "flex", gap: "10px", justifyContent: "center" }}
             >
-              <button
+              <Button
                 onClick={() => setShowModal?.(false)}
                 className="button"
-                style={{
-                  width: "100%",
-                  backgroundColor: "#dc3545",
-                  border: "none",
-                  color: "white",
-                  padding: "4px",
-                }}
+                type="button"
+                // style={{
+                //   width: "100%",
+                //   backgroundColor: "#dc3545",
+                //   border: "none",
+                //   color: "white",
+                //   padding: "4px",
+                // }}
               >
                 Close
-              </button>
-              <button
+              </Button>
+              <Button
                 onClick={handleSubmit}
                 className="button"
-                style={{
-                  width: "100%",
-                  backgroundColor: "#dc3545",
-                  border: "none",
-                  color: "white",
-                  padding: "4px",
-                }}
+                type="button"
+                // style={{
+                //   width: "100%",
+                //   backgroundColor: "#dc3545",
+                //   border: "none",
+                //   color: "white",
+                //   padding: "4px",
+                // }}
               >
                 Submit
-              </button>
+              </Button>
             </div>
           </>
         )}

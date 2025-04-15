@@ -167,6 +167,7 @@ export const AppStateProvider = ({
     decorationWidth: 90,
     footerPaddingPaddingTop: 0,
     footerPaddingBottom: 0,
+    categoryImageSize: [],
   });
 
   return (

@@ -1,12 +1,14 @@
 import { StyleFormType } from "../data/types";
 import { useGetCategoryImage } from "./useGetCategoryImage";
+// import { useGetCategoryImageSize } from "./useGetCategoryImageSize";
 import { useGetSectionBackground } from "./useGetSectionBackground";
 
 export function useDynamicStyles(styleForm: StyleFormType) {
   const getSectionBackground = useGetSectionBackground(styleForm);
   const getCategoryImage = useGetCategoryImage(styleForm);
+  // const getCategoryImageSize = useGetCategoryImageSize(styleForm);
 
-  let arr: { className: string; categoryIndex: number }[] = []; // Array to track items
+  let arr: { className: string; categoryIndex: number}[] = []; // Array to track items
 
   const getDynamicStyles = (className: string, categoryIndex: number) => {
     const { url } = getCategoryImage(categoryIndex) || {};
@@ -116,6 +118,8 @@ export function useDynamicStyles(styleForm: StyleFormType) {
         backgroundSize: "cover",
         paddingRight: `${styleForm.paddingCategoriesLeftRight}px`,
         paddingLeft: `${styleForm.paddingCategoriesLeftRight}px`,
+        // width: `${width}px`, 
+        height: "auto"
       };
     }
     return {};

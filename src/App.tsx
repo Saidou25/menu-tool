@@ -9,6 +9,7 @@ import * as Desserts from "./data/Desserts";
 import Categories from "./components/Categories";
 import DropDown from "./components/DropDown";
 import Logo from "./components/Logo";
+// import guy from "./assets/images/american_kitchen.svg";
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -33,7 +34,7 @@ function AppContent() {
     customCategoryList,
     setCustomCategoryList,
     menuSampleData,
-    setMenuSampleData
+    setMenuSampleData,
   } = useAppState();
 
   const reset = () => {
@@ -133,6 +134,9 @@ function AppContent() {
         <h2 className="just-click">
           "Quickly build your menu with just a few clicks"
         </h2>
+      {/* <div className="">
+        <img className="image-fluid" alt="guy" src={guy} />
+      </div> */}
       </div>
       <WiStars className="stars2" />
       {!showDropown && (

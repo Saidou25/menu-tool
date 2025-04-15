@@ -1,6 +1,7 @@
 import { StyleFormType } from "../data/types";
 import { useCategoryBackgroundColor } from "../hooks/useCategoryBackgrounColor";
 import { useCategoryImage } from "../hooks/useCategoryImage";
+// import { useCategoryImageSize } from "../hooks/useCategoryImageSize";
 import { useCategoryPaddingTop } from "../hooks/useCategoryPaddingTop";
 import { useCategoryMarginTop } from "../hooks/useMarginCategoriesTop";
 import Button from "./Button";
@@ -56,6 +57,7 @@ export default function InputBar({
   const handleCategoryBackgroundColor =
     useCategoryBackgroundColor(setStyleForm);
   const handleCategoryImage = useCategoryImage(setStyleForm);
+  // const handleCategoryImageSize = useCategoryImageSize(setStyleForm);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
@@ -138,6 +140,13 @@ export default function InputBar({
             onChange={handleChange}
             htmlFor={`file-upload-${customCategory.title}-${categoryIndex}`}
           />
+          {/* <input
+            id={`file-upload-${customCategory.title}-${categoryIndex}`}
+            type="number"
+            name={customCategory.title}
+            onChange={(event) => handleCategoryImageSize(event.target.value, categoryIndex)}
+            // htmlFor={`file-upload-${customCategory.title}-${categoryIndex}`}
+          /> */}
         </div>
       )}
       {showPaddingCategoriesTop && (
