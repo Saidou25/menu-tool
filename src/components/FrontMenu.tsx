@@ -8,17 +8,19 @@ import { useGetSubtitleFontColor } from "../hooks/useGetSubtitleFontColor";
 import { useSubtitleFontColor } from "../hooks/useSubtitleFontColor";
 import { useGetCategoriesPaddingTop } from "../hooks/useGetCategoriesPaddingTop";
 import { useGetCategoriesMarginTop } from "../hooks/useGetMarginCategoriesTop";
+import { useGetCategoryImage } from "../hooks/useGetCategoryImage";
 import { useDynamicStyles } from "../hooks/useDynamicStyles";
 import Footer from "./Footer";
 import Input from "./Input";
 import InputBar from "./InputBar";
-
-import "./CustomCategoriesMenu.css";
 import Button from "./Button";
-import { useGetCategoryImage } from "../hooks/useGetCategoryImage";
+
+import "../assets/fonts/pewter-corroted/pewter-corroted.css";
+import "./CustomCategoriesMenu.css";
 
 type FrontMenuProps = {
   // animation: string;
+  isDesserts: boolean;
   showImagesDeleteButtons: boolean;
   showColorInputs: boolean;
   styleForm: StyleFormType;
@@ -42,6 +44,7 @@ type FrontMenuProps = {
 
 export default function FrontMenu({
   // animation,
+  isDesserts,
   showDecorations,
   joinedCategories,
   showColorInputs,
@@ -134,6 +137,8 @@ export default function FrontMenu({
         // animation: "menuSizeAnimation 0.5s linear forwards",
         overflow: "hidden",
         backgroundColor: styleForm.pageBackground,
+        fontFamily: "Pewter Corroted, sans-serif",
+        fontWeight: "normal",
       }}
     >
       <div
@@ -214,7 +219,7 @@ export default function FrontMenu({
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              fontFamily: "Pewter Corroded, sans-serif",
+              fontFamily: "Pewter Corroted', sans-serif",
             }}
           >
             <span
@@ -297,7 +302,7 @@ export default function FrontMenu({
                         display: "inline",
                         verticalAlign: "baseline",
                         letterSpacing: "2px",
-                        fontFamily: "Pewter Corroded, sans-serif",
+                        fontFamily: "Pewter Corroted', sans-serif",
                         textTransform: "uppercase",
                       }}
                     >
@@ -404,14 +409,15 @@ export default function FrontMenu({
                           style={{
                             fontSize: `${styleForm.itemFontSize}px`,
                             letterSpacing: "1px",
-                            fontFamily: "Pewter Corroded, sans-serif",
+                            fontFamily: "Pewter Corroted', sans-serif",
                             color: styleForm.menuItemColor,
                           }}
                         >
                           {item.label}
                         </span>
                         {!hidePrices &&
-                          item.price.placeholder !== "Market price" && (
+                          item.price.placeholder !== "Market price" &&
+                          !isDesserts && (
                             <span
                               style={{
                                 fontSize: `${styleForm.priceSize}px`,
@@ -421,53 +427,51 @@ export default function FrontMenu({
                               &nbsp;{item.price.value?.toFixed(2)}
                             </span>
                           )}
-                       {!hidePrices &&
+                        {!hidePrices &&
                           item.price.placeholder === "Market price" && (
                             <span
                               style={{
                                 fontSize: `${styleForm.priceSize}px`,
                                 color: styleForm.priceColor,
-                                fontFamily: "Pewter Corroded, sans-serif",
                                 letterSpacing: "1px",
                               }}
                             >
                               &nbsp;{item.price.placeholder}
                             </span>
                           )}
-                           {!hidePrices &&
-                                                    item.label === "American royal ribs" && (
-                                                      <div
-                                                        className=""
-                                                        style={{
-                                                          fontSize: `${styleForm.subtitleFontSize}px`,
-                                                          fontFamily: "Pewter Corroded, sans-serif",
-                                                          color: getSubtitleFontColor(categoryIndex),
-                                                          // marginBottom: `${styleForm.subtitlePaddingBottom}px`,
-                                                        }}
-                                                      >
-                                                        <span className="">
-                                                          {item.subSubtitle1} &nbsp;tewnty
-                                                          {/* {item.price.value1} */}
-                                                        </span>
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;
-                                                        <span className="">
-                                                          {item.subSubtitle2} &nbsp;thirty
-                                                          {/* {item.price.value2} */}
-                                                        </span>
-                                                        {showColorInputs && (
-                                                          <>
-                                                            &nbsp;
-                                                            <Input
-                                                              type="color"
-                                                              className="menu-color-inputs"
-                                                              onChange={(event) =>
-                                                                handleSubtitleFontColor(
-                                                                  event.target.value,
-                                                                  categoryIndex
-                                                                )
-                                                              }
-                                                            />
-                                                            {/* <Button
+                        {!hidePrices &&
+                          item.label === "American royal ribs" && (
+                            <div
+                              className=""
+                              style={{
+                                fontSize: `${styleForm.subtitleFontSize}px`,
+                                color: getSubtitleFontColor(categoryIndex),
+                                // marginBottom: `${styleForm.subtitlePaddingBottom}px`,
+                              }}
+                            >
+                              <span className="">
+                                {item.subSubtitle1} &nbsp;
+                                {item.price.value1}
+                              </span>
+                              &nbsp;&nbsp;&nbsp;&nbsp;
+                              <span className="">
+                                {item.subSubtitle2} &nbsp;
+                                {item.price.value2}
+                              </span>
+                              {showColorInputs && (
+                                <>
+                                  &nbsp;
+                                  <Input
+                                    type="color"
+                                    className="menu-color-inputs"
+                                    onChange={(event) =>
+                                      handleSubtitleFontColor(
+                                        event.target.value,
+                                        categoryIndex
+                                      )
+                                    }
+                                  />
+                                  {/* <Button
                                                               type="button"
                                                               onClick={() =>
                                                                 handleCategoryBackgroundColor(
@@ -479,16 +483,16 @@ export default function FrontMenu({
                                                             >
                                                               reset
                                                             </Button> */}
-                                                          </>
-                                                        )}
-                                                      </div>
-                                                    )}
+                                </>
+                              )}
+                            </div>
+                          )}
                       </div>
 
                       <div
                         className="item-description"
                         style={{
-                          fontFamily: "Pewter Corroded, sans-serif",
+                          fontFamily: "Pewter Corroted', sans-serif",
                           fontSize: `${styleForm.descriptionFontSize}px`,
                           marginBottom: `${styleForm.descriptionMarginBottom}px`,
                           letterSpacing: "1px",
@@ -507,6 +511,19 @@ export default function FrontMenu({
                           {item.description}
                         </span>
                         &nbsp;&nbsp;
+                        {isDesserts && (
+                          <>
+                            <div
+                              style={{
+                                fontSize: `${styleForm.priceSize}px`,
+                                color: styleForm.priceColor,
+                                marginTop: "5px"
+                              }}
+                            >
+                              &nbsp;{item.price.value?.toFixed(2)}
+                            </div>
+                          </>
+                        )}
                         {showColorInputs && (
                           <Input
                             className="menu-color-inputs"

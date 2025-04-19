@@ -14,7 +14,7 @@ export const soupsList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 10.50,
       },
     },
     {
@@ -25,7 +25,7 @@ export const soupsList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 8.50,
       },
     },
     {
@@ -35,7 +35,7 @@ export const soupsList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 8.50,
       },
     },
   ],

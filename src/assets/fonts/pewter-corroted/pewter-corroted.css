@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Pewter Corroted' !important;
+    src: url("/src/assets/fonts/pewter-corroted/font.woff2") format('woff2'),
+         url("/src/assets/fonts/pewter-corroted/font.woff") format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  

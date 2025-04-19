@@ -12,7 +12,7 @@ const sandwichesList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 18.95,
       },
     },
     {
@@ -23,7 +23,7 @@ const sandwichesList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 22.95,
       },
     },
     {
@@ -34,7 +34,7 @@ const sandwichesList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 15.95,
       },
     },
   ],

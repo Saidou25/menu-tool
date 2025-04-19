@@ -115,7 +115,7 @@ export default function CustomMenuView({
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                fontFamily: "Pewter Corroded, sans-serif",
+                fontFamily: "Pewter Corroted', sans-serif",
               }}
             >
               <span
@@ -205,7 +205,7 @@ export default function CustomMenuView({
                         display: "inline",
                         verticalAlign: "baseline",
                         letterSpacing: "2px",
-                        fontFamily: "Pewter Corroded, sans-serif",
+                        fontFamily: "Pewter Corroted', sans-serif",
                         textTransform: "uppercase",
                       }}
                     >
@@ -268,7 +268,7 @@ export default function CustomMenuView({
                           style={{
                             fontSize: `${styleForm.itemFontSize}px`,
                             letterSpacing: "1px",
-                            fontFamily: "Pewter Corroded, sans-serif",
+                            fontFamily: "Pewter Corroted', sans-serif",
                             color: styleForm.menuItemColor,
                           }}
                         >
@@ -289,7 +289,7 @@ export default function CustomMenuView({
                       <div
                         className="item-description"
                         style={{
-                          fontFamily: "Pewter Corroded, sans-serif",
+                          fontFamily: "Pewter Corroted', sans-serif",
                           fontSize: `${styleForm.descriptionFontSize}px`,
                           marginBottom: `${styleForm.descriptionMarginBottom}px`,
                           letterSpacing: "1px",

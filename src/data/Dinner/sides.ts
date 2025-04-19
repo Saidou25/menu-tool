@@ -9,16 +9,16 @@ const sidesList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 8.50,
       },
     },
     {
-      label: "Seasoned gry tio",
+      label: "Seasoned fry trio",
       type: "checkbox",
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 6.95,
       },
     },
     {
@@ -27,7 +27,7 @@ const sidesList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 8.50,
       },
     },
     {
@@ -36,7 +36,7 @@ const sidesList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 8.95,
       },
     },
     {
@@ -45,7 +45,7 @@ const sidesList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 6.95,
       },
     },
 
@@ -55,16 +55,7 @@ const sidesList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
-      },
-    },
-    {
-      label: "Garlic mashed potato wedges",
-      type: "checkbox",
-      price: {
-        type: "number",
-        placeholder: "Enter price",
-        value: 0,
+        value: 6.95,
       },
     },
     {
@@ -73,7 +64,7 @@ const sidesList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 6.96,
       },
     },
     {
@@ -82,7 +73,7 @@ const sidesList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 8.50,
       },
     },
     {
@@ -91,7 +82,7 @@ const sidesList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 6.95,
       },
     },
     {
@@ -100,7 +91,7 @@ const sidesList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 12.95,
       },
     },
   ],

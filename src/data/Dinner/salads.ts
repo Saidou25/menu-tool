@@ -12,7 +12,7 @@ const saladsList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 13.95,
       },
     },
     {
@@ -23,7 +23,7 @@ const saladsList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 16.95,
       },
     },
   ],

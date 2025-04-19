@@ -1,7 +1,7 @@
 import { MenuCategory } from "../types";
 
 const sharablesList: MenuCategory = {
-  title: "Sharables",
+  title: "Shareables",
   items: [
     {
       label: "Pepperoni Pizza Pops",
@@ -11,7 +11,7 @@ const sharablesList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 12.95,
       },
     },
     {
@@ -22,7 +22,7 @@ const sharablesList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 21.95,
       },
     },
     {
@@ -33,7 +33,7 @@ const sharablesList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 14.95,
       },
     },
     {
@@ -44,7 +44,7 @@ const sharablesList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 21.95,
       },
     },
     {
@@ -55,7 +55,7 @@ const sharablesList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 22.95,
       },
     },
   ],

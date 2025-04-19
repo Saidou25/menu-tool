@@ -100,8 +100,11 @@ export default function Categories({
   >([]);
   const [showSubtitleInput, setShowSubtitleInput] = useState(""); // Toggles subtitle inputs
   const [subtitle, setSubtitle] = useState("");
+  const [isDesserts, setIsDesserts] = useState(false);
 
-const { styleForm, setStyleForm } = useAppState();
+  const { styleForm, setStyleForm } = useAppState();
+
+  console.log(categoriesList);
 
   const handleAddSubtitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSubtitle(event.target.value); // Store the latest subtitle input
@@ -280,6 +283,12 @@ const { styleForm, setStyleForm } = useAppState();
     );
   };
 
+  useEffect(() => {
+    if (categoriesList.length === 1) {
+      setIsDesserts(true);
+    }
+  }, []);
+
   const render = (newArrTitle: string) => {
     const category = newCustomArray.find((item) => item.title === newArrTitle);
     if (!category) return <span>No items found</span>;
@@ -352,6 +361,7 @@ const { styleForm, setStyleForm } = useAppState();
         showImagesDeleteButtons={showImagesDeleteButtons}
         showCategoryImage={showCategoryImage}
         setShowCategoryImage={setShowCategoryImage}
+        isDesserts={isDesserts}
       >
         <FinalStep
           goBack={handleGoBack}

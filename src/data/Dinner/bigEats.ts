@@ -26,18 +26,18 @@ const bigEatsList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price...",
-        value: 0,
+        value: 26.95,
       },
     },
     {
-      label: "Chicken fried checken",
+      label: "Chicken fried chicken",
       description:
         "2 buttermik-brined fried checken breasts, cavered with sausage pepper mill gravy, stone-ground grits + bacon brussels sprouts", // Fixed typo
       type: "checkbox",
       price: {
         type: "number",
         placeholder: "Enter price...",
-        value: 0,
+        value: 30.95,
       },
     },
     {
@@ -59,7 +59,7 @@ const bigEatsList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price...",
-        value: 0,
+        value: 28.95,
       },
     },
     {
@@ -70,7 +70,7 @@ const bigEatsList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price...",
-        value: 0,
+        value: 48.95,
       },
     },
     {
@@ -81,11 +81,11 @@ const bigEatsList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price...",
-        value: 0,
+        value: 30.95,
       },
     },
     {
-      label: "Prim boneless ribeye 16 oz.",
+      label: "Prime boneless ribeye 16 oz.",
       description: "with garlic mashed potatoes + fried asparagus",
       type: "checkbox",
       price: {

@@ -62,6 +62,7 @@ function AppContent() {
   };
 
   const selectMenu = (item: string) => {
+    console.log(item);
     if (item === "Dinner") {
       // Set categoriesList to the lists from the Dinner folder
       setCategoriesList([

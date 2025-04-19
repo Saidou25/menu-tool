@@ -31,6 +31,7 @@ export default function Logo({
       setMenuPreview?.((prev) => !prev);
     } else if (event.currentTarget.className.includes("restart")) {
       reset?.();
+      window.location.reload()
     } else if (event.currentTarget.className === "go-back no-print") {
       setView?.((prev) => !prev);
     }

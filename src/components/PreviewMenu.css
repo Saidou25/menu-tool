@@ -1,5 +1,5 @@
 @font-face {
-  font-family: "Pewter Corroded";
+  font-family: "Pewter Corroted";
   src: url("../assets/fonts/PewterDEMO-KCFonts.ttf") format("truetype");
  line-height: 1;
  padding: 0;
@@ -59,13 +59,13 @@ margin: 0;
 .category-title {
   text-align: center;
   text-transform: uppercase;
-  font-family: "Pewter Corroded", sans-serif;
+  font-family: "Pewter Corroted", sans-serif;
   /* display: flex; */
   /* align-items: baseline; */
 }
 .subtitle {
   text-align: center;
-  font-family: "Pewter Corroded", sans-serif;
+  font-family: "Pewter Corroted", sans-serif;
 }
 .menu-item-div {
   text-transform: uppercase;
@@ -76,7 +76,7 @@ margin: 0;
 }
 .soup-salad-label,
 .soup-salad-description {
-  font-family: "Pewter Corroded", sans-serif;
+  font-family: "Pewter Corroted", sans-serif;
 
 }
 .category-list {

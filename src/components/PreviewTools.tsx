@@ -381,7 +381,7 @@ export default function PreviewTools({
   };
 
   return (
-    <div className="no-print">
+    <div className="new-tool no-print">
       {styleForm.menuHeight ? (
         <h2 className="preview-tools-title">Preview Tool</h2>
       ) : null}

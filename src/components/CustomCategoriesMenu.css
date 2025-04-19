@@ -1,3 +1,17 @@
+@font-face {
+  font-family: 'Pewter Corroted';
+  src: url('../assets/fonts/pewter-corroted/font.woff2') format('woff2'),
+       url('../assets/fonts/pewter-corroted/font.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.custom-menu-items-container {
+  /* font-family: Arial, sans-serif !important; */
+  font-family: 'Pewter Corroted', sans-serif !important;
+  position: relative;
+}
 
 
 .content-container {
@@ -46,10 +60,6 @@
     /* font-size: 1.5rem; Font size */
     z-index: 1; /* Ensure the text appears above the borders */
     width: 100%;
-  }
-  .custom-menu-items-container {
-    font-family: Arial, sans-serif;
-    position: relative;
   }
   @media print {
     * {

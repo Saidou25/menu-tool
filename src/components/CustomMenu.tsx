@@ -13,6 +13,7 @@ import { useSubtitleFontColor } from "../hooks/useSubtitleFontColor";
 import { useGetSubtitleFontColor } from "../hooks/useGetSubtitleFontColor";
 import Footer from "./Footer";
 
+import "../assets/fonts/pewter-corroted/pewter-corroted.css";
 import "./CustomMenu.css";
 
 type Props = {
@@ -155,7 +156,7 @@ export default function CustomMenu({
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              fontFamily: "Pewter Corroded, sans-serif",
+              fontFamily: "Pewter Corroted, sans-serif",
             }}
           >
             <span
@@ -231,6 +232,7 @@ export default function CustomMenu({
                   className="category-title"
                   style={{
                     fontSize: `${styleForm.categoryFontSize}px`,
+                    fontFamily: "Pewter Corroted, sans-serif",
                     color: styleForm.categoryColor,
                     marginBottom:
                       category === showDecorations
@@ -404,7 +406,7 @@ export default function CustomMenu({
                         style={{
                           fontSize: `${styleForm.itemFontSize}px`,
                           letterSpacing: "1px",
-                          fontFamily: "Pewter Corroded, sans-serif",
+                          fontFamily: "Pewter Corroted', sans-serif",
                           color: styleForm.menuItemColor,
                         }}
                       >
@@ -416,7 +418,7 @@ export default function CustomMenu({
                             <span
                               className="small"
                               style={{
-                                fontFamily: "Pewter Corroded, sans-serif",
+                                fontFamily: "Pewter Corroted', sans-serif",
                                 letterSpacing: "1px",
                                 fontSize: `${styleForm.priceSize}px`,
                                 color: styleForm.priceColor,
@@ -442,7 +444,7 @@ export default function CustomMenu({
                               <span
                                 className="small"
                                 style={{
-                                  fontFamily: "Pewter Corroded, sans-serif",
+                                  fontFamily: "Pewter Corroted', sans-serif",
                                   letterSpacing: "1px",
                                   fontSize: `${styleForm.priceSize}px`,
                                   color: styleForm.priceColor,
@@ -456,7 +458,7 @@ export default function CustomMenu({
                               <span
                                 className="small"
                                 style={{
-                                  fontFamily: "Pewter Corroded, sans-serif",
+                                  fontFamily: "Pewter Corroted', sans-serif",
                                   letterSpacing: "1px",
                                   fontSize: `${styleForm.priceSize}px`,
                                   color: styleForm.priceColor,
@@ -474,7 +476,7 @@ export default function CustomMenu({
                     <div
                       className="item-description"
                       style={{
-                        fontFamily: "Pewter Corroded, sans-serif",
+                        fontFamily: "Pewter Corroted', sans-serif",
                         fontSize: `${styleForm.descriptionFontSize}px`,
                         marginBottom:
                           category !== "Sides" && category !== "Sauces" // Avoids space bellow text since there is no item description

@@ -15,7 +15,7 @@ const burgersList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 22.95,
       },
     },
     {
@@ -26,7 +26,7 @@ const burgersList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 19.95,
       },
     },
     {
@@ -37,7 +37,7 @@ const burgersList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 19.95,
       },
     },
     {
@@ -48,7 +48,7 @@ const burgersList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 22.95,
       },
     },
     {
@@ -59,7 +59,7 @@ const burgersList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 18.95,
       },
     },
     {
@@ -70,7 +70,7 @@ const burgersList: MenuCategory = {
       price: {
         type: "number",
         placeholder: "Enter price",
-        value: 0,
+        value: 16.95,
       },
     },
   ],

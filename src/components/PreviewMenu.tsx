@@ -11,6 +11,7 @@ import CustomMenuView from "./CustomMenuView";
 import "./PreviewMenu.css";
 
 type ModalProps = {
+  isDesserts: boolean;
   flatItemsCategories: MenuCategory[];
   setFlatItemsCategories: React.Dispatch<React.SetStateAction<MenuCategory[]>>;
   newCustomArray: any[];
@@ -47,6 +48,7 @@ type ModalProps = {
 };
 
 const PreviewMenu = ({
+  isDesserts,
   flatItemsCategories,
   setFlatItemsCategories,
   newCustomArray,
@@ -271,6 +273,7 @@ const PreviewMenu = ({
               organizedData={organizedData}
               showCategoryImage={showCategoryImage}
               setShowCategoryImage={setShowCategoryImage}
+              isDesserts={isDesserts}
             />
             {/* Render BackMenu only if there are additional categories */}
             {Object.keys(secondPageData).length > 0 && (

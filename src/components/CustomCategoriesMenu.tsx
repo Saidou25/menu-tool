@@ -11,13 +11,14 @@ import { useGetDescriptionLetterColor } from "../hooks/useGetDescriptionLettersC
 import { useGetCategoriesPaddingTop } from "../hooks/useGetCategoriesPaddingTop";
 import { useDynamicStyles } from "../hooks/useDynamicStyles";
 import { useGetSubtitleFontColor } from "../hooks/useGetSubtitleFontColor";
+import { useGetCategoryImage } from "../hooks/useGetCategoryImage";
 import Footer from "./Footer";
 import Input from "./Input";
 import InputBar from "./InputBar";
 import Button from "./Button";
-import { useGetCategoryImage } from "../hooks/useGetCategoryImage";
 
 import "./CustomCategoriesMenu.css";
+import "../assets/fonts/pewter-corroted/pewter-corroted.css";
 
 type Props = {
   flatItemsCategories: MenuCategory[];
@@ -250,9 +251,8 @@ export default function CustomCategoriesMenu({
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              fontFamily: "Pewter Corroded, sans-serif",
             }}
-          >
+            >
             <span
               style={{
                 textTransform: "uppercase",
@@ -330,7 +330,7 @@ export default function CustomCategoriesMenu({
                         display: "inline",
                         verticalAlign: "baseline",
                         letterSpacing: "2px",
-                        fontFamily: "Pewter Corroded, sans-serif",
+                        fontFamily: "Pewter Corroted', sans-serif",
                         textTransform: "uppercase",
                       }}
                     >
@@ -439,7 +439,7 @@ export default function CustomCategoriesMenu({
                           style={{
                             fontSize: `${styleForm.itemFontSize}px`,
                             letterSpacing: "1px",
-                            fontFamily: "Pewter Corroded, sans-serif",
+                            fontFamily: "Pewter Corroted', sans-serif",
                             color: styleForm.menuItemColor,
                           }}
                         >
@@ -462,7 +462,7 @@ export default function CustomCategoriesMenu({
                               style={{
                                 fontSize: `${styleForm.priceSize}px`,
                                 color: styleForm.priceColor,
-                                fontFamily: "Pewter Corroded, sans-serif",
+                                fontFamily: "Pewter Corroted', sans-serif",
                                 letterSpacing: "1px",
                               }}
                             >
@@ -475,19 +475,18 @@ export default function CustomCategoriesMenu({
                               className=""
                               style={{
                                 fontSize: `${styleForm.subtitleFontSize}px`,
-                                fontFamily: "Pewter Corroded, sans-serif",
                                 color: getSubtitleFontColor(categoryIndex),
                                 // marginBottom: `${styleForm.subtitlePaddingBottom}px`,
                               }}
                             >
                               <span className="">
-                                {item.subSubtitle1} &nbsp;tewnty
-                                {/* {item.price.value1} */}
+                                {item.subSubtitle1} &nbsp;
+                                {item.price.value1}
                               </span>
                               &nbsp;&nbsp;&nbsp;&nbsp;
                               <span className="">
-                                {item.subSubtitle2} &nbsp;thirty
-                                {/* {item.price.value2} */}
+                                {item.subSubtitle2} &nbsp;
+                                {item.price.value2}
                               </span>
                               {showColorInputs && (
                                 <>
@@ -523,7 +522,7 @@ export default function CustomCategoriesMenu({
                         <div
                           className="item-description"
                           style={{
-                            fontFamily: "Pewter Corroded, sans-serif",
+                            fontFamily: "Pewter Corroted', sans-serif",
                             fontSize: `${styleForm.descriptionFontSize}px`,
                             marginBottom: `${styleForm.descriptionMarginBottom}px`,
                             letterSpacing: "1px",

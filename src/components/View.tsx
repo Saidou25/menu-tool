@@ -262,7 +262,7 @@ export default function View({
                           style={{
                             fontSize: `${styleForm.itemFontSize}px`,
                             letterSpacing: "1px",
-                            fontFamily: "Pewter Corroded, sans-serif",
+                            fontFamily: "Pewter Corroted', sans-serif",
                             color: styleForm.menuItemColor,
                           }}
                         >
@@ -282,7 +282,7 @@ export default function View({
                       <div
                         className="item-description"
                         style={{
-                          fontFamily: "Pewter Corroded, sans-serif",
+                          fontFamily: "Pewter Corroted', sans-serif",
                           fontSize: `${styleForm.descriptionFontSize}px`,
                           marginBottom: `${styleForm.descriptionMarginBottom}px`,
                           letterSpacing: "1px",

@@ -1,15 +1,24 @@
-@font-face {
-  font-family: "Pewter Corroded";
+/* @font-face {
+  font-family: "Pewter Corroted";
   src: url("../assets/fonts/PewterDEMO-KCFonts.ttf") format("truetype");
   line-height: 1 !important;
   padding: 0 !important;
   margin: 0 !important;
-}
+} */
+/* @font-face {
+  font-family: 'Pewter Corroted' !important;
+  src: url("../assets/fonts/pewter-corroted/font.woff2") format('woff2'),
+       url("../assets/fonts/pewter-corroted/font.woff") format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+} */
+
 .custom-lis {
   list-style-type: none;
 }
 .title {
-  font-family: "Pewter Corroded", sans-serif;
+  /* font-family: 'Pewter Corroted', sans-serif; */
   line-height: 1;
   padding: 0;
   margin: 0;
