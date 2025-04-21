@@ -104,8 +104,6 @@ export default function Categories({
 
   const { styleForm, setStyleForm } = useAppState();
 
-  console.log(categoriesList);
-
   const handleAddSubtitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSubtitle(event.target.value); // Store the latest subtitle input
   };
@@ -307,7 +305,7 @@ export default function Categories({
                     className="container-fluid price-input"
                     placeholder={flat.price.placeholder}
                     name={flat.label}
-                    value={flat.price.value === 0 ? "" : flat.price.value} // Show placeholder if value is 0
+                    value={flat.price.value === 0 ? "" : flat.price.value?.toFixed(2)} // Show placeholder if value is 0
                     type="number"
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
                       handleCustomPriceChange(
@@ -643,7 +641,7 @@ export default function Categories({
                   onChange={handleDisclaimer}
                   checked={showDisclaimer}
                   name="disclaimer"
-                />
+                />&nbsp;&nbsp;&nbsp;&nbsp;
                 <SmallTittles label="Select to add FDA disclaimer to the bottom of your menu" />
               </div>
             ) : null}
@@ -690,7 +688,7 @@ export default function Categories({
                   checked={showDisclaimer}
                   name="disclaimer"
                 />
-                &nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;
                 <SmallTittles label="Select to add FDA disclaimer to the bottom of your menu" />
               </div>
             </div>

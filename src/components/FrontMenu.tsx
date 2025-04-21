@@ -285,6 +285,7 @@ export default function FrontMenu({
                         customCategory.category === showDecorations
                           ? "20px"
                           : `${styleForm.categoryMarginBottom}px`,
+                      textAlign: "center",
                     }}
                   >
                     <span
@@ -307,7 +308,6 @@ export default function FrontMenu({
                       }}
                     >
                       {customCategory.category}
-                      {/* {customCategory.items.length ? customCategory.title : null} */}
                     </span>
                   </h2>
                   <div style={{ display: "flex", alignItems: "center" }}>
@@ -517,7 +517,7 @@ export default function FrontMenu({
                               style={{
                                 fontSize: `${styleForm.priceSize}px`,
                                 color: styleForm.priceColor,
-                                marginTop: "5px"
+                                marginTop: "5px",
                               }}
                             >
                               &nbsp;{item.price.value?.toFixed(2)}

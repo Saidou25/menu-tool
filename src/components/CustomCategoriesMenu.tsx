@@ -313,6 +313,7 @@ export default function CustomCategoriesMenu({
                         customCategory.title === showDecorations
                           ? "20px"
                           : `${styleForm.categoryMarginBottom}px`,
+                          textAlign: "center",
                     }}
                   >
                     <span

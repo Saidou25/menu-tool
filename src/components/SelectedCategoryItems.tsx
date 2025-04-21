@@ -42,7 +42,7 @@ function SelectedCategoryItem({ item, handlePriceChange }: PreviewItemProps) {
           className="container-fluid price-input"
           placeholder={item.price.placeholder}
           name={item.label} // Use label as item identifier
-          value={item.price.value === 0 ? "" : item.price.value} // Show placeholder if value is 0
+          value={item.price.value === 0 ? "" : item.price.value?.toFixed(2)} // Show placeholder if value is 0
           type="number"
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             handlePriceChange(e.target.name, +e.target.value)
