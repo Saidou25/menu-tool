@@ -1,7 +1,7 @@
 import "./Logo.css";
 
 type LogoProps = {
-  reset?: () => void;
+  // reset?: () => void;
   fadeLogoInOut?: boolean;
   className: string;
   title: string;
@@ -13,7 +13,7 @@ type LogoProps = {
 };
 
 export default function Logo({
-  reset,
+  // reset,
   fadeLogoInOut,
   className,
   h1ClassName,
@@ -26,7 +26,7 @@ export default function Logo({
     if (event.currentTarget.className.includes("preview-btn")) {
       setMenuPreview?.((prev) => !prev);
     } else if (event.currentTarget.className.includes("restart")) {
-      reset?.();
+      // reset?.();
       window.location.reload();
     } else if (event.currentTarget.className === "go-back no-print") {
       setView?.((prev) => !prev);

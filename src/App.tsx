@@ -1,10 +1,8 @@
 import { useState } from "react";
-import { MenuCategory, Field } from "./data/types"; // Import both MenuCategory and Field from types.ts
+import { useSelectMenuType } from "./hooks/useSelectMenuType";
+import { Field } from "./data/types"; // Import both MenuCategory and Field from types.ts
 import { AppStateProvider, useAppState } from "./hooks/useAppState";
 import { WiStars } from "react-icons/wi";
-
-import * as Dinner from "./data/Dinner"; // Import all the lists from the Dinner folder
-import * as Desserts from "./data/Desserts";
 
 import Categories from "./components/Categories";
 import DropDown from "./components/DropDown";
@@ -14,11 +12,10 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function AppContent() {
-  const [categoriesList, setCategoriesList] = useState<MenuCategory[]>([]);
+const [selectedMenu, setSelectedMenu] = useState("");
 
   const {
     custom,
-    setCustom,
     showDropown,
     setShowDropdown,
     customCategoryList,
@@ -27,64 +24,7 @@ function AppContent() {
     setMenuSampleData,
   } = useAppState();
 
-  const reset = () => {
-    setCategoriesList([]);
-    setCustomCategoryList([]);
-    setCustom(false);
-    setShowDropdown(false);
-  };
-
-  const customCategory = () => {
-    setCustomCategoryList([
-      Dinner.sandwichesList,
-      Dinner.soupsList,
-      Dinner.wingsList,
-      Dinner.saladsList,
-      Dinner.sharablesList,
-      Dinner.burgersList,
-      Dinner.bigEatsList,
-      Dinner.sidesList,
-      Dinner.saucesList,
-      Desserts.dessertsList,
-    ]);
-  };
-
-  const selectMenu = (item: string) => {
-    if (item === "Dinner") {
-      // Set categoriesList to the lists from the Dinner folder
-      setCategoriesList([
-        Dinner.sandwichesList,
-        Dinner.soupsList,
-        Dinner.wingsList,
-        Dinner.saladsList,
-        Dinner.sharablesList,
-        Dinner.burgersList,
-        Dinner.bigEatsList,
-        Dinner.sidesList,
-      ]);
-    }
-    if (item === "Desserts") {
-      // Set categoriesList to the lists from the Dessert's folder
-      setCategoriesList([Desserts.dessertsList]);
-    }
-    if (item === "Custom") {
-      // Set categoriesList to the lists from the Dinner folder
-      setCategoriesList([
-        Dinner.sandwichesList,
-        Dinner.soupsList,
-        Dinner.wingsList,
-        Dinner.saladsList,
-        Dinner.sharablesList,
-        Dinner.burgersList,
-        Dinner.bigEatsList,
-        Dinner.sidesList,
-        Dinner.saucesList,
-        Desserts.dessertsList,
-      ]);
-      customCategory();
-      setCustom(true);
-    }
-  };
+  const { categoriesList } = useSelectMenuType(selectedMenu);
 
   const funcSetMenuSampleData = (
     localSelectedCategoryItems: Record<
@@ -98,14 +38,12 @@ function AppContent() {
   if (categoriesList.length)
     return (
       <Categories
-        // setCategoriesList={setCategoriesList}
         categoriesList={categoriesList}
         setCustomCategoryList={setCustomCategoryList}
         customCategoryList={customCategoryList}
         menuSampleDataFunc={funcSetMenuSampleData}
         selectedData={menuSampleData}
         custom={custom}
-        reset={reset}
       />
     );
 
@@ -122,9 +60,6 @@ function AppContent() {
         <h2 className="just-click">
           "Quickly build your menu with just a few clicks"
         </h2>
-      {/* <div className="">
-        <img className="image-fluid" alt="guy" src={guy} />
-      </div> */}
       </div>
       <WiStars className="stars2" />
       {!showDropown && (
@@ -142,7 +77,7 @@ function AppContent() {
         <div className="dropDown-div">
           <DropDown
             message="menus"
-            selectDropDownItem={selectMenu}
+            selectDropDownItem={setSelectedMenu}
             width="30"
           />
         </div>

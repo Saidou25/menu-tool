@@ -470,57 +470,58 @@ export default function FrontMenu({
                             </div>
                           )}
                       </div>
-
-                      <div
-                        className="item-description"
-                        style={{
-                          fontFamily: "Pewter Corroted', sans-serif",
-                          fontSize: `${styleForm.descriptionFontSize}px`,
-                          marginBottom: `${styleForm.descriptionMarginBottom}px`,
-                          letterSpacing: "1px",
-                          color: styleForm.menuItemDescriptionColor,
-                        }}
-                      >
-                        <span
+                      {item.description && (
+                        <div
+                          className="item-description"
                           style={{
-                            color: getDescriptionLetterColor(
-                              categoryIndex,
-                              itemIndex
-                            ),
+                            fontFamily: "Pewter Corroted', sans-serif",
+                            fontSize: `${styleForm.descriptionFontSize}px`,
+                            marginBottom: `${styleForm.descriptionMarginBottom}px`,
                             letterSpacing: "1px",
+                            color: styleForm.menuItemDescriptionColor,
                           }}
                         >
-                          {item.description}
-                        </span>
-                        &nbsp;&nbsp;
-                        {isDesserts && (
-                          <>
-                            <div
-                              style={{
-                                fontSize: `${styleForm.priceSize}px`,
-                                color: styleForm.priceColor,
-                                marginTop: "5px",
-                              }}
-                            >
-                              &nbsp;{item.price.value?.toFixed(2)}
-                            </div>
-                          </>
-                        )}
-                        {showColorInputs && (
-                          <Input
-                            className="menu-color-inputs"
-                            type="color"
-                            onChange={(event) =>
-                              handleDescriptionLettersColor(
-                                event.target.value,
+                          <span
+                            style={{
+                              color: getDescriptionLetterColor(
                                 categoryIndex,
                                 itemIndex
-                              )
-                            }
-                            // style={{ marginBottom: "0", paddingBottom: "0" }}
-                          />
-                        )}
-                      </div>
+                              ),
+                              letterSpacing: "1px",
+                            }}
+                          >
+                            {item.description}
+                          </span>
+                          &nbsp;&nbsp;
+                          {isDesserts && (
+                            <>
+                              <div
+                                style={{
+                                  fontSize: `${styleForm.priceSize}px`,
+                                  color: styleForm.priceColor,
+                                  marginTop: "5px",
+                                }}
+                              >
+                                &nbsp;{item.price.value?.toFixed(2)}
+                              </div>
+                            </>
+                          )}
+                          {showColorInputs && (
+                            <Input
+                              className="menu-color-inputs"
+                              type="color"
+                              onChange={(event) =>
+                                handleDescriptionLettersColor(
+                                  event.target.value,
+                                  categoryIndex,
+                                  itemIndex
+                                )
+                              }
+                              // style={{ marginBottom: "0", paddingBottom: "0" }}
+                            />
+                          )}
+                        </div>
+                      )}
                     </li>
                   ))}
                 </ul>

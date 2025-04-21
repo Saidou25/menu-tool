@@ -15,12 +15,12 @@ import CustomCategoryForm from "./CustomCategoryForm";
 import Label from "./Label";
 import Button from "./Button";
 import Input from "./Input";
-
-import "./Categories.css";
 import { useAppState } from "../hooks/useAppState";
 
+import "./Categories.css";
+
 type Props = {
-  reset: () => void;
+  // reset: () => void;
   setCustomCategoryList: React.Dispatch<React.SetStateAction<MenuCategory[]>>;
   customCategoryList: Array<{
     title: string;
@@ -40,7 +40,7 @@ type Props = {
 };
 
 export default function Categories({
-  reset,
+  // reset,
   custom,
   selectedData,
   menuSampleDataFunc,
@@ -409,7 +409,7 @@ export default function Categories({
             subtitle="Restart"
             // setCategoriesList={setCategoriesList}
             // fadeLogoInOut={fadeLogoInOut}
-            reset={reset}
+            // reset={reset}
           />
           <Logo
             className="preview-btn"

@@ -172,14 +172,15 @@ export default function CustomCategoriesMenu({
           </Button>
         )}
 
-
         {styleForm.guyTop && (
-          <div className={!styleForm.topImage ? "col-12" : "col-6"}
+          <div
+            className={!styleForm.topImage ? "col-12" : "col-6"}
             style={{
               backgroundColor: styleForm.guyBackgroundColor,
               display: "flex",
-              justifyContent: styleForm.guyTop && !styleForm.topImage ? "center" : "flex-end",
-              paddingRight: styleForm.guyTop && !styleForm.topImage ? "" : "5%"
+              justifyContent:
+                styleForm.guyTop && !styleForm.topImage ? "center" : "flex-end",
+              paddingRight: styleForm.guyTop && !styleForm.topImage ? "" : "5%",
             }}
           >
             <img
@@ -204,13 +205,14 @@ export default function CustomCategoriesMenu({
           </div>
         )}
         {styleForm.topImage && (
-          <div className={!styleForm.guyTop ? "col-12" : "col-6"}
+          <div
+            className={!styleForm.guyTop ? "col-12" : "col-6"}
             style={{
               width: `${styleForm.topImageSize}px`,
               display: "flex",
               // margin: "auto",
-              justifyContent: !styleForm.guyTop  ? "center" : "flex-end",
-              paddingLeft: !styleForm.guyTop  ? "" : "5%"
+              justifyContent: !styleForm.guyTop ? "center" : "flex-end",
+              paddingLeft: !styleForm.guyTop ? "" : "5%",
             }}
           >
             <img
@@ -234,9 +236,6 @@ export default function CustomCategoriesMenu({
             )}
           </div>
         )}
-
-
-
         {styleForm.title && (
           <div
             className="title"
@@ -251,7 +250,7 @@ export default function CustomCategoriesMenu({
               justifyContent: "center",
               alignItems: "center",
             }}
-            >
+          >
             <span
               style={{
                 textTransform: "uppercase",
@@ -312,7 +311,7 @@ export default function CustomCategoriesMenu({
                         customCategory.title === showDecorations
                           ? "20px"
                           : `${styleForm.categoryMarginBottom}px`,
-                          textAlign: "center",
+                      textAlign: "center",
                     }}
                   >
                     <span
@@ -603,7 +602,9 @@ export default function CustomCategoriesMenu({
                 // width: `${styleForm.guyBottomSize}px`,
                 margin: "auto",
                 display: "flex",
-                justifyContent: !styleForm.bottomImage ? "center" : "flex-start",
+                justifyContent: !styleForm.bottomImage
+                  ? "center"
+                  : "flex-start",
               }}
             >
               <img
