@@ -41,6 +41,7 @@ export default function Button({
         type={type}
         disabled={disabled}
         onClick={onClick}
+        style={{ fontFamily: "Arial, sans-serif" }}
       >
         {children}
       </button>

@@ -1,4 +1,3 @@
-// import { MenuCategory } from "../data/types";
 import "./Logo.css";
 
 type LogoProps = {
@@ -9,7 +8,6 @@ type LogoProps = {
   subtitle: string;
   h1ClassName: string;
   menuPreview?: boolean;
-  // setCategoriesList?: React.Dispatch<React.SetStateAction<MenuCategory[]>>;
   setMenuPreview?: React.Dispatch<React.SetStateAction<boolean>>;
   setView?: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -22,22 +20,17 @@ export default function Logo({
   title,
   subtitle,
   setMenuPreview,
-  // setCategoriesList,
   setView,
 }: LogoProps) {
-
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     if (event.currentTarget.className.includes("preview-btn")) {
       setMenuPreview?.((prev) => !prev);
     } else if (event.currentTarget.className.includes("restart")) {
       reset?.();
-      window.location.reload()
+      window.location.reload();
     } else if (event.currentTarget.className === "go-back no-print") {
       setView?.((prev) => !prev);
     }
-    // else if (event.currentTarget.className === "print-document no-print") {
-    //   window.print();
-    // }
   };
   return (
     <div

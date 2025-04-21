@@ -1,5 +1,6 @@
 import { ChangeEvent } from "react";
 import { Field } from "../data/types";
+
 import "./SelectedCategoryItems.css";
 
 type Props = {
@@ -34,15 +35,15 @@ type PreviewItemProps = {
 
 function SelectedCategoryItem({ item, handlePriceChange }: PreviewItemProps) {
   return (
-    <div className="row preview-item-container g-0">
+    <div className="row preview-item-container aling-items-center g-0">
       <span className="col-7">{item.label}</span>
       <div className="col-5 d-flex">
-        <span>$&nbsp;</span>
+        <span style={{ display: "flex", alignItems: "center" }}>$&nbsp;</span>
         <input
           className="container-fluid price-input"
           placeholder={item.price.placeholder}
-          name={item.label} // Use label as item identifier
-          value={item.price.value === 0 ? "" : item.price.value?.toFixed(2)} // Show placeholder if value is 0
+          name={item.label} // Uses label as item identifier
+          value={item.price.value === 0 ? "" : item.price.value?.toFixed(2)} // Shows placeholder if value is 0
           type="number"
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             handlePriceChange(e.target.name, +e.target.value)

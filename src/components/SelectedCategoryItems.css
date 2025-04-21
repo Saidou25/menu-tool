@@ -5,6 +5,8 @@
   padding: 2%;
   opacity: 0;
   animation: fadeIn 0.3s ease-in-out forwards;
+  display: flex;
+  align-items: center;
 }
 .preview-item-container-out {
   background-color: black;

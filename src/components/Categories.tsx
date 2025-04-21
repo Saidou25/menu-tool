@@ -1,10 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import {
-  Field,
-  MenuCategory,
-  MenuCustomCategory,
-  // StyleFormType,
-} from "../data/types";
+import { Field, MenuCategory, MenuCustomCategory } from "../data/types";
 import { IoMdAddCircle } from "react-icons/io";
 import { IoCloseOutline } from "react-icons/io5";
 import SelectedCategoryItems from "./SelectedCategoryItems";
@@ -49,9 +44,7 @@ export default function Categories({
   custom,
   selectedData,
   menuSampleDataFunc,
-  // setCategoriesList,
   categoriesList,
-  // setCustomCategoryList,
   customCategoryList,
 }: Props) {
   const [newArray, setNewArray] = useState<MenuCategory[]>([]);
@@ -297,15 +290,17 @@ export default function Categories({
         {flatArr.length > 0 ? (
           flatArr.map((flat, index) => (
             <div key={`${flat.label}-${index}`} className="col-6 pe-3">
-              <div className="row g-0">
+              <div className="row g-0 align-items-center">
                 <span className="col-7 gap-1">{flat.label}</span>
                 <div className="col-5 d-flex gap-1">
-                  <span>$&nbsp;</span>
+                  <span style={{ display: "flex", alignItems: "center" }}>$&nbsp;</span>
                   <input
                     className="container-fluid price-input"
                     placeholder={flat.price.placeholder}
                     name={flat.label}
-                    value={flat.price.value === 0 ? "" : flat.price.value?.toFixed(2)} // Show placeholder if value is 0
+                    value={
+                      flat.price.value === 0 ? "" : flat.price.value?.toFixed(2)
+                    } // Show placeholder if value is 0
                     type="number"
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
                       handleCustomPriceChange(
@@ -641,7 +636,8 @@ export default function Categories({
                   onChange={handleDisclaimer}
                   checked={showDisclaimer}
                   name="disclaimer"
-                />&nbsp;&nbsp;&nbsp;&nbsp;
+                />
+                &nbsp;&nbsp;&nbsp;&nbsp;
                 <SmallTittles label="Select to add FDA disclaimer to the bottom of your menu" />
               </div>
             ) : null}

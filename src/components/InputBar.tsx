@@ -1,7 +1,6 @@
 import { StyleFormType } from "../data/types";
 import { useCategoryBackgroundColor } from "../hooks/useCategoryBackgrounColor";
 import { useCategoryImage } from "../hooks/useCategoryImage";
-// import { useCategoryImageSize } from "../hooks/useCategoryImageSize";
 import { useCategoryPaddingTop } from "../hooks/useCategoryPaddingTop";
 import { useCategoryMarginTop } from "../hooks/useMarginCategoriesTop";
 import Button from "./Button";
@@ -11,7 +10,6 @@ import "./InputBar.css";
 
 type InputBarProps = {
   url?: string | undefined;
-  // flatItemsCategories: MenuCategory[];
   className: string;
   showPaddingCategoriesTop: boolean;
   showMarginCategoriesTop: boolean;
@@ -49,15 +47,12 @@ export default function InputBar({
   showDecorations,
   setShowDecorations,
   showCategoryImage,
-  // flatItemsCategories
-  // setShowCategoryImage,
 }: InputBarProps) {
   const handleCategoryPaddingTop = useCategoryPaddingTop(setStyleForm);
   const handleCategoryMarginTop = useCategoryMarginTop(setStyleForm);
   const handleCategoryBackgroundColor =
     useCategoryBackgroundColor(setStyleForm);
   const handleCategoryImage = useCategoryImage(setStyleForm);
-  // const handleCategoryImageSize = useCategoryImageSize(setStyleForm);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
@@ -68,18 +63,13 @@ export default function InputBar({
       newValue = ""; // No file chosen
     }
     handleCategoryImage(newValue, categoryIndex);
-    // Update parent state
-    // setStyleForm((prevState) => ({
-    //   ...prevState,
-    //   [keyToUpdate]: newValue,
-    // }));
   };
   const handleDeleteImage = (index: number) => {
     // Check if categoryImage exists in the styleForm
     if (!styleForm || !styleForm.categoryImage) return;
-  
-    const localUrl = url ? url : "" ; // The URL of the image to delete
-    
+
+    const localUrl = url ? url : ""; // The URL of the image to delete
+
     // Find the item you want to modify in the categoryImage array
     const updatedCategoryImage = styleForm.categoryImage.map((item) => {
       // If the item matches the index and the URL, set the URL to an empty string
@@ -88,14 +78,13 @@ export default function InputBar({
       }
       return item; // Otherwise, return the item unchanged
     });
-  
+
     // Update the state with the modified categoryImage array
     setStyleForm((prevState) => ({
       ...prevState,
       categoryImage: updatedCategoryImage,
     }));
   };
-  
 
   return (
     <div className="input-bar-container">
@@ -121,6 +110,7 @@ export default function InputBar({
                   )
                   ?.click()
               }
+              style={{ fontFamily: "Arial, sans-serif" }}
             >
               Choose File
             </button>
@@ -129,6 +119,7 @@ export default function InputBar({
               type="button"
               className="file-button"
               onClick={() => handleDeleteImage(categoryIndex)}
+              style={{ fontFamily: "Arial, sans-serif" }}
             >
               Delete Image
             </button>
@@ -139,17 +130,12 @@ export default function InputBar({
             name={customCategory.title}
             onChange={handleChange}
             htmlFor={`file-upload-${customCategory.title}-${categoryIndex}`}
+            
             // placeholder={customCategory.}
           />
-          {/* <input
-            id={`file-upload-${customCategory.title}-${categoryIndex}`}
-            type="number"
-            name={customCategory.title}
-            onChange={(event) => handleCategoryImageSize(event.target.value, categoryIndex)}
-            // htmlFor={`file-upload-${customCategory.title}-${categoryIndex}`}
-          /> */}
         </div>
-      )}&nbsp;&nbsp;
+      )}
+      &nbsp;&nbsp;
       {showPaddingCategoriesTop && (
         <input
           type="number"
@@ -158,7 +144,7 @@ export default function InputBar({
             handleCategoryPaddingTop(+event.target.value, categoryIndex)
           }
           placeholder="0"
-          style={{ width: "60px", height: "25px" }}
+          style={{ width: "60px", height: "25px",fontFamily: "Arial, sans-serif" }}
         />
       )}
       &nbsp;&nbsp;
@@ -170,7 +156,7 @@ export default function InputBar({
             handleCategoryMarginTop(+event.target.value, categoryIndex)
           }
           placeholder="0"
-          style={{ width: "60px", height: "25px" }}
+          style={{ width: "60px", height: "25px",fontFamily: "Arial, sans-serif" }}
         />
       )}
       &nbsp;&nbsp;

@@ -51,7 +51,6 @@ export default function FrontMenu({
   styleForm,
   setStyleForm,
   showDisclaimer,
-  // categoryOrder,
   organizedData,
   showJoinInputs,
   showPaddingCategoriesTop,
@@ -78,7 +77,6 @@ export default function FrontMenu({
     useCategoryBackgroundColor(setStyleForm);
   const handleDescriptionLettersColor =
     useDescriptionLettersColor(setStyleForm);
-  // const handleCategoryMarginTop = useCategoryMarginTop(setStyleForm);
   const handleSubtitleFontColor = useSubtitleFontColor(setStyleForm);
   const getSectionBackground = useGetSectionBackground(styleForm);
   const getDescriptionLetterColor = useGetDescriptionLetterColor(styleForm);
@@ -97,8 +95,6 @@ export default function FrontMenu({
       }))
     );
   }, [organizedData]); // Ensures state updates if organizedData changes
-
-  // console.log("showDecorations", showDecorations);
 
   useEffect(() => {
     const style = document.createElement("style");
@@ -260,8 +256,6 @@ export default function FrontMenu({
                   marginBottom: `${styleForm.categoriesMarginBottom}px`,
                   paddingTop: getCategoryPaddingTop(categoryIndex),
                   marginTop: getCategoryMarginTop(categoryIndex),
-                  // paddingRight: `${styleForm.paddingCategoriesLeftRight}px`,
-                  // paddingLeft: `${styleForm.paddingCategoriesLeftRight}px`,
                 }}
               >
                 <div
@@ -471,18 +465,6 @@ export default function FrontMenu({
                                       )
                                     }
                                   />
-                                  {/* <Button
-                                                              type="button"
-                                                              onClick={() =>
-                                                                handleCategoryBackgroundColor(
-                                                                  "",
-                                                                  categoryIndex
-                                                                )
-                                                              }
-                                                              className="img-button"
-                                                            >
-                                                              reset
-                                                            </Button> */}
                                 </>
                               )}
                             </div>

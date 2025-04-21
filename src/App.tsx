@@ -9,22 +9,12 @@ import * as Desserts from "./data/Desserts";
 import Categories from "./components/Categories";
 import DropDown from "./components/DropDown";
 import Logo from "./components/Logo";
-// import guy from "./assets/images/american_kitchen.svg";
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function AppContent() {
-  // const [createCategory, setCreateCategory] = useState(true);
   const [categoriesList, setCategoriesList] = useState<MenuCategory[]>([]);
-  // const [custom, setCustom] = useState(false);
-  // const [showDropown, setShowDropdown] = useState(false);
-  // const [menuSampleData, setMenuSampleData] = useState<
-  //   Record<string, { subtitle?: string; items: Field[]; custom?: string }>
-  // >({});
-  // const [customCategoryList, setCustomCategoryList] = useState<MenuCategory[]>(
-  //   []
-  // );
 
   const {
     custom,
@@ -38,12 +28,10 @@ function AppContent() {
   } = useAppState();
 
   const reset = () => {
-    console.log("reset");
     setCategoriesList([]);
     setCustomCategoryList([]);
     setCustom(false);
     setShowDropdown(false);
-    // setMenuSampleData({});
   };
 
   const customCategory = () => {

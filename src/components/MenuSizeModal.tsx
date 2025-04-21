@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { StyleFormType } from "../data/types";
-import "./MenuSizeModal.css";
 import Button from "./Button";
+
+import "./MenuSizeModal.css";
 
 type MenuSizeModalProps = {
   setShowfinalStep?: (item: boolean) => void;
@@ -9,7 +10,6 @@ type MenuSizeModalProps = {
   showModal: boolean;
   setStyleForm?: React.Dispatch<React.SetStateAction<StyleFormType>>;
   styleForm?: StyleFormType;
-  // screenWidth: number;
 };
 
 export default function MenuSizeModal({
@@ -17,7 +17,6 @@ export default function MenuSizeModal({
   setShowModal,
   setStyleForm,
   styleForm, // Receive the styleForm as prop
-  // screenWidth,
 }: MenuSizeModalProps) {
   const [message, setMessage] = useState("");
   const [disabledButton, setDisabledButton] = useState(false);
@@ -42,11 +41,11 @@ export default function MenuSizeModal({
   };
 
   const handleSubmit = () => {
-    // console.log("styleForm width: ", styleForm?.menuWidth);
-    // console.log("screenWidth: ", screenWidth);
     setDisabledButton(false);
     if (styleForm?.menuWidth && +styleForm?.menuWidth > 356) {
-      setMessage(`The chosen width exceeds your screen size. Please change your settings."`);
+      setMessage(
+        `The chosen width exceeds your screen size. Please change your settings."`
+      );
       setDisabledButton(true);
       return;
     } else {
@@ -89,13 +88,6 @@ export default function MenuSizeModal({
                   setMessage("");
                   setShowModal?.(true);
                 }}
-                // style={{
-                //   width: "100%",
-                //   backgroundColor: "#dc3545",
-                //   border: "none",
-                //   color: "white",
-                //   padding: "4px",
-                // }}
               >
                 Change
               </Button>
@@ -103,13 +95,6 @@ export default function MenuSizeModal({
                 className="button"
                 type="button"
                 onClick={onConfirm}
-                // style={{
-                //   width: "100%",
-                //   backgroundColor: "#dc3545",
-                //   border: "none",
-                //   color: "white",
-                //   padding: "4px",
-                // }}
                 disabled={disabledButton}
               >
                 Confirm
@@ -169,28 +154,10 @@ export default function MenuSizeModal({
                 onClick={() => setShowModal?.(false)}
                 className="button"
                 type="button"
-                // style={{
-                //   width: "100%",
-                //   backgroundColor: "#dc3545",
-                //   border: "none",
-                //   color: "white",
-                //   padding: "4px",
-                // }}
               >
                 Close
               </Button>
-              <Button
-                onClick={handleSubmit}
-                className="button"
-                type="button"
-                // style={{
-                //   width: "100%",
-                //   backgroundColor: "#dc3545",
-                //   border: "none",
-                //   color: "white",
-                //   padding: "4px",
-                // }}
-              >
+              <Button onClick={handleSubmit} className="button" type="button">
                 Submit
               </Button>
             </div>

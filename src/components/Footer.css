@@ -1,14 +1,8 @@
-@font-face {
-  font-family: "Pewter Corroted";
-  src: url("../assets/fonts/PewterDEMO-KCFonts.ttf") format("truetype");
-  margin: 0;
-  padding: 0;
-}
+
 .footer-container {
   display: flex;
   flex-direction: column;
   padding: 0 1% 0 1%;
-  /* font-family: "Pewter Corroted"; */
   /* letter-spacing: 1px; */
   font-weight: 600;
 }

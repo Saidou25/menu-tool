@@ -1,9 +1,7 @@
 import { MenuCategory, MenuCustomCategory, StyleFormType } from "../data/types";
 import { useEffect } from "react";
-// import { useCategoryPaddingTop } from "../hooks/useCategoryPaddingTop";
 import { useCategoryBackgroundColor } from "../hooks/useCategoryBackgrounColor";
 import { useDescriptionLettersColor } from "../hooks/useDescriptionLettersColor";
-// import { useCategoryMarginTop } from "../hooks/useMarginCategoriesTop";
 import { useSubtitleFontColor } from "../hooks/useSubtitleFontColor";
 import { useGetSectionBackground } from "../hooks/useGetSectionBackground";
 import { useGetCategoriesMarginTop } from "../hooks/useGetMarginCategoriesTop";
@@ -41,7 +39,6 @@ type Props = {
     React.SetStateAction<Record<string, boolean>>
   >;
   showDisclaimer: boolean;
-  // setView: React.Dispatch<React.SetStateAction<boolean>>;
   showCategoryImage: boolean;
   setShowCategoryImage: (item: boolean) => void;
 };
@@ -67,12 +64,10 @@ export default function CustomCategoriesMenu({
   showCategoryImage,
   setShowCategoryImage,
 }: Props) {
-  // const handleCategoryPaddingTop = useCategoryPaddingTop(setStyleForm);
   const handleCategoryBackgroundColor =
     useCategoryBackgroundColor(setStyleForm);
   const handleDescriptionLettersColor =
     useDescriptionLettersColor(setStyleForm);
-  // const handleCategoryMarginTop = useCategoryMarginTop(setStyleForm);
   const handleSubtitleFontColor = useSubtitleFontColor(setStyleForm);
   const getSectionBackground = useGetSectionBackground(styleForm);
   const getDescriptionLetterColor = useGetDescriptionLetterColor(styleForm);
@@ -81,9 +76,7 @@ export default function CustomCategoriesMenu({
   const getDynamicStyles = useDynamicStyles(styleForm);
   const getSubtitleFontColor = useGetSubtitleFontColor(styleForm);
   const getCategoryImage = useGetCategoryImage(styleForm);
-  // const { url, index } = getCategoryImage(categoryIndex) || {};
-  // console.log("url: ", url);
-  // console.log("index: ", index);
+
   useEffect(() => {
     if (newCustomArray) {
       // Initialize an empty array to hold the updated categories with items
@@ -142,7 +135,6 @@ export default function CustomCategoriesMenu({
     };
   }, [styleForm.contentContainerWidth]);
 
-  // console.log(styleForm)
   return (
     <div
       className="row custom-menu-items-container print"
@@ -179,12 +171,15 @@ export default function CustomCategoriesMenu({
             delete background image
           </Button>
         )}
+
+
         {styleForm.guyTop && (
-          <div
+          <div className={!styleForm.topImage ? "col-12" : "col-6"}
             style={{
               backgroundColor: styleForm.guyBackgroundColor,
               display: "flex",
-              justifyContent: "center",
+              justifyContent: styleForm.guyTop && !styleForm.topImage ? "center" : "flex-end",
+              paddingRight: styleForm.guyTop && !styleForm.topImage ? "" : "5%"
             }}
           >
             <img
@@ -207,14 +202,15 @@ export default function CustomCategoriesMenu({
               </Button>
             )}
           </div>
-        )}{" "}
+        )}
         {styleForm.topImage && (
-          <div
+          <div className={!styleForm.guyTop ? "col-12" : "col-6"}
             style={{
               width: `${styleForm.topImageSize}px`,
               display: "flex",
-              justifyContent: "center",
-              margin: "auto",
+              // margin: "auto",
+              justifyContent: !styleForm.guyTop  ? "center" : "flex-end",
+              paddingLeft: !styleForm.guyTop  ? "" : "5%"
             }}
           >
             <img
@@ -238,6 +234,9 @@ export default function CustomCategoriesMenu({
             )}
           </div>
         )}
+
+
+
         {styleForm.title && (
           <div
             className="title"
@@ -566,13 +565,13 @@ export default function CustomCategoriesMenu({
         <div className="row" style={{ gap: "10px" }}>
           {styleForm.bottomImage && (
             <div
-              className="col-5"
+              className={!styleForm.guyBottom ? "col-12" : "col-5"}
               // style={{ width: `${styleForm.bottomImageSize}px`, margin: "auto" }}
               style={{
                 // width: `${styleForm.guyBottomSize}px`,
                 margin: "auto",
                 display: "flex",
-                justifyContent: "flex-end",
+                justifyContent: !styleForm.guyBottom ? "center" : "flex-end",
               }}
             >
               <img
@@ -599,12 +598,12 @@ export default function CustomCategoriesMenu({
           )}
           {styleForm.guyBottom && (
             <div
-              className="col-5"
+              className={!styleForm.bottomImage ? "col-12" : "col-5"}
               style={{
                 // width: `${styleForm.guyBottomSize}px`,
                 margin: "auto",
                 display: "flex",
-                justifyContent: "flex-start",
+                justifyContent: !styleForm.bottomImage ? "center" : "flex-start",
               }}
             >
               <img

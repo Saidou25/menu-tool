@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import { Field, MenuCategory, StyleFormType } from "../data/types";
 
 import FrontMenu from "./FrontMenu";
-import BackMenu from "./BackMenu";
 import CustomMenu from "./CustomMenu";
-import View from "./View";
 import CustomCategoriesMenu from "./CustomCategoriesMenu";
 import CustomMenuView from "./CustomMenuView";
 
@@ -147,29 +145,6 @@ const PreviewMenu = ({
       />
     );
   }
-  if (view && !newCustomArray.length) {
-    return (
-      <View
-        setView={setView}
-        categoryOrder={categoryOrder}
-        organizedData={organizedData}
-        styleForm={styleForm}
-        setStyleForm={setStyleForm}
-        showColorInputs={showColorInputs}
-        showJoinInputs={showJoinInputs}
-        showDisclaimer={showDisclaimer}
-        joinedCategories={joinedCategories}
-        setJoinedCategories={setJoinedCategories}
-        hidePrices={hidePrices}
-        showDecorations={showDecorations}
-        setShowDecorations={setShowDecorations}
-        showDecorationCheckboxes={showDecorationCheckboxes}
-        setShowDecorationCheckboxes={setShowDecorationCheckboxes}
-        showPaddingCategoriesTop={showPaddingCategoriesTop}
-        showMarginCategoriesTop={showMarginCategoriesTop}
-      />
-    );
-  }
 
   if (newCustomArray?.length) {
     return (
@@ -206,8 +181,6 @@ const PreviewMenu = ({
               showImagesDeleteButtons={showImagesDeleteButtons}
               showCategoryImage={showCategoryImage}
               setShowCategoryImage={setShowCategoryImage}
-              // view={view}
-              // setView={setView}
             />
           )}
         </div>
@@ -275,25 +248,14 @@ const PreviewMenu = ({
               setShowCategoryImage={setShowCategoryImage}
               isDesserts={isDesserts}
             />
-            {/* Render BackMenu only if there are additional categories */}
-            {Object.keys(secondPageData).length > 0 && (
-              <BackMenu
-                styleForm={styleForm}
-                categoryOrder={extraCategories}
-                secondPageData={secondPageData}
-                showDisclaimer={showDisclaimer}
-              />
-            )}
           </>
         )}
-        {/* )} */}
       </div>
       <div className="tool-section no-print">
         {children[1]} {/* Renders dropdown*/}
         {children[2]} {/* Renders preview tools*/}
       </div>
     </div>
-    // </>
   );
 };
 

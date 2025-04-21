@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { StyleFormType } from "../data/types";
+import Input from "./Input";
 
 import "./PreviewTools.css";
-import Input from "./Input";
 
 type PreviewToolsProps = {
   showImagesDeleteButtons: boolean;
@@ -20,7 +20,6 @@ type PreviewToolsProps = {
   setShowPaddingCategoriesTop: (item: boolean) => void;
   showMarginCategoriesTop: boolean;
   setShowMarginCategoriesTop: (item: boolean) => void;
-  // setShowDecorations: (item: boolean) => void;
   showCategoryImage: boolean;
   setShowCategoryImage: (item: boolean) => void;
   styleForm: StyleFormType;
@@ -162,7 +161,6 @@ const displayTools = [
           "title's background color",
           "top text's color",
           "categories' color",
-          // "subtitles' color",
           "menu items' color",
           "prices' color",
           "menu items' description color",
@@ -189,8 +187,6 @@ export default function PreviewTools({
   setShowJoinInputs,
   hidePrices,
   setHidePrices,
-  // showDecorations,
-  // setShowDecorations,
   showDecorationCheckboxes,
   setShowDecorationCheckboxes,
   showPaddingCategoriesTop,
@@ -331,9 +327,8 @@ export default function PreviewTools({
     const { name, value, files } = e.target;
     const keyToUpdate = keyMap[name as keyof typeof keyMap];
     if (!keyToUpdate) {
-      return; // You might want to handle it in another way if needed
+      return;
     }
-    // console.log(`Updating ${keyToUpdate} with value: ${value}`); // Debugging
     // Determine the new value based on the input type
     let newValue: string | number;
     if (
@@ -383,9 +378,8 @@ export default function PreviewTools({
   return (
     <div className="new-tool no-print">
       {styleForm.menuHeight ? (
-        <h2 className="preview-tools-title">Preview Tool</h2>
+        <h2 className="preview-tools-title">Layout Tool</h2>
       ) : null}
-      {/* <h2 className="preview-tools-title">Preview Tool</h2> */}
       <div
         className="preview-tools-container"
         style={{ height: `${+styleForm.menuHeight}mm`, overflow: "scroll" }}
@@ -412,32 +406,17 @@ export default function PreviewTools({
               <br />
               <br />
               {showToolItems.includes(displayTool.title) ? (
-                // <div className="lulu-div">
                 <div
                   className={
                     displayTool.title !==
                     "Check to show or hide images' delete buttons"
                       ? "lulu"
-                      : "" /* Avoid white borders for that checbox */
+                      : "" /* Avoids white borders for that checbox */
                   }
                 >
                   {displayTool.displayLabels?.map((displayLabel) => (
                     <div key={displayLabel.label} className="label-container">
                       <span>{displayLabel.label}: </span>
-                      {/* {displayLabel.label ===
-                        "Images per category checkboxes" && (
-                        <Input
-                          type="checkbox"
-                          className="checkbox"
-                          onChange={() =>
-                            handleToolsChecboxes(displayTool.title)
-                          }
-                          checked={showToolItems.includes(displayTool.title)}
-                          htmlFor="tool-title"
-                          title={displayTool.title}
-                          id="tool-title"
-                        />
-                      )} */}
                       {/* Only display image preview for file inputs */}
                       {displayLabel.label === "Background image" &&
                         styleForm.backgroundImage && (
@@ -449,7 +428,7 @@ export default function PreviewTools({
                               width: "25px",
                               height: "auto",
                               marginLeft: "5px",
-                            }} // Adjust size as needed
+                            }}
                           />
                         )}
                       {displayLabel.label ===
@@ -463,7 +442,7 @@ export default function PreviewTools({
                               width: "25px",
                               height: "auto",
                               marginLeft: "5px",
-                            }} // Adjust size as needed
+                            }}
                           />
                         )}
                       {displayLabel.label === "Add Guy's logo at the top" &&
@@ -476,7 +455,7 @@ export default function PreviewTools({
                               width: "25px",
                               height: "auto",
                               marginLeft: "5px",
-                            }} // Adjust size as needed
+                            }}
                           />
                         )}
                       {displayLabel.label ===
@@ -490,7 +469,7 @@ export default function PreviewTools({
                               width: "25px",
                               height: "auto",
                               marginLeft: "5px",
-                            }} // Adjust size as needed
+                            }}
                           />
                         )}
                       {displayLabel.label === "Add Guy's logo at the bottom" &&
@@ -557,7 +536,7 @@ export default function PreviewTools({
                           />
                         </div>
                       )}
-                   
+
                       {displayLabel.label === "Prices checkboxes" && (
                         <div className="ps-4">
                           <Input
@@ -571,14 +550,16 @@ export default function PreviewTools({
                           />
                         </div>
                       )}
-                         {displayLabel.label ===
+                      {displayLabel.label ===
                         "Images per category checkboxes" && (
                         <div className="ps-4">
                           <Input
                             type="checkbox"
                             className="checkbox"
                             checked={showCategoryImage}
-                            onChange={() => setShowCategoryImage(!showCategoryImage)}
+                            onChange={() =>
+                              setShowCategoryImage(!showCategoryImage)
+                            }
                             previewTitle="check if you want to show select image file"
                             id="images-checkboxes"
                             htmlFor="images-checkboxes"
