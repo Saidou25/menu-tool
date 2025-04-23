@@ -8,27 +8,21 @@ type CategoriesProps = {
   newArr: any;
   newCustomArray: MenuCustomCategory[];
   setNewCustomArray: React.Dispatch<React.SetStateAction<MenuCustomCategory[]>>;
-  // newArray: MenuCategory[]; // Accept newArray from parent
   selectedData: Record<string, { subtitle?: string; items: Field[] }>; // Update here
-  // consolidatedView: { item: boolean; title: string }[];
   fields: Field[]; // Fields data from the parent component used to display in the current the component
   title: string; // Title data from the parent component used to display in the current component
   children?: React.ReactNode; // This prop accepts the child components
   selectedCategoryItems: Field[]; // prop to maintain the state in parent component
-  // showCustomCategoryItemsFunc: (categoryTitle: string, item: Field) => void;
-  // Define the function type in the props fadeInOutFunc: (newState: boolean) => void;
 };
 
 export default function CustomCategoryItems({
   newArr,
   newCustomArray,
   setNewCustomArray,
-  // consolidatedView,
   fields,
   title,
   children,
-}: // showCustomCategoryItemsFunc,
-// fadeInOutFunc,
+}: // fadeInOutFunc,
 CategoriesProps) {
   const [titleSelected, setTitleSelected] = useState(false);
   const [fadeInOut, setFadeInOut] = useState(false);
@@ -95,8 +89,6 @@ CategoriesProps) {
 
   return (
     <div>
-      {/* {consolidatedView && ( */}
-
       <div className="categories-titles">
         <Input
           type="checkbox"
@@ -107,11 +99,7 @@ CategoriesProps) {
           name={title}
           smallTitle={title}
         />
-        {/* <SmallTittles label={title} /> */}
       </div>
-      {/* )} */}
-
-      {/* {consolidatedView && ( */}
       <div className={fadeInOut ? "fields-div" : "fields-div-out"}>
         {fields &&
           titleSelected &&
@@ -148,7 +136,6 @@ CategoriesProps) {
             </div>
           ))}
       </div>
-      {/* )} */}
       {children}
     </div>
   );

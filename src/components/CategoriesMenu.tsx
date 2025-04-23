@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Field, StyleFormType } from "../data/types";
+import { Field } from "../data/types";
 import { useCategoryBackgroundColor } from "../hooks/useCategoryBackgrounColor";
 import { useDescriptionLettersColor } from "../hooks/useDescriptionLettersColor";
 import { useGetDescriptionLetterColor } from "../hooks/useGetDescriptionLettersColor";
@@ -10,6 +10,8 @@ import { useGetCategoriesPaddingTop } from "../hooks/useGetCategoriesPaddingTop"
 import { useGetCategoriesMarginTop } from "../hooks/useGetMarginCategoriesTop";
 import { useGetCategoryImage } from "../hooks/useGetCategoryImage";
 import { useDynamicStyles } from "../hooks/useDynamicStyles";
+import { useAppState } from "../hooks/useAppState";
+
 import Footer from "./Footer";
 import Input from "./Input";
 import InputBar from "./InputBar";
@@ -18,51 +20,15 @@ import Button from "./Button";
 import "../assets/fonts/pewter-corroted/pewter-corroted.css";
 import "./CustomCategoriesMenu.css";
 
-type FrontMenuProps = {
+type CategoriesMenuProps = {
   // animation: string;
-  isDesserts: boolean;
-  showImagesDeleteButtons: boolean;
-  showColorInputs: boolean;
-  styleForm: StyleFormType;
-  setStyleForm: React.Dispatch<React.SetStateAction<StyleFormType>>;
-  showDisclaimer: boolean;
   organizedData: Record<string, { subtitle?: string; items: Field[] }>;
-  joinedCategories: Record<string, boolean>;
-  showDecorations: string;
-  setShowDecorations: (category: string) => void;
-  showJoinInputs: boolean;
-  showPaddingCategoriesTop: boolean;
-  showMarginCategoriesTop: boolean;
-  showDecorationCheckboxes: boolean;
-  setJoinedCategories: React.Dispatch<
-    React.SetStateAction<Record<string, boolean>>
-  >;
-  hidePrices: boolean;
-  showCategoryImage: boolean;
-  setShowCategoryImage: (item: boolean) => void;
 };
 
-export default function FrontMenu({
+export default function CategoriesMenu({
   // animation,
-  isDesserts,
-  showDecorations,
-  joinedCategories,
-  showColorInputs,
-  styleForm,
-  setStyleForm,
-  showDisclaimer,
   organizedData,
-  showJoinInputs,
-  showPaddingCategoriesTop,
-  showMarginCategoriesTop,
-  showDecorationCheckboxes,
-  setJoinedCategories,
-  setShowDecorations,
-  hidePrices,
-  showImagesDeleteButtons,
-  showCategoryImage,
-  setShowCategoryImage,
-}: FrontMenuProps) {
+}: CategoriesMenuProps) {
   const [datas, setDatas] = useState<
     { category: string; subtitle?: string; items: Field[] }[]
   >(
@@ -72,6 +38,26 @@ export default function FrontMenu({
       items: value.items,
     }))
   ); // Converts organizedData into an array
+
+  const {
+    isDesserts,
+    showDecorations,
+    joinedCategories,
+    showColorInputs,
+    styleForm,
+    setStyleForm,
+    showDisclaimer,
+    showJoinInputs,
+    showPaddingCategoriesTop,
+    showMarginCategoriesTop,
+    showDecorationCheckboxes,
+    setJoinedCategories,
+    setShowDecorations,
+    hidePrices,
+    showImagesDeleteButtons,
+    showCategoryImage,
+    setShowCategoryImage,
+  } = useAppState();
 
   const handleCategoryBackgroundColor =
     useCategoryBackgroundColor(setStyleForm);

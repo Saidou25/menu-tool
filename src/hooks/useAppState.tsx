@@ -7,6 +7,8 @@ import {
 } from "../data/types";
 
 type AppStateContextType = {
+  selectedMenu: string;
+  setSelectedMenu: (item: string) => void;
   showDropown: boolean;
   setShowDropdown: (item: boolean) => void;
   custom: boolean;
@@ -39,7 +41,7 @@ type AppStateContextType = {
   showMarginCategoriesTop: boolean;
   joinedCategories: Record<string, boolean>;
   setJoinedCategories: React.Dispatch<
-  React.SetStateAction<Record<string, boolean>>
+    React.SetStateAction<Record<string, boolean>>
   >;
   showDecorationCheckboxes: boolean;
   setShowDecorationCheckboxes: (item: boolean) => void;
@@ -53,6 +55,32 @@ type AppStateContextType = {
   // setView: React.Dispatch<React.SetStateAction<boolean>>;
   showCategoryImage: boolean;
   setShowCategoryImage: (item: boolean) => void;
+  newArray: any[];
+  setNewArray: any;
+  customCategories: any;
+  setCustomCategories: any;
+  NewCustomCategories: any;
+  setNewCustomCategories: any;
+  setShowItems: any;
+  showPreviewTool: any;
+  setShowPreviewTool: (item: boolean) => void;
+  showModal: boolean;
+  setShowModal: (item: boolean) => void;
+  fadeInOut: boolean;
+  setFadeInOut: (item: boolean) => void;
+  menuPreview: boolean;
+  setMenuPreview: (item: boolean) => void;
+  localSelectedCategoryItems: any;
+  setLocalSelectedCategoryItems: any;
+  consolidatedView: any;
+  setConsolidatedView: any;
+  showSubtitleInput: string;
+  setShowSubtitleInput: any;
+  subtitle: string;
+  setSubtitle: any;
+  isDesserts: boolean;
+  setIsDesserts: (item: boolean) => void;
+  showItems: any;
 };
 
 // Create Context
@@ -75,6 +103,7 @@ export const AppStateProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
+  const [selectedMenu, setSelectedMenu] = useState("");
   const [custom, setCustom] = useState(false);
   const [showDropown, setShowDropdown] = useState(false);
   const [customCategoryList, setCustomCategoryList] = useState<MenuCategory[]>(
@@ -85,9 +114,9 @@ export const AppStateProvider = ({
   const [menuSampleData, setMenuSampleData] = useState<
     Record<string, { subtitle?: string; items: Field[]; custom?: string }>
   >({});
-   const [newCustomArray, setNewCustomArray] = useState<MenuCustomCategory[]>(
-      []
-    );
+  const [newCustomArray, setNewCustomArray] = useState<MenuCustomCategory[]>(
+    []
+  );
   const [showJoinInputs, setShowJoinInputs] = useState(false);
   const [flatItemsCategories, setFlatItemsCategories] = useState<
     MenuCategory[]
@@ -101,11 +130,38 @@ export const AppStateProvider = ({
     Record<string, boolean>
   >({});
   const [showDecorationCheckboxes, setShowDecorationCheckboxes] =
-     useState(false);
-  const [showDisclaimer, setShowDisclaimer] = useState(false);
+    useState(false);
+  // const [showDisclaimer, setShowDisclaimer] = useState(false);
   const [showDecorations, setShowDecorations] = useState("");
   const [hidePrices, setHidePrices] = useState(false);
   const [showColorInputs, setShowColorInputs] = useState(false);
+
+  const [newArray, setNewArray] = useState<MenuCategory[]>([]);
+  const [customCategories, setCustomCategories] = useState<
+    { categoryItem: string }[]
+  >([]);
+  const [NewCustomCategories, setNewCustomCategories] = useState<
+    { categoryItem: string }[]
+  >([]);
+  const [showItems, setShowItems] = useState<string[]>([]);
+  const [showPreviewTool, setShowPreviewTool] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [fadeInOut, setFadeInOut] = useState(false);
+  const [menuPreview, setMenuPreview] = useState<boolean>(() => false);
+  const [showDisclaimer, setShowDisclaimer] = useState<boolean>(() => false);
+  const [localSelectedCategoryItems, setLocalSelectedCategoryItems] = useState<
+    Record<string, { subtitle?: string; items: Field[] }>
+  >({});
+  const [consolidatedView, setConsolidatedView] = useState<
+    {
+      item: boolean;
+      title: string;
+    }[]
+  >([]);
+  const [showSubtitleInput, setShowSubtitleInput] = useState(""); // Toggles subtitle inputs
+  const [subtitle, setSubtitle] = useState("");
+  const [isDesserts, setIsDesserts] = useState(false);
+
   const [styleForm, setStyleForm] = useState<StyleFormType>({
     menuWidth: 0,
     menuHeight: 0,
@@ -172,6 +228,8 @@ export const AppStateProvider = ({
   return (
     <AppStateContext.Provider
       value={{
+        selectedMenu,
+        setSelectedMenu,
         showDecorationCheckboxes,
         setShowDecorationCheckboxes,
         custom,
@@ -208,6 +266,32 @@ export const AppStateProvider = ({
         showImagesDeleteButtons,
         showCategoryImage,
         setShowCategoryImage,
+        newArray,
+        setNewArray,
+        customCategories,
+        setCustomCategories,
+        NewCustomCategories,
+        setNewCustomCategories,
+        showItems,
+        setShowItems,
+        showPreviewTool,
+        setShowPreviewTool,
+        showModal,
+        setShowModal,
+        fadeInOut,
+        setFadeInOut,
+        menuPreview,
+        setMenuPreview,
+        localSelectedCategoryItems,
+        setLocalSelectedCategoryItems,
+        consolidatedView,
+        setConsolidatedView,
+        showSubtitleInput,
+        setShowSubtitleInput,
+        subtitle,
+        setSubtitle,
+        isDesserts,
+        setIsDesserts,
       }}
     >
       {children}

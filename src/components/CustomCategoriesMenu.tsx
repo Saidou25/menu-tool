@@ -1,4 +1,4 @@
-import { MenuCategory, MenuCustomCategory, StyleFormType } from "../data/types";
+import { MenuCategory } from "../data/types";
 import { useEffect } from "react";
 import { useCategoryBackgroundColor } from "../hooks/useCategoryBackgrounColor";
 import { useDescriptionLettersColor } from "../hooks/useDescriptionLettersColor";
@@ -17,53 +17,31 @@ import Button from "./Button";
 
 import "./CustomCategoriesMenu.css";
 import "../assets/fonts/pewter-corroted/pewter-corroted.css";
+import { useAppState } from "../hooks/useAppState";
 
-type Props = {
-  flatItemsCategories: MenuCategory[];
-  setFlatItemsCategories: React.Dispatch<React.SetStateAction<MenuCategory[]>>;
-  newCustomArray: MenuCustomCategory[];
-  showImagesDeleteButtons: boolean;
-  showColorInputs: boolean;
-  hidePrices: boolean;
-  showDecorations: string;
-  setShowDecorations: (category: string) => void;
-  showDecorationCheckboxes: boolean;
-  setShowDecorationCheckboxes: (item: boolean) => void;
-  showJoinInputs: boolean;
-  showPaddingCategoriesTop: boolean;
-  showMarginCategoriesTop: boolean;
-  styleForm: StyleFormType;
-  setStyleForm: React.Dispatch<React.SetStateAction<StyleFormType>>;
-  joinedCategories: Record<string, boolean>;
-  setJoinedCategories: React.Dispatch<
-    React.SetStateAction<Record<string, boolean>>
-  >;
-  showDisclaimer: boolean;
-  showCategoryImage: boolean;
-  setShowCategoryImage: (item: boolean) => void;
-};
+export default function CustomCategoriesMenu() {
+  const {
+    showDisclaimer,
+    flatItemsCategories,
+    setFlatItemsCategories,
+    newCustomArray,
+    showImagesDeleteButtons,
+    showColorInputs,
+    showJoinInputs,
+    hidePrices,
+    showDecorations,
+    setShowDecorations,
+    showDecorationCheckboxes,
+    styleForm,
+    setStyleForm,
+    joinedCategories,
+    setJoinedCategories,
+    showPaddingCategoriesTop,
+    showMarginCategoriesTop,
+    showCategoryImage,
+    setShowCategoryImage,
+  } = useAppState();
 
-export default function CustomCategoriesMenu({
-  flatItemsCategories,
-  setFlatItemsCategories,
-  newCustomArray,
-  showImagesDeleteButtons,
-  showColorInputs,
-  showJoinInputs,
-  hidePrices,
-  showDecorations,
-  setShowDecorations,
-  showDecorationCheckboxes,
-  styleForm,
-  setStyleForm,
-  joinedCategories,
-  setJoinedCategories,
-  showDisclaimer,
-  showPaddingCategoriesTop,
-  showMarginCategoriesTop,
-  showCategoryImage,
-  setShowCategoryImage,
-}: Props) {
   const handleCategoryBackgroundColor =
     useCategoryBackgroundColor(setStyleForm);
   const handleDescriptionLettersColor =

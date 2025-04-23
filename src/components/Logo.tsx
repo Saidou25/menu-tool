@@ -1,3 +1,4 @@
+import { useAppState } from "../hooks/useAppState";
 import "./Logo.css";
 
 type LogoProps = {
@@ -7,8 +8,8 @@ type LogoProps = {
   title: string;
   subtitle: string;
   h1ClassName: string;
-  menuPreview?: boolean;
-  setMenuPreview?: React.Dispatch<React.SetStateAction<boolean>>;
+  // menuPreview?: boolean;
+  // setMenuPreview?: React.Dispatch<React.SetStateAction<boolean>>;
   setView?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -19,12 +20,16 @@ export default function Logo({
   h1ClassName,
   title,
   subtitle,
-  setMenuPreview,
+  // menuPreview,
+  // setMenuPreview,
   setView,
 }: LogoProps) {
+
+  const { menuPreview, setMenuPreview } = useAppState();
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     if (event.currentTarget.className.includes("preview-btn")) {
-      setMenuPreview?.((prev) => !prev);
+      setMenuPreview?.(!menuPreview);
     } else if (event.currentTarget.className.includes("restart")) {
       // reset?.();
       window.location.reload();

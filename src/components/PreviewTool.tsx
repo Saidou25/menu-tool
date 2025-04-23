@@ -1,13 +1,19 @@
+import { useAppState } from "../hooks/useAppState";
 import Button from "./Button";
+
 import "./PreviewMenu.css";
 
-type FinalStepsProps = {
-  view: boolean;
+type LayoutToolsProps = {
   message: string;
-  goBack: () => void;
 };
 
-export default function FinalStep({ message, goBack }: FinalStepsProps) {
+export default function PreviewTool({ message }: LayoutToolsProps) {
+  const { setMenuPreview } = useAppState();
+
+  const handleGoBack = () => {
+    setMenuPreview(false);
+  };
+
   return (
     <div className="final-step-div no-print">
       <h2 className="confirm-title">Preview Tool</h2>
@@ -17,7 +23,7 @@ export default function FinalStep({ message, goBack }: FinalStepsProps) {
       <div className="row no-print">
         <Button
           className="col-6 btn"
-          onClick={goBack}
+          onClick={handleGoBack}
           type="button"
           printEdit="true"
         >

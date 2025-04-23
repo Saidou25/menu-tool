@@ -5,7 +5,7 @@ import Button from "./Button";
 import "./MenuSizeModal.css";
 
 type MenuSizeModalProps = {
-  setShowfinalStep?: (item: boolean) => void;
+  setShowPreviewTool?: (item: boolean) => void;
   setShowModal?: (item: boolean) => void;
   showModal: boolean;
   setStyleForm?: React.Dispatch<React.SetStateAction<StyleFormType>>;
@@ -13,7 +13,7 @@ type MenuSizeModalProps = {
 };
 
 export default function MenuSizeModal({
-  setShowfinalStep,
+  setShowPreviewTool,
   setShowModal,
   setStyleForm,
   styleForm, // Receive the styleForm as prop
@@ -36,7 +36,7 @@ export default function MenuSizeModal({
   };
 
   const onConfirm = () => {
-    setShowfinalStep?.(true);
+    setShowPreviewTool?.(true);
     setShowModal?.(false);
   };
 

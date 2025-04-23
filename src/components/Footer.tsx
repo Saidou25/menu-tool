@@ -9,7 +9,7 @@ export default function Footer({ marginTop, paddingBottom, color }: FooterProps)
   return (
     <div
       className="footer-container print"
-      style={{ marginTop: `${marginTop}px`, paddingBottom: `${paddingBottom}px`, color: color }}
+      style={{ marginTop: `${marginTop}px`, paddingBottom: `${paddingBottom}px`, color: color, letterSpacing: "1px" }}
     >
       <span className="footer-text pb-1">*SMC = super melty cheese &nbsp; | &nbsp;
         LTOP = lettuce, tomato, onion + pickle

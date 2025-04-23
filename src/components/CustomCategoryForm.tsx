@@ -5,9 +5,10 @@ import { IoCloseOutline } from "react-icons/io5";
 import Button from "./Button";
 
 import "./CustomCategoryForm.css";
+import { useAppState } from "../hooks/useAppState";
 
 type Props = {
-  setFadeInOut: React.Dispatch<React.SetStateAction<boolean>>;
+  // setFadeInOut: React.Dispatch<React.SetStateAction<boolean>>;
   newArray: MenuCategory[]; // Accept newArray from parent
   setNewArray: React.Dispatch<React.SetStateAction<MenuCategory[]>>; // Accept setNewArray from parent
   newCustomCategories: any[];
@@ -23,7 +24,7 @@ type Props = {
 };
 
 export default function CustomCategoryForm({
-  setFadeInOut,
+  // setFadeInOut,
   newArray,
   setNewArray,
   newCustomCategories,
@@ -33,6 +34,7 @@ export default function CustomCategoryForm({
   newCustomArray,
   setNewCustomArray,
 }: Props) {
+  const { setFadeInOut } = useAppState();
   const [showForm, setShowForm] = useState(true);
   const [showSubmit, setShowSubmit] = useState(false);
   const [catObj, setCatObj] = useState<{ newCat: string }>({ newCat: "" });

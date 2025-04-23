@@ -2,29 +2,8 @@ import React, { useEffect, useState } from "react";
 import { StyleFormType } from "../data/types";
 import Input from "./Input";
 
-import "./PreviewTools.css";
-
-type PreviewToolsProps = {
-  showImagesDeleteButtons: boolean;
-  setShowImagesDeleteButtons: (item: boolean) => void;
-  showColorInputs: boolean;
-  setShowColorInputs: (item: boolean) => void;
-  showJoinInputs: boolean;
-  setShowJoinInputs: (item: boolean) => void;
-  hidePrices: boolean;
-  setHidePrices: (item: boolean) => void;
-  showDecorationCheckboxes: boolean;
-  setShowDecorationCheckboxes: (item: boolean) => void;
-  showDecorations: string;
-  showPaddingCategoriesTop: boolean;
-  setShowPaddingCategoriesTop: (item: boolean) => void;
-  showMarginCategoriesTop: boolean;
-  setShowMarginCategoriesTop: (item: boolean) => void;
-  showCategoryImage: boolean;
-  setShowCategoryImage: (item: boolean) => void;
-  styleForm: StyleFormType;
-  setStyleForm: React.Dispatch<React.SetStateAction<StyleFormType>>;
-};
+import "./LayoutTools.css";
+import { useAppState } from "../hooks/useAppState";
 
 const displayTools = [
   {
@@ -176,27 +155,30 @@ const displayTools = [
   },
 ];
 
-export default function PreviewTools({
-  showImagesDeleteButtons,
-  setShowImagesDeleteButtons,
-  styleForm,
-  setStyleForm,
-  showColorInputs,
-  setShowColorInputs,
-  showJoinInputs,
-  setShowJoinInputs,
-  hidePrices,
-  setHidePrices,
-  showDecorationCheckboxes,
-  setShowDecorationCheckboxes,
-  showPaddingCategoriesTop,
-  setShowPaddingCategoriesTop,
-  showMarginCategoriesTop,
-  setShowMarginCategoriesTop,
-  showCategoryImage,
-  setShowCategoryImage,
-}: PreviewToolsProps) {
+export default function LayoutTools() {
   const [showToolItems, setShowToolItem] = useState<string[]>([]);
+
+  const {
+    showImagesDeleteButtons,
+    setShowImagesDeleteButtons,
+    styleForm,
+    setStyleForm,
+    showColorInputs,
+    setShowColorInputs,
+    showJoinInputs,
+    setShowJoinInputs,
+    hidePrices,
+    setHidePrices,
+    showDecorationCheckboxes,
+    setShowDecorationCheckboxes,
+    showPaddingCategoriesTop,
+    setShowPaddingCategoriesTop,
+    showMarginCategoriesTop,
+    setShowMarginCategoriesTop,
+    showCategoryImage,
+    setShowCategoryImage,
+  } = useAppState();
+
   const [localStyleForm, setLocalStyleForm] =
     useState<StyleFormType>(styleForm);
 
